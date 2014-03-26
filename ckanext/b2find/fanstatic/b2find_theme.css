@@ -1,0 +1,112 @@
+/* =========================================================================
+   B2FIND colors
+   ========================================================================= */
+
+body {
+    background-color: #1c418f;
+}
+
+.site-footer {
+    color:            #224a7b;
+    background:       rgb(212,221,226);
+}
+.site-footer,
+.site-footer label,
+.site-footer small {
+    color:            #224a7b;
+}
+
+
+/* =========================================================================
+   The "account masthead" bar across the top of the site
+   ========================================================================= */
+
+.account-masthead {
+    background-color: rgb(40, 40, 40);
+}
+/* The "bubble" containing the number of new notifications. */
+.account-masthead .account .notifications a span {
+  background-color: black;
+}
+/* The text and icons in the user account info. */
+.account-masthead .account ul li a {
+  color: rgba(255, 255, 255, 0.6);
+}
+/* The user account info text and icons, when the user's pointer is hovering
+   over them. */
+.account-masthead .account ul li a:hover {
+  color: rgba(255, 255, 255, 0.7);
+  background-color: black;
+}
+
+/* =========================================================================
+   The main masthead bar that contains the site logo, nav links, and search
+   ========================================================================= */
+
+.masthead {
+  background-color: #1c418f;
+}
+/* The "navigation pills" in the masthead (the links to Datasets, etc)
+   when the user's pointer hovers over them. */
+.masthead .navigation .nav-pills li a:hover {
+  background-color: rgb(19, 43, 95);
+  color: white;
+}
+/* The "active" navigation pill (for example, when you're on the /dataset page
+   the "Datasets" link is active). */
+.masthead .navigation .nav-pills li.active a {
+  background-color: rgb(37, 85, 187);
+}
+
+/* =========================================================================
+   The content in the middle of the front page
+   ========================================================================= */
+
+/* Change the background color of the "Search Your Data" box. */
+.homepage .module-search .module-content {
+  background-color: rgb(28, 65, 143);
+}
+
+/* Change the background color of the "Popular Tags" box. */
+.homepage .module-search .tags {
+  background-color: rgb(19, 43, 95);
+}
+
+/* =========================================================================
+   B2FIND header and footer
+   ========================================================================= */
+
+.b2fheader {
+  color:      #777777;
+  background: rgb(212, 221, 226) url('/images/comb2.png') repeat-x left top;
+  border:     none;
+  padding:    17px;
+}
+
+.b2ffooter {
+    margin-top: 4px;
+}
+
+.b2ffooter .poweredby {
+    background: rgb(212, 221, 226) url('/images/footer-gradient.png') no-repeat right top;
+    height: 60px;
+    padding-top: 4px;
+}
+
+.b2ffooter_links {
+    margin: 10px 0 0 0;
+}
+
+.b2ffooter_links span {
+    font-size: 20px;
+    padding: 10px;
+}
+
+.b2ffooter_links a {
+    padding-right: 20px;
+    color: #224a7b;
+}
+
+.b2ffooter_links a:hover {
+    color: #224a7b;
+}

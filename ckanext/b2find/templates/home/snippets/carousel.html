@@ -1,0 +1,32 @@
+{% set featured_groups = h.featured_groups() %}
+
+<div class="module-content box" style="padding:3px;background-color:white;">
+
+  <div id="indexCarousel" class="carousel slide" style="padding:5px;background-color:#1c418f">
+    <ol class="carousel-indicators">
+    {% for group_dict in featured_groups %}
+      {% if loop.first %}
+        <li data-target="#indexCarousel" data-slide-to="{{ loop.index0 }}" class="active"></li>
+      {% else %}
+        <li data-target="#indexCarousel" data-slide-to="{{ loop.index0 }}"></li>
+      {% endif %}
+    {% endfor %}
+    </ol>
+    <div class="carousel-inner">
+    {% for group_dict in featured_groups %}
+      {% set url=h.url_for(controller='group', action='about', id=group_dict.name) %}
+
+      {% if loop.first %}
+      <div class="active item">
+      {% else %}
+      <div class="item">
+      {% endif %}
+        <a href={{ url }}><center><img src="{{ group_dict.image_url or h.url_for_static('/base/images/placeholder-group.png') }}" alt="{{ group_dict.name }}" width="533" height="200" /></center></a>
+      </div>
+    {% endfor %}
+    </div>
+    <a class="carousel-control left" href="#indexCarousel" data-slide="prev">&lsaquo;</a>
+    <a class="carousel-control right" href="#indexCarousel" data-slide="next">&rsaquo;</a>
+  </div>
+
+</div>
