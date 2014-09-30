@@ -40,7 +40,7 @@
           </tr>
         {% endif %}
 
-        {% if pkg_dict.version %}
+        {% if pkg_dict.version and logged_in %}
           <tr>
             <th scope="row" class="dataset-label">{{ _("Version") }}</th>
             <td class="dataset-details">{{ pkg_dict.version }}</td>
@@ -66,8 +66,11 @@
           {% set key, value = extra %}
           <tr rel="dc:relation" resource="_:extra{{ i }}">
             <th scope="row" class="dataset-label" property="rdfs:label">{{ _(key) }}</th>
-            {% if key == 'MetaDataAccess' %}
+            {% if key in ("MetaDataAccess", "PID") %}
+              <td class="dataset-details" property="rdf:value">{{ h.link_to(value, value, target='_blank') }}</td>
+{#
             <td class="dataset-details" property="rdf:value"><a href="{{ value }}">{{ value }}</a></td>
+#}
             {% else %}
             <td class="dataset-details" property="rdf:value">{{ value }}</td>
             {% endif %}
