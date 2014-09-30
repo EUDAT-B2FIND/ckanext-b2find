@@ -7,5 +7,5 @@ def featured_groups():
     return result
 
 def extras_to_exclude():
-    exclude_list = ['checksum','fulltext','ManagerVersion','MapperVersion','maxx','maxy','minx','miny','PublicationTimestamp','spatial','Version']
+    exclude_list = ['checksum','fulltext','ManagerVersion','MapperVersion','maxx','maxy','minx','miny','PublicationTimestamp','spatial']
     return exclude_list
