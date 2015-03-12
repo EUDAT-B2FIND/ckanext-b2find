@@ -7,5 +7,5 @@ def featured_groups():
     return result
 
 def extras_to_exclude():
-    exclude_list = ['checksum','fulltext','ManagerVersion','MapperVersion','maxx','maxy','minx','miny','PublicationTimestamp','spatial']
+    exclude_list = ['B2SHARE-Domain','checksum','fulltext','identifiers','ManagerVersion','MapperVersion','maxx','maxy','minx','miny','oai_set','oai_identifier','PublicationTimestamp','spatial','TempCoverageBegin','TempCoverageEnd','TemporalCoverage:BeginDate','TemporalCoverage:EndDate']
     return exclude_list
