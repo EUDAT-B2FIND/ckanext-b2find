@@ -39,10 +39,11 @@ class B2FindPlugin(plugins.SingletonPlugin):
         if 'groups' in facets_dict:
             facets_dict['groups'] = 'Communities'
         # New facets
-        facets_dict['author'] = 'Author'
+        facets_dict['author'] = 'Creator'
         facets_dict['extras_Discipline'] = 'Discipline'
         facets_dict['extras_Language'] = 'Language'
-        facets_dict['extras_Origin'] = 'Origin'
+        facets_dict['extras_Publisher'] = 'Publisher'
+        #facets_dict['extras_Origin'] = 'Origin'
         #facets_dict['extras_PublicationYear'] = 'Publication Year'
         #facets_dict['extras_Format'] = 'Format'
         return facets_dict
