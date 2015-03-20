@@ -12,7 +12,13 @@
     <link rel="stylesheet" type="text/css" href="fanstatic/base/b2find_theme/b2find_theme.css" />
     <link rel="stylesheet" type="text/css" href="fanstatic/base/b2find_theme/b2find.css" />
     <title>B2FIND Search Guide</title>
-    <link rel="shortcut icon" href="/images/icons/b2find.ico" />                                                      
+    <link rel="shortcut icon" href="/images/icons/b2find.ico" />
+
+ <!-- Claudias css sheets -->
+ <link rel="stylesheet" type="text/css" href="../css/select2.css" />
+ <link rel="stylesheet" type="text/css" href="../css/b2find.css" />
+ <link rel="stylesheet" type="text/css" href="../css/fint-awesome.min.css" />
+ <link rel="stylesheet" type="text/css" href="../css/main.min.css" />	
 
   
   </head>
@@ -77,7 +83,10 @@
     <br/>&nbsp;&nbsp;&nbsp;&nbsp<a href="#use-case">Use Case Scenario</a>
     <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#narrow-down">Narrow Down
     Your Search</a>
-    <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#data-access">Ressource data access</a>
+    <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#data-access">Data access</a>
+    <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#dataset_display">B2FIND metadata view</a>
+    <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#metadata-access">Meta data as harvested</a>
+    <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#ressource-access">Ressource data access</a>
 
  <h3>
   <a name="access-b2find">Access the B2FIND Portal</a>
@@ -93,12 +102,7 @@
   <figcaption> Fig. 1 - Entry page of the B2FIND portal </figcaption>
   </p> 
 
-<p>
-
-  By clicking 'Communities' you get an overview about all communities that provide metadata to B2FIND.
-
-  <br>
-
+<p>By clicking 'Communities' you get an overview about all communities that provide metadata to B2FIND. <br>
   There are two ways to start the search process and to get taken to the
 	search result page (fig. 2), with all available datasets listed on the right side and the
 	interface to several search and filter functionalities in the
@@ -130,10 +134,12 @@ on <em>Foraminifera</em> and you know that somebody with
     </blockquote>
  and get this result:
  </p>
+ 
  <p>
   <img class="left" src="../images/userguide/B2FIND_freesearch_2.jpg" width="474" height="66" 
   alt="B2FIND Free text Search Result Page">
-  <figcaption> Fig. 2 - Search Result Page </figcaption>
+  <figcaption> Fig. 2 - Search Result Page for Free text Search </figcaption>
+  
  </p>
  <br>
  <br>
@@ -154,12 +160,11 @@ on <em>Foraminifera</em> and you know that somebody with
     </blockquote>
 </p>
 <p>
-  <img class="left" src="../images/userguide/B2FIND_freesearch_3a.jpg" width="474" height="66" 
-  alt="B2FIND Free text Search Result Page"> 
+  <img class="left" src="../images/userguide/B2FIND_freesearch_3a.jpg" width="474" height="66"   alt="B2FIND Free text Search Result Page"> 
+  <figcaption> Fig. 3 - Search Result Page for Facet Search</figcaption>
  </p>
  
  <p>
-
 A full list of facets, which can be searched for in the B2FIND catalog, and their description is found in the user
  documentation in the section <a href="http://eudat.eu/User%2BDocumentation%2B-%2BB2FIND.html#UserDocumentation-B2FIND-Metadatafielddefinitions">Metadatafielddefinitions</a>.
 
@@ -188,12 +193,13 @@ Of course you may get the same result by clicking 'Biology' within the facet 'Di
     </blockquote>
 
  <img src="../images/userguide/B2FIND_freesearch_4a.jpg" width="474" height="66" alt="B2FIND Free text Search Result Page">  
+ <figcaption> Fig. 4 - Search Result Page for Combined Search</figcaption>
  </p>
  <br>
 
  <!-- Ende Neues von Claudia 02032015 --> 
 
- <p>
+
 <h2>
   <a name="faceted-search">Faceted Search</a>
 </h2>	
@@ -241,9 +247,9 @@ Please note that this are different things: some datasets could be published rec
 	</table>
 
 	
-<h2>
+<h3>
   <a name="temporal-search">Filter by time</a>
-</h2>
+</h3>
 
 <p>
 
@@ -334,42 +340,156 @@ Please note that this are different things: some datasets could be published rec
 		</tr> 
 	</table>
 
+<h2>
+  <a name="use-case">Use Case Scenario</a>
+</h2>
+
+<!-- Claudia neu 17032015 -->
+<p>To demonstrate a possible search via the provided faceted search functionalities an Use Case Scenario will be described here step by step:</p>
+<p>Imagine that a scientist is looking for research data concerning the arctic ice drift. She remembers an early experiment in Fram Strait with reference to cyclones some colleagues were related with. Unfortunately she can not remember their names, but one of them is supposed to be Finnish.</p>
+<p>So she starts the search by choosing the 'Filter by location' tool in order to get only search results that are related with the northern hemisphere. </p>
+
+<p>
+  <img class="left" src="../images/userguide/B2FIND_usecase_geo.jpg" width="474" height="66" 
+  alt="B2FIND Search Result Page for Geosearch">
+  <figcaption> Fig. 6 - Search Result Page for Geosearch</figcaption>  
+ </p>
+
+ </br>
+
 <h3>
-  <a name="use-case">
-     Use Case Scenario
-  </a>
-</h4>
-
-We show here an use case, where a scientists search via the provided faceted
-search functionalities and accesses the data resource of the found meta data ...
-
-
-<h4>
   <a name="narrow-down">
      Narrow down your search
   </a>
-</h4>
+</h3>
 
-Similar as shown in the subsection 'Combined search' in the paragraph 'Free
-Text Search' you can narrow down your results by using the filter
-functionalities provided in the navigation bar.
+<p>Similar as shown in the subsection 'Combined search' in the paragraph 'Free
+Text Search' the results can be narrowd down by using the filter functionalities provided in the navigation bar.</p>
 
-....
-
-<h4>
-  <a name="data-access">
-     Ressource data access
-  </a>
-</h4>
+<table border="0" cellpadding="16" width="700">
+		<tr>
+			<td align="right" valign="top"> <img src="../images/userguide/B2FIND_usecase_discipline_earthscience.jpg" width="180" alt="B2FIND Facet Discipline"> </td>
+			<td align="left" valign="top">Our Scientist decides to narrow down her search by choosing an adequate discipline in the left side navigation bar. She believes that 'Biology' and 'Archaeology' will not be sufficient, thus she clicks on 'Earth Sciences'.</td>
+		</tr>
  
-If you are interested to download the data resource lying behind the found
+		<tr>			
+			<td align="right" valign="top"> <img src="../images/userguide/B2FIND_usecase_discipline_result.jpg" width="300" alt="B2FIND Facet Discipline Search Result Page"> </td>
+			<td align="left" valign="top">
+			Thereby she orders the search results from 1,936 to 527 datasets.
+			</td>
+		</tr> 
+  
+		<tr>			
+			<td align="right" valign="top"> <img src="../images/userguide/B2FIND_usecase_tags.jpg" width="190" alt="B2FIND Facet Tags"> </td>
+			<td align="left" valign="top">
+			<p>As our scientist is looking for measured data rather than simulations, she chooses 'observational data' within the facet 'Tags'.</p>
+			</br>
+			<p>Please note that 'Show More Tags' will open the facet to display more tags. The ciphers in brackets declare the amount of datasets that are related with a certain tag - which does not automatically mean that <em>all</em> datasets have tags.</p> 
+			</td>
+		</tr> 
+		
+		<tr>			
+			<td align="right" valign="top"> <img src="../images/userguide/B2FIND_usecase_tags_result.jpg" width="300" alt="B2FIND Facet Tags Search Result Page"> </td>
+			<td align="left" valign="top">Thereby the search results are reduced again, from 527 to 16 datasets.
+			</td>
+		</tr> 
+		
+		<tr>			
+			<td align="right" valign="top"> <img src="../images/userguide/B2FIND_usecase_creator.jpg" width="190" alt="B2FIND Facet Creator"> </td>
+			<td align="left" valign="top">
+			<p>In order to find the expedition her colleague was engaged in our scientist cklicks on his name 'Gottfried Kruspe' within the facet 'Creator'.</p>
+			</br>
+			<p>6 datasets are offered that match her search queries. The facet 'Creator' has an additional name that seems to be Finnish, thus she decides to click on him as well : Jouko Launiainen.</p> 
+			</td>
+		</tr> 
+		
+		<tr>			
+			<td align="right" valign="top"> <img src="../images/userguide/B2FIND_usecase_creator_result.jpg" width="300" alt="B2FIND Facet Creator : Search Result Page"> </td>
+			<td align="left" valign="top">
+			<p>This search query leads to exactly one result, which fortunately is the one our scientist was looking for.</p>
+			<p>Above the title all choosen foki (values) of the facets are displayed. By clicking on the 'x' a new search query will start that exclude the closed facets.
+			</td>
+		</tr> 
+	</table>
+
+<h2>
+  <a name="data-access">Data access</a>
+</h2>
+
+<!-- Heiner neu 17032015 -->
+<p>
+After our researcher found the desired dataset
+  <ul>
+   <li>the B2FIND metadata fields can be displayed in the portal,</li>
+   <li>the original metadata - as harvested from the provider by OAI-PMH and formated in XML - can be viewed and</li>
+   <li>last but not least we provide links to the data resource the metadata are
+  related to.</li>
+ </ul>
+We explain this in detail for the example in the use case above.
+</p>
+
+<h3>
+  <a name="dataset-display">
+     B2FIND metadata display
+  </a>
+</h3>
+
+<p>By clicking the dataset title the dataset view opens. The textual
+metadata are shown on the right side; on top the title, the description and
+  the tags as clickable buttons and underneath the other B2FIND fields with
+  their values in tabulated form. On the left side bar the spatial extent is
+  shown as a red bounding box.</p>
+<p>
+  <img class="left" src="../images/userguide/B2FIND_usecase_dataset_view.jpg" width="474" height="66" 
+  alt="B2FIND dataset view">
+  <figcaption> Fig. 7 - B2FIND dataset view</figcaption>  
+</p>
+
+<p> Among these fields are two links provided that enable access on related
+  data as described in the following sections.
+
+<h3>
+  <a name="metadata-access">
+     Meta data as harvested
+  </a>
+</h3>
+
+<p>If you want to examine the 'raw' metadata as originally harvested by B2FIND
+  from the data provider you can click on the field 'MetadataAccess' and the
+  associated XML record is listed in the browser.</p>
+
+<p>
+  <img class="left" src="../images/userguide/B2FIND_usecase_oai_md_view.jpg" width="474" height="66" 
+  alt="B2FIND OAI metada view">
+  <figcaption> Fig. 8 - Metadata record as originally harvested in XML format</figcaption>  
+</p>
+
+<p>In this case the metadata is provided in community specific format
+  (ISO19139) and namespaces are used to describe the geo referenced fields.</p>
+
+<h3>
+  <a name="ressource-access">
+     Data ressource access
+  </a>
+</h3>
+
+<p>If you are interested to download the data resource lying behind the found
 meta data, use the link provided in the field 'Source' (As far as availbale
 additionaly the associated 'PID' and/or 'DOI' is provided).
+  <img class="left" src="../images/userguide/B2FIND_usecase_resource_view.jpg" width="474" height="66" 
+  alt="B2FIND dataset view">
+  <figcaption> Fig. 9 - 'Landing page' of the link in the B2FIND field 'Source'</figcaption>  
+ </p>
 
-E.g. by clicking the dataset title in the example shown above, the textual
-metadata are shown in tabulated form and the spatial extent is shown on the 
-left navigation bar ... 
+<p> In our example the link leads you to the landing page of the related data
+  of the WDCC. On this page are further metadata provided and a further link
+  under 'Data access' is provided, to allow you the download of the data, if
+  you have the needed authorisation information. 
 
+<!-- ???
+In other cases you can access directly the data object or the URL can't be
+  resolved at all
+-->
         </div>   
       </div>
 
