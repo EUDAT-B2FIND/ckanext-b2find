@@ -110,3 +110,12 @@ body {
 .b2ffooter_links a:hover {
     color: #224a7b;
 }
+
+/* The arrows for facet's accordion header. */
+.icon-chevron:before {
+    content: "\f077";
+}
+
+.collapsed .icon-chevron:before {
+    content: "\f078";
+}
