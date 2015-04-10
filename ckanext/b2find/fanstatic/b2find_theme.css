@@ -7,15 +7,15 @@ body {
 }
 
 .site-footer {
-    color:            #224a7b;
-    background:       rgb(212,221,226);
+    color: #224a7b;
+    background: rgb(212, 221, 226);
 }
+
 .site-footer,
 .site-footer label,
 .site-footer small {
-    color:            #224a7b;
+    color: #224a7b;
 }
-
 
 /* =========================================================================
    The "account masthead" bar across the top of the site
@@ -24,19 +24,22 @@ body {
 .account-masthead {
     background-color: rgb(40, 40, 40);
 }
+
 /* The "bubble" containing the number of new notifications. */
 .account-masthead .account .notifications a span {
-  background-color: black;
+    background-color: black;
 }
+
 /* The text and icons in the user account info. */
 .account-masthead .account ul li a {
-  color: rgba(255, 255, 255, 0.6);
+    color: rgba(255, 255, 255, 0.6);
 }
+
 /* The user account info text and icons, when the user's pointer is hovering
    over them. */
 .account-masthead .account ul li a:hover {
-  color: rgba(255, 255, 255, 0.7);
-  background-color: black;
+    color: rgba(255, 255, 255, 0.7);
+    background-color: black;
 }
 
 /* =========================================================================
@@ -44,18 +47,20 @@ body {
    ========================================================================= */
 
 .masthead {
-  background-color: #1c418f;
+    background-color: #1c418f;
 }
+
 /* The "navigation pills" in the masthead (the links to Datasets, etc)
    when the user's pointer hovers over them. */
 .masthead .navigation .nav-pills li a:hover {
-  background-color: rgb(19, 43, 95);
-  color: white;
+    background-color: rgb(19, 43, 95);
+    color: white;
 }
+
 /* The "active" navigation pill (for example, when you're on the /dataset page
    the "Datasets" link is active). */
 .masthead .navigation .nav-pills li.active a {
-  background-color: rgb(37, 85, 187);
+    background-color: rgb(37, 85, 187);
 }
 
 /* =========================================================================
@@ -64,12 +69,12 @@ body {
 
 /* Change the background color of the "Search Your Data" box. */
 .homepage .module-search .module-content {
-  background-color: rgb(28, 65, 143);
+    background-color: rgb(28, 65, 143);
 }
 
 /* Change the background color of the "Popular Tags" box. */
 .homepage .module-search .tags {
-  background-color: rgb(19, 43, 95);
+    background-color: rgb(19, 43, 95);
 }
 
 /* =========================================================================
@@ -77,10 +82,10 @@ body {
    ========================================================================= */
 
 .b2fheader {
-  color:      #777777;
-  background: rgb(212, 221, 226) url('/images/comb2.png') repeat-x left top;
-  border:     none;
-  padding:    17px;
+    color: #777777;
+    background: rgb(212, 221, 226) url('/images/comb2.png') repeat-x left top;
+    border: none;
+    padding: 17px;
 }
 
 .b2ffooter {
