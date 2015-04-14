@@ -6,6 +6,7 @@ class B2FindPlugin(plugins.SingletonPlugin):
     plugins.implements(plugins.IConfigurer)
     plugins.implements(plugins.IFacets)
     plugins.implements(plugins.ITemplateHelpers)
+    plugins.implements(plugins.IRoutes, inherit=True)
 
     def get_helpers(self):
         return{
@@ -26,6 +27,27 @@ class B2FindPlugin(plugins.SingletonPlugin):
 
     def organization_facets(self, facets_dict, organization_type, package_type):
         return self._facets(facets_dict)
+
+    def after_map(self, map):
+        map.connect(
+            'legal',
+            '/legal',
+            controller='ckanext.b2find.controller:LegalController',
+            action='index'
+        )
+        map.connect(
+            'legal_action',
+            '/legal/{action}.html',
+            controller='ckanext.b2find.controller:LegalController'
+        )
+        map.connect(
+            'docs_search_guide',
+            '/docs/b2find_search-guide.html',
+            controller='ckanext.b2find.controller:DocsController',
+            action='search_guide'
+        )
+
+        return map
 
     def _facets(self, facets_dict):
         # Deleted facets
