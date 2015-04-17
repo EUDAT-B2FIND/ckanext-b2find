@@ -15,4 +15,4 @@ class LegalController(base.BaseController):
 
 class DocsController(base.BaseController):
     def search_guide(self):
-        return plugins.toolkit.render('ckanext/docs/b2find_search-guide.html')
+        return plugins.toolkit.render('ckanext/docs/search-guide.html')

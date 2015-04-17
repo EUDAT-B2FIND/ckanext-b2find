@@ -43,7 +43,7 @@ class B2FindPlugin(plugins.SingletonPlugin):
         )
         map.connect(
             'docs_search_guide',
-            '/docs/b2find_search-guide.html',
+            '/docs/search-guide.html',
             controller='ckanext.b2find.controller:DocsController',
             action='search_guide'
         )
