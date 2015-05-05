@@ -54,45 +54,56 @@
 
 <!-- Page content start ------------------------------------------------------->
 
-          <h1 class="page-heading">B2FIND Search Guide</h1>
-          <p>The B2FIND discovery portal supports user-friendly navigation and powerful search functionalities.
-             This includes
+    <h1 class="page-heading">B2FIND Search Guide</h1>
+
+      <h2><strong class="headerboxbodylogo">Index</strong></h2>
+        <br/>&nbsp;&nbsp;&nbsp;&nbsp;<a href="#access-b2find">Access the B2FIND Portal</a>
+        <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#free-text-search">Free Text Search</a>
+        <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#full-text-search">Full Text Search</a>
+        <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#facets">Facets</a>
+        <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#combined-search">Combined search</a>
+        <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#faceted-search">Faceted Search</a>
+        <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#geospatial-search">Filter by Location</a>
+        <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#temporal-search">Filter by Time</a>
+        <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#temporal-search-2">Filter by Publication Year</a>
+        <br/>&nbsp;&nbsp;&nbsp;&nbsp<a href="#command-line">Search from command line using the CKAN API</a>
+        <br/>&nbsp;&nbsp;&nbsp;&nbsp<a href="#use-case">Use Case Scenario</a>
+        <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#narrow-down">Narrow Down Your Search</a>
+        <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#data-access">Data access</a>
+        <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#dataset_display">B2FIND metadata view</a>
+        <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#metadata-access">Meta data as harvested</a>
+        <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#ressource-access">Ressource data access</a>
+
+      <p>The EUDAT metadata service B2FIND and can be utilized in two ways :
           <ul> 
-             <li> Free text search over the full text bodies of all datasets
-             indexed in the B2FIND catalog </li>
-             <li> Geospatial and temporal search for all datasets, that cover
-             a choosen region or, respectively, a choosen time periode. </li>
-             <li> Other 'faceted' search, i.e. selecting values from certain metadata fields </li>
-         </ul> 
+            <li> The discovery web portal supports user-friendly navigation and filtering features.
+            Powerful search functionalities are provided, that include
+            <ul> 
+              <li> Free text search over the full text bodies of all datasets
+              indexed in the B2FIND catalog </li>
+              <li> Geospatial and temporal search for all datasets, that cover
+              a choosen region or, respectively, a choosen time periode. </li>
+              <li> Other 'faceted' search, i.e. selecting values from certain metadata fields </li>
+            </ul> 
+	    <li> The script get-pid.py enables submitting search requests
+                from the commandline using the CKAN API functionality
+          </ul>
 
-         The according search requests can be combined and excecuted in one go.
-         In the following we describe the usage of the B2FIND portal step by
-         step.</p>
+          The according search requests can be combined and excecuted in one go.
+          In the following we describe the usage of B2FIND step by step.</p>
 
-    <h2><strong class="headerboxbodylogo">Index</strong></h2>
-    <br/>&nbsp;&nbsp;&nbsp;&nbsp;<a href="#access-b2find">Access the B2FIND Portal</a>
-    </ul>
-    <br/>&nbsp;&nbsp;&nbsp;&nbsp;<a href="#free-text-search">Free Text Search</a>
-    <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#full-text-search">Full Text Search</a>
-    <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#facets">Facets</a>
-    <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#combined-search">Combined search</a>
-    <br/>&nbsp;&nbsp;&nbsp;&nbsp;<a href="#faceted-search">Faceted Search</a>
-    <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#geospatial-search">Filter by Location</a>
-    <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#temporal-search">Filter by Time</a>
-    <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#temporal-search-2">Filter by Publication Year</a>
-    <br/>&nbsp;&nbsp;&nbsp;&nbsp<a href="#use-case">Use Case Scenario</a>
-    <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#narrow-down">Narrow Down
-    Your Search</a>
-    <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#data-access">Data access</a>
-    <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#dataset_display">B2FIND metadata view</a>
-    <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#metadata-access">Meta data as harvested</a>
-    <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#ressource-access">Ressource data access</a>
 
- <h3>
+
+
+
+ <h2>
   <a name="access-b2find">Access the B2FIND Portal</a>
- </h3>
+ </h2>
 
-  You can access the B2FIND catalog at <a href="http://b2find.eudat.eu"> b2find.eudat.eu </a>.
+  You can access the B2FIND web portal at <a href="http://b2find.eudat.eu">
+  b2find.eudat.eu </a>. The only required prerequisite - beside access to the
+  internet - to use the web
+  interface is, that JavaScript is enabled in the used web browser.
 
   <br>
 
@@ -116,13 +127,13 @@
 </p>
 <br>
 
-<h2>
+<h3>
   <a name="free-text-search">Free Text Search</a>
-</h2>
+</h3>
 As in the entry page shown in fig. 1, as well the main search page provides a
 "Google-like" <strong>free text search</strong> that basically works you with an input box where you can type your query.
 
-<h3> <a name="full-text-search">Full Text Search</a></h3>
+<h4> <a name="full-text-search">Full Text Search</a></h4>
 <p>
 You would usually simply type the keywords you are interested in and hit return.
 For example, if you are interested in documents or datasets
@@ -144,7 +155,7 @@ on <em>Foraminifera</em> and you know that somebody with
  <br>
  <br>
 
-<h3> <a name="facets">Facets</a></h3>
+<h4> <a name="facets">Facets</a></h4>
  <p>
  You may use the Free text Search Field as well to search for certain 'facets'
  by using a colon. Facets are searchable categories. Please have a look at the next section for a detailed explanation of the interfaces to smart search functionalities in the navigation bar.  
@@ -183,7 +194,7 @@ Of course you may get the same result by clicking 'Biology' within the facet 'Di
   </p>
  <br> 
 
- <h3> <a name="combined-search">Combined Search</a></h3>
+ <h4> <a name="combined-search">Combined Search</a></h4>
 
  <p>
  In order to specify your search you may combine several different search methods. With the Boolean Operators 'and' and 'or' you can add or replace and exclude keywords or facets. Regarding our example you may search for all resources within the discipline <em>Biology</em> that include the word <em>foraminifera</em> and have something to do with <em>Mr Schiebel</em> by typing a query like this:
@@ -200,9 +211,9 @@ Of course you may get the same result by clicking 'Biology' within the facet 'Di
  <!-- Ende Neues von Claudia 02032015 --> 
 
 
-<h2>
+<h3>
   <a name="faceted-search">Faceted Search</a>
-</h2>	
+</h3>	
 
 <p>The <strong>Facetted Search</strong> interface provides you with options to filter your search by chosing 'facets'. This tool may help you to narrow down the search results for your specific search demands. Besides usual facets like 'Creator', 'Language' or 'Publisher' B2FIND provides a <strong>geolocation</strong> search and two kinds of search for <strong>date and time</strong>:
 	<ul>
@@ -212,9 +223,9 @@ Of course you may get the same result by clicking 'Biology' within the facet 'Di
 Please note that this are different things: some datasets could be published recently (e.g. 2013) even if the time period the research data are covering incorporate a broad time span in past and/or future. </p>
 
 
-<h3>
+<h4>
   <a name="geospatial-search">Filter by location</a>
-</h3>
+</h4>
 
        <table border="0" cellpadding="16" width="700">
             <tr>
@@ -247,9 +258,9 @@ Please note that this are different things: some datasets could be published rec
 	</table>
 
 	
-<h3>
+<h4>
   <a name="temporal-search">Filter by time</a>
-</h3>
+</h4>
 
 <p>
 
@@ -305,9 +316,9 @@ Please note that this are different things: some datasets could be published rec
 	</table>
 
 	
-<h3>
+<h4>
   <a name="temporal-search-2">Filter by Publication Year</a>
-</h3>
+</h4>
 
 <p> With the search widget 'Publication Year' you can search for datasets that are <strong>published</strong> within a certain period of time - this does not automatically correspond with the timeline the data itself cover. 
 </p>
@@ -339,6 +350,33 @@ Please note that this are different things: some datasets could be published rec
 			<td align="right" valign="top"> <img src="../images/userguide/B2FIND_facet_publYear_result1.jpg" width="300" alt="B2FIND Free text Search Result Page"> </td>
 		</tr> 
 	</table>
+
+<h2>
+  <a name="command-line">Search from command line using the CKAN API</a>
+</h2>
+
+Beside the possibility to search over the web interface as described in the
+sections above you can as well us a Python script to submit search requests
+directly from command line.
+
+The Python script get_pid.py resides in the git repository
+https://github.com/EUDAT-B2STAGE/B2STAGE-DataStaging-script and can be
+downloaded from there. If you want to get a list of all records which belong
+to the discipline 'Earth Sciences', enter
+
+ <blockquote>     
+ 
+>./get_pid.py Discipline:"Earth?Sciences"
+
+----------------------------------------------------------------------------------------------------
+Search in       b2find.eudat.eu
+for pattern     Discipline:Earth?Sciences
+.....
+=> 3410 datasets found
+</blockquote>
+
+The script returns a list of the IDs of the found records and of the associated links to the
+data resources. This lists are written to the files id.file and source.file, respectively.
 
 <h2>
   <a name="use-case">Use Case Scenario</a>
