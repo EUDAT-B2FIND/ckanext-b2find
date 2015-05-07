@@ -1,23 +1,21 @@
 /* =========================================================================
-   Basics - modifications for b2find version 2
+   B2FIND colors
    ========================================================================= */
 
 body {
-    background:       #FFFFFF url("/images/bg_page.png") no-repeat left top;
-    position:         relative;
+    background-color: #1c418f;
 }
 
-[role=main] {
-    min-height:       500px;
+.site-footer {
+    color:            #224a7b;
+    background:       rgb(212,221,226);
+}
+.site-footer,
+.site-footer label,
+.site-footer small {
+    color:            #224a7b;
 }
 
-[role=main], .main {
-    background:       transparent;
-}
-
-.homepage [role=main] {
-    min-height:       500px;
-}
 
 /* =========================================================================
    The "account masthead" bar across the top of the site
@@ -26,18 +24,19 @@ body {
 .account-masthead {
     background-color: rgb(40, 40, 40);
 }
-
+/* The "bubble" containing the number of new notifications. */
 .account-masthead .account .notifications a span {
-    background-color: black;
+  background-color: black;
 }
-
+/* The text and icons in the user account info. */
 .account-masthead .account ul li a {
-    color:            rgba(255, 255, 255, 0.6);
+  color: rgba(255, 255, 255, 0.6);
 }
-
+/* The user account info text and icons, when the user's pointer is hovering
+   over them. */
 .account-masthead .account ul li a:hover {
-    color:            rgba(255, 255, 255, 0.7);
-    background-color: black;
+  color: rgba(255, 255, 255, 0.7);
+  background-color: black;
 }
 
 /* =========================================================================
@@ -45,146 +44,69 @@ body {
    ========================================================================= */
 
 .masthead {
-    background-color: #FFFFFF;
+  background-color: #1c418f;
 }
-
+/* The "navigation pills" in the masthead (the links to Datasets, etc)
+   when the user's pointer hovers over them. */
 .masthead .navigation .nav-pills li a:hover {
-    background-color: rgb(19, 43, 95);
-    color:            white;
+  background-color: rgb(19, 43, 95);
+  color: white;
 }
-
+/* The "active" navigation pill (for example, when you're on the /dataset page
+   the "Datasets" link is active). */
 .masthead .navigation .nav-pills li.active a {
-    background-color: rgb(37, 85, 187);
+  background-color: rgb(37, 85, 187);
 }
 
 /* =========================================================================
-   Front page content - modifications for b2find version 2
+   The content in the middle of the front page
    ========================================================================= */
 
+/* Change the background color of the "Search Your Data" box. */
 .homepage .module-search .module-content {
-    color:            #000000;
-    background-color: #FFFFFF;
+  background-color: rgb(28, 65, 143);
 }
 
+/* Change the background color of the "Popular Tags" box. */
 .homepage .module-search .tags {
-    color:            #000000;
-    background-color: #FFFFFF;
+  background-color: rgb(19, 43, 95);
 }
 
 /* =========================================================================
-   Front page content - new elements for b2find version 2
+   B2FIND header and footer
    ========================================================================= */
 
-#homeinput {
-    height:           34px;
-    border-width:     2px;
-    border-color:     #113497;
-    border-style:     solid none solid solid;
-    border-radius:    5px 0 0 5px;
+.b2fheader {
+  color:      #777777;
+  background: rgb(212, 221, 226) url('/images/comb2.png') repeat-x left top;
+  border:     none;
+  padding:    17px;
 }
 
-#homesubmit {
-    height:           46px;
-    width:            100px;
-    color:            #ffffff;
-    background-color: #113497;
-    border-width:     2px;
-    border-color:     #113497;
-    border-style:     solid solid solid none;
-    border-radius:    0 5px 5px 0;
+.b2ffooter {
+    margin-top: 4px;
 }
 
-.b2f_tag {
-    display:          inline-block;
-    margin-bottom:    4px;
-    color:            #000000;
-    background-color: #ffffff;
-    padding:          1px 10px;
-    border:           1px solid #dddddd;
-    -webkit-box-shadow: inset 0 1px 0 #ffffff;
-    -moz-box-shadow:  inset 0 1px 0 #ffffff;
-    box-shadow:       inset 0 1px 0 #ffffff;
+.b2ffooter .poweredby {
+    background: rgb(212, 221, 226) url('/images/footer-gradient.png') no-repeat right top;
+    height: 60px;
+    padding-top: 4px;
 }
 
-a.b2f_tag:hover {
-    text-decoration:  none;
-    color:            #ffffff;
-    background-color: #1f3a93;
-    border:           1px solid #ffffff;
-    -webkit-box-shadow: inset 0 1px 0 #3d97b3;
-    -moz-box-shadow:  inset 0 1px 0 #3d97b3;
-    box-shadow:       inset 0 1px 0 #3d97b3;
+.b2ffooter_links {
+    margin: 10px 0 0 0;
 }
 
-/* =========================================================================
-   Header & footer - new elements for b2find version 2
-   ========================================================================= */
-
-#header-top {
-    background:       #F45D00;
-    padding:          5px 5px;
+.b2ffooter_links span {
+    font-size: 20px;
+    padding: 10px;
 }
 
-#header-top a {
-    color:            #FFFFFF;
+.b2ffooter_links a {
+    padding-right: 20px;
+    color: #224a7b;
 }
 
-#header-main {
-    background:       #FFFFFF url("/images/img_header.png") no-repeat top right;
-    padding:          1% 0;
-}
-
-#footer-powered {
-    background:       transparent url("/images/img_footer.png") no-repeat bottom right;
-    height:           94px;
-}
-
-#footer-main {
-    background:       #F7F3E9 url("/images/color-line.jpg") repeat-x top left;
-    padding:          20px 0;
-    font-size:        12px;
-    width: 100%;
-}
-
-.navbar-default {
-    background-color: transparent !important;
-    border:           0;
-    margin-top:       30px;
-}
-
-.navbar-default .navbar-nav > li > a {
-    color:            #333333;
-    font-weight:      400;
-}
-
-.navbar-default .navbar-nav > li > a:hover {
-    color:            #F45D00;
-    font-weight:      400;
-}
-
-.navbar-footer {
-    background-color: transparent;
-    border:           0;
-}
-
-.navbar-footer ul li a {
-    background-color: transparent;
-    color:            #666666; 
-}
-
-.navbar-footer ul li a:hover {
-    color:            #333333;
-}
-
-/* =========================================================================
-   Miscellaneous changes / additions
-   ========================================================================= */
-
-/* The arrows for facet's accordion header. */
-.icon-chevron:before {
-    content:          "\f077";
-}
-
-.collapsed .icon-chevron:before {
-    content:          "\f078";
+.b2ffooter_links a:hover {
+    color: #224a7b;
 }

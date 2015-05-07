@@ -1,19 +1,38 @@
-<footer>
-  <div id="footer-powered">
-  </div>
-  <div id="footer-main">
-    <div class="row-fluid">
-      <div class="span6">
-        <p><img src="images/flag-ce.jpg" style="float:left; margin:0 10px;"/> EUDAT receives funding from the European Union's Horizon 2020 research and innovation programme under grant agreement No. 654065.</p>
+<footer class="site-footer">
+  <div class="container b2ffooter">
+    {% block footer_content %}
+      <div class="row">
+        <div class="span6">
+          <div class="b2ffooter_links">
+            <span>
+              <a href="http://b2find.eudat.eu/">Home</a>
+              <a href="http://b2find.eudat.eu/about">About</a>
+              <a href="http://www.eudat.eu/support-request">Contact</a>
+              <a href="http://b2find.eudat.eu/legal/index.html">Legal notice</a>
+              </span>
+          </div>
+        </div>
+        <div class="span6 poweredby" style="text-align:right">
+          <div style="float:right; margin:0 20px 0 10px">
+            <a href="http://ckan.org/">
+              <div style="font-size:10px; margin: 2px 18px 0;color:#224a7b">Powered by</div>
+              <img src="/images/ckan-logo_small.png" alt="ckan">
+            </a>
+          </div>
+
+          <div style="float:right;">
+            <a href="http://ec.europa.eu/research/fp7/index_en.cfm">
+              <img src="/images/fp7.png" alt="The Seventh Framework Programme">
+            </a>
+          </div>
+        </div>
       </div>
-      <div class="span6">
-        <nav class="navbar navbar-footer pull-right">
-          <ul id="menu" class="nav navbar-nav">
-            <li><a href="/legal">Legal Notice</a></li>
-            <li><a href="http://eudat.eu/what-eudat" target="_blank">About EUDAT</a></li>
-          </ul>
-        </nav>
-      </div>
-    </div>
+    {% endblock %}
   </div>
+
+  {% block footer_debug %}
+    {% if g.debug %}
+      {% include 'snippets/debug.html' %}
+    {% endif %}
+  {% endblock %}
 </footer>
