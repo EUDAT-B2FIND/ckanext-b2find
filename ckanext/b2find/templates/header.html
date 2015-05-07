@@ -54,53 +54,34 @@
 {% endblock %}
 
 {% block b2find_header %}
-<div class="b2fheader">
-  <div class="container">
-    <div style="width:600px; margin:0 auto">
-      <a href="http://eudat.eu">
-        <img src="/images/eudat_header.png" alt="EUDAT">
-      </a>
-      <a href="/" style="float:right;">
-        <img src="/images/b2find_header.png" alt="EUDAT B2FIND" style="margin-top:4px">
-      </a>
+<header>
+<div id="header-top">
+    <div class="row-fluid">
+        <a href="http://www.eudat.eu" target="_blank">GO TO EUDAT WEBSITE</a>
     </div>
-  </div>
 </div>
-{% endblock %}
-
-<header class="masthead">
-  {% block header_debug %}
-    {% if g.debug and not g.debug_supress_header %}
-      <div class="debug">Controller : {{ c.controller }}<br/>Action : {{ c.action }}</div>
-    {% endif %}
-  {% endblock %}
-
-  <div class="container">
-    <div class="content">
-      {% block header_site_navigation %}
-        <nav class="section navigation">
-          <ul class="nav nav-pills">
-            {% block header_site_navigation_tabs %}
-              {{ h.build_nav_main(
-                ('search', _('Faceted Search')),
-                ('group_index', _('Communities')),
-              ) }}
-            {% endblock %}
-          </ul>
-        </nav>
-      {% endblock %}
-
-      {% block header_site_search %}
-        <form class="section site-search simple-input" action="{% url_for controller='package', action='search' %}" method="get">
-          <div class="field">
-            <label for="field-sitewide-search">{{ _('Search Datasets') }}</label>
-            <input id="field-sitewide-search" type="text" name="q" placeholder="{{ _('Search datasets...') }}" />
-            <button class="btn-search" type="submit"><i class="icon-search"></i></button>
-          </div>
-        </form>
-      {% endblock %}
-
+<div id="header-main">
+    <div class="row-fluid">
+        <div class="span3">
+            <a href="/"><img src="/images/logo.png" alt="B2FIND"/></a>
+        </div>
+        <div class="span9">
+            <div class="navbar navbar-default">
+                <div class="container-fluid">
+                    <div id="gb_menu">
+                        <ul id="menu" class="nav navbar-nav">
+                            <li><a href="http://eudat.eu/services/b2find" target="_blank">WHAT IS B2FIND</a><li>
+                            <li><a href="/docs/search-guide.html" target="_blank">USER GUIDE</a></li>
+                            <li><a href="/group">COMMUNITIES</a></li>
+                            <li><a href="/dataset">FACETED SEARCH</a></li>
+                            <li><a href="http://eudat.eu/support-request?Service=B2FIND" target="_blank">CONTACT US</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
+</div>
 </header>
+{% endblock %}
 {% endblock %}
