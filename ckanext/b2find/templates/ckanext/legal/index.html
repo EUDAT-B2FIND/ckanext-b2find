@@ -1,0 +1,28 @@
+{% extends "page.html" %}
+
+{% block subtitle %}{{ _('Legal Notice') }}{% endblock %}
+
+{% block breadcrumb_content %}
+  <li class="active">{% link_for _('Legal Notice'), controller='ckanext.b2find.controller:LegalController', action='index' %}</li>
+{% endblock %}
+
+{% block primary %}
+  <article class="module">
+    <div class="module-content">
+      <h1 class="page-heading">{{ _('Legal Notice') }}</h1>
+
+      <h3>Impressum</h3>
+      <a href="http://www.dkrz.de/about/kontakt/impressum">http://www.dkrz.de/about/kontakt/impressum</a>
+      <br><br>
+
+      <h3>Nutzungsbedingungen</h3>
+      <a href="/legal/nutzungsbedingungen.html">http://b2find.eudat.eu/legal/nutzungsbedingungen.html</a>
+      <br><br>
+
+      <h3>Datenschutzhinweise</h3>
+      <a href="/legal/datenschutz.html">http://b2find.eudat.eu/legal/datenschutz.html</a>
+    </div>
+  </article>
+{% endblock %}
+
+{% block secondary %}{% endblock %}
