@@ -1,9 +1,10 @@
 
 {% set active = true in (items or h.get_facet_items_dict(name))|map(attribute='active') %}
+{% set facet_id = title|lower %}
 
 {% block facet_list_heading %}
   {% set title = title or h.get_facet_title(name) %}
-  <h2 class="module-heading accordion-toggle{% if not active %} collapsed{% endif %}" data-toggle="collapse" data-target="#facet_{{ title }}">
+  <h2 class="module-heading accordion-toggle{% if not active %} collapsed{% endif %}" data-toggle="collapse" data-target="#facet_{{ facet_id }}">
     <i class="icon-medium icon-filter"></i>
     {{ title }}
     <i class="icon-medium icon-chevron pull-right"></i>
@@ -12,7 +13,7 @@
 
 {% block facet_list_items %}
   {% with items = items or h.get_facet_items_dict(name) %}
-  <div id="facet_{{ title }}" class="collapse{% if active %} in{% endif %}">
+  <div id="facet_{{ facet_id }}" class="collapse{% if active %} in{% endif %}">
   {% if items %}
     <nav>
       <ul class="{{ nav_class or 'unstyled nav nav-simple nav-facet' }}">
