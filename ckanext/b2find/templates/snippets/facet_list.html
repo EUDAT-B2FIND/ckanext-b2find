@@ -16,18 +16,30 @@
   <div id="facet_{{ facet_id }}" class="collapse{% if active %} in{% endif %}">
   {% if items %}
     <nav>
-      <ul class="{{ nav_class or 'unstyled nav nav-simple nav-facet' }}">
+      <ul class="{{ nav_class or 'unstyled nav nav-simple nav-facet' }}" ng-init='items=[
         {% for item in items %}
           {% set href = h.remove_url_param(name, item.name, extras=extras, alternative_url=alternative_url) if item.active else h.add_url_param(new_params={name: item.name}, extras=extras, alternative_url=alternative_url) %}
           {% set label = label_function(item) if label_function else item.display_name %}
           {% set label_truncated = h.truncate(label, 22) if not label_function else label %}
           {% set count = count_label(item['count']) if count_label else ('(%d)' % item['count']) %}
-            <li class="{{ nav_item_class or 'nav-item' }}{% if item.active %} active{% endif %}">
-              <a href="{{ href }}" title="{{ label if label != label_truncated else '' }}">
-                <span>{{ label_truncated }} {{ count }}</span>
-              </a>
-            </li>
+          {
+            href: "{{ href }}",
+            label: "{{ label }}",
+            label_truncated: "{{ label_truncated }}",
+            count: "{{ item.count }}",
+            active:"{{ item.active|lower }}"
+          },
         {% endfor %}
+        ]'>
+        <li class="{{ nav_item_class or 'nav-item' }}"
+            ng-repeat="item in items"
+          {% raw %}
+            ng-class="{active: {{item.active}}}">
+            <a href="{{ item.href }}" title="{{ item.label }}">
+              <span>{{ item.label_truncated }} ({{ item.count }})</span>
+            </a>
+          {% endraw %}
+        </li>
       </ul>
     </nav>
 
