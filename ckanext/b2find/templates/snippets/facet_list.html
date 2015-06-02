@@ -15,6 +15,7 @@
   {% with items = items or h.get_facet_items_dict(name) %}
   <div id="facet_{{ facet_id }}" class="collapse{% if active %} in{% endif %}">
   {% if items %}
+    <input type="text" placeholder="Filter" ng-model="search_{{ facet_id }}"/>
     <nav>
       <ul class="{{ nav_class or 'unstyled nav nav-simple nav-facet' }}" ng-init='items=[
         {% for item in items %}
@@ -32,7 +33,7 @@
         {% endfor %}
         ]'>
         <li class="{{ nav_item_class or 'nav-item' }}"
-            ng-repeat="item in items"
+            ng-repeat="item in items | filter:{label:search_{{ facet_id }}}"
           {% raw %}
             ng-class="{active: {{item.active}}}">
             <a href="{{ item.href }}" title="{{ item.label }}">
