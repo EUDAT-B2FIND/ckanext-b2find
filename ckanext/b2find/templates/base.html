@@ -4,3 +4,12 @@
   {{ super() }}
   {% resource 'b2find_theme/b2find_theme.css' %}
 {% endblock %}
+
+{% block bodytag %}
+  {{ super() }}
+  ng-app
+{% endblock %}
+
+{% block scripts %}
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
+{% endblock %}
