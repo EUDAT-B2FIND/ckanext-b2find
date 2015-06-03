@@ -196,3 +196,9 @@ pre.code {
 .nav-item {
     position: relative;
 }
+
+div .facet-filter {
+    margin-top: 2px;
+    margin-bottom: 3px;
+    width: auto;
+}
