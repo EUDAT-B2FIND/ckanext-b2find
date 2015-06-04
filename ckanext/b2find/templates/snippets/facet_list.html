@@ -24,25 +24,31 @@
       <option value="-count">9-1</option>
     </select>
     <nav>
-      <ul class="{{ nav_class or 'unstyled nav nav-simple nav-facet' }}" ng-init='items=[
-        {% for item in items %}
-          {% set href = h.remove_url_param(name, item.name, extras=extras, alternative_url=alternative_url) if item.active else h.add_url_param(new_params={name: item.name}, extras=extras, alternative_url=alternative_url) %}
-          {% set label = label_function(item) if label_function else item.display_name %}
-          {% set label_truncated = h.truncate(label, 22) if not label_function else label %}
-          {% set count = count_label(item['count']) if count_label else ('(%d)' % item['count']) %}
-          {
-            href: "{{ href }}",
-            label: "{{ label }}",
-            label_truncated: "{{ label_truncated }}",
-            count: "{{ item.count }}",
-            active:"{{ item.active|lower }}"
-          },
-        {% endfor %}
-        ]'>
+      <ul class="{{ nav_class or 'unstyled nav nav-simple nav-facet' }}" ng-controller="BasicFacetController">
+        <script>
+          if (!basic_facet_data)
+            var basic_facet_data = {};
+
+          basic_facet_data.data_{{ facet_id }} = [
+          {% for item in items %}
+            {% set href = h.remove_url_param(name, item.name, extras=extras, alternative_url=alternative_url) if item.active else h.add_url_param(new_params={name: item.name}, extras=extras, alternative_url=alternative_url) %}
+            {% set label = label_function(item) if label_function else item.display_name %}
+            {% set label_truncated = h.truncate(label, 22) if not label_function else label %}
+            {% set count = count_label(item['count']) if count_label else ('(%d)' % item['count']) %}
+            {
+              href: "{{ href }}",
+              label: "{{ label }}",
+              label_truncated: "{{ label_truncated }}",
+              count: "{{ item.count }}",
+              active:"{{ item.active|lower }}"
+            },
+          {% endfor %}
+          ];
+        </script>
         <li class="{{ nav_item_class or 'nav-item' }}"
-            ng-repeat="item in items | filter:{label:search_{{ facet_id }}} | orderBy:order_{{ facet_id }}"
+            ng-repeat="item in data_{{ facet_id }} | filter:{ label:search_{{ facet_id }} } | orderBy:order_{{ facet_id }}"
           {% raw %}
-            ng-class="{active: {{item.active}}}">
+            ng-class="{ active: {{ item.active }} }">
             <a href="{{ item.href }}" title="{{ item.label }}">
               <span>{{ item.label_truncated }} ({{ item.count }})</span>
             </a>
@@ -66,3 +72,5 @@
   </div>
   {% endwith %}
 {% endblock %}
+
+{% resource 'b2find_theme/ng.js' %}
