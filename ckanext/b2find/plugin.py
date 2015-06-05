@@ -18,7 +18,7 @@ class B2FindPlugin(plugins.SingletonPlugin):
     def update_config(self, config):
         toolkit.add_public_directory(config, 'public')
         toolkit.add_template_directory(config, 'templates')
-        toolkit.add_resource('fanstatic', 'b2find_theme')
+        toolkit.add_resource('fanstatic', 'ckanext-b2find')
 
     def dataset_facets(self, facets_dict, package_type):
         return self._facets(facets_dict)
