@@ -4,9 +4,9 @@ var controllers = {};
 
 controllers.BasicFacetController = function ($scope) {
     // Copy properties over
-    for (var k in basic_facet_data) {
-        if (basic_facet_data.hasOwnProperty(k)) {
-            $scope[k] = basic_facet_data[k];
+    for (var k in basic_facets) {
+        if (basic_facets.hasOwnProperty(k)) {
+            $scope[k] = basic_facets[k];
         }
     }
 };

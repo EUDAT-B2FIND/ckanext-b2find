@@ -15,8 +15,8 @@
   {% with items = items or h.get_facet_items_dict(name) %}
   <div id="facet_{{ facet_id }}" class="collapse{% if active %} in{% endif %}">
   {% if items %}
-    <input type="text" placeholder="Filter" class="facet-filter" ng-model="search_{{ facet_id }}"/>
-    <select class="facet-filter" ng-model="order_{{ facet_id }}">
+    <input type="text" placeholder="Filter" class="facet-filter" ng-model="{{ facet_id }}.search"/>
+    <select class="facet-filter" ng-model="{{ facet_id }}.order">
       <option value="">-</option>
       <option value="+label">A-Z</option>
       <option value="-label">Z-A</option>
@@ -26,10 +26,9 @@
     <nav>
       <ul class="{{ nav_class or 'unstyled nav nav-simple nav-facet' }}" ng-controller="BasicFacetController">
         <script>
-          if (!basic_facet_data)
-            var basic_facet_data = {};
-
-          basic_facet_data.data_{{ facet_id }} = [
+          if (!basic_facets)
+            var basic_facets = {};
+          basic_facets.{{ facet_id }} = { data: [
           {%- for item in items %}
             {%- set href = h.remove_url_param(name, item.name, extras=extras, alternative_url=alternative_url) if item.active else h.add_url_param(new_params={name: item.name}, extras=extras, alternative_url=alternative_url) %}
             {%- set label = label_function(item) if label_function else item.display_name %}
@@ -43,10 +42,10 @@
               active:"{{ item.active|lower }}"
             },
           {%- endfor %}
-          ];
+          ]};
         </script>
         <li class="{{ nav_item_class or 'nav-item' }}"
-            ng-repeat="item in data_{{ facet_id }} | filter:{ label:search_{{ facet_id }} } | orderBy:order_{{ facet_id }}"
+            ng-repeat="item in {{ facet_id }}.data | filter:{ label:{{ facet_id }}.search } | orderBy:{{ facet_id }}.order"
           {%- raw %}
             ng-class="{ active: {{ item.active }} }">
             <a href="{{ item.href }}" title="{{ item.label }}">
