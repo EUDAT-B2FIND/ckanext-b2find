@@ -13,7 +13,7 @@
 
 {% block facet_list_items %}
   {% with items = items or h.get_facet_items_dict(name) %}
-  <div id="facet_{{ facet_id }}" class="collapse{% if active %} in{% endif %}">
+  <div id="facet_{{ facet_id }}" class="collapse{% if active %} in{% endif %}" ng-controller="BasicFacetController">
   {% if items %}
     <input type="text" placeholder="Filter" class="facet-filter" ng-model="{{ facet_id }}.search"/>
     <select class="facet-filter" ng-model="{{ facet_id }}.order">
@@ -24,7 +24,7 @@
       <option value="-count">9-1</option>
     </select>
     <nav>
-      <ul class="{{ nav_class or 'unstyled nav nav-simple nav-facet' }}" ng-controller="BasicFacetController">
+      <ul class="{{ nav_class or 'unstyled nav nav-simple nav-facet' }}">
         <script>
           if (!basic_facets)
             var basic_facets = {};
@@ -45,7 +45,7 @@
           ]};
         </script>
         <li class="{{ nav_item_class or 'nav-item' }}"
-            ng-repeat="item in {{ facet_id }}.data | filter:{ label:{{ facet_id }}.search } | orderBy:{{ facet_id }}.order"
+            ng-repeat="item in {{ facet_id }}.data | filter:{ label:{{ facet_id }}.search } | orderBy:{{ facet_id }}.order | limitTo:{{ facet_id }}.limit"
           {%- raw %}
             ng-class="{ active: {{ item.active }} }">
             <a href="{{ item.href }}" title="{{ item.label }}">
@@ -57,13 +57,8 @@
     </nav>
 
     <p class="module-footer">
-      {% if h.get_param_int('_%s_limit' % name) %}
-        {% if h.has_more_facets(name) %}
-          <a href="{{ h.remove_url_param('_%s_limit' % name, replace=0, extras=extras, alternative_url=alternative_url) }}" class="read-more">{{ _('Show More {facet_type}').format(facet_type=title) }}</a>
-        {% endif %}
-      {% else %}
-        <a href="{{ h.remove_url_param('_%s_limit' % name, extras=extras, alternative_url=alternative_url) }}" class="read-more">{{ _('Show Only Popular {facet_type}').format(facet_type=title) }}</a>
-      {% endif %}
+        <a href="" class="read-more" ng-hide="{{ facet_id }}.limit == facetMaxLimit" ng-click="{{ facet_id }}.limit = facetMaxLimit">Show More</a>
+        <a href="" class="read-more" ng-hide="{{ facet_id }}.limit == facetMinLimit" ng-click="{{ facet_id }}.limit = facetMinLimit">Show Less</a>
     </p>
   {% else %}
     <p class="module-content empty">{{ _('There are no {facet_type} that match this search').format(facet_type=title) }}</p>
