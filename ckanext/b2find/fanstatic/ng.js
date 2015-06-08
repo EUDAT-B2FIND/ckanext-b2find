@@ -11,6 +11,9 @@ controllers.BasicFacetController = function ($scope) {
         if (basic_facets.hasOwnProperty(k)) {
             $scope[k] = basic_facets[k];
             $scope[k].limit = $scope.facetMinLimit;
+            $scope[k].active = $scope[k].data.some(function (val) {
+                return val.active;
+            });
         }
     }
 };
