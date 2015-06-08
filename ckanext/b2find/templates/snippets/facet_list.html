@@ -2,6 +2,19 @@
 {% set active = true in (items or h.get_facet_items_dict(name))|map(attribute='active') %}
 {% set facet_id = title|lower %}
 
+{% block facet_list %}
+  {% set hide_empty = hide_empty or false %}
+  {% with items = items or h.get_facet_items_dict(name) %}
+    {% if items or not hide_empty %}
+      {% if within_tertiary %}
+        {% set nav_class = 'nav nav-pills nav-stacked' %}
+        {% set nav_item_class = ' ' %}
+        {% set wrapper_class = 'nav-facet nav-facet-tertiary' %}
+      {% endif %}
+
+      {% block facet_list_item %}
+        <section class="{{ wrapper_class or 'module module-narrow module-shallow' }}">
+
 {% block facet_list_heading %}
   {% set title = title or h.get_facet_title(name) %}
   <h2 class="module-heading accordion-toggle{% if not active %} collapsed{% endif %}" data-toggle="collapse" data-target="#facet_{{ facet_id }}">
@@ -64,6 +77,13 @@
     <p class="module-content empty">{{ _('There are no {facet_type} that match this search').format(facet_type=title) }}</p>
   {% endif %}
   </div>
+  {% endwith %}
+{% endblock %}
+
+        </section>
+      {% endblock %}
+
+    {% endif %}
   {% endwith %}
 {% endblock %}
 
