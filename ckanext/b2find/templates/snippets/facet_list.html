@@ -52,7 +52,7 @@
               label: "{{ label }}",
               label_truncated: "{{ label_truncated }}",
               count: "{{ item.count }}",
-              active:"{{ item.active|lower }}"
+              active: {{ item.active|lower }}
             },
           {%- endfor %}
           ]};
@@ -60,7 +60,7 @@
         <li class="{{ nav_item_class or 'nav-item' }}"
             ng-repeat="item in {{ facet_id }}.data | filter:{ label:{{ facet_id }}.search } | orderBy:{{ facet_id }}.order | limitTo:{{ facet_id }}.limit"
           {%- raw %}
-            ng-class="{ active: {{ item.active }} }">
+            ng-class="{ active: item.active }">
             <a href="{{ item.href }}" title="{{ item.label }}">
               <span>{{ item.label_truncated }} ({{ item.count }})</span>
             </a>
