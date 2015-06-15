@@ -49,7 +49,9 @@
                       {
                         href: "{{ href|safe }}",
                         label: "{{ label }}",
+                      {%- if not label == label_truncated %}
                         label_truncated: "{{ label_truncated }}",
+                      {%- endif %}
                         count: "{{ item.count }}",
                         active: {{ item.active|lower }}
                       },
@@ -61,7 +63,7 @@
                       ng-class="{ active: item.active }">
                     {%- raw %}
                       <a href="{{ item.href }}" title="{{ item.label }}">
-                        <span>{{ item.label_truncated }} ({{ item.count }})</span>
+                        <span>{{ item.label_truncated || item.label }} ({{ item.count }})</span>
                       </a>
                     {%- endraw %}
                   </li>
