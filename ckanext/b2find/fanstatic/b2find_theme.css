@@ -197,8 +197,12 @@ pre.code {
     position: relative;
 }
 
-div .facet-filter {
-    margin-top: 2px;
-    margin-bottom: 3px;
+input.facet-filter, select.facet-filter {
+    margin: 5px;
     width: auto;
+}
+
+input.facet-filter {
+    max-width: 60%;
+    margin-right: 0;
 }

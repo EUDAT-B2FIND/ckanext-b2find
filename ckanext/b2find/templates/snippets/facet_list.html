@@ -28,7 +28,7 @@
             <div id="facet_{{ facet_id }}" class="collapse" ng-class="{ in: {{ facet_id }}.active }">
             {% if items %}
               <input type="text" placeholder="Filter" class="facet-filter" ng-model="{{ facet_id }}.search"/>
-              <select class="facet-filter" ng-model="{{ facet_id }}.order">
+              <select class="facet-filter pull-right" ng-model="{{ facet_id }}.order">
                 <option value="">-</option>
                 <option value="+label">A-Z</option>
                 <option value="-label">Z-A</option>
