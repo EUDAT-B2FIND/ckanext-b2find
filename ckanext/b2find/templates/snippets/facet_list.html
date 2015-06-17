@@ -30,10 +30,10 @@
               <input type="text" placeholder="Filter" class="facet-filter" ng-model="{{ facet_id }}.search"/>
               <select class="facet-filter pull-right" ng-model="{{ facet_id }}.order">
                 <option value="">-</option>
-                <option value="+label">A-Z</option>
-                <option value="-label">Z-A</option>
-                <option value="+count">1-9</option>
-                <option value="-count">9-1</option>
+                <option value="+l">A-Z</option>
+                <option value="-l">Z-A</option>
+                <option value="+c">1-9</option>
+                <option value="-c">9-1</option>
               </select>
               <nav>
                 <ul class="{{ nav_class or 'unstyled nav nav-simple nav-facet' }}">
@@ -47,23 +47,23 @@
                       {%- set label_truncated = h.truncate(label, 22) if not label_function else label %}
                       {%- set count = count_label(item['count']) if count_label else ('(%d)' % item['count']) %}
                       {
-                        href: "{{ href|safe }}",
-                        label: "{{ label }}",
+                        h: "{{ href|safe }}",
+                        l: "{{ label }}",
                       {%- if not label == label_truncated %}
-                        label_truncated: "{{ label_truncated }}",
+                        t: "{{ label_truncated }}",
                       {%- endif %}
-                        count: "{{ item.count }}",
-                        active: {{ item.active|lower }}
+                        c: "{{ item.count }}",
+                        a: {{ item.active|lower }}
                       },
                     {%- endfor %}
                     ]};
                   </script>
                   <li class="{{ nav_item_class or 'nav-item' }}"
-                      ng-repeat="item in {{ facet_id }}.data | filter:{ label:{{ facet_id }}.search } | orderBy:{{ facet_id }}.order | limitTo:{{ facet_id }}.limit"
-                      ng-class="{ active: item.active }">
+                      ng-repeat="item in {{ facet_id }}.data | filter:{ l:{{ facet_id }}.search } | orderBy:{{ facet_id }}.order | limitTo:{{ facet_id }}.limit"
+                      ng-class="{ active: item.a }">
                     {%- raw %}
-                      <a href="{{ item.href }}" title="{{ item.label }}">
-                        <span>{{ item.label_truncated || item.label }} ({{ item.count }})</span>
+                      <a href="{{ item.h }}" title="{{ item.l }}">
+                        <span>{{ item.t || item.l }} ({{ item.c }})</span>
                       </a>
                     {%- endraw %}
                   </li>

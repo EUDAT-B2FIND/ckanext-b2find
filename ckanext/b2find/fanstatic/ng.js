@@ -16,7 +16,7 @@ controllers.BasicFacetController = function ($scope) {
 
             // Set facet activity state
             $scope[k].active = $scope[k].data.some(function (val) {
-                return val.active;
+                return val.a;
             });
         }
     }
