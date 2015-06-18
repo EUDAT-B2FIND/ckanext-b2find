@@ -48,7 +48,7 @@
                       {%- if not label == label_truncated -%}
                         t:"{{ label_truncated }}",
                       {%- endif -%}
-                        c:"{{ item.count }}",a:{{ item.active|lower }}},
+                        c:{{ item.count }},a:{{ item.active|lower }}},
                     {%- endfor -%}
                     ]};
                   </script>
