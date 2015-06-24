@@ -15,7 +15,7 @@
         <section class="{{ wrapper_class or 'module module-narrow module-shallow' }}">
 
           {% block facet_list_heading %}
-            <h2 class="module-heading accordion-toggle" data-toggle="collapse" data-target="#facet_{{ facet_id }}" ng-class="{ collapsed: !{{ facet_id }}.active }">
+            <h2 class="module-heading accordion-toggle" data-toggle="collapse" data-target="#facet_{{ facet_id }}" ng-class="{ collapsed: !{{ facet_id }}.active }" title="{{ '{{ ' + facet_id + '.data.length || 0 }} matches, {{ ' + facet_id + '.limit || 0 }} shown'}}">
               <i class="icon-medium icon-filter"></i>
               {% set title = title or h.get_facet_title(name) %}
               {{ title }}
