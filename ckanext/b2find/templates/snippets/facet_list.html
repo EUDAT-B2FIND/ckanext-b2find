@@ -66,8 +66,8 @@
               </nav>
 
               <p class="module-footer">
-                <a href="" class="read-more" ng-hide="{{ facet_id }}.limit == facetMaxLimit" ng-click="{{ facet_id }}.limit = facetMaxLimit">Show More</a>
-                <a href="" class="read-more" ng-hide="{{ facet_id }}.limit == facetMinLimit" ng-click="{{ facet_id }}.limit = facetMinLimit">Show Less</a>
+                <a href="" class="read-more" ng-hide="{{ facet_id }}.limit == facetMinLimit" ng-click="{{ facet_id }}.limit = {{ facet_id }}.limit - 10">Less</a>
+                <a href="" class="read-more pull-right" ng-hide="{{ facet_id }}.limit == facetMaxLimit || {{ facet_id }}.limit >= {{ facet_id }}.data.length" ng-click="{{ facet_id }}.limit = {{ facet_id }}.limit + 10">More</a>
               </p>
             {% else %}
               <p class="module-content empty">{{ _('There are no {facet_type} that match this search').format(facet_type=title) }}</p>
