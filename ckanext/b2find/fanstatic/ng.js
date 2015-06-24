@@ -14,6 +14,9 @@ controllers.BasicFacetController = function ($scope) {
             // Set default limit for facet items
             $scope[k].limit = $scope.facetMinLimit;
 
+            // Set default order
+            $scope[k].order = "-c";
+
             // Set facet activity state
             $scope[k].active = $scope[k].data.some(function (val) {
                 return val.a;
