@@ -20,6 +20,9 @@ controllers.BasicFacetController = function ($scope) {
             });
         }
     }
+
+    // Free basic_facets
+    basic_facets = null;
 };
 
 app.controller(controllers);

@@ -12,7 +12,7 @@
       {% endif %}
 
       {% block facet_list_item %}
-        <section class="{{ wrapper_class or 'module module-narrow module-shallow' }}" ng-controller="BasicFacetController">
+        <section class="{{ wrapper_class or 'module module-narrow module-shallow' }}">
 
           {% block facet_list_heading %}
             <h2 class="module-heading accordion-toggle" data-toggle="collapse" data-target="#facet_{{ facet_id }}" ng-class="{ collapsed: !{{ facet_id }}.active }">
@@ -38,7 +38,9 @@
               <nav>
                 <ul class="{{ nav_class or 'unstyled nav nav-simple nav-facet' }}">
                   <script>
-                    if (!basic_facets) var basic_facets = {};
+                    if (!basic_facets) {
+                      var basic_facets = {};
+                    }
                     basic_facets.{{ facet_id }} = {data:[
                     {%- for item in items -%}
                       {%- set href = h.remove_url_param(name, item.name, extras=extras, alternative_url=alternative_url) if item.active else h.add_url_param(new_params={name: item.name}, extras=extras, alternative_url=alternative_url) -%}
