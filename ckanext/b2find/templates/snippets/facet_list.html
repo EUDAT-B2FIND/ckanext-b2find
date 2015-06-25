@@ -44,12 +44,7 @@
                     {%- for item in items -%}
                       {%- set href = h.remove_url_param(name, item.name, extras=extras, alternative_url=alternative_url) if item.active else h.add_url_param(new_params={name: item.name}, extras=extras, alternative_url=alternative_url) -%}
                       {%- set label = label_function(item) if label_function else item.display_name -%}
-                      {%- set label_truncated = h.truncate(label, 22) if not label_function else label -%}
-                      {h:"{{ href|safe }}",l:"{{ label }}",
-                      {%- if not label == label_truncated -%}
-                        t:"{{ label_truncated }}",
-                      {%- endif -%}
-                        c:{{ item.count }},a:{{ item.active|lower }}},
+                      {h:"{{ href|safe }}",l:"{{ label }}",c:{{ item.count }},a:{{ item.active|lower }}},
                     {%- endfor -%}
                     ]};
                   </script>
@@ -58,7 +53,7 @@
                       ng-class="{ active: item.a }">
                     {%- raw %}
                       <a href="{{ item.h }}" title="{{ item.l }}">
-                        <span>{{ item.t || item.l }} ({{ item.c }})</span>
+                        <span>{{ item.t }} ({{ item.c }})</span>
                       </a>
                     {%- endraw %}
                   </li>
