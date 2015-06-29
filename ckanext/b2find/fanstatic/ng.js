@@ -6,6 +6,8 @@ controllers.BasicFacetController = function ($scope) {
     $scope.facetMinLimit = 10;
     $scope.facetMaxLimit = 100;
 
+    var params = getJsonFromUrl();
+
     for (var k in basic_facets) {
         if (basic_facets.hasOwnProperty(k)) {
             // Copy properties over
@@ -86,3 +88,19 @@ controllers.BasicFacetController = function ($scope) {
 };
 
 app.controller(controllers);
+
+// Modification of http://stackoverflow.com/a/8486188
+function getJsonFromUrl() {
+    var query = location.search.substr(1);
+    var result = {};
+    query.split("&").forEach(function (part) {
+        var item = part.split("=");
+        if (item[1]) {
+            if (!result[item[0]]) {
+                result[item[0]] = [];
+            }
+            result[item[0]].push(decodeURIComponent(item[1]));
+        }
+    });
+    return result;
+}
