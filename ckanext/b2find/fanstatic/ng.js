@@ -24,6 +24,18 @@ controllers.BasicFacetController = function ($scope) {
                 define(e, 't', function () {
                     return truncate(this.l);
                 });
+
+                // Set element activity state (lazily)
+                define(e, 'a', (function (name) {
+                    return function () {
+                        if (params[name]) {
+                            return params[name].some(function (value) {
+                                return value == this.l;
+                            }, this);
+                        }
+                        return false;
+                    }
+                })($scope[k].name));
             });
 
             // Set facet activity state
