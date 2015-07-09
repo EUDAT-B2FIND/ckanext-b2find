@@ -42,9 +42,7 @@
                     }
                     basic_facets.{{ facet_id }} = {name:"{{ name }}",data:[
                     {%- for item in items -%}
-                      {%- set href = h.remove_url_param(name, item.name, extras=extras, alternative_url=alternative_url) if item.active else h.add_url_param(new_params={name: item.name}, extras=extras, alternative_url=alternative_url) -%}
-                      {%- set label = label_function(item) if label_function else item.display_name -%}
-                      {h:"{{ href|safe }}",l:"{{ label }}",c:{{ item.count }}},
+                      {l:"{{ label_function(item) if label_function else item.display_name }}",c:{{ item.count }}},
                     {%- endfor -%}
                     ]};
                   </script>

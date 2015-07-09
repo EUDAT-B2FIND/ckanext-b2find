@@ -36,6 +36,20 @@ controllers.BasicFacetController = function ($scope) {
                         return false;
                     }
                 })($scope[k].name));
+
+                // Set element href
+                e.h = "/dataset?" + jQuery.param((function (name, n_params) {
+                        if (!n_params[name]) {
+                            n_params[name] = [];
+                        }
+                        if (_.includes(n_params[name], e.l)) {
+                            _.pull(n_params[name], e.l);
+                        }
+                        else {
+                            n_params[name].push(e.l);
+                        }
+                        return n_params;
+                    })($scope[k].name, angular.copy(params)), true);
             });
 
             // Set facet activity state
