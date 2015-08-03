@@ -30,7 +30,7 @@
       <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#resource-access">Resource data access</a>
       <br/><br/>
 
-      <p>The EUDAT metadata service B2FIND and can be utilized in two ways:</p>
+      <p>The EUDAT metadata service B2FIND can be utilized in two ways:</p>
 
       <ul>
         <li>
@@ -41,7 +41,7 @@
             <li>Other 'faceted' search, i.e. selecting values from certain metadata fields</li>
           </ul>
         </li>
-        <li>The script get-pid.py enables submitting search requests from the commandline using the CKAN API functionality<li>
+        <li>The script searchB2FIND.py enables submitting search requests from the commandline using the CKAN API functionality</li>
       </ul>
 
       <p>The according search requests can be combined and executed in one go. In the following we describe the usage of B2FIND step by step.</p>
@@ -55,21 +55,19 @@
       </p>
 
       <figure>
-        <img vspace="10" class="left" src="/images/userguide/B2FIND_front_page.jpg" width="474" height="66" alt="B2FIND portal entry page">
+        <img vspace="10" class="left" src="/images/userguide/B2FIND_entry_page.jpg" width="474" height="66" alt="B2FIND portal entry page">
         <figcaption> Fig. 1 - Entry page of the B2FIND portal</figcaption>
       </figure>
 
       <p>
         By clicking 'Communities' you get an overview about all communities that provide metadata to B2FIND.<br>
-        There are two ways to start the search process and to get taken to the search result page (fig. 2), with all available datasets listed on the right side
-        and the interface to several search and filter functionalities in the navigation bar on the left side:
+        There are two ways to start the search process and to get taken to the search result page (fig. 2), with all available datasets listed on the right side and the interface to several search and filter functionalities in the navigation bar on the left side:
       </p>
 
       <ol>
         <li>By clicking 'Faceted Search'</li>
         <li>
-          By pressing the magnification glass in one of the two free text fields 'Search your data' or 'Search datasets ...',
-          with or without entering some text to be searched for.
+          By pressing the magnification glass in the free text field 'Search your data'. (At this stage you can already enter a string to be searched for or choose one of the shown 'Popular Tags').
         </li>
       </ol>
       <br>
@@ -77,8 +75,8 @@
       <h3><a name="free-text-search">Free Text Search</a></h3>
 
       <p>
-        As in the entry page shown in fig. 1, as well the main search page provides a "Google-like" <strong>free text search</strong>
-        that basically works you with an input box where you can type your query.
+        As in the entry page, shown in fig. 1, as well the main search page provides a "Google-like" <strong>free text search</strong>
+        that basically works with an input box where you can type your query.
       </p>
       <br/>
 
@@ -388,16 +386,16 @@
 
       <p>
         Beside the possibility to search over the web interface as described in the
-        sections above you can as well us a Python script to submit search requests
+        sections above you can as well use a Python script to submit search requests
         directly from command line.
 
-        The Python script get_pid.py resides in the git repository
-        https://github.com/EUDAT-B2STAGE/B2STAGE-DataStaging-script and can be
-        downloaded from there. If you want to get a list of all records which belong
-        to the discipline 'Earth Sciences', enter
+        The Python script searchB2FIND.py resides in the git repository 
+        https://github.com/EUDAT-B2FIND/md-ingestion and can be downloaded 
+        from there. If you want to get a list of all records which belongs to the 
+        discipline 'Earth Sciences', enter
 
         <blockquote>
-          >./get_pid.py Discipline:"Earth?Sciences"
+          >./searchB2FIND.py Discipline:"Earth?Sciences"
 
           ----------------------------------------------------------------------------------------------------
           Search in       b2find.eudat.eu
@@ -406,9 +404,51 @@
           => 3410 datasets found
         </blockquote>
 
-        The script returns a list of the IDs of the found records and of the associated links to the
-        data resources. This lists are written to the files id.file and source.file, respectively.
+        The script writes the list of the IDs of the found records to the file results.txt .
+
+
+        Further options and arguments are shown by entering 
+
+        <blockquote>
+>./searchB2FIND.py -h
+usage: searchB2FIND.py [-h] [--ckan IP/URL] [--output STRING]
+                       [--community STRING] [--ids [IDS [IDS ...]]]
+                       [PATTERN [PATTERN ...]]
+
+Description: Lists identifers of datasets that fulfill the given search criteria
+
+positional arguments:
+  PATTERN               CKAN search pattern, i.e. by logical conjunctions
+                        joined field:value terms.
+
+optional arguments:
+  -h, --help            show this help message and exit
+  --ckan IP/URL         CKAN portal address, to which search requests are
+                        submitted (default is b2find.eudat.eu)
+  --output STRING, -o STRING
+                        Output file name and format. Format is determined by
+                        the extention, supported are 'txt' (plain ascii file)
+                        or 'hd5' file. Default is the ascii file results.txt.
+  --community STRING, -c STRING
+                        Community where you want to search in
+  --ids [IDS [IDS ...]], -i [IDS [IDS ...]]
+                        Identifiers of found records outputed. Default is
+                        'id'. Additionally 'Source','PID' and 'DOI' are
+                        supported.
+
+Examples:
+           1. >./searchB2FIND.py -c aleph tags:LEP
+             searchs for all datasets of community ALEPH with tag "LEP" in b2find.eudat.eu.
+           2. >./searchB2FIND.py author:"Jones*" AND Discipline:"Crystal?Structure" --ckan eudat-b1.dkrz.de
+             searchs in eudat-b1.dkrz.de for all datasets having an author starting with "Jones" and belongs to the discipline "Crystal Structure"
+           3. >./searchB2FIND.py -c narcis DOI:'*' --ids DOI
+             returns the list of id's and DOI's for all records in community "NARCIS" that have a DOI
+        </blockquote>
+
+
+
       </p>
+
 
       <h2><a name="use-case">Use Case Scenario</a></h2>
 
