@@ -42,7 +42,12 @@
                     }
                     basic_facets.{{ facet_id }} = {name:"{{ name }}",data:[
                     {%- for item in items -%}
-                      {l:"{{ label_function(item) if label_function else item.display_name }}",c:{{ item.count }}},
+                      {%- set label = label_function(item) if label_function else item.display_name -%}
+                      {l:"{{ label }}",c:{{ item.count }}
+                      {%- if not item.name == label -%}
+                        ,n:"{{ item.name }}"
+                      {%- endif -%}
+                      },
                     {%- endfor -%}
                     ]};
                   </script>

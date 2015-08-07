@@ -30,7 +30,7 @@ controllers.BasicFacetController = function ($scope) {
                     return function () {
                         if (params[name]) {
                             return params[name].some(function (value) {
-                                return value == this.l;
+                                return value == (this.n ? this.n : this.l);
                             }, this);
                         }
                         return false;
@@ -42,11 +42,12 @@ controllers.BasicFacetController = function ($scope) {
                         if (!n_params[name]) {
                             n_params[name] = [];
                         }
-                        if (_.includes(n_params[name], e.l)) {
-                            _.pull(n_params[name], e.l);
+                        const value = e.n ? e.n : e.l;
+                        if (_.includes(n_params[name], value)) {
+                            _.pull(n_params[name], value);
                         }
                         else {
-                            n_params[name].push(e.l);
+                            n_params[name].push(value);
                         }
                         return n_params;
                     })($scope[k].name, angular.copy(params)), true);
