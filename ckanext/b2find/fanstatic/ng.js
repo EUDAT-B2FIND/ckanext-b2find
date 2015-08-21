@@ -22,7 +22,7 @@ controllers.BasicFacetController = function ($scope) {
             $scope[k].data.forEach(function (e) {
                 // Set truncated label (lazily)
                 define(e, 't', function () {
-                    return truncate(this.l);
+                    return truncate(e.l);
                 });
 
                 // Set element activity state (lazily)
