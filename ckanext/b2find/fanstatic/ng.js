@@ -124,7 +124,7 @@ function getJsonFromUrl() {
             if (!result[item[0]]) {
                 result[item[0]] = [];
             }
-            result[item[0]].push(decodeURIComponent(item[1]));
+            result[item[0]].push(decodeURIComponent(item[1]).replace(/\+/g, " "));
         }
     });
     return result;
