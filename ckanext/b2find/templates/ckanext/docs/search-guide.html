@@ -26,7 +26,7 @@
       <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#narrow-down">Narrow Down Your Search</a>
       <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#data-access">Data access</a>
       <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#dataset-display">B2FIND metadata view</a>
-      <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#metadata-access">Meta data as harvested</a>
+      <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#metadata-access">Metadata as harvested</a>
       <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#resource-access">Resource data access</a>
       <br/><br/>
 
@@ -374,7 +374,7 @@
 
         <tr>
           <td align="left" valign="top">
-            3.Search result: If execution of the query is finished, all datasets that are published within the choosen years are listed in the right panel.
+            3. Search result: If execution of the query is finished, all datasets that are published within the choosen years are listed in the right panel.
           </td>
           <td align="right" valign="top">
             <img src="/images/userguide/B2FIND_facet_publYear_result1.jpg" width="300" alt="B2FIND Free text Search Result Page">
@@ -389,12 +389,12 @@
         sections above you can as well use a Python script to submit search requests
         directly from command line.
 
-        The Python script searchB2FIND.py resides in the git repository 
-        https://github.com/EUDAT-B2FIND/md-ingestion and can be downloaded 
+        The Python script <code>searchB2FIND.py</code> resides in the git repository
+        <code>https://github.com/EUDAT-B2FIND/md-ingestion</code> and can be downloaded
         from there. If you want to get a list of all records which belongs to the 
         discipline 'Earth Sciences', enter
 
-        <blockquote>
+        <code>
           >./searchB2FIND.py Discipline:"Earth?Sciences"
 
           ----------------------------------------------------------------------------------------------------
@@ -402,7 +402,7 @@
           for pattern     Discipline:Earth?Sciences
           .....
           => 3410 datasets found
-        </blockquote>
+        </code>
 
         The script writes the list of the IDs of the found records to the file results.txt .
 
