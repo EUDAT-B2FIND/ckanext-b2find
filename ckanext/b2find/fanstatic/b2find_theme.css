@@ -188,3 +188,7 @@ a.b2f_tag:hover {
 .collapsed .icon-chevron:before {
     content:          "\f078";
 }
+
+pre.code {
+    background-color: #e6e6e6;
+}
