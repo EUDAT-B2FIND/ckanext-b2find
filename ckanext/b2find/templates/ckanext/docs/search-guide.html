@@ -391,26 +391,27 @@
 
         The Python script <code>searchB2FIND.py</code> resides in the git repository
         <code>https://github.com/EUDAT-B2FIND/md-ingestion</code> and can be downloaded
-        from there. If you want to get a list of all records which belongs to the 
-        discipline 'Earth Sciences', enter
+        from there. If you want to get a list of all records which belongs to the
+        discipline 'Earth Sciences', enter:
+      </p>
 
-        <code>
-          >./searchB2FIND.py Discipline:"Earth?Sciences"
+      <pre><code>>./searchB2FIND.py Discipline:"Earth?Sciences"
 
-          ----------------------------------------------------------------------------------------------------
-          Search in       b2find.eudat.eu
-          for pattern     Discipline:Earth?Sciences
-          .....
-          => 3410 datasets found
-        </code>
+----------------------------------------------------------------------------------------------------
+Search in       b2find.eudat.eu
+for pattern     Discipline:Earth?Sciences
+.....
+=> 3410 datasets found</code></pre>
 
-        The script writes the list of the IDs of the found records to the file results.txt .
+      <p>
+        The script writes the list of the IDs of the found records to the file results.txt.
+      </p>
 
+      <p>
+        Further options and arguments are shown by entering:
+      </p>
 
-        Further options and arguments are shown by entering 
-
-        <blockquote>
->./searchB2FIND.py -h
+      <pre><code>>./searchB2FIND.py -h
 usage: searchB2FIND.py [-h] [--ckan IP/URL] [--output STRING]
                        [--community STRING] [--ids [IDS [IDS ...]]]
                        [PATTERN [PATTERN ...]]
@@ -442,13 +443,7 @@ Examples:
            2. >./searchB2FIND.py author:"Jones*" AND Discipline:"Crystal?Structure" --ckan eudat-b1.dkrz.de
              searchs in eudat-b1.dkrz.de for all datasets having an author starting with "Jones" and belongs to the discipline "Crystal Structure"
            3. >./searchB2FIND.py -c narcis DOI:'*' --ids DOI
-             returns the list of id's and DOI's for all records in community "NARCIS" that have a DOI
-        </blockquote>
-
-
-
-      </p>
-
+             returns the list of id's and DOI's for all records in community "NARCIS" that have a DOI</code></pre>
 
       <h2><a name="use-case">Use Case Scenario</a></h2>
 
