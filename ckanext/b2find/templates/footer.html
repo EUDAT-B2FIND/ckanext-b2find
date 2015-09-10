@@ -16,4 +16,8 @@
       </div>
     </div>
   </div>
+
+  {% if g.debug %}
+    {% include 'snippets/debug.html' %}
+  {% endif %}
 </footer>
