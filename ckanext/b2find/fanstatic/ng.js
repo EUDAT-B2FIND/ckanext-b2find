@@ -25,6 +25,11 @@ controllers.BasicFacetController = function ($scope) {
                     return truncate(e.l);
                 });
 
+                // Set deburred (ascii) label (lazily)
+                define(e, 'd', function () {
+                    return _.deburr(e.l);
+                });
+
                 // Set element activity state (lazily)
                 define(e, 'a', (function (name) {
                     return function () {
@@ -110,6 +115,8 @@ controllers.BasicFacetController = function ($scope) {
             }
         }
     }
+
+    $scope.deburr = _.deburr;
 };
 
 app.controller(controllers);
