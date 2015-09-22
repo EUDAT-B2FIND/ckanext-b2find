@@ -1,26 +1,39 @@
+/// <reference path="typings/angularjs/angular.d.ts" />
+/// <reference path="typings/jquery/jquery.d.ts" />
+/// <reference path="typings/lodash/lodash.d.ts" />
+
 var app = angular.module('b2findApp', []);
+
 var controllers = {};
+
 controllers.BasicFacetController = function ($scope) {
     $scope.facetMinLimit = 10;
     $scope.facetMaxLimit = 100;
+
     var params = getJsonFromUrl();
+
     for (var k in basic_facets) {
         if (basic_facets.hasOwnProperty(k)) {
             // Copy properties over
             $scope[k] = basic_facets[k];
+
             // Set default limit for facet items
             $scope[k].limit = $scope.facetMinLimit;
+
             // Set default order
             $scope[k].order = "-c";
+
             $scope[k].data.forEach(function (e) {
                 // Set truncated label (lazily)
                 define(e, 't', function () {
                     return truncate(e.l);
                 });
+
                 // Set deburred (ascii) label (lazily)
                 define(e, 'd', function () {
                     return _.deburr(e.l);
                 });
+
                 // Set element activity state (lazily)
                 define(e, 'a', (function (name) {
                     return function () {
@@ -32,29 +45,33 @@ controllers.BasicFacetController = function ($scope) {
                         return false;
                     };
                 })($scope[k].name));
+
                 // Set element href
                 e.h = "/dataset?" + jQuery.param((function (name, n_params) {
-                    if (!n_params[name]) {
-                        n_params[name] = [];
-                    }
-                    var value = e.n ? e.n : e.l;
-                    if (_.includes(n_params[name], value)) {
-                        _.pull(n_params[name], value);
-                    }
-                    else {
-                        n_params[name].push(value);
-                    }
-                    return n_params;
-                })($scope[k].name, angular.copy(params)), true);
+                        if (!n_params[name]) {
+                            n_params[name] = [];
+                        }
+                        var value = e.n ? e.n : e.l;
+                        if (_.includes(n_params[name], value)) {
+                            _.pull(n_params[name], value);
+                        }
+                        else {
+                            n_params[name].push(value);
+                        }
+                        return n_params;
+                    })($scope[k].name, angular.copy(params)), true);
             });
+
             // Set facet activity state
             $scope[k].active = Boolean(params[$scope[k].name]);
         }
     }
+
     // Free basic_facets
     basic_facets = null;
+
     /** Truncates a string to length */
-    function truncate(str, len) {
+    function truncate(str:string, len:number) {
         if (!str) {
             return "";
         }
@@ -66,6 +83,7 @@ controllers.BasicFacetController = function ($scope) {
         }
         return str.substr(0, len) + "...";
     }
+
     /**
      * Defines a lazy property on object
      * Copyright (c) 2012 John Crepezzi
@@ -87,6 +105,7 @@ controllers.BasicFacetController = function ($scope) {
             }
         });
     }
+
     /**
      * Bulk defines lazy properties on object
      * Copyright (c) 2012 John Crepezzi
@@ -100,9 +119,12 @@ controllers.BasicFacetController = function ($scope) {
             }
         }
     }
+
     $scope.deburr = _.deburr;
 };
+
 app.controller(controllers);
+
 // Modification of http://stackoverflow.com/a/8486188
 function getJsonFromUrl() {
     var query = location.search.substr(1);
