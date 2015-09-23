@@ -25,26 +25,16 @@ controllers.BasicFacetController = function ($scope) {
 
             $scope[k].data.forEach(function (e) {
                 // Set truncated label (lazily)
-                define(e, 't', function () {
-                    return truncate(e.l);
-                });
+                define(e, 't', () => truncate(e.l));
 
                 // Set deburred (ascii) label (lazily)
-                define(e, 'd', function () {
-                    return _.deburr(e.l);
-                });
+                define(e, 'd', () => _.deburr(e.l));
 
                 // Set element activity state (lazily)
-                define(e, 'a', (function (name) {
-                    return function () {
-                        if (params[name]) {
-                            return params[name].some(function (value) {
-                                return value == (this.n ? this.n : this.l);
-                            }, this);
-                        }
-                        return false;
-                    };
-                })($scope[k].name));
+                define(e, 'a', ((x, y) =>
+                    () => params[x] ?
+                        params[x].some((value) => value == (y.n ? y.n : y.l))
+                        : false)($scope[k].name, e));
 
                 // Set element href
                 e.h = "/dataset?" + jQuery.param((function (name, n_params) {
