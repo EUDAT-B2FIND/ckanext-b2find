@@ -4,6 +4,10 @@ controllers.BasicFacetController = function ($scope) {
     $scope.facetMinLimit = 10;
     $scope.facetMaxLimit = 100;
     var params = getJsonFromUrl();
+    /** Bail out if basic_facets not defined */
+    if (typeof basic_facets === 'undefined') {
+        return;
+    }
     for (var k in basic_facets) {
         if (basic_facets.hasOwnProperty(k)) {
             // Copy properties over

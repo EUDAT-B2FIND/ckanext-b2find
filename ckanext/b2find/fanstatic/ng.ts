@@ -12,6 +12,11 @@ controllers.BasicFacetController = function ($scope) {
 
     const params = getJsonFromUrl();
 
+    /** Bail out if basic_facets not defined */
+    if (typeof basic_facets === 'undefined') {
+        return;
+    }
+
     for (let k in basic_facets) {
         if (basic_facets.hasOwnProperty(k)) {
             // Copy properties over
