@@ -2,17 +2,17 @@
 /// <reference path="typings/jquery/jquery.d.ts" />
 /// <reference path="typings/lodash/lodash.d.ts" />
 
-var app = angular.module('b2findApp', []);
+const app = angular.module('b2findApp', []);
+const controllers = {};
 
-var controllers = {};
 
 controllers.BasicFacetController = function ($scope) {
     $scope.facetMinLimit = 10;
     $scope.facetMaxLimit = 100;
 
-    var params = getJsonFromUrl();
+    const params = getJsonFromUrl();
 
-    for (var k in basic_facets) {
+    for (let k in basic_facets) {
         if (basic_facets.hasOwnProperty(k)) {
             // Copy properties over
             $scope[k] = basic_facets[k];
@@ -41,7 +41,7 @@ controllers.BasicFacetController = function ($scope) {
                         if (!n_params[name]) {
                             n_params[name] = [];
                         }
-                        var value = e.n ? e.n : e.l;
+                        const value = e.n ? e.n : e.l;
                         if (_.includes(n_params[name], value)) {
                             _.pull(n_params[name], value);
                         }
@@ -85,7 +85,7 @@ controllers.BasicFacetController = function ($scope) {
             configurable: true,
             enumerable: true,
             get: function () {
-                var value = def.bind(this)();
+                const value = def.bind(this)();
                 Object.defineProperty(this, prop, {
                     value: value,
                     configurable: false,
@@ -103,7 +103,7 @@ controllers.BasicFacetController = function ($scope) {
      * https://github.com/seejohnrun/laze
      */
     function defineAll(obj, props) {
-        for (var key in props) {
+        for (let key in props) {
             if (props.hasOwnProperty(key)) {
                 define(obj, key, props[key]);
             }
@@ -117,10 +117,10 @@ app.controller(controllers);
 
 // Modification of http://stackoverflow.com/a/8486188
 function getJsonFromUrl() {
-    var query = location.search.substr(1);
-    var result = {};
+    const query = location.search.substr(1);
+    const result = {};
     query.split("&").forEach(function (part) {
-        var item = part.split("=");
+        const item = part.split("=");
         if (item[1]) {
             if (!result[item[0]]) {
                 result[item[0]] = [];
