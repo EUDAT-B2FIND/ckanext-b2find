@@ -2,9 +2,21 @@
 /// <reference path="typings/jquery/jquery.d.ts" />
 /// <reference path="typings/lodash/lodash.d.ts" />
 
+interface FacetItem {
+    c:number,
+    n:string,
+    l?:string,
+    h?:string
+}
+
+interface Facet {
+    name:string,
+    data:FacetItem[]
+}
+
+declare var basic_facets:Object;
 const app = angular.module('b2findApp', []);
 const controllers = {};
-
 
 controllers.BasicFacetController = function ($scope) {
     $scope.facetMinLimit = 10;
@@ -28,7 +40,7 @@ controllers.BasicFacetController = function ($scope) {
             // Set default order
             $scope[k].order = "-c";
 
-            $scope[k].data.forEach(function (e) {
+            $scope[k].data.forEach(function (e:FacetItem) {
                 // Set truncated label (lazily)
                 define(e, 't', () => truncate(e.l));
 
@@ -36,13 +48,13 @@ controllers.BasicFacetController = function ($scope) {
                 define(e, 'd', () => _.deburr(e.l));
 
                 // Set element activity state (lazily)
-                define(e, 'a', ((x, y) =>
+                define(e, 'a', ((x:string, y:FacetItem) =>
                     () => params[x] ?
                         params[x].some((value) => value == (y.n ? y.n : y.l))
                         : false)($scope[k].name, e));
 
                 // Set element href
-                e.h = "/dataset?" + jQuery.param((function (name, n_params) {
+                e.h = "/dataset?" + jQuery.param((function (name:string, n_params:Object) {
                         if (!n_params[name]) {
                             n_params[name] = [];
                         }
@@ -66,7 +78,7 @@ controllers.BasicFacetController = function ($scope) {
     basic_facets = null;
 
     /** Truncates a string to length */
-    function truncate(str:string, len:number) {
+    function truncate(str:string, len?:number):string {
         if (!str) {
             return "";
         }
@@ -85,7 +97,7 @@ controllers.BasicFacetController = function ($scope) {
      * The MIT License
      * https://github.com/seejohnrun/laze
      */
-    function define(obj, prop, def) {
+    function define(obj:Object, prop:string, def:Function) {
         Object.defineProperty(obj, prop, {
             configurable: true,
             enumerable: true,
@@ -107,7 +119,7 @@ controllers.BasicFacetController = function ($scope) {
      * The MIT License
      * https://github.com/seejohnrun/laze
      */
-    function defineAll(obj, props) {
+    function defineAll(obj:Object, props:Object) {
         for (let key in props) {
             if (props.hasOwnProperty(key)) {
                 define(obj, key, props[key]);
@@ -121,7 +133,7 @@ controllers.BasicFacetController = function ($scope) {
 app.controller(controllers);
 
 // Modification of http://stackoverflow.com/a/8486188
-function getJsonFromUrl() {
+function getJsonFromUrl():Object {
     const query = location.search.substr(1);
     const result = {};
     query.split("&").forEach(function (part) {
