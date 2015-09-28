@@ -29,10 +29,10 @@
             {% if items %}
               <input type="text" placeholder="Filter" class="facet-filter" ng-model="{{ facet_id }}.search"/>
               <select class="facet-filter pull-right" ng-model="{{ facet_id }}.order">
-                <option value="+l">A-Z</option>
-                <option value="-l">Z-A</option>
-                <option value="+c">1-9</option>
-                <option value="-c">9-1</option>
+                <option value="na">A-Z</option>
+                <option value="nd">Z-A</option>
+                <option value="ca">1-9</option>
+                <option value="cd">9-1</option>
               </select>
               <nav>
                 <ul class="{{ nav_class or 'unstyled nav nav-simple nav-facet' }}">
@@ -52,7 +52,7 @@
                     ]};
                   </script>
                   <li class="{{ nav_item_class or 'nav-item' }}"
-                      ng-repeat="item in {{ facet_id }}.data | filter:{ d:deburr({{ facet_id }}.search) } | orderBy:{{ facet_id }}.order | limitTo:{{ facet_id }}.limit"
+                      ng-repeat="item in getData('{{ facet_id }}') | filter:{ d:deburr({{ facet_id }}.search) } | limitTo:{{ facet_id }}.limit"
                       ng-class="{ active: item.a }">
                     {%- raw %}
                       <a href="{{ item.h }}" title="{{ item.l }}">

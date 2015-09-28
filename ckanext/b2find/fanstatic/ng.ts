@@ -38,7 +38,16 @@ controllers.BasicFacetController = function ($scope) {
             $scope[k].limit = $scope.facetMinLimit;
 
             // Set default order
-            $scope[k].order = "-c";
+            $scope[k].order = "cd";
+
+            // Order data in different ways
+            $scope[k].ordered = {};
+            defineAll($scope[k].ordered, ((x:Facet) => ({
+                na: () => _.sortByOrder(x.data, ['ll'], ['asc']),
+                nd: () => _.sortByOrder(x.data, ['ll'], ['desc']),
+                ca: () => _.sortByOrder(x.data, ['c', 'll'], ['asc', 'asc']),
+                cd: () => _.sortByOrder(x.data, ['c', 'll'], ['desc', 'asc'])
+            }))($scope[k]));
 
             $scope[k].data.forEach(function (e:FacetItem) {
                 // Set truncated label (lazily)
@@ -46,6 +55,9 @@ controllers.BasicFacetController = function ($scope) {
 
                 // Set deburred (ascii) label (lazily)
                 define(e, 'd', () => _.deburr(e.l));
+
+                // Set lowercase label (lazily)
+                define(e, 'll', () => e.l.toLowerCase());
 
                 // Set element activity state (lazily)
                 define(e, 'a', ((x:string, y:FacetItem) =>
@@ -128,6 +140,14 @@ controllers.BasicFacetController = function ($scope) {
     }
 
     $scope.deburr = _.deburr;
+
+    /**
+     * Return data belonging to facet
+     */
+    $scope.getData = function (facet:string):FacetItem[] {
+        const scope = $scope[facet];
+        return scope.ordered[scope.order]
+    };
 };
 
 app.controller(controllers);

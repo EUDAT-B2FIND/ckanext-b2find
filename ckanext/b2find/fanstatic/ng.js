@@ -15,12 +15,22 @@ controllers.BasicFacetController = function ($scope) {
             // Set default limit for facet items
             $scope[k].limit = $scope.facetMinLimit;
             // Set default order
-            $scope[k].order = "-c";
+            $scope[k].order = "cd";
+            // Order data in different ways
+            $scope[k].ordered = {};
+            defineAll($scope[k].ordered, (function (x) { return ({
+                na: function () { return _.sortByOrder(x.data, ['ll'], ['asc']); },
+                nd: function () { return _.sortByOrder(x.data, ['ll'], ['desc']); },
+                ca: function () { return _.sortByOrder(x.data, ['c', 'll'], ['asc', 'asc']); },
+                cd: function () { return _.sortByOrder(x.data, ['c', 'll'], ['desc', 'asc']); }
+            }); })($scope[k]));
             $scope[k].data.forEach(function (e) {
                 // Set truncated label (lazily)
                 define(e, 't', function () { return truncate(e.l); });
                 // Set deburred (ascii) label (lazily)
                 define(e, 'd', function () { return _.deburr(e.l); });
+                // Set lowercase label (lazily)
+                define(e, 'll', function () { return e.l.toLowerCase(); });
                 // Set element activity state (lazily)
                 define(e, 'a', (function (x, y) {
                     return function () { return params[x] ?
@@ -96,6 +106,13 @@ controllers.BasicFacetController = function ($scope) {
         }
     }
     $scope.deburr = _.deburr;
+    /**
+     * Return data belonging to facet
+     */
+    $scope.getData = function (facet) {
+        var scope = $scope[facet];
+        return scope.ordered[scope.order];
+    };
 };
 app.controller(controllers);
 // Modification of http://stackoverflow.com/a/8486188
