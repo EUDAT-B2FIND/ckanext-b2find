@@ -40,16 +40,7 @@
                     if (!basic_facets) {
                       var basic_facets = {};
                     }
-                    basic_facets.{{ facet_id }} = {name:"{{ name }}",data:[
-                    {%- for item in items -%}
-                      {%- set label = label_function(item) if label_function else item.display_name -%}
-                      {l:"{{ label }}",c:{{ item.count }}
-                      {%- if not item.name == label -%}
-                        ,n:"{{ item.name }}"
-                      {%- endif -%}
-                      },
-                    {%- endfor -%}
-                    ]};
+                    basic_facets.{{ facet_id }} = {{ h.generate_facet_json(items, name, label_function)|safe }};
                   </script>
                   <li class="{{ nav_item_class or 'nav-item' }}"
                       ng-repeat="item in getData('{{ facet_id }}') | filter:{ d:deburr({{ facet_id }}.search) } | limitTo:{{ facet_id }}.limit"
