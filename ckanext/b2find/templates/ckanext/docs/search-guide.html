@@ -96,16 +96,16 @@
 
       <p>
         You would usually simply type the keywords you are interested in and hit return.
-        For example, if you are interested in documents or datasets on <em>Climate</em>
-        and you know that somebody with the name <em>Scott</em> did something with it you would type
+        For example, if you are interested in documents or datasets on <em>foraminifera</em>
+        and you know that somebody with the name <em>Schiebel</em> did something with it you would type
       </p>
 
-      <input type="text" placeholder="Climate Scott" class="focus">
+      <input type="text" placeholder="Foraminifera Schiebel" class="focus">
 
       <p>and get this result:</p>
 
       <figure>
-        <img class="left" src="/images/userguide/B2FIND_freesearch_3.jpg" width="474" height="266" alt="B2FIND Free text Search Result Page">
+        <img class="left" src="/images/userguide/B2FIND_freesearch_3.jpg" width="474" height="266" alt="B2FIND Free Text Search Result Page">
         <figcaption> Fig. 2 - Search Result Page for Free text Search</figcaption>
       </figure>
       <br/>
@@ -113,7 +113,7 @@
       <h4><a name="facets">Facets</a></h4>
 
       <p>
-        You may use the Free text Search Field as well to search for certain 'facets'
+        You may use the free text search field as well to search for certain 'facets'
         by using a colon. Facets are searchable categories. Please have a look at the next section for a detailed
         explanation of the interfaces to smart search functionalities in the navigation bar.
 
@@ -394,8 +394,7 @@
       <h3><a name="search-results">Search Results</a></h3>
 
       <p>
-        The datasets found to fulfill the search criteria are shown on the
-        result page on the right side of the portal.
+        The datasets found to fulfill the search criteria are shown on the result page on the right side of the portal.
       </p>
 
       <h4><a name="dataset-display">B2FIND metadata display</a></h4>
@@ -482,10 +481,6 @@ for pattern     Discipline:Earth?Sciences
         The script writes the list of the IDs of the found records to the file results.txt.
       </p>
 
-      <p>
-        Further options and arguments are shown by entering:
-      </p>
-
       <pre class="code"><code>>./searchB2FIND.py -h
 usage: searchB2FIND.py [-h] [--ckan IP/URL] [--output STRING]
                        [--community STRING] [--ids [IDS [IDS ...]]]
@@ -538,8 +533,8 @@ Examples:
       </p>
 
       <figure>
-        <img class="left" src="/images/userguide/B2FIND_combinedSearch_choose_Temporal2.jpeg" width="474" height="66" alt="B2FIND Search Choose Temporal Period">
-        <figcaption> Fig. 6 - Choose the time period [ 1897 , 2012 ] </figcaption>
+        <img class="left" src="/images/userguide/B2FIND_useCase_choose_Temporal2.jpeg" width="474" height="66" alt="B2FIND Search Choose Temporal Period">
+        <figcaption>Fig. 6 - Choose the time period [ 1897 , 2012 ]</figcaption>
       </figure>
 
       <br>
@@ -552,7 +547,7 @@ Examples:
       <table border="0" cellpadding="16" width="700">
         <tr>
           <td align="right" valign="top">
-            <img src="/images/userguide/B2FIND_combinedSearch_choose_Geospatial.jpeg" width="190" alt="B2FIND Facet Creator">
+            <img src="/images/userguide/B2FIND_useCase_choose_Geospatial.jpeg" width="190" alt="B2FIND Facet Creator">
           </td>
           <td align="left" valign="top">
             In order to filter out all datasets they are related to the
@@ -562,7 +557,7 @@ Examples:
 
         <tr>
           <td align="right" valign="top">
-            <img src="/images/userguide/B2FIND_combinedSearch_result_Geospatial.jpeg" width="190" alt="B2FIND Facet Creator">
+            <img src="/images/userguide/B2FIND_useCase_result_Geospatial.jpeg" width="190" alt="B2FIND Facet Creator">
           </td>
           <td align="left" valign="top">
             1525 datasets are offered that match her search queries.
@@ -571,37 +566,39 @@ Examples:
 
         <tr>
           <td align="right" valign="top">
-            <img src="/images/userguide/B2FIND_usecase_discipline_earthscience.jpg" width="180" alt="B2FIND Facet Discipline">
+            <img src="/images/userguide/B2FIND_useCase_result_PublYear.jpeg" width="190" alt="B2FIND Facet Creator">
           </td>
           <td align="left" valign="top">
-            Our Scientist decides to narrow down her search by choosing an adequate discipline in the left side navigation bar.
-            She believes that 'Biology' and 'Archaeology' will not be sufficient, thus she clicks on 'Earth Sciences'.
+            In the widget 'Publication year' the researcher selects as
+            start year 2009 and as end year 2016. This yields in 1525 found datasets.
           </td>
         </tr>
 
         <tr>
           <td align="right" valign="top">
-            <img src="/images/userguide/B2FIND_usecase_discipline_result.jpg" width="300" alt="B2FIND Facet Discipline Search Result Page">
+            <img src="/images/userguide/B2FIND_useCase_choose_Discipline.jpg" width="180" alt="B2FIND Facet Discipline">
           </td>
           <td align="left" valign="top">
-            Thereby she orders the search results from 1,936 to 527 datasets.
+            Next our Scientist restricts her query to her research area,
+            i.e. she chooses 'Biology' form the facet 'Discipline' and get 443
+            datasets left.
           </td>
         </tr>
 
         <tr>
           <td align="right" valign="top">
-            <img src="/images/userguide/B2FIND_usecase_creator_result.jpg" width="300" alt="B2FIND Facet Creator : Search Result Page">
+            <img src="/images/userguide/B2FIND_useCase_choose_Creator.jpg" width="300" alt="B2FIND Facet Discipline Search Result Page">
           </td>
           <td align="left" valign="top">
-            <p>This search query leads to exactly one result, which fortunately is the one our scientist was looking for.</p>
-
-            <p>
-              Above the title all chosen foki (values) of the facets are displayed.
-              By clicking on the 'x' a new search query will start that exclude the closed facets.
-            </p>
+            Finally she select the 'Creator' 'Neumann, V.' and results in two datasets.
           </td>
         </tr>
       </table>
+
+      <p>
+        Above the title all chosen foki (values) of the facets are displayed.
+        By clicking on the 'x' a new search query will start that exclude the closed facets.
+      </p>
 
     </div>
   </article>
