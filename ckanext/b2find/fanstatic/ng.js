@@ -12,19 +12,20 @@ controllers.BasicFacetController = function ($scope) {
         if (basic_facets.hasOwnProperty(k)) {
             // Copy properties over
             $scope[k] = basic_facets[k];
+            var facet = $scope[k];
             // Set default limit for facet items
-            $scope[k].limit = $scope.facetMinLimit;
+            facet.limit = $scope.facetMinLimit;
             // Set default order
-            $scope[k].order = "cd";
+            facet.order = "cd";
             // Order data in different ways
-            $scope[k].ordered = {};
-            defineAll($scope[k].ordered, (function (x) { return ({
+            facet.ordered = {};
+            defineAll(facet.ordered, (function (x) { return ({
                 na: function () { return _.sortByOrder(x.data, ['ll'], ['asc']); },
                 nd: function () { return _.sortByOrder(x.data, ['ll'], ['desc']); },
                 ca: function () { return _.sortByOrder(x.data, ['c', 'll'], ['asc', 'asc']); },
                 cd: function () { return _.sortByOrder(x.data, ['c', 'll'], ['desc', 'asc']); }
-            }); })($scope[k]));
-            $scope[k].data.forEach(function (e) {
+            }); })(facet));
+            facet.data.forEach(function (e) {
                 // Set truncated label (lazily)
                 define(e, 't', function () { return truncate(e.l); });
                 // Set deburred (ascii) label (lazily)
@@ -36,7 +37,7 @@ controllers.BasicFacetController = function ($scope) {
                     return function () { return params[x] ?
                         params[x].some(function (value) { return value == (y.n ? y.n : y.l); })
                         : false; };
-                })($scope[k].name, e));
+                })(facet.name, e));
                 // Set element href
                 e.h = "/dataset?" + jQuery.param((function (name, n_params) {
                     if (!n_params[name]) {
@@ -50,10 +51,10 @@ controllers.BasicFacetController = function ($scope) {
                         n_params[name].push(value);
                     }
                     return n_params;
-                })($scope[k].name, angular.copy(params)), true);
+                })(facet.name, angular.copy(params)), true);
             });
             // Set facet activity state
-            $scope[k].active = Boolean(params[$scope[k].name]);
+            facet.active = Boolean(params[facet.name]);
         }
     }
     // Free basic_facets

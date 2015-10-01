@@ -34,22 +34,24 @@ controllers.BasicFacetController = function ($scope) {
             // Copy properties over
             $scope[k] = basic_facets[k];
 
+            const facet = $scope[k];
+
             // Set default limit for facet items
-            $scope[k].limit = $scope.facetMinLimit;
+            facet.limit = $scope.facetMinLimit;
 
             // Set default order
-            $scope[k].order = "cd";
+            facet.order = "cd";
 
             // Order data in different ways
-            $scope[k].ordered = {};
-            defineAll($scope[k].ordered, ((x:Facet):Object => ({
+            facet.ordered = {};
+            defineAll(facet.ordered, ((x:Facet):Object => ({
                 na: ():FacetItem[] => _.sortByOrder(x.data, ['ll'], ['asc']),
                 nd: ():FacetItem[] => _.sortByOrder(x.data, ['ll'], ['desc']),
                 ca: ():FacetItem[] => _.sortByOrder(x.data, ['c', 'll'], ['asc', 'asc']),
                 cd: ():FacetItem[] => _.sortByOrder(x.data, ['c', 'll'], ['desc', 'asc'])
-            }))($scope[k]));
+            }))(facet));
 
-            $scope[k].data.forEach(function (e:FacetItem) {
+            facet.data.forEach(function (e:FacetItem) {
                 // Set truncated label (lazily)
                 define(e, 't', ():string => truncate(e.l));
 
@@ -63,7 +65,7 @@ controllers.BasicFacetController = function ($scope) {
                 define(e, 'a', ((x:string, y:FacetItem):Function =>
                     ():boolean => params[x] ?
                         params[x].some((value) => value == (y.n ? y.n : y.l))
-                        : false)($scope[k].name, e));
+                        : false)(facet.name, e));
 
                 // Set element href
                 e.h = "/dataset?" + jQuery.param((function (name:string, n_params:Object) {
@@ -78,11 +80,11 @@ controllers.BasicFacetController = function ($scope) {
                             n_params[name].push(value);
                         }
                         return n_params;
-                    })($scope[k].name, angular.copy(params)), true);
+                    })(facet.name, angular.copy(params)), true);
             });
 
             // Set facet activity state
-            $scope[k].active = Boolean(params[$scope[k].name]);
+            facet.active = Boolean(params[facet.name]);
         }
     }
 
