@@ -16,17 +16,19 @@ def extras_to_exclude():
     return exclude_list
 
 
-def generate_facet_json(items, name, label_function):
+def generate_facet_json(items, facet_name, label_function):
     data = []
 
     for item in items:
         label = label_function(item) if label_function else item.get('display_name')
-        if not item.get('name') == label:
-            d = dict(l=label, c=item.get('count'), n=item.get('name'))
+        name = item.get('name')
+        count = item.get('count')
+        if not name == label:
+            d = (label, count, name)
         else:
-            d = dict(l=label, c=item.get('count'))
+            d = (label, count)
         data.append(d)
 
-    fdict = {'name': name, 'data': data}
+    facet_dict = {'name': facet_name, 'data': data}
 
-    return json.dumps(fdict, separators=(',', ':'), check_circular=False)
+    return json.dumps(facet_dict, separators=(',', ':'), check_circular=False)

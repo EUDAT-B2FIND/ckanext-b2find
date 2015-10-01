@@ -3,9 +3,9 @@
 /// <reference path="typings/lodash/lodash.d.ts" />
 
 interface FacetItem {
+    l:string,
     c:number,
     n:string,
-    l?:string,
     h?:string
 }
 
@@ -32,7 +32,10 @@ controllers.BasicFacetController = function ($scope) {
     for (let k in basic_facets) {
         if (basic_facets.hasOwnProperty(k)) {
             // Copy properties over
-            $scope[k] = basic_facets[k];
+            $scope[k] = <Facet> {
+                name: basic_facets[k].name,
+                data: <FacetItem[]> _.map(basic_facets[k].data, (x) => ({l: x[0], c: x[1], n: x[2]})),
+            };
 
             const facet = $scope[k];
 

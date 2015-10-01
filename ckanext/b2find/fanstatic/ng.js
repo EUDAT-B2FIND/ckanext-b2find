@@ -11,7 +11,10 @@ controllers.BasicFacetController = function ($scope) {
     for (var k in basic_facets) {
         if (basic_facets.hasOwnProperty(k)) {
             // Copy properties over
-            $scope[k] = basic_facets[k];
+            $scope[k] = {
+                name: basic_facets[k].name,
+                data: _.map(basic_facets[k].data, function (x) { return ({ l: x[0], c: x[1], n: x[2] }); })
+            };
             var facet = $scope[k];
             // Set default limit for facet items
             facet.limit = $scope.facetMinLimit;
