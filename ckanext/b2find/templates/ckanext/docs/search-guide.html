@@ -128,9 +128,7 @@
 
       <p>For example you may find all resources that are originated from the discipline <em>Biology</em> by typing:</p>
 
-      <blockquote>
-        <mark>Discipline:Biology</mark>
-      </blockquote>
+      <input type="text" placeholder="Discipline:Biology" class="focus">
 
       <figure>
         <img class="left" src="/images/userguide/B2FIND_freesearch_3a.jpg" width="474" height="66" alt="B2FIND Free text Search Result Page">
@@ -143,9 +141,7 @@
         Please note that this search method is case intensive and requires accurate spelling. E.g. typing:
       </p>
 
-      <blockquote>
-        <mark>discipline:Biology</mark>
-      </blockquote>
+      <input type="text" placeholder="discipline:Biology" class="focus">
 
       <p>
         will lead to no result, because there exists no facet <em>discipline</em> with small letter <em>d</em>.
@@ -159,15 +155,15 @@
 
       <p>
         In order to specify your search you may combine several different search methods. With the Boolean Operators
-        'and' and 'or' you can add or replace and exclude keywords or facets. Regarding our example you may search for
-        all resources within the discipline <em>Biology</em> that include the word <em>foraminifera</em> and have
-        something to do with <em>Mr Schiebel</em> by typing a query like this:
+        <em>AND</em> and <em>OR</em> you can add or replace and exclude keywords or facets. Regarding our example you may search for
+        all resources within the discipline <em>Biology</em> that include the
+        word <em>foraminifera</em> or have something to do with the name <em>Schiebel</em> by typing a query like this:
       </p>
-      <blockquote>
-        <mark>Discipline:Biology AND foraminifera AND schiebel</mark>
-      </blockquote>
+
+      <input type="text" placeholder="Discipline:Biology AND foraminifera OR schiebel" class="focus">
+
       <figure>
-        <img src="/images/userguide/B2FIND_freesearch_4a.jpg" width="474" height="66" alt="B2FIND Free text Search Result Page">
+        <img src="/images/userguide/B2FIND_combinedSearch_result.jpg" width="474" height="66" alt="B2FIND Free text Search Result Page">
         <figcaption> Fig. 4 - Search Result Page for Combined Search</figcaption>
       </figure>
       <br>
@@ -391,6 +387,85 @@
       </table>
 
 
+      <h4><a name="textual-facets">Filter and Sort Textual Facets</a></h4>
+
+      For the crucial textual facets 'Communities', 'Tags', 'Creator',
+      'Disciplines', 'Languages' and 'Publisher' filtering and sorting is
+      provided with auto-complete functionality. This is illustrated by
+      the following figures describing an examplary use case.
+
+      An user wants to search within the community
+      <em>B2SHARE</em> for all data created by <em>Morris Riedel</em>, belonging to discipline
+      <em>Remote sensing</em> and tagged with the keyword <em>cross validation</em>.
+
+      <table border="0" cellpadding="16" width="700">
+        <tr>
+          <td align="left" valign="top">
+            1.  An user wants to search within the community <em>B2SHARE</em>,
+            so she opens the facet menue 'Community' and clicks on <em>B2SHARE</em>.
+          </td>
+          <td align="right" valign="top">
+            <img src="/images/userguide/B2FIND_textual_facets_select_community.jpg" width="180" alt="B2FIND Select Community">
+          </td>
+        </tr>
+
+        <tr>
+          <td align="left" valign="top">
+            <p>2. She is only interested in data created by <em>Morris Riedel</em></p>
+
+            <p>
+              2.a Filter out by autocomplete functionality: By typing
+              in <em>Mor</em> in the filter field of the menue 'Creator' the
+              full value list is restricted to all names cntaining the string 'Mor'.
+            </p>
+          </td>
+          <td align="right" valign="top">
+            <img src="/images/userguide/B2FIND_textual_facets_filter_creator.jpg" width="180" alt="B2FIND Filter Creator">
+          </td>
+        </tr>
+
+        <tr>
+          <td align="left" valign="top">
+            2.b Select a name from creator list: Click on <em>Morris Riedel (10)</em>.
+          </td>
+          <td align="right" valign="top">
+            <img src="/images/userguide/B2FIND_textual_facets_select_creator.jpg" width="190" alt="B2FIND Select Creator">
+          </td>
+        </tr>
+
+        <tr>
+          <td align="left" valign="top">
+            3. From the found datasets the user wants to see only those which
+            belong to teh research discipline <em>Remote sensing</em>, she
+            found in the provided list in the corresponding menue.
+          </td>
+          <td align="right" valign="top">
+            <img src="/images/userguide/B2FIND_textual_facets_select_discipline.jpg" width="300" alt="B2FIND Select Discipline">
+          </td>
+        </tr>
+
+        <tr>
+          <td align="left" valign="top">
+            4. Finally the user shrinks the results to all which are tagged
+            with the keyword <em>cross validation</em> by clicking on this term
+            in the facet menue 'Tags'.
+          </td>
+          <td align="right" valign="top">
+            <img src="/images/userguide/B2FIND_textual_facets_select_tag.jpg" width="300" alt="B2FIND Select Tag">
+          </td>
+        </tr>
+      </table>
+
+      <p>
+        The search takes the user to two datasets listed in the result page
+        together with the selected facet values shown above :
+      </p>
+
+      <figure>
+        <img class="left" src="/images/userguide/B2FIND_textual_facets_result.jpg" width="474" height="66" alt="B2FIND textual facet result">
+        <figcaption>Fig. 7 - B2FIND result of combined textual facet search</figcaption>
+      </figure>
+
       <h3><a name="search-results">Search Results</a></h3>
 
       <p>
@@ -481,6 +556,8 @@ for pattern     Discipline:Earth?Sciences
         The script writes the list of the IDs of the found records to the file results.txt.
       </p>
 
+      <p>Further options and arguments are shown by entering:</p>
+
       <pre class="code"><code>>./searchB2FIND.py -h
 usage: searchB2FIND.py [-h] [--ckan IP/URL] [--output STRING]
                        [--community STRING] [--ids [IDS [IDS ...]]]
@@ -569,8 +646,7 @@ Examples:
             <img src="/images/userguide/B2FIND_useCase_result_PublYear.jpeg" width="190" alt="B2FIND Facet Creator">
           </td>
           <td align="left" valign="top">
-            In the widget 'Publication year' the researcher selects as
-            start year 2009 and as end year 2016. This yields in 1525 found datasets.
+            In the widget 'Publication year' the researcher selects as start year 2009 and as end year 2016. This yields in 1525 found datasets.
           </td>
         </tr>
 
@@ -593,11 +669,37 @@ Examples:
             Finally she select the 'Creator' 'Neumann, V.' and results in two datasets.
           </td>
         </tr>
+
+        <tr>
+          <td align="right" valign="top">
+            <img src="/images/userguide/B2FIND_useCase_result.jpg" width="300" alt="B2FIND Facet Discipline Search Result Page">
+          </td>
+          <td align="left" valign="top">
+            Above the title all chosen foki (values) of the facets are displayed.
+            By clicking on the 'x' a new search query will start that exclude the closed facets.
+          </td>
+        </tr>
       </table>
 
+      <h2><a name="data-access">Data access</a></h2>
+
+      <p>After our researcher found the desired dataset:</p>
+
+      <ul>
+        <li>the B2FIND metadata fields can be displayed in the portal,</li>
+        <li>the original metadata - as harvested from the provider by OAI-PMH and formatted in XML - can be viewed and</li>
+        <li>last but not least we provide links to the data resource the metadata are related to.</li>
+      </ul>
+
+      <p>We explain this in detail for the example in the use case above.</p>
+      <br/>
+
+      <h3><a name="dataset-display">B2FIND metadata display</a></h3>
+
       <p>
-        Above the title all chosen foki (values) of the facets are displayed.
-        By clicking on the 'x' a new search query will start that exclude the closed facets.
+        By clicking the dataset title the dataset view opens. The textual metadata are shown on the right side; on top the title,
+        the description and the tags as clickable buttons and underneath the other B2FIND fields with their values in tabulated form.
+        On the left side bar the spatial extent is shown as a red bounding box.
       </p>
 
     </div>
