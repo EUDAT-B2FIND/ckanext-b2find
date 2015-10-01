@@ -115,7 +115,10 @@ controllers.BasicFacetController = function ($scope) {
     };
 };
 app.controller(controllers);
-// Modification of http://stackoverflow.com/a/8486188
+/**
+ * Build object of GET parameters from location URL
+ * Modification of http://stackoverflow.com/a/8486188
+ */
 function getJsonFromUrl() {
     var query = location.search.substr(1);
     var result = {};

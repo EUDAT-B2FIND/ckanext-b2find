@@ -42,26 +42,26 @@ controllers.BasicFacetController = function ($scope) {
 
             // Order data in different ways
             $scope[k].ordered = {};
-            defineAll($scope[k].ordered, ((x:Facet) => ({
-                na: () => _.sortByOrder(x.data, ['ll'], ['asc']),
-                nd: () => _.sortByOrder(x.data, ['ll'], ['desc']),
-                ca: () => _.sortByOrder(x.data, ['c', 'll'], ['asc', 'asc']),
-                cd: () => _.sortByOrder(x.data, ['c', 'll'], ['desc', 'asc'])
+            defineAll($scope[k].ordered, ((x:Facet):Object => ({
+                na: ():FacetItem[] => _.sortByOrder(x.data, ['ll'], ['asc']),
+                nd: ():FacetItem[] => _.sortByOrder(x.data, ['ll'], ['desc']),
+                ca: ():FacetItem[] => _.sortByOrder(x.data, ['c', 'll'], ['asc', 'asc']),
+                cd: ():FacetItem[] => _.sortByOrder(x.data, ['c', 'll'], ['desc', 'asc'])
             }))($scope[k]));
 
             $scope[k].data.forEach(function (e:FacetItem) {
                 // Set truncated label (lazily)
-                define(e, 't', () => truncate(e.l));
+                define(e, 't', ():string => truncate(e.l));
 
                 // Set deburred (ascii) label (lazily)
-                define(e, 'd', () => _.deburr(e.l));
+                define(e, 'd', ():string => _.deburr(e.l));
 
                 // Set lowercase label (lazily)
-                define(e, 'll', () => e.l.toLowerCase());
+                define(e, 'll', ():string => e.l.toLowerCase());
 
                 // Set element activity state (lazily)
-                define(e, 'a', ((x:string, y:FacetItem) =>
-                    () => params[x] ?
+                define(e, 'a', ((x:string, y:FacetItem):Function =>
+                    ():boolean => params[x] ?
                         params[x].some((value) => value == (y.n ? y.n : y.l))
                         : false)($scope[k].name, e));
 
@@ -152,11 +152,14 @@ controllers.BasicFacetController = function ($scope) {
 
 app.controller(controllers);
 
-// Modification of http://stackoverflow.com/a/8486188
+/**
+ * Build object of GET parameters from location URL
+ * Modification of http://stackoverflow.com/a/8486188
+ */
 function getJsonFromUrl():Object {
     const query = location.search.substr(1);
     const result = {};
-    query.split("&").forEach(function (part) {
+    query.split("&").forEach((part) => {
         const item = part.split("=");
         if (item[1]) {
             if (!result[item[0]]) {
