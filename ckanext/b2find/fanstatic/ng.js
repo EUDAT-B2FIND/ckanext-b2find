@@ -47,12 +47,9 @@ controllers.BasicFacetController = function ($scope) {
                         n_params[name] = [];
                     }
                     var value = e.n ? e.n : e.l;
-                    if (_.includes(n_params[name], value)) {
-                        _.pull(n_params[name], value);
-                    }
-                    else {
-                        n_params[name].push(value);
-                    }
+                    _.includes(n_params[name], value) ?
+                        _.pull(n_params[name], value)
+                        : n_params[name].push(value);
                     return n_params;
                 })(facet.name, angular.copy(params)), true);
             });
