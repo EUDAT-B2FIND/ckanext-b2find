@@ -17,19 +17,19 @@
       <br/>&nbsp;&nbsp;&nbsp;<a href="#access-b2find">The B2FIND Portal</a>
       <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#free-text-search">Free Text Search</a>
       <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#full-text-search">Full Text Search</a>
-      <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#facets">Facets</a>
-      <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#combined-search">Combined search</a>
-      <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#faceted-search">Faceted Search</a>
+      <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#facets">Key-Value Search</a>
+      <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#combined-search">Combined Search</a>
+      <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#faceted-search">Faceted Search Interface</a>
       <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#geospatial-search">Filter by Location</a>
       <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#temporal-search">Filter by Time</a>
       <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#temporal-search-2">Filter by Publication Year</a>
       <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#textual-facets">Filter and Sort Textual Facets</a>
-      <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#search-results">Search results</a>
-      <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#dataset-display">B2FIND Meta data Display</a>
-      <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#data-access">Data access</a>
-      <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#metadata-access">Meta data as harvested</a>
-      <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#resource-access">Resource data access</a>
-      <br/>&nbsp;&nbsp;&nbsp;<a href="#command-line">The Command Line Search</a>
+      <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#search-results">Search Results</a>
+      <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#dataset-display">Metadata Display</a>
+      <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#data-access">Data Access</a>
+      <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#metadata-access">Metadata as Harvested</a>
+      <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#resource-access">Resource Data</a>
+      <br/>&nbsp;&nbsp;&nbsp;<a href="#command-line">Command Line Interface</a>
       <br/>&nbsp;&nbsp;&nbsp;<a href="#use-case">Use Case Scenario</a>
       <br/><br/>
 
@@ -66,7 +66,7 @@
       </p>
 
       <figure>
-        <img vspace="10" class="left" src="/images/userguide/B2FIND_entry_page.jpg" width="474" height="66" alt="B2FIND portal entry page">
+        <img border="1" vspace="10" class="left" src="/images/userguide/B2FIND_entry_page.jpg" width="474" height="66" alt="B2FIND portal entry page">
         <figcaption> Fig. 1 - Entry page of the B2FIND portal</figcaption>
       </figure>
 
@@ -104,17 +104,18 @@
       <p>and get this result:</p>
 
       <figure>
-        <img class="left" src="/images/userguide/B2FIND_freetext_search_Climate-Scott.JPG" width="474" height="266" alt="B2FIND Free Text Search Result Page">
+        <img border="1" class="left" src="/images/userguide/B2FIND_freetext_search_Climate-Scott.jpg" width="474" height="266" alt="B2FIND Free Text Search Result Page">
         <figcaption> Fig. 2 - Search Result Page for Free text Search</figcaption>
       </figure>
       <br/>
 
-      <h4><a name="facets">Facets</a></h4>
+      <h4><a name="facets">Key-Value Search</a></h4>
 
       <p>
-        You may use the free text search field as well to search for certain 'facets'
-        by using a colon. Facets are searchable categories. Please have a look at the next section for a detailed
-        explanation of the interfaces to smart search functionalities in the navigation bar.
+        You may use the free text search field as well to search for certain
+        values of 'keys' or 'facets' by using a colon. Facets are searchable
+        B2FIND categories. Please have a look at the next section for a detailed
+        explanation of the interfaces to smart faceted search functionalities in the navigation bar.
 
         <!--
         on the left side toolbar at the Search Result Page and may be used to
@@ -136,8 +137,10 @@
 
       <p>
         A full list of facets, which can be searched for in the B2FIND catalog, and their description is found in the user documentation in the section
-        <a href="http://www.eudat.eu/User%20Documentation%20-%20B2FIND.html#UserDocumentation-B2FIND-Metadatafielddefinitions">Metadata field definitions</a>.
-        Please note that this search method is case intensive and requires accurate spelling. E.g. typing:
+        <a href="http://eudat.eu/User%20Documentation%20-%20b2find-integration#UserDocumentation-B2FIND-Metadatamapping">Metadata
+        field definitions</a>.
+
+        Please note that this search method is case intensive and requires accurate spelling. E.g. typing
       </p>
 
       <input type="text" placeholder="discipline:Biology" class="focus">
@@ -159,7 +162,7 @@
         word <em>foraminifera</em> or have something to do with the name <em>Schiebel</em> by typing a query like this:
       </p>
 
-      <input type="text" placeholder="Discipline:Biology AND foraminifera OR schiebel" class="focus">
+      <input type="text" placeholder="Discipline:Biology AND foraminifera OR Schiebel" class="focus" style="width: 300px;">
 
       <figure>
         <img src="/images/userguide/B2FIND_combinedSearch_result.jpg" width="474" height="66" alt="B2FIND Free text Search Result Page">
@@ -167,26 +170,35 @@
       </figure>
       <br>
 
-      <h3><a name="faceted-search">Faceted Search</a></h3>
+      <h3><a name="faceted-search">Faceted Search Interface</a></h3>
 
       <p>
-        The <strong>Faceted Search</strong> interface provides you with options to filter your search by choosing
-        'facets'. This tool may help you to narrow down the search results for your specific search demands. Besides
-        usual facets like 'Creator', 'Language' or 'Publisher' B2FIND provides a <strong>geolocation</strong> search and
-        two kinds of search for <strong>date and time</strong>:
+        The faceted search interface provides you with options to filter your search by choosing
+        'facets'. This tool may help you to narrow down the search results for
+        your specific search demands. 
+      </p>
+
+      <p>
+        B2FIND provides the opportunity to filter out datasets that have a
+        given extent in space or in time. This is implemented by the following
+        three graphical interfaces :
       </p>
 
       <ul>
-        <li>'Filter by time' search, i.e. search for all datasets which cover a chosen time period.</li>
-        <li>Selection of 'Publication Year', i.e. the year the dataset is 'published' in.</li>
+        <li>'Filter by location' searchs for all datasets which have an
+        intersection with a region chosen from the world map.
+        <li>'Filter by time' searchs for all datasets which cover a chosen time period.</li>
+        <li>'Publication Year' searchs for all datasets, which are 'published'
+        within a given period of years.</li>
       </ul>
 
-      <p>
-        Please note that this are different things: some datasets could be published recently (e.g. 2013) even if the time
-        period the research data are covering incorporate a broad time span in past and/or future.
-      </p>
       <br>
 
+      Furthermore filtering and sorting for facets like 'Creator',
+      'Discipline', 'Language' or 'Publisher' are provided.
+
+      In the following sub sections the usage of these different kinds of
+      faceted search is described in datail. 
 
       <h4><a name="geospatial-search">Filter by location</a></h4>
 
@@ -280,7 +292,7 @@
 
             <p>2.c Repeat zooming until the desired section is shown in the chart.</p>
 
-            <p>2.d Reset the last zoom by clicking the button 'Reset zoom'.</p>
+            <p>2.d Optionally you can reset the last zoom by clicking the button 'Reset zoom'.</p>
           </td>
           <td align="right" valign="top">
             <img src="/images/userguide/B2FIND_facet_timeline_zoom_in_time.jpg" width="300" alt="B2FIND Free text Search Result Page">
@@ -320,7 +332,12 @@
         <tr>
           <td align="left" valign="top">
             5. Please note that the time-period is displayed in 'Seconds since/before Christ'.
-            For a better understanding the real date is displayed if you mouse-over the digits.
+            For a better understanding the real date is displayed if you
+            mouse-over the digits.
+
+	    The start and end time can as well directly changed by editing the
+	    integers in the fields or by using the arrow buttons to in- or
+	    decrease the time span.
           </td>
           <td align="right" valign="top">
             <img src="/images/userguide/B2FIND_facet_timeline_timeboxes.jpg" width="300" alt="B2FIND Free text Search Result Page">
@@ -332,13 +349,13 @@
 
       <p>
         With the search widget 'Publication Year' you can search for datasets that are <strong>published</strong>
-        within a certain period of time - this does not automatically correspond with the timeline the data itself cover.
+        within a certain period of time.
       </p>
 
       <table border="0" cellpadding="16" width="700">
         <tr>
           <td align="left" valign="top">
-            1. Clear possibly previous search request by clicking the 'Clear' button of the 'Publication Year' interface in the navigation bar.
+            1. Clear possibly previous search request by clicking the 'Clear' button.
           </td>
           <td align="right" valign="top">
             <img src="/images/userguide/B2FIND_facet_publYear_clear.jpg" width="180" alt="B2FIND Free text Search Result Page">
@@ -354,7 +371,8 @@
               This results in opening a select panel showing the years of the current decade.
               By clicking on the '<<' or the '>>' button you can switch to the previous or following decade.
               Finally select the wished start year by clicking on it in the decade panel.
-              This will apply the chosen Year for the search.
+              This will apply the chosen year for the search, and all datasets
+              that are published in this year or later are listed.
             </p>
           </td>
           <td align="right" valign="top">
@@ -365,10 +383,9 @@
         <tr>
           <td align="left" valign="top">
             2.b Select an end year: Click on the right text field in the interface 'Publication Year'.
-            This results in opening a select panel showing the years of the current decade.
-            By clicking on the '<<' or the '>>' button you can switch to the previous or following decade.
-            Finally select the wished end year by clicking on it in the decade panel.<br>
-            This selection will submit the search request.
+	    The selection of the end year works then in teh same manner as for
+	    the start year and excecutes the search for all datasets
+            published between start and end year.
           </td>
           <td align="right" valign="top">
             <img src="/images/userguide/B2FIND_facet_publYear_selectEndYear.jpg" width="190" alt="B2FIND Free text Search Result Page">
@@ -415,7 +432,7 @@
             listed. Furthermore you can see that Morris Riedel has two
             datasets created, where as well Gabrielle Cavallero is a
             'Creator'. If you want to narrow down the results to these two
-            records, jsut click on this name.
+            records, just click on this name.
           </td>
           <td align="right" valign="top">
             <img src="/images/userguide/B2FIND_textual_facets_select_creator.jpg" width="180" alt="B2FIND Select Creator">
@@ -440,7 +457,7 @@
         <figcaption>Fig. 5 - B2FIND result of combined textual facet search</figcaption>
       </figure>
 
-      <h4><a name="dataset-display">B2FIND metadata display</a></h4>
+      <h4><a name="dataset-display">Metadata Display</a></h4>
 
       <p>
         By clicking the dataset title the dataset view opens. The textual metadata are shown on the right side; on top the title,
@@ -455,40 +472,26 @@
 
       <br/>
 
-      <h5><a name="data-access">Data access</a></h5>
+      <h4><a name="data-access">Data Access</a></h4>
 
       <p>Among these fields are links provided that enable access on related data.</p>
 
       <ul>
-        <li>the original metadata - as harvested from the provider by OAI-PMH and formatted in XML - can be viewed and</li>
-        <li>last but not least we provide links to the data resource the metadata are related to.</li>
+        <li>The data resources the metadata are related to.</li>
+        <li>The original metadata - as harvested from the provider by OAI-PMH and formatted in XML.</li>
       </ul>
       <br/>
 
-      <h6><a name="metadata-access">Metadata as harvested</a></h6>
-
-      <p>
-        If you want to examine the 'raw' metadata as originally harvested by B2FIND from the data provider
-        you can click on the field 'MetadataAccess' and the associated XML record is listed in the browser.
-      </p>
-
-      <figure>
-        <img class="left" src="/images/userguide/B2FIND_usecase_oai_md_view.jpg" width="474" height="66" alt="B2FIND OAI metadata view">
-        <figcaption>Fig. 7 - Metadata record as originally harvested in XML format</figcaption>
-      </figure>
-
-      <p>In this case the metadata is provided in community specific format (ISO19139) and namespaces are used to describe the geo referenced fields.</p>
-      <br/>
-
-      <h6><a name="resource-access">Data resource access</a></h6>
+      <h5><a name="resource-access">Resource Data</a></h5>
 
       <p>
         If you are interested to download the data resource lying behind the found metadata,
-        use the link provided in the field 'Source' (As far as available additionally the associated 'PID' and/or 'DOI' is provided).
+        use the link provided in the field 'Source'. As far as available additionally the associated 'PID' and/or 'DOI' is provided.
       </p>
       <figure>
         <img class="left" src="/images/userguide/B2FIND_usecase_resource_view.jpg" width="474" height="66" alt="B2FIND dataset view">
-        <figcaption>Fig. 8 - 'Landing page' of the link in the B2FIND field 'Source'</figcaption>
+        <figcaption>Fig. 7 - 'Landing page' of the link in the B2FIND field
+        'Source' (excerpt)</figcaption>
       </figure>
 
       <p>
@@ -499,17 +502,36 @@
         <!-- ??? In other cases you can access directly the data object or the URL can't be resolved at all -->
       </p>
 
+      <h5><a name="metadata-access">Metadata as Harvested</a></h5>
+
+      <p>
+        If you want to examine the 'raw' metadata as originally harvested by B2FIND from the data provider
+        you can click on the field 'MetadataAccess' and the associated XML record is listed in the browser.
+      </p>
+
+      <figure>
+        <img class="left" src="/images/userguide/B2FIND_usecase_oai_md_view.jpg" width="474" height="66" alt="B2FIND OAI metadata view">
+        <figcaption>Fig. 8 - Metadata record as originally harvested in XML
+        format (excerpt)</figcaption>
+      </figure>
+
+      <p>In this case the metadata is provided in community specific format (ISO19139) and namespaces are used to describe the geo referenced fields.</p>
+      <br/>
+
       <h2><a name="command-line">The Command Line Search</a></h2>
 
       <p>
-        Beside the possibility to search over the web interface as described in the
-        sections above you can as well use a Python script to submit search requests
-        directly from command line.
+        Beside the possibility to search over the web interface you can as
+        well use the CKAN API suite to submit search requests
+        directly from the command line. 
 
-        The Python script <code>searchB2FIND.py</code> resides in the git repository
+        Adapted for the needs and features of B2FIND the Python
+        script <code>searchB2FIND.py</code> is provides a powerful and
+        userfriendly tool to submit complex search demands. The script resides in the git repository
         <code>https://github.com/EUDAT-B2FIND/md-ingestion</code> and can be downloaded
-        from there. If you want to get a list of all records which belongs to the
-        discipline 'Earth Sciences', enter:
+        from there. 
+
+        If you want for instance a list of all records which belongs to the discipline 'Earth Sciences', enter:
       </p>
 
       <pre class="code"><code>>./searchB2FIND.py Discipline:"Earth?Sciences"
@@ -562,19 +584,19 @@ Examples:
 
       <h2><a name="use-case">Use Case Scenario</a></h2>
 
-      <p>To demonstrate a possible search via the provided faceted search functionalities an use case scenario will be described here step by step:</p>
+      <p>To demonstrate a possible combined search via the provided faceted
+      search functionalities we take the example of th following use case scenario :</p>
 
       <p>
-        Imagine that a biologist is looking for research data in her
+        <em> A biologist is looking for research data in her
         discipline concerning the temporal period from year 1897 to 2012 and the European region.
         She is interested only in datasets published between 2009 and 2016 and
-        created by her colleague V. Neumann.
+        created by her colleague V. Neumann. </em>
       </p>
 
       <p>
-        The results can be narrowed down by combining the filter
-        functionalities provided in the navigation bar as shown in the
-        following. This is illustrated in the following rows. While on the
+        The results can be narrowed down step by step using the filter
+        functionalities provided in the navigation bar as illustrated in the following rows. While on the
         left hand side the search request are described in words, in the other two
         columns the related select action and resulting display page are shown, respectively.
       </p>
@@ -600,11 +622,11 @@ Examples:
 	    from 1897 to 2012
           </td>
           <td align="right" valign="top">
-            <img src="/images/userguide/B2FIND_useCase_choose_Temporal2.jpeg"
-            width="250" alt="B2FIND_useCase_choose_Temporal">
+            <img src="/images/userguide/B2FIND_useCase_choose_Temporal.jpg"
+            width="300" alt="B2FIND_useCase_choose_Temporal">
           </td>
           <td align="right" valign="top">
-            <img src="/images/userguide/B2FIND_useCase_result_Temporal.jpeg" width="250" alt="B2FIND_useCase_result_Temporal">
+            <img src="/images/userguide/B2FIND_useCase_result_Temporal.jpg" width="300" alt="B2FIND_useCase_result_Temporal">
           </td>
         </tr>
 
@@ -614,10 +636,10 @@ Examples:
             European area she draws a bounding box surrounding the European continent.
           </td>
           <td align="right" valign="top">
-            <img src="/images/userguide/B2FIND_useCase_choose_Geospatial.jpeg" width="250" alt="B2FIND_useCase_choose_Geospatial">
+            <img src="/images/userguide/B2FIND_usecase_choose_Geospatial.jpg" width="300" alt="B2FIND_useCase_choose_Geospatial">
           </td>
           <td align="right" valign="top">
-            <img src="/images/userguide/B2FIND_useCase_result_Geospatial.jpeg" width="250" alt="B2FIND_useCase_result_Geospatial">
+            <img src="/images/userguide/B2FIND_useCase_result_Geospatial.jpg" width="300" alt="B2FIND_useCase_result_Geospatial">
           </td>
         </tr>
 
@@ -626,10 +648,10 @@ Examples:
             In the widget 'Publication year' the researcher selects as start year 2009 and as end year 2016.
           </td>
           <td align="right" valign="top">
-            <img src="/images/userguide/B2FIND_useCase_choose_PublYear.jpeg" width="250" alt="B2FIND Facet Creator">
+            <img src="/images/userguide/B2FIND_usecase_choose_PublYear.jpg" width="300" alt="B2FIND_usecase_choose_PublYear">
           </td>
           <td align="right" valign="top">
-            <img src="/images/userguide/B2FIND_useCase_result_PublYear.jpeg" width="250" alt="B2FIND Facet Creator">
+            <img src="/images/userguide/B2FIND_useCase_result_PublYear.jpg" width="300" alt="B2FIND Facet Creator">
           </td>
         </tr>
 
@@ -640,10 +662,10 @@ Examples:
             datasets left.
           </td>
           <td align="right" valign="top">
-            <img src="/images/userguide/B2FIND_useCase_choose_Discipline.jpg" width="250" alt="B2FIND Facet Discipline">
+            <img src="/images/userguide/B2FIND_useCase_choose_Discipline.jpg" width="300" alt="B2FIND Facet Discipline">
           </td>
           <td align="right" valign="top">
-            <img src="/images/userguide/B2FIND_usecase_discipline_result.jpg" width="250" alt="B2FIND Facet Discipline">
+            <img src="/images/userguide/B2FIND_usecase_discipline_result.jpg" width="300" alt="B2FIND Facet Discipline">
           </td>
         </tr>
 
@@ -656,37 +678,14 @@ Examples:
  
           </td>
           <td align="right" valign="top">
-            <img src="/images/userguide/B2FIND_useCase_choose_Creator.jpg" width="250" alt="B2FIND_useCase_choose_Creator">
+            <img src="/images/userguide/B2FIND_useCase_choose_Creator.jpg" width="300" alt="B2FIND_useCase_choose_Creator">
           </td>
           <td align="right" valign="top">
-            <img src="/images/userguide/B2FIND_useCase_result_Creator.jpg" width="250" alt="B2FIND_useCase_creator_result">
+            <img src="/images/userguide/B2FIND_useCase_result_Creator.jpg" width="300" alt="B2FIND_useCase_creator_result">
           </td>
         </tr>
 
       </table>
-
-      <h2><a name="data-access">Data access</a></h2>
-
-      <p>After our researcher finished her search she can opne a desired
-      dataset to get </p>
-
-      <ul>
-        <li>the B2FIND metadata fields displayed in the dataset view,</li>
-        <li>the original metadata - as harvested from the provider by OAI-PMH and formatted in XML - can be viewed and</li>
-        <li>last but not least links to the data resource the metadata related
-        to are provided.</li>
-      </ul>
-
-      <p>We explain this in detail for the example in the use case above.</p>
-      <br/>
-
-      <h3><a name="dataset-display">B2FIND metadata display</a></h3>
-
-      <p>
-        By clicking the dataset title the dataset view opens. The textual metadata are shown on the right side; on top the title,
-        the description and the tags as clickable buttons and underneath the other B2FIND fields with their values in tabulated form.
-        On the left side bar the spatial extent is shown as a red bounding box.
-      </p>
 
     </div>
   </article>
