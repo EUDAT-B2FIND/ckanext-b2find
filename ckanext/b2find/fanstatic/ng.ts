@@ -56,7 +56,7 @@ controllers.BasicFacetController = function ($scope) {
 
             facet.data.forEach(function (e:FacetItem) {
                 // Set truncated label (lazily)
-                define(e, 't', ():string => truncate(e.l));
+                define(e, 't', ():string => _.trunc(e.l, 22));
 
                 // Set deburred (ascii) label (lazily)
                 define(e, 'd', ():string => _.deburr(e.l));
@@ -90,20 +90,6 @@ controllers.BasicFacetController = function ($scope) {
 
     // Free basic_facets
     basic_facets = null;
-
-    /** Truncates a string to length */
-    function truncate(str:string, len?:number):string {
-        if (!str) {
-            return "";
-        }
-        if (!len) {
-            len = 22;
-        }
-        if (str.length <= len) {
-            return str;
-        }
-        return str.substr(0, len) + "...";
-    }
 
     /**
      * Defines a lazy property on object

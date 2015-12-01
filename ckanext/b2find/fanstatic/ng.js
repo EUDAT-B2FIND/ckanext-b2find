@@ -30,7 +30,7 @@ controllers.BasicFacetController = function ($scope) {
             }); })(facet));
             facet.data.forEach(function (e) {
                 // Set truncated label (lazily)
-                define(e, 't', function () { return truncate(e.l); });
+                define(e, 't', function () { return _.trunc(e.l, 22); });
                 // Set deburred (ascii) label (lazily)
                 define(e, 'd', function () { return _.deburr(e.l); });
                 // Set lowercase label (lazily)
@@ -59,19 +59,6 @@ controllers.BasicFacetController = function ($scope) {
     }
     // Free basic_facets
     basic_facets = null;
-    /** Truncates a string to length */
-    function truncate(str, len) {
-        if (!str) {
-            return "";
-        }
-        if (!len) {
-            len = 22;
-        }
-        if (str.length <= len) {
-            return str;
-        }
-        return str.substr(0, len) + "...";
-    }
     /**
      * Defines a lazy property on object
      * Copyright (c) 2012 John Crepezzi
