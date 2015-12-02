@@ -20,14 +20,6 @@ controllers.BasicFacetController = function ($scope) {
             facet.limit = $scope.facetMinLimit;
             // Set default order
             facet.order = "cd";
-            // Order data in different ways
-            facet.ordered = {};
-            defineAll(facet.ordered, (function (x) { return ({
-                na: function () { return _.sortByOrder(x.data, ['ll'], ['asc']); },
-                nd: function () { return _.sortByOrder(x.data, ['ll'], ['desc']); },
-                ca: function () { return _.sortByOrder(x.data, ['c', 'll'], ['asc', 'asc']); },
-                cd: function () { return _.sortByOrder(x.data, ['c', 'll'], ['desc', 'asc']); }
-            }); })(facet));
             facet.data.forEach(function (e) {
                 // Set truncated label (lazily)
                 define(e, 't', function () { return _.trunc(e.l, 22); });
@@ -53,6 +45,14 @@ controllers.BasicFacetController = function ($scope) {
                     return n_params;
                 })(facet.name, angular.copy(params)), true);
             });
+            // Order data in different ways
+            facet.ordered = {};
+            _.defer(function (f) {
+                f.ordered.na = _.sortByOrder(f.data, ['ll'], ['asc']);
+                f.ordered.nd = _.sortByOrder(f.data, ['ll'], ['desc']);
+                f.ordered.ca = _.sortByOrder(f.data, ['c', 'll'], ['asc', 'asc']);
+            }, facet);
+            facet.ordered.cd = _.sortByOrder(facet.data, ['c', 'll'], ['desc', 'asc']);
             // Set facet activity state
             facet.active = Boolean(params[facet.name]);
         }
