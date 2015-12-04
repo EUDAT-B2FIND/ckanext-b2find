@@ -3,10 +3,14 @@
 /// <reference path="typings/lodash/lodash.d.ts" />
 
 interface FacetItem {
-    l:string,
+    a:boolean
     c:number,
+    d:string
+    h:string
+    l:string,
+    ll:string
     n:string,
-    h?:string
+    t:string
 }
 
 interface Facet {
@@ -46,20 +50,19 @@ controllers.BasicFacetController = function ($scope) {
             facet.order = "cd";
 
             facet.data.forEach(function (e:FacetItem) {
-                // Set truncated label (lazily)
-                define(e, 't', ():string => _.trunc(e.l, 22));
+                // Set truncated label
+                e.t = _.trunc(e.l, 22);
 
-                // Set deburred (ascii) label (lazily)
-                define(e, 'd', ():string => _.deburr(e.l));
+                // Set deburred (ascii) label
+                e.d = _.deburr(e.l);
 
-                // Set lowercase label (lazily)
-                define(e, 'll', ():string => e.l.toLowerCase());
+                // Set lowercase label
+                e.ll = e.l.toLowerCase();
 
-                // Set element activity state (lazily)
-                define(e, 'a', ((x:string, y:FacetItem):Function =>
-                    ():boolean => params[x] ?
-                        params[x].some((value) => value == (y.n ? y.n : y.l))
-                        : false)(facet.name, e));
+                // Set element activity state
+                e.a = params[facet.name] ?
+                    params[facet.name].some((value) => value == (e.n ? e.n : e.l))
+                    : false;
 
                 // Set element href
                 e.h = "/dataset?" + jQuery.param(((name:string, n_params:Object):Object => {
@@ -90,42 +93,6 @@ controllers.BasicFacetController = function ($scope) {
 
     // Free basic_facets
     basic_facets = null;
-
-    /**
-     * Defines a lazy property on object
-     * Copyright (c) 2012 John Crepezzi
-     * The MIT License
-     * https://github.com/seejohnrun/laze
-     */
-    function define(obj:Object, prop:string, def:Function) {
-        Object.defineProperty(obj, prop, {
-            configurable: true,
-            enumerable: true,
-            get: function () {
-                const value = def.bind(this)();
-                Object.defineProperty(this, prop, {
-                    value: value,
-                    configurable: false,
-                    writable: false
-                });
-                return value;
-            }
-        });
-    }
-
-    /**
-     * Bulk defines lazy properties on object
-     * Copyright (c) 2012 John Crepezzi
-     * The MIT License
-     * https://github.com/seejohnrun/laze
-     */
-    function defineAll(obj:Object, props:Object) {
-        for (let key in props) {
-            if (props.hasOwnProperty(key)) {
-                define(obj, key, props[key]);
-            }
-        }
-    }
 
     $scope.deburr = _.deburr;
 
