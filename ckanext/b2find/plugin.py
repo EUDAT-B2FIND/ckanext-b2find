@@ -12,13 +12,14 @@ class B2FindPlugin(plugins.SingletonPlugin):
     def get_helpers(self):
         return {
             'featured_groups': helpers.featured_groups,
-            'extras_to_exclude': helpers.extras_to_exclude
+            'extras_to_exclude': helpers.extras_to_exclude,
+            'generate_facet_json': helpers.generate_facet_json,
         }
 
     def update_config(self, config):
         toolkit.add_public_directory(config, 'public')
         toolkit.add_template_directory(config, 'templates')
-        toolkit.add_resource('fanstatic', 'b2find_theme')
+        toolkit.add_resource('fanstatic', 'ckanext-b2find')
 
     def dataset_facets(self, facets_dict, package_type):
         return self._facets(facets_dict)

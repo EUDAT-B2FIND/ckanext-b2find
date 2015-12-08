@@ -169,7 +169,7 @@ a.b2f_tag:hover {
 
 .navbar-footer ul li a {
     background-color: transparent;
-    color:            #666666; 
+    color:            #666666;
 }
 
 .navbar-footer ul li a:hover {
@@ -191,4 +191,18 @@ a.b2f_tag:hover {
 
 pre.code {
     background-color: #e6e6e6;
+}
+
+.nav-item {
+    position: relative;
+}
+
+input.facet-filter, select.facet-filter {
+    margin: 5px;
+    width: auto;
+}
+
+input.facet-filter {
+    max-width: 60%;
+    margin-right: 0;
 }

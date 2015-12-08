@@ -2,5 +2,10 @@
 
 {% block styles %}
   {{ super() }}
-  {% resource 'b2find_theme/b2find_theme.css' %}
+  {% resource 'ckanext-b2find/b2find_theme.css' %}
+{% endblock %}
+
+{% block bodytag %}
+  {{ super() }}
+  ng-app="b2findApp"
 {% endblock %}
