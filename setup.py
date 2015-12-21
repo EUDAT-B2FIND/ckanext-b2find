@@ -1,20 +1,20 @@
 from setuptools import setup, find_packages
-import sys, os
 
-version = '1.0'
+version = '2.0.0'
 
 setup(
     name='ckanext-b2find',
     version=version,
-    description="CKAN extension for b2find.eudat.eu",
-    long_description='''
+    description='CKAN extension for B2FIND',
+    long_description=
+    '''
     ''',
-    classifiers=[], # Get strings from http://pypi.python.org/pypi?%3Aaction=list_classifiers
-    keywords='',
-    author='',
-    author_email='',
-    url='',
-    license='',
+    classifiers=[],  # Get strings from http://pypi.python.org/pypi?%3Aaction=list_classifiers
+    keywords='ckan ckanext b2find eudat',
+    author='Michael Kurtz',
+    author_email='mkurtz@dkrz.de',
+    url='https://github.com/EUDAT-B2FIND/ckanext-b2find',
+    license='AGPLv3',
     packages=find_packages(exclude=['ez_setup', 'examples', 'tests']),
     namespace_packages=['ckanext', 'ckanext.b2find'],
     include_package_data=True,
@@ -22,10 +22,9 @@ setup(
     install_requires=[
         # -*- Extra requirements: -*-
     ],
-    entry_points='''
-        [ckan.plugins]
-        # Add plugins here, e.g.
-        # myplugin=ckanext.b2find.plugin:PluginClass
-        b2find=ckanext.b2find.plugin:B2FindPlugin
+    entry_points=
+    '''
+    [ckan.plugins]
+    b2find=ckanext.b2find.plugin:B2FindPlugin
     ''',
 )
