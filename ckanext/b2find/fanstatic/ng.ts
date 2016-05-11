@@ -51,7 +51,7 @@ controllers.BasicFacetController = function ($scope) {
 
             facet.data.forEach(function (e:FacetItem) {
                 // Set truncated label
-                e.t = _.trunc(e.l, 22);
+                e.t = _.truncate(e.l, {length: 22});
 
                 // Set deburred (ascii) label
                 e.d = _.deburr(e.l);
@@ -80,11 +80,11 @@ controllers.BasicFacetController = function ($scope) {
             // Order data in different ways
             facet.ordered = {};
             _.defer((f) => {
-                f.ordered.na = _.sortByOrder(f.data, ['ll'], ['asc']);
-                f.ordered.nd = _.sortByOrder(f.data, ['ll'], ['desc']);
-                f.ordered.ca = _.sortByOrder(f.data, ['c', 'll'], ['asc', 'asc'])
+                f.ordered.na = _.orderBy(f.data, ['ll'], ['asc']);
+                f.ordered.nd = _.orderBy(f.data, ['ll'], ['desc']);
+                f.ordered.ca = _.orderBy(f.data, ['c', 'll'], ['asc', 'asc']);
             }, facet);
-            facet.ordered.cd = _.sortByOrder(facet.data, ['c', 'll'], ['desc', 'asc']);
+            facet.ordered.cd = _.orderBy(facet.data, ['c', 'll'], ['desc', 'asc']);
 
             // Set facet activity state
             facet.active = Boolean(params[facet.name]);
