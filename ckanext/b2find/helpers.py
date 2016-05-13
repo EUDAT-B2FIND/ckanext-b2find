@@ -14,21 +14,3 @@ def extras_to_exclude():
                     'oai_identifier', 'PublicationTimestamp', 'spatial', 'TempCoverageBegin', 'TempCoverageEnd', 'TemporalCoverage:BeginDate',
                     'TemporalCoverage:EndDate']
     return exclude_list
-
-
-def generate_facet_json(items, facet_name, label_function):
-    data = []
-
-    for item in items:
-        label = label_function(item) if label_function else item.get('display_name')
-        name = item.get('name')
-        count = item.get('count')
-        if not name == label:
-            d = (label, count, name)
-        else:
-            d = (label, count)
-        data.append(d)
-
-    facet_dict = {'name': facet_name, 'data': data}
-
-    return json.dumps(facet_dict, separators=(',', ':'), check_circular=False)
