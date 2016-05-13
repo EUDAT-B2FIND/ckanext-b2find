@@ -36,12 +36,6 @@
               </select>
               <nav>
                 <ul class="{{ nav_class or 'unstyled nav nav-simple nav-facet' }}">
-                  <script>
-                    if (!basic_facets) {
-                      var basic_facets = {};
-                    }
-                    basic_facets.{{ facet_id }} = {{ h.generate_facet_json(items, name, label_function)|safe }};
-                  </script>
                   <li class="{{ nav_item_class or 'nav-item' }}"
                       ng-repeat="item in getData('{{ facet_id }}') | filter:{ d:deburr({{ facet_id }}.search) } | limitTo:{{ facet_id }}.limit"
                       ng-class="{ active: item.a }">
