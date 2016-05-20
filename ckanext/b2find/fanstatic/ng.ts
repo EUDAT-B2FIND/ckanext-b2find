@@ -37,24 +37,23 @@ controllers.BasicFacetController = function ($scope) {
             }, {});
 
             for (const limit of [100, -1]) {
-                $.post("/solr/select",
-                    $.param([
-                        {name: "echoParams", value: "none"},
-                        {name: "wt", value: "json"},
-                        {name: "q", value: q},
-                        {name: "fq", value: fq},
-                        {name: "rows", value: 0},
-                        {name: "facet", value: true},
-                        {name: "facet.limit", value: limit},
-                        {name: "facet.mincount", value: 1},
-                        {name: "facet.field", value: "author"},
-                        {name: "facet.field", value: "tags"},
-                        {name: "facet.field", value: "groups"},
-                        {name: "facet.field", value: "extras_Publisher"},
-                        {name: "facet.field", value: "extras_Language"},
-                        {name: "facet.field", value: "extras_Discipline"},
-                    ])
-                ).then((data) => {
+                const solrParams = $.param([
+                    {name: "echoParams", value: "none"},
+                    {name: "wt", value: "json"},
+                    {name: "q", value: q},
+                    {name: "fq", value: fq},
+                    {name: "rows", value: 0},
+                    {name: "facet", value: true},
+                    {name: "facet.limit", value: limit},
+                    {name: "facet.mincount", value: 1},
+                    {name: "facet.field", value: "author"},
+                    {name: "facet.field", value: "tags"},
+                    {name: "facet.field", value: "groups"},
+                    {name: "facet.field", value: "extras_Publisher"},
+                    {name: "facet.field", value: "extras_Language"},
+                    {name: "facet.field", value: "extras_Discipline"},
+                ]);
+                $.post("/solr/select", solrParams).then((data) => {
                     data = <SolrReply> JSON.parse(data);
                     const fields = data.facet_counts.facet_fields;
                     const basic_facets = {

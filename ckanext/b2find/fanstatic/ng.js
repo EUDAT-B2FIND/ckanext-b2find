@@ -11,9 +11,8 @@ controllers.BasicFacetController = function ($scope) {
             a[v.name] = v.title;
             return a;
         }, {});
-        for (var _i = 0, _a = [100, -1]; _i < _a.length; _i++) {
-            var limit = _a[_i];
-            $.post("/solr/select", $.param([
+        var _loop_1 = function(limit) {
+            var solrParams = $.param([
                 { name: "echoParams", value: "none" },
                 { name: "wt", value: "json" },
                 { name: "q", value: q },
@@ -28,7 +27,8 @@ controllers.BasicFacetController = function ($scope) {
                 { name: "facet.field", value: "extras_Publisher" },
                 { name: "facet.field", value: "extras_Language" },
                 { name: "facet.field", value: "extras_Discipline" },
-            ])).then(function (data) {
+            ]);
+            $.post("/solr/select", solrParams).then(function (data) {
                 data = JSON.parse(data);
                 var fields = data.facet_counts.facet_fields;
                 var basic_facets = {
@@ -42,7 +42,7 @@ controllers.BasicFacetController = function ($scope) {
                     language: { data: _.chunk(fields.extras_Language, 2), name: "extras_Language" },
                     publisher: { data: _.chunk(fields.extras_Publisher, 2), name: "extras_Publisher" }
                 };
-                var _loop_1 = function(k) {
+                var _loop_2 = function(k) {
                     if (basic_facets.hasOwnProperty(k)) {
                         // Copy properties over
                         $scope[k] = {
@@ -90,10 +90,14 @@ controllers.BasicFacetController = function ($scope) {
                     }
                 };
                 for (var k in basic_facets) {
-                    _loop_1(k);
+                    _loop_2(k);
                 }
                 $scope.$apply();
             });
+        };
+        for (var _i = 0, _a = [100, -1]; _i < _a.length; _i++) {
+            var limit = _a[_i];
+            _loop_1(limit);
         }
     });
     $scope.deburr = _.deburr;
