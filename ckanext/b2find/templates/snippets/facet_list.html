@@ -37,7 +37,7 @@
               <nav>
                 <ul class="{{ nav_class or 'unstyled nav nav-simple nav-facet' }}">
                   <li class="{{ nav_item_class or 'nav-item' }}"
-                      ng-repeat="item in getData('{{ facet_id }}') | filter:{ d:deburr({{ facet_id }}.search) } | limitTo:{{ facet_id }}.limit"
+                      ng-repeat="item in getData('{{ facet_id }}') | limitTo:{{ facet_id }}.limit"
                       ng-class="{ active: item.a }">
                     {%- raw %}
                       <a href="{{ item.h }}" title="{{ item.l }}">

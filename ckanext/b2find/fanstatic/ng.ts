@@ -56,7 +56,6 @@ controllers.BasicFacetController = function ($scope) {
                     ])
                 ).then((data) => {
                     data = <SolrReply> JSON.parse(data);
-                    console.log(data);
                     const fields = data.facet_counts.facet_fields;
                     const basic_facets = {
                         communities: {
@@ -91,7 +90,7 @@ controllers.BasicFacetController = function ($scope) {
                                 e.t = _.truncate(e.l, {length: 22});
 
                                 // Set deburred (ascii) label
-                                e.d = _.deburr(e.l);
+                                e.d = _.deburr(e.l.toLowerCase());
 
                                 // Set lowercase label
                                 e.ll = e.l.toLowerCase();
@@ -140,7 +139,13 @@ controllers.BasicFacetController = function ($scope) {
      */
     $scope.getData = function (facet:string):FacetItem[] {
         const scope = $scope[facet];
-        return (scope) ? scope.ordered[scope.order] : null
+        if (!scope)
+            return;
+        const ordered = <FacetItem[]> scope.ordered[scope.order];
+        if (!scope.search)
+            return ordered;
+        const pred = _.deburr(scope.search.toLowerCase());
+        return _.filter(ordered, (x) => _.includes(x.d, pred));
     };
 };
 

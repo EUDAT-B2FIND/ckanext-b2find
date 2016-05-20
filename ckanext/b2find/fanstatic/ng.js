@@ -30,7 +30,6 @@ controllers.BasicFacetController = function ($scope) {
                 { name: "facet.field", value: "extras_Discipline" },
             ])).then(function (data) {
                 data = JSON.parse(data);
-                console.log(data);
                 var fields = data.facet_counts.facet_fields;
                 var basic_facets = {
                     communities: {
@@ -59,7 +58,7 @@ controllers.BasicFacetController = function ($scope) {
                             // Set truncated label
                             e.t = _.truncate(e.l, { length: 22 });
                             // Set deburred (ascii) label
-                            e.d = _.deburr(e.l);
+                            e.d = _.deburr(e.l.toLowerCase());
                             // Set lowercase label
                             e.ll = e.l.toLowerCase();
                             // Set element activity state
@@ -103,7 +102,13 @@ controllers.BasicFacetController = function ($scope) {
      */
     $scope.getData = function (facet) {
         var scope = $scope[facet];
-        return (scope) ? scope.ordered[scope.order] : null;
+        if (!scope)
+            return;
+        var ordered = scope.ordered[scope.order];
+        if (!scope.search)
+            return ordered;
+        var pred = _.deburr(scope.search.toLowerCase());
+        return _.filter(ordered, function (x) { return _.includes(x.d, pred); });
     };
 };
 app.controller(controllers);
