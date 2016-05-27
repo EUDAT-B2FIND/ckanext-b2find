@@ -29,14 +29,17 @@ controllers.BasicFacetController = function ($scope) {
     const q = $("#timeline-q").val();
     const fq = $("#timeline-fq").val();
 
-    $.post("/api/3/action/group_list?all_fields=true").then(
-        (group_data) => {
-            const groups = _.reduce(group_data.result, (a, v) => {
+    $.get("/api/3/action/group_list?all_fields=true").then(
+        (group_data) =>
+            _.reduce(group_data.result, (a, v) => {
                 a[v.name] = v.title;
                 return a;
-            }, {});
+            }, {})).then(
+        (groups) => {
+            let cached = false;
+            let unlimited = false;
 
-            for (const limit of [100, -1]) {
+            function populate(limit) {
                 const solrParams = $.param([
                     {name: "echoParams", value: "none"},
                     {name: "wt", value: "json"},
@@ -53,7 +56,35 @@ controllers.BasicFacetController = function ($scope) {
                     {name: "facet.field", value: "extras_Language"},
                     {name: "facet.field", value: "extras_Discipline"},
                 ]);
-                $.post("/solr/select", solrParams).then((data) => {
+
+                localforage.getItem("timestamp").then((timestamp) => {
+                    if (timestamp && (Date.now() < timestamp + 1000 * 60 * 60)) {
+                        return;
+                    }
+                    return localforage.clear();
+                }).then(
+                    () => localforage.getItem(solrParams)
+                ).then((data) => {
+                    if (data) {
+                        cached = true;
+                        return data;
+                    }
+                    else {
+                        if (limit == -1)
+                            populate(100);
+                        return $.post("/solr/select", solrParams);
+                    }
+                }).then((data) => {
+                    if (limit == -1) {
+                        unlimited = true;
+                        if (!cached) {
+                            localforage.setItem(solrParams, data);
+                            localforage.setItem("timestamp", Date.now());
+                        }
+                    }
+                    else if (unlimited)
+                        return;
+
                     data = <SolrReply> JSON.parse(data);
                     const fields = data.facet_counts.facet_fields;
                     const basic_facets = {
@@ -129,6 +160,8 @@ controllers.BasicFacetController = function ($scope) {
                     $scope.$apply();
                 });
             }
+
+            populate(-1);
         });
 
     $scope.deburr = _.deburr;
