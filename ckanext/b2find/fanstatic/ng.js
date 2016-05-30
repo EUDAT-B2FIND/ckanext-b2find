@@ -6,8 +6,7 @@ controllers.BasicFacetController = function ($scope, $q) {
     var params = getJsonFromUrl();
     var q = $("#timeline-q").val();
     var fq = $("#timeline-fq").val();
-    var cached = false;
-    var unlimited = false;
+    var populated = false;
     function populate(limit) {
         var solrParams = $.param([
             { name: "echoParams", value: "none" },
@@ -25,11 +24,12 @@ controllers.BasicFacetController = function ($scope, $q) {
             { name: "facet.field", value: "extras_Language" },
             { name: "facet.field", value: "extras_Discipline" },
         ]);
+        var cached = false;
         localforage.getItem("timestamp").then(function (timestamp) {
-            if (timestamp && (Date.now() < timestamp + 1000 * 60 * 60)) {
-                return;
+            if (timestamp && (Date.now() > timestamp + 1000 * 60 * 60)) {
+                return localforage.clear();
             }
-            return localforage.clear();
+            return;
         }).then(function () { return $q.all([
             localforage.getItem(solrParams).then(function (data) {
                 if (data) {
@@ -37,8 +37,6 @@ controllers.BasicFacetController = function ($scope, $q) {
                     return data;
                 }
                 else {
-                    if (limit == -1)
-                        populate(100);
                     return $.post("/solr/select", solrParams);
                 }
             }),
@@ -51,15 +49,13 @@ controllers.BasicFacetController = function ($scope, $q) {
         ]); }).then(function (result) {
             var data = result[0];
             var group_data = result[1];
-            if (limit == -1) {
-                unlimited = true;
-                if (!cached) {
-                    localforage.setItem(solrParams, data);
-                    localforage.setItem("groups", group_data);
-                    localforage.setItem("timestamp", Date.now());
-                }
+            if (!cached) {
+                localforage.setItem(solrParams, data);
+                localforage.setItem("groups", group_data);
+                localforage.setItem("timestamp", Date.now());
             }
-            else if (unlimited)
+            /** Don't populate smaller set */
+            if (populated)
                 return;
             var groups = _.reduce(group_data.result, function (a, v) {
                 a[v.name] = v.title;
@@ -78,6 +74,9 @@ controllers.BasicFacetController = function ($scope, $q) {
                 language: { data: _.chunk(fields.extras_Language, 2), name: "extras_Language" },
                 publisher: { data: _.chunk(fields.extras_Publisher, 2), name: "extras_Publisher" }
             };
+            /** Mark full population started */
+            if (limit == -1)
+                populated = true;
             var _loop_1 = function(k) {
                 if (basic_facets.hasOwnProperty(k)) {
                     // Copy properties over
@@ -131,6 +130,7 @@ controllers.BasicFacetController = function ($scope, $q) {
             $scope.$apply();
         });
     }
+    populate(100);
     populate(-1);
     $scope.deburr = _.deburr;
     /**
