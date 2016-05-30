@@ -21,7 +21,7 @@ interface Facet {
 const app = angular.module('b2findApp', []);
 const controllers = {};
 
-controllers.BasicFacetController = function ($scope) {
+controllers.BasicFacetController = function ($scope, $q) {
     $scope.facetMinLimit = 10;
     $scope.facetMaxLimit = 100;
 
@@ -29,140 +29,150 @@ controllers.BasicFacetController = function ($scope) {
     const q = $("#timeline-q").val();
     const fq = $("#timeline-fq").val();
 
-    $.get("/api/3/action/group_list?all_fields=true").then(
-        (group_data) =>
-            _.reduce(group_data.result, (a, v) => {
+    let cached = false;
+    let unlimited = false;
+
+    function populate(limit) {
+        const solrParams = $.param([
+            {name: "echoParams", value: "none"},
+            {name: "wt", value: "json"},
+            {name: "q", value: q},
+            {name: "fq", value: fq},
+            {name: "rows", value: 0},
+            {name: "facet", value: true},
+            {name: "facet.limit", value: limit},
+            {name: "facet.mincount", value: 1},
+            {name: "facet.field", value: "author"},
+            {name: "facet.field", value: "tags"},
+            {name: "facet.field", value: "groups"},
+            {name: "facet.field", value: "extras_Publisher"},
+            {name: "facet.field", value: "extras_Language"},
+            {name: "facet.field", value: "extras_Discipline"},
+        ]);
+
+        localforage.getItem("timestamp").then((timestamp) => {
+            if (timestamp && (Date.now() < timestamp + 1000 * 60 * 60)) {
+                return;
+            }
+            return localforage.clear();
+        }).then(
+            () => $q.all([
+                localforage.getItem(solrParams).then(
+                    (data) => {
+                        if (data) {
+                            cached = true;
+                            return data;
+                        }
+                        else {
+                            if (limit == -1)
+                                populate(100);
+                            return $.post("/solr/select", solrParams);
+                        }
+                    }),
+                localforage.getItem("groups").then(
+                    (group_data) => {
+                        if (group_data)
+                            return group_data;
+                        else
+                            return $.get("/api/3/action/group_list?all_fields=true");
+                    })
+            ])
+        ).then((result) => {
+            let data = result[0];
+            let group_data = result[1];
+
+            if (limit == -1) {
+                unlimited = true;
+                if (!cached) {
+                    localforage.setItem(solrParams, data);
+                    localforage.setItem("groups", group_data);
+                    localforage.setItem("timestamp", Date.now());
+                }
+            }
+            else if (unlimited)
+                return;
+
+            const groups = _.reduce(group_data.result, (a, v) => {
                 a[v.name] = v.title;
                 return a;
-            }, {})).then(
-        (groups) => {
-            let cached = false;
-            let unlimited = false;
+            }, {});
+            data = <SolrReply> JSON.parse(data);
+            const fields = data.facet_counts.facet_fields;
+            const basic_facets = {
+                communities: {
+                    data: _(<Array<string>>fields.groups).chunk(2).map((x) => _(x).push(groups[x[0]]).reverse().value()).value(),
+                    name: "groups"
+                },
+                tags: {data: _.chunk(fields.tags, 2), name: "tags"},
+                creator: {data: _.chunk(fields.author, 2), name: "author"},
+                discipline: {data: _.chunk(fields.extras_Discipline, 2), name: "extras_Discipline"},
+                language: {data: _.chunk(fields.extras_Language, 2), name: "extras_Language"},
+                publisher: {data: _.chunk(fields.extras_Publisher, 2), name: "extras_Publisher"},
+            };
 
-            function populate(limit) {
-                const solrParams = $.param([
-                    {name: "echoParams", value: "none"},
-                    {name: "wt", value: "json"},
-                    {name: "q", value: q},
-                    {name: "fq", value: fq},
-                    {name: "rows", value: 0},
-                    {name: "facet", value: true},
-                    {name: "facet.limit", value: limit},
-                    {name: "facet.mincount", value: 1},
-                    {name: "facet.field", value: "author"},
-                    {name: "facet.field", value: "tags"},
-                    {name: "facet.field", value: "groups"},
-                    {name: "facet.field", value: "extras_Publisher"},
-                    {name: "facet.field", value: "extras_Language"},
-                    {name: "facet.field", value: "extras_Discipline"},
-                ]);
-
-                localforage.getItem("timestamp").then((timestamp) => {
-                    if (timestamp && (Date.now() < timestamp + 1000 * 60 * 60)) {
-                        return;
-                    }
-                    return localforage.clear();
-                }).then(
-                    () => localforage.getItem(solrParams)
-                ).then((data) => {
-                    if (data) {
-                        cached = true;
-                        return data;
-                    }
-                    else {
-                        if (limit == -1)
-                            populate(100);
-                        return $.post("/solr/select", solrParams);
-                    }
-                }).then((data) => {
-                    if (limit == -1) {
-                        unlimited = true;
-                        if (!cached) {
-                            localforage.setItem(solrParams, data);
-                            localforage.setItem("timestamp", Date.now());
-                        }
-                    }
-                    else if (unlimited)
-                        return;
-
-                    data = <SolrReply> JSON.parse(data);
-                    const fields = data.facet_counts.facet_fields;
-                    const basic_facets = {
-                        communities: {
-                            data: _(<Array<string>>fields.groups).chunk(2).map((x) => _(x).push(groups[x[0]]).reverse().value()).value(),
-                            name: "groups"
-                        },
-                        tags: {data: _.chunk(fields.tags, 2), name: "tags"},
-                        creator: {data: _.chunk(fields.author, 2), name: "author"},
-                        discipline: {data: _.chunk(fields.extras_Discipline, 2), name: "extras_Discipline"},
-                        language: {data: _.chunk(fields.extras_Language, 2), name: "extras_Language"},
-                        publisher: {data: _.chunk(fields.extras_Publisher, 2), name: "extras_Publisher"},
+            for (const k in basic_facets) {
+                if (basic_facets.hasOwnProperty(k)) {
+                    // Copy properties over
+                    $scope[k] = <Facet> {
+                        name: basic_facets[k].name,
+                        data: <FacetItem[]> _.map(basic_facets[k].data, (x) => ({l: x[0], c: x[1], n: x[2]})),
                     };
 
-                    for (const k in basic_facets) {
-                        if (basic_facets.hasOwnProperty(k)) {
-                            // Copy properties over
-                            $scope[k] = <Facet> {
-                                name: basic_facets[k].name,
-                                data: <FacetItem[]> _.map(basic_facets[k].data, (x) => ({l: x[0], c: x[1], n: x[2]})),
-                            };
+                    const facet = $scope[k];
 
-                            const facet = $scope[k];
+                    // Set default limit for facet items
+                    facet.limit = $scope.facetMinLimit;
 
-                            // Set default limit for facet items
-                            facet.limit = $scope.facetMinLimit;
+                    // Set default order
+                    facet.order = "cd";
 
-                            // Set default order
-                            facet.order = "cd";
+                    facet.data.forEach(function (e:FacetItem) {
+                        // Set truncated label
+                        e.t = _.truncate(e.l, {length: 22});
 
-                            facet.data.forEach(function (e:FacetItem) {
-                                // Set truncated label
-                                e.t = _.truncate(e.l, {length: 22});
+                        // Set deburred (ascii) label
+                        e.d = _.deburr(e.l.toLowerCase());
 
-                                // Set deburred (ascii) label
-                                e.d = _.deburr(e.l.toLowerCase());
+                        // Set lowercase label
+                        e.ll = e.l.toLowerCase();
 
-                                // Set lowercase label
-                                e.ll = e.l.toLowerCase();
+                        // Set element activity state
+                        e.a = params[facet.name] ?
+                            params[facet.name].some((value) => value == (e.n ? e.n : e.l))
+                            : false;
 
-                                // Set element activity state
-                                e.a = params[facet.name] ?
-                                    params[facet.name].some((value) => value == (e.n ? e.n : e.l))
-                                    : false;
+                        // Set element href
+                        e.h = "/dataset?" + jQuery.param(((name:string, n_params:Object):Object => {
+                                if (!n_params[name]) {
+                                    n_params[name] = [];
+                                }
+                                const value = e.n ? e.n : e.l;
+                                _.includes(n_params[name], value) ?
+                                    _.pull(n_params[name], value)
+                                    : n_params[name].push(value);
+                                return n_params;
+                            })(facet.name, angular.copy(params)), true);
+                    });
 
-                                // Set element href
-                                e.h = "/dataset?" + jQuery.param(((name:string, n_params:Object):Object => {
-                                        if (!n_params[name]) {
-                                            n_params[name] = [];
-                                        }
-                                        const value = e.n ? e.n : e.l;
-                                        _.includes(n_params[name], value) ?
-                                            _.pull(n_params[name], value)
-                                            : n_params[name].push(value);
-                                        return n_params;
-                                    })(facet.name, angular.copy(params)), true);
-                            });
+                    // Order data in different ways
+                    facet.ordered = {};
+                    _.defer((f) => {
+                        f.ordered.na = _.orderBy(f.data, ['ll'], ['asc']);
+                        f.ordered.nd = _.orderBy(f.data, ['ll'], ['desc']);
+                        f.ordered.ca = _.orderBy(f.data, ['c', 'll'], ['asc', 'asc']);
+                    }, facet);
+                    facet.ordered.cd = _.orderBy(facet.data, ['c', 'll'], ['desc', 'asc']);
 
-                            // Order data in different ways
-                            facet.ordered = {};
-                            _.defer((f) => {
-                                f.ordered.na = _.orderBy(f.data, ['ll'], ['asc']);
-                                f.ordered.nd = _.orderBy(f.data, ['ll'], ['desc']);
-                                f.ordered.ca = _.orderBy(f.data, ['c', 'll'], ['asc', 'asc']);
-                            }, facet);
-                            facet.ordered.cd = _.orderBy(facet.data, ['c', 'll'], ['desc', 'asc']);
-
-                            // Set facet activity state
-                            facet.active = Boolean(params[facet.name]);
-                        }
-                    }
-
-                    $scope.$apply();
-                });
+                    // Set facet activity state
+                    facet.active = Boolean(params[facet.name]);
+                }
             }
 
-            populate(-1);
+            $scope.$apply();
         });
+    }
+
+    populate(-1);
 
     $scope.deburr = _.deburr;
 
