@@ -127,41 +127,15 @@ controllers.BasicFacetController = function ($scope, $q) {
                     facet.order = "cd";
 
                     facet.data.forEach(function (e:FacetItem) {
-                        // Set truncated label
-                        e.t = _.truncate(e.l, {length: 22});
-
                         // Set deburred (ascii) label
                         e.d = _.deburr(e.l.toLowerCase());
 
                         // Set lowercase label
                         e.ll = e.l.toLowerCase();
-
-                        // Set element activity state
-                        e.a = params[facet.name] ?
-                            params[facet.name].some((value) => value == (e.n ? e.n : e.l))
-                            : false;
-
-                        // Set element href
-                        e.h = "/dataset?" + jQuery.param(((name:string, n_params:Object):Object => {
-                                if (!n_params[name]) {
-                                    n_params[name] = [];
-                                }
-                                const value = e.n ? e.n : e.l;
-                                _.includes(n_params[name], value) ?
-                                    _.pull(n_params[name], value)
-                                    : n_params[name].push(value);
-                                return n_params;
-                            })(facet.name, angular.copy(params)), true);
                     });
 
                     // Order data in different ways
                     facet.ordered = {};
-                    _.defer((f) => {
-                        f.ordered.na = _.orderBy(f.data, ['ll'], ['asc']);
-                        f.ordered.nd = _.orderBy(f.data, ['ll'], ['desc']);
-                        f.ordered.ca = _.orderBy(f.data, ['c', 'll'], ['asc', 'asc']);
-                    }, facet);
-                    facet.ordered.cd = _.orderBy(facet.data, ['c', 'll'], ['desc', 'asc']);
 
                     // Set facet activity state
                     facet.active = Boolean(params[facet.name]);
@@ -175,20 +149,70 @@ controllers.BasicFacetController = function ($scope, $q) {
     populate(100);
     populate(-1);
 
-    $scope.deburr = _.deburr;
-
     /**
-     * Return data belonging to facet
+     * Build and return data belonging to facet
      */
     $scope.getData = function (facet:string):FacetItem[] {
         const scope = $scope[facet];
         if (!scope)
             return;
+
+        if (!scope.ordered[scope.order]) {
+            switch (scope.order) {
+                case "na":
+                    scope.ordered.na = _.orderBy(scope.data, ['ll'], ['asc']);
+                    break;
+                case "nd":
+                    scope.ordered.nd = _.orderBy(scope.data, ['ll'], ['desc']);
+                    break;
+                case "ca":
+                    scope.ordered.ca = _.orderBy(scope.data, ['c', 'll'], ['asc', 'asc']);
+                    break;
+                case "cd":
+                    scope.ordered.cd = _.orderBy(scope.data, ['c', 'll'], ['desc', 'asc']);
+                    break;
+            }
+        }
+
         const ordered = <FacetItem[]> scope.ordered[scope.order];
+
         if (!scope.search)
             return ordered;
         const pred = _.deburr(scope.search.toLowerCase());
         return _.filter(ordered, (x) => _.includes(x.d, pred));
+    };
+
+    /**
+     * Build and return element href
+     */
+    $scope.href = function (e, name) {
+        if (!e.h) {
+            e.h = "/dataset?" + jQuery.param(((name:string, n_params:Object):Object => {
+                    if (!n_params[name]) {
+                        n_params[name] = [];
+                    }
+                    const value = e.n ? e.n : e.l;
+                    _.includes(n_params[name], value) ?
+                        _.pull(n_params[name], value)
+                        : n_params[name].push(value);
+                    return n_params;
+                })(name, angular.copy(params)), true);
+
+            // Set element activity state
+            e.a = params[name] ?
+                params[name].some((value) => value == (e.n ? e.n : e.l))
+                : false;
+        }
+        return e.h;
+    };
+
+    /**
+     * Build and return truncated label
+     */
+    $scope.truncate = function (e) {
+        if (!e.t)
+            e.t = _.truncate(e.l, {length: 22});
+        return e.t;
     };
 };
 

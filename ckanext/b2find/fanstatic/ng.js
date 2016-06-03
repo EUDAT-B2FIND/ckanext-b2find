@@ -77,74 +77,93 @@ controllers.BasicFacetController = function ($scope, $q) {
             /** Mark full population started */
             if (limit == -1)
                 populated = true;
-            var _loop_1 = function(k) {
+            for (var k in basic_facets) {
                 if (basic_facets.hasOwnProperty(k)) {
                     // Copy properties over
                     $scope[k] = {
                         name: basic_facets[k].name,
                         data: _.map(basic_facets[k].data, function (x) { return ({ l: x[0], c: x[1], n: x[2] }); })
                     };
-                    var facet_1 = $scope[k];
+                    var facet = $scope[k];
                     // Set default limit for facet items
-                    facet_1.limit = $scope.facetMinLimit;
+                    facet.limit = $scope.facetMinLimit;
                     // Set default order
-                    facet_1.order = "cd";
-                    facet_1.data.forEach(function (e) {
-                        // Set truncated label
-                        e.t = _.truncate(e.l, { length: 22 });
+                    facet.order = "cd";
+                    facet.data.forEach(function (e) {
                         // Set deburred (ascii) label
                         e.d = _.deburr(e.l.toLowerCase());
                         // Set lowercase label
                         e.ll = e.l.toLowerCase();
-                        // Set element activity state
-                        e.a = params[facet_1.name] ?
-                            params[facet_1.name].some(function (value) { return value == (e.n ? e.n : e.l); })
-                            : false;
-                        // Set element href
-                        e.h = "/dataset?" + jQuery.param((function (name, n_params) {
-                            if (!n_params[name]) {
-                                n_params[name] = [];
-                            }
-                            var value = e.n ? e.n : e.l;
-                            _.includes(n_params[name], value) ?
-                                _.pull(n_params[name], value)
-                                : n_params[name].push(value);
-                            return n_params;
-                        })(facet_1.name, angular.copy(params)), true);
                     });
                     // Order data in different ways
-                    facet_1.ordered = {};
-                    _.defer(function (f) {
-                        f.ordered.na = _.orderBy(f.data, ['ll'], ['asc']);
-                        f.ordered.nd = _.orderBy(f.data, ['ll'], ['desc']);
-                        f.ordered.ca = _.orderBy(f.data, ['c', 'll'], ['asc', 'asc']);
-                    }, facet_1);
-                    facet_1.ordered.cd = _.orderBy(facet_1.data, ['c', 'll'], ['desc', 'asc']);
+                    facet.ordered = {};
                     // Set facet activity state
-                    facet_1.active = Boolean(params[facet_1.name]);
+                    facet.active = Boolean(params[facet.name]);
                 }
-            };
-            for (var k in basic_facets) {
-                _loop_1(k);
             }
             $scope.$apply();
         });
     }
     populate(100);
     populate(-1);
-    $scope.deburr = _.deburr;
     /**
-     * Return data belonging to facet
+     * Build and return data belonging to facet
      */
     $scope.getData = function (facet) {
         var scope = $scope[facet];
         if (!scope)
             return;
+        if (!scope.ordered[scope.order]) {
+            switch (scope.order) {
+                case "na":
+                    scope.ordered.na = _.orderBy(scope.data, ['ll'], ['asc']);
+                    break;
+                case "nd":
+                    scope.ordered.nd = _.orderBy(scope.data, ['ll'], ['desc']);
+                    break;
+                case "ca":
+                    scope.ordered.ca = _.orderBy(scope.data, ['c', 'll'], ['asc', 'asc']);
+                    break;
+                case "cd":
+                    scope.ordered.cd = _.orderBy(scope.data, ['c', 'll'], ['desc', 'asc']);
+                    break;
+            }
+        }
         var ordered = scope.ordered[scope.order];
         if (!scope.search)
             return ordered;
         var pred = _.deburr(scope.search.toLowerCase());
         return _.filter(ordered, function (x) { return _.includes(x.d, pred); });
+    };
+    /**
+     * Build and return element href
+     */
+    $scope.href = function (e, name) {
+        if (!e.h) {
+            e.h = "/dataset?" + jQuery.param((function (name, n_params) {
+                if (!n_params[name]) {
+                    n_params[name] = [];
+                }
+                var value = e.n ? e.n : e.l;
+                _.includes(n_params[name], value) ?
+                    _.pull(n_params[name], value)
+                    : n_params[name].push(value);
+                return n_params;
+            })(name, angular.copy(params)), true);
+            // Set element activity state
+            e.a = params[name] ?
+                params[name].some(function (value) { return value == (e.n ? e.n : e.l); })
+                : false;
+        }
+        return e.h;
+    };
+    /**
+     * Build and return truncated label
+     */
+    $scope.truncate = function (e) {
+        if (!e.t)
+            e.t = _.truncate(e.l, { length: 22 });
+        return e.t;
     };
 };
 app.controller(controllers);
