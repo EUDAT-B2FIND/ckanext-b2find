@@ -112,6 +112,8 @@ controllers.BasicFacetController = function ($scope, $q) {
 
             for (const k in basic_facets) {
                 if (basic_facets.hasOwnProperty(k)) {
+                    const old_facet = $scope[k];
+
                     // Copy properties over
                     $scope[k] = <Facet> {
                         name: basic_facets[k].name,
@@ -120,11 +122,14 @@ controllers.BasicFacetController = function ($scope, $q) {
 
                     const facet = $scope[k];
 
-                    // Set default limit for facet items
-                    facet.limit = $scope.facetMinLimit;
+                    // Set previous or empty search filter
+                    facet.search = old_facet ? old_facet.search : null;
 
-                    // Set default order
-                    facet.order = "cd";
+                    // Set previous or default limit
+                    facet.limit = old_facet ? old_facet.limit : $scope.facetMinLimit;
+
+                    // Set previous or default order
+                    facet.order = old_facet ? old_facet.order : "cd";
 
                     facet.data.forEach(function (e:FacetItem) {
                         // Set deburred (ascii) label
