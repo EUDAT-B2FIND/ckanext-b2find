@@ -66,7 +66,7 @@
           {% set key, value = extra %}
           <tr rel="dc:relation" resource="_:extra{{ i }}">
             <th scope="row" class="dataset-label" property="rdfs:label">{{ _(key) }}</th>
-            {% if key in ("MetaDataAccess", "PID") %}
+            {% if key in h.link_fields() %}
               <td class="dataset-details" property="rdf:value">{{ h.link_to(value, value, target='_blank') }}</td>
 {#
             <td class="dataset-details" property="rdf:value"><a href="{{ value }}">{{ value }}</a></td>
