@@ -14,3 +14,7 @@ def extras_to_exclude():
                     'oai_identifier', 'PublicationTimestamp', 'spatial', 'TempCoverageBegin', 'TempCoverageEnd', 'TemporalCoverage:BeginDate',
                     'TemporalCoverage:EndDate']
     return exclude_list
+
+def link_fields():
+    field_list = [ 'MetaDataAccess', 'PID', 'DOI' ]
+    return field_list

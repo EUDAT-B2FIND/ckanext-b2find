@@ -13,6 +13,7 @@ class B2FindPlugin(plugins.SingletonPlugin):
         return {
             'featured_groups': helpers.featured_groups,
             'extras_to_exclude': helpers.extras_to_exclude,
+            'link_fields': helpers.link_fields
         }
 
     def update_config(self, config):
