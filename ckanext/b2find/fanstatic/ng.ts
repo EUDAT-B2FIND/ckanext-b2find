@@ -27,7 +27,7 @@ controllers.BasicFacetController = function ($scope, $q) {
 
     const params = getJsonFromUrl();
     const q = $("#timeline-q").val();
-    const fq = $("#timeline-fq").val();
+    const fq = JSON.parse($("#timeline-fq").val());
     let populated = false;
 
     function populate(limit) {
@@ -35,7 +35,6 @@ controllers.BasicFacetController = function ($scope, $q) {
             {name: "echoParams", value: "none"},
             {name: "wt", value: "json"},
             {name: "q", value: q},
-            {name: "fq", value: fq},
             {name: "rows", value: 0},
             {name: "facet", value: true},
             {name: "facet.limit", value: limit},
@@ -46,7 +45,7 @@ controllers.BasicFacetController = function ($scope, $q) {
             {name: "facet.field", value: "extras_Publisher"},
             {name: "facet.field", value: "extras_Language"},
             {name: "facet.field", value: "extras_Discipline"},
-        ]);
+        ].concat(fq.map((x) => ({name: "fq", value: x}))));
         let cached = false;
 
         localforage.getItem("timestamp").then((timestamp) => {
