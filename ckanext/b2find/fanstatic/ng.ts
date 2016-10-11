@@ -3,19 +3,19 @@
 /// <reference path="typings/lodash/lodash.d.ts" />
 
 interface FacetItem {
-    a:boolean
-    c:number,
-    d:string
-    h:string
-    l:string,
-    ll:string
-    n:string,
-    t:string
+    a: boolean
+    c: number,
+    d: string
+    h: string
+    l: string,
+    ll: string
+    n: string,
+    t: string
 }
 
 interface Facet {
-    name:string,
-    data:FacetItem[]
+    name: string,
+    data: FacetItem[]
 }
 
 const app = angular.module('b2findApp', []);
@@ -27,7 +27,7 @@ controllers.BasicFacetController = function ($scope, $q) {
 
     const params = getJsonFromUrl();
     const q = $("#timeline-q").val();
-    const fq = $("#timeline-fq").val();
+    const fq = JSON.parse($("#timeline-fq").val());
     let populated = false;
 
     function populate(limit) {
@@ -35,7 +35,6 @@ controllers.BasicFacetController = function ($scope, $q) {
             {name: "echoParams", value: "none"},
             {name: "wt", value: "json"},
             {name: "q", value: q},
-            {name: "fq", value: fq},
             {name: "rows", value: 0},
             {name: "facet", value: true},
             {name: "facet.limit", value: limit},
@@ -46,7 +45,7 @@ controllers.BasicFacetController = function ($scope, $q) {
             {name: "facet.field", value: "extras_Publisher"},
             {name: "facet.field", value: "extras_Language"},
             {name: "facet.field", value: "extras_Discipline"},
-        ]);
+        ].concat(fq.map((x) => ({name: "fq", value: x}))));
         let cached = false;
 
         localforage.getItem("timestamp").then((timestamp) => {
@@ -131,7 +130,7 @@ controllers.BasicFacetController = function ($scope, $q) {
                     // Set previous or default order
                     facet.order = old_facet ? old_facet.order : "cd";
 
-                    facet.data.forEach(function (e:FacetItem) {
+                    facet.data.forEach(function (e: FacetItem) {
                         // Set deburred (ascii) label
                         e.d = _.deburr(e.l.toLowerCase());
 
@@ -157,7 +156,7 @@ controllers.BasicFacetController = function ($scope, $q) {
     /**
      * Build and return data belonging to facet
      */
-    $scope.getData = function (facet:string):FacetItem[] {
+    $scope.getData = function (facet: string): FacetItem[] {
         const scope = $scope[facet];
         if (!scope)
             return;
@@ -192,7 +191,7 @@ controllers.BasicFacetController = function ($scope, $q) {
      */
     $scope.href = function (e, name) {
         if (!e.h) {
-            e.h = "/dataset?" + jQuery.param(((name:string, n_params:Object):Object => {
+            e.h = "/dataset?" + jQuery.param(((name: string, n_params: Object): Object => {
                     if (!n_params[name]) {
                         n_params[name] = [];
                     }
@@ -227,7 +226,7 @@ app.controller(controllers);
  * Build object of GET parameters from location URL
  * Modification of http://stackoverflow.com/a/8486188
  */
-function getJsonFromUrl():Object {
+function getJsonFromUrl(): Object {
     const query = location.search.substr(1);
     const result = {};
     query.split("&").forEach((part) => {

@@ -5,14 +5,13 @@ controllers.BasicFacetController = function ($scope, $q) {
     $scope.facetMaxLimit = 100;
     var params = getJsonFromUrl();
     var q = $("#timeline-q").val();
-    var fq = $("#timeline-fq").val();
+    var fq = JSON.parse($("#timeline-fq").val());
     var populated = false;
     function populate(limit) {
         var solrParams = $.param([
             { name: "echoParams", value: "none" },
             { name: "wt", value: "json" },
             { name: "q", value: q },
-            { name: "fq", value: fq },
             { name: "rows", value: 0 },
             { name: "facet", value: true },
             { name: "facet.limit", value: limit },
@@ -23,7 +22,7 @@ controllers.BasicFacetController = function ($scope, $q) {
             { name: "facet.field", value: "extras_Publisher" },
             { name: "facet.field", value: "extras_Language" },
             { name: "facet.field", value: "extras_Discipline" },
-        ]);
+        ].concat(fq.map(function (x) { return ({ name: "fq", value: x }); })));
         var cached = false;
         localforage.getItem("timestamp").then(function (timestamp) {
             if (timestamp && (Date.now() > timestamp + 1000 * 60 * 60)) {
