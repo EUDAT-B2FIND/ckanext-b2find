@@ -1,0 +1,118 @@
+{% extends "page.html" %}
+
+{% block subtitle %}{{ _('Datenschutzhinweise') }}{% endblock %}
+
+{% block breadcrumb_content %}
+  <li>{% link_for _('Legal Notice'), controller='ckanext.b2find.controller:LegalController', action='index' %}</li>
+  <li class="active">{% link_for _('Datenschutzhinweise'), controller='ckanext.b2find.controller:LegalController', action='datenschutz' %}</li>
+{% endblock %}
+
+{% block primary %}
+  <article class="module">
+    <div class="module-content">
+      <h1 class="page-heading">{{ _('Datenschutzhinweise') }}</h1>
+
+      <p>
+        Die Internetseiten unter &lt;b2find.eudat.eu&gt; (im Folgenden:
+        &quot;Website&quot;) werden von der Deutsches Klimazentrum GmbH (im Folgenden:
+        das &quot;DKRZ&quot;), Bundesstra&szlig;e 45a, 20146 Hamburg, betrieben. Der
+        sorgf&auml;ltige und rechtm&auml;&szlig;ige Umgang mit Ihren Daten ist uns ein
+        wichtiges Anliegen. Die nachfolgenden Datenschutzhinweise erl&auml;utern, welche
+        personenbezogenen Daten auf unserer Website erhoben und wie und zu welchen
+        Zwecken diese verwendet werden.
+      </p>
+
+      <p>
+        Bitte lesen Sie sich die Datenschutzhinweise vollst&auml;ndig durch,
+        bevor Sie uns Daten &uuml;bermitteln oder unsere Website auf sonstige Weise
+        benutzen und halten Sie sich &uuml;ber Aktualisierungen der vorliegenden
+        Datenschutzhinweise regelm&auml;&szlig;ig auf dem Laufenden. F&uuml;r die
+        Benutzung unserer Website gelten die nachfolgenden Datenschutzhinweise in
+        ihrer jeweils aktuellen Fassung.
+      </p>
+
+      <h3>1. Automatische Erhebung von Daten</h3>
+
+      <p>
+        Bei Ihrem Besuch unserer Website werden ausschlie&szlig;lich zur Erstellung
+        anonymisierter Statistiken sowie zu Zwecken der Datenschutzkontrolle, der
+        Datensicherheit und zur Sicherstellung eines ordnungsgem&auml;&szlig;en
+        Betriebes unserer Datenverarbeitungsanlagen die folgenden Daten automatisch
+        erhoben:
+      </p>
+
+      <ul>
+        <li>Die IP-Adresse Ihres Computers</li>
+        <li>Datum und Uhrzeit des Besuchs</li>
+        <li>Betriebssystem und die Browsersoftware Ihres Rechners</li>
+        <li>&Uuml;bertragene Datenmenge</li>
+        <li>Internetadresse der Website, von der aus Sie auf diese Website gelangt sind</li>
+      </ul>
+
+      <h3>2. Sonstige Erhebung, Verarbeitung und Nutzung personenbezogener Daten</h3>
+
+      <p>
+        In der Regel k&ouml;nnen Sie unsere Website besuchen, ohne dass wir
+        personenbezogene Daten von Ihnen ben&ouml;tigen, erheben, verarbeiten oder
+        nutzen. Sie bleiben als einzelner Benutzer anonym oder mindestens pseudonym.<br>
+        Personenbezogene Daten werden nur dann erhoben, wenn Sie uns diese freiwillig
+        angeben, insbesondere bei Anmeldung und Nutzung des B2FIND-Datenportals
+        &uuml;ber unsere Website.
+      </p>
+
+      <p>
+        Ihre Angaben werden nicht an Dritte weitergegeben und ausschlie&szlig;lich
+        f&uuml;r die Durchf&uuml;hrung dieser Dienste und die Abwicklung der
+        Bearbeitung Ihrer Anfrage verwendet und bleiben nur bis zur endg&uuml;ltigen
+        Bearbeitung des Sachverhaltes und unter Beachtung der gesetzlichen
+        Aufbewahrungsfristen gespeichert.
+      </p>
+
+      <h3>3. B2FIND-Datenportal: Anmeldung und Nutzung</h3>
+
+      <p>
+        Um das Datenportal B2FIND nutzen zu k&ouml;nnen, m&uuml;ssen Sie sich als
+        Nutzer nicht registrieren oder anmelden.
+      </p>
+
+      <h3>4. Widerruf Ihrer Einwilligung in die Erhebung, Verarbeitung und Nutzung Ihrer Daten</h3>
+
+      <p>
+        Sie haben die M&ouml;glichkeit, Ihre Einwilligung in die Erhebung,
+        Verarbeitung und Nutzung personenbezogener Daten jederzeit mit Wirkung
+        f&uuml;r die Zukunft zu widerrufen. Ein Widerruf ist zu richten an: Deutsches
+        Klimarechenzentrum GmbH, Bundesstra&szlig;e 45a, D-20146 Hamburg,
+        E-Mail <img src="/images/em_sekretariat.png" alt="Sekretariat"/>, Telefon +49404600940, Telefax +4940460094270.
+      </p>
+
+      <h3>5. Recht auf Auskunft, Berichtigung, Sperrung und L&ouml;schung Ihrer Daten</h3>
+
+      <p>
+        Sie sind berechtigt, unentgeltlich Auskunft &uuml;ber die &uuml;ber Sie
+        gespeicherten personenbezogenen Daten zu erhalten. Auf Anforderung teilen wir
+        Ihnen schriftlich entsprechend dem geltenden Recht mit, ob und welche
+        personenbezogenen Daten &uuml;ber Sie bei uns gespeichert sind.
+      </p>
+
+      <p>
+        Zus&auml;tzlich haben Sie nach Ma&szlig;gabe der gesetzlichen Bestimmungen
+        ein Recht auf Berichtigung, Sperrung und L&ouml;schung Ihrer personenbezogenen
+        Daten.
+      </p>
+
+      <h3>6. &Auml;nderungen der Inhalte dieser Datenschutzhinweise</h3>
+
+      <p>
+        Das DKRZ beh&auml;lt sich das Recht vor, den Inhalt dieser
+        Datenschutzhinweise von Zeit zu Zeit im Einklang mit den gesetzlichen
+        Datenschutzbestimmungen zu &auml;ndern.
+      </p>
+
+      <p><b>Stand: 05.01.2015</b></p>
+
+      <p>&copy; Deutsches Klimarechenzentrum GmbH, Hamburg 2015</p>
+    </div>
+  </article>
+{% endblock %}
+
+{% block secondary %}{% endblock %}
