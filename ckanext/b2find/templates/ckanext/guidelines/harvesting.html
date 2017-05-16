@@ -1,0 +1,34 @@
+{% extends "page.html" %}
+
+{% block subtitle %}{{ _('Harvesting of Metadata') }}{% endblock %}
+
+{% block breadcrumb_content %}
+  <li class="active">{% link_for _('Harvesting of Metadata'), controller='ckanext.b2find.controller:GuidelinesController', action='harvesting' %}</li>
+{% endblock %}
+
+{% block primary %}
+  <article class="module">
+    <div class="module-content">
+      <h1 class="page-heading">{{ _('Harvesting of Metadata') }}</h1>
+
+      <h2><strong class="headerboxbodylogo">Contains</strong></h2>
+         <br/>&nbsp;&nbsp;&nbsp;<a href="#harvesting-channels">Harvesting channels</a>
+
+        <h3><a name="channels">Harvesting channels</a></h3>
+
+        <p>EUDAT-B2FIND supports several protocols to fetch metadata records from data provider site</p>
+
+	    <ul>
+	      <li>Preferably the OAI-PMH v2.0 protocol is used for harvesting metadata directly from the data providers of the research communities. If needed or required,  EUDAT gives as well support to set up an OAI-PMH provider. How this can be done by installing the jOAI software is as well described in module 02 of the B2FIND Training
+
+EUDAT-B2FIND uses preferably the OAI-PMH v2.0 protocol for harvesting metadata dircectly from the data providers of the research communities. 
+	If needed or required for EUDAT give as well support to set up an OAI-PMH provider. How this can be done by installing the jOAI software is as well described in module 02 of the <a href="https://github.com/EUDAT-Training/B2FIND-Training"> B2FIND Training </a> </p>
+</li>
+	      <li>Furthermore metadata are fetched via the JSON-API ...</li>
+	      <li>For geo portals which provide a corresponding interface harvesting via the protocol CSW2.0 is possible. The implementation is under development</li>
+	  </ul>
+
+  </article>
+{% endblock %}
+
+{% block secondary %}{% endblock %}

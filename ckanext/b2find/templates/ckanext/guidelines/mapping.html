@@ -1,0 +1,531 @@
+{% extends "page.html" %}
+
+{% block subtitle %}{{ _('Mapping Metadata') }}{% endblock %}
+
+{% block breadcrumb_content %}
+  <li class="active">{% link_for _('Mapping Metadata'), controller='ckanext.b2find.controller:GuidelinesController', action='mapping' %}</li>
+{% endblock %}
+
+{% block primary %}
+
+ <head>
+     <META http-equiv="Content-Type" content="text/html; charset=utf-16">
+     <title></title>
+     <script type="text/javascript">  
+        function toggleDisplay(element) 
+        {       
+          element.style.display = element.style.display === 'none' ? '' : 'none'; 
+        };
+        function toggleDisplayAll(elements) 
+        { 
+          for(var i=0; i<elements.length; i++)
+           {
+              toggleDisplay(elements[i]);
+           }
+        }   
+     </script>
+   </head>
+
+  <article class="module">
+    <div class="module-content">
+      <h1 class="page-heading">{{ _('Mapping onto EUDAT-B2FIND Metadata Schema') }}</h1>
+
+      <p> The offered metadata must be mapped to the B2FIND schema in a 
+	meaningful way. And this is currently happening through a joint action,         i.e. by iterative discussions between the data provider and the 
+        B2FIND team. 
+      </p>
+
+      <h2><strong class="headerboxbodylogo">Contains</strong></h2>
+
+         <br/>&nbsp;&nbsp;&nbsp;<a href="#semanticmapping">Specification of Community Metadata</a>
+         <br/>&nbsp;&nbsp;&nbsp;<a href="#semanticmapping">Homogenisation and Semantic Mapping</a>
+         <br/>&nbsp;&nbsp;&nbsp;<a href="#b2fmdschema">EUDAT-B2FIND metadata schema</a>
+	   <br/>&nbsp;&nbsp;&nbsp;&nbsp;<a href="#concordance">Concordance with other Standards</a>
+	   <br/>&nbsp;&nbsp;&nbsp;&nbsp;<a href="#discipline">The central facet Discipline</a>
+
+        <h3><a name="semanticmapping"></a>Specification of Community Metadata</h3>
+
+	<p>
+	The implementation of the mapping, as described in the following subsection, is based on a detailed specification and documentation of the community specific metadata. For this a spreadsheet must be filled out. The excel template can be requested via the support form or sending us an email or download the version in the google drive at <a href="https://drive.google.com/drive/u/0/folders/0BzPDgtP0RXQPOV8wdXBKTWVIUFE"> Community-B2FIND_template.xlsx </a> <p>. Alternatively you can fill out the online web form at <a href="http://eudat6d.dkrz.de/contact/applyform.html"> Apply for B2FIND integration </a> <p>.
+
+	This template or form is divided in several tabs or sub parts :
+	<ul>
+	  <li> General Information : Data providers should provide here information about the contact persons and the community. </li>
+	  <li> Metadata Specification : More detailed information about teh specific metadata formats, schemas and structure used. </li>
+	  <li> Harvesting : Specify here the 'harvesting endpoints' (e.g. OAI-URL's), the protocols and API's used and the sub sets, if available. </li>  
+	  <li> Mapping : This table specifies the mapping of the community properties to the B2FIND schema andcoverage information. This is iteratively discussed and developed with the data provider during the uptake process. </li>   
+	</ul>
+
+	</p>
+   
+        <h3><a name="semanticmapping">Homogenisation and Semantic Mapping</a></h3>
+	To transform and reformat the harvested, ‘raw’ metadata records 
+to datasets, which can be uploaded to the B2FIND catalogue and indexed and displayed in the B2FIND portal, the following processing steps must  are carried out :
+<ol>
+  <li> Select entries from the XML records, based on XPATH rules that depend on community specific metadata formats (see providing metadata) 
+  <li> Parse through the selected values and assign them to the in the XPATH rules specified keys, i.e. fields of the B2FIND schema.
+  <li> Store the resulting key-value pairs in JSON dictionaries.
+  <li> Check and validate these JSON records before the upload to the B2FIND repository
+</ol>
+
+This mapping procedure needs regular adaption and extensions according to the needs of the changing requirements of the communities.
+
+        <h3><a name="b2fmdschema">EUDAT-B2FIND Metadata Schema</a></h3>
+	To allow a unique search space, B2FIND established a common, interdisciplinary metadata schema. This schema is based on the <a href="https://schema.datacite.org/meta/kernel-3/">DataCite Metadata Schema 3.1</a> and therefore as well compatible with other e-infrastructures as <a href="https://www.openaire.eu/">OpenAire</a>, which uses as well the DataCite schema.
+
+      <p>The B2FIND Metadata Schema 0.1 is the first published version and was released on August 30, 2016. The associated XSD file is available and downloadable as XSD file from <a href="http://b2find.eudat.eu/schemas/b2find_schema_0.1.xsd"> b2find_schema_0.1.xsd </a> .</p>
+
+<p>Currently the schema comprises 17 fields or facets as listed in the following table with their semantic definitions, allowed values and references to the associated properties in teh <a href="https://schema.datacite.org/meta/kernel-4.0/ "> DataCite Metadata Schema 4.0 fields </a>.</p>
+
+      <table border="1" class="docutils" style="width:100%">
+	<tr>
+	  <th>Element name</th>
+	  <th>Semantic Definition</th> 
+	  <th>Allowed values, constraints and CV's</th>
+	  <th>DataCite reference</th>
+	  <th>Obligation</th>
+	  <th>Occurence</th>
+	  <th>Comments and Issues</th>
+	</tr>
+	<tr>
+	  <td>Title</td>
+	  <td>A name or a title by which a resource is known</td> 
+	  <td>Free text</td>
+	  <td>3. Title</td>
+	  <td>Mandatory</td>
+	  <td>1</td>
+	  <td>Coding must be UTF-8 (unicode)</td>
+	</tr>
+	<tr>
+	  <td>Description</td>
+	  <td>An additional information describing the content of the resource. Could be an abstract, a summary or a Table of Content.</td> 
+	  <td>Free text
+	  <td>17.Description</td>
+	  <td>Recommended</td>
+	  <td>0-1</td>
+	  <td>Coding should be UTF-8 (unicode)</td>
+	</tr>
+	<tr>
+	  <td>Tags</td>
+	  <td>A subject, keyword, classification code, or key phrase describing the content.</td>
+	  <td>List of strings, filter out 'non nouns' by using 'stop words'
+	  <td>6.Subject</td>
+	  <td>Optional</td>
+	  <td>1</td>
+	  <td>Try to use keyword thesauri from communities</td>
+	</tr>
+	<tr>
+	  <td>Source</td>
+	  <td>
+An identifier (URL) that uniquely identifies a resource.</td>
+	  <td> 
+Should be resolvable URL</td>
+	  <td>
+1.Identifier</td>
+	  <td>1 Identifer is mandatory</td>
+	  <td>0-1</td>
+	  <td></td>
+	</tr>
+	<tr>
+	  <td>PID
+	  <td>
+A persistent identifier (implemented as a handle in a Handleserver) that uniquely identifies a resource.</td>
+	  <td> 
+Must be resolvable URL and registered at a handle server</td>
+	  <td>1.Identifier</td>
+	  <td>1 Identifer is mandatory</td>
+	  <td>0-1</td>
+	  <td></td>
+	</tr>
+	<tr>
+	  <td>DOI</td>
+	  <td>
+A persistent, citable identifier (registered at DataCite) that uniquely identifies a resource.</td>
+	  <td>
+Must be resolvable URL, registered at DataCite as DOI</td>
+	  <td>
+1.Identifier
+1.1. identiferType = DOI</td>
+	  <td>1 Identifer is mandatory</td>
+	  <td>0-1</td>
+	  <td></td>
+	</tr>
+	<tr>
+	  <td>Checksum</td>
+	  <td>Checksum of the underlying data resource</td>
+	  <td>MD5 checksum</td>
+	  <td>N/A</td>
+	  <td>Optional</td>
+	  <td>0-1</td>
+	  <td></td>
+	</tr>
+	<tr>
+	  <td>Rights</td>
+	  <td>Any rights information for this
+resource.</td>
+	  <td>Free text</td>
+	  <td>16. Rights</td>
+	  <td>Optional</td>
+	  <td>0-1</td>
+	  <td></td>
+	</tr>
+	<tr>
+	  <td>Discipline</td>
+	  <td>The scientific disciplines linked with the resource.</td>
+	  <td>Controlled vocabulary, see <a href="https://github.com/EUDAT-B2FIND/md-ingestion/blob/master/mapfiles/b2find_disciplines.json">b2find_disciplines.json</a></td>
+	  <td>N/A [ sometimes information in 6. Subject ]</td>
+	  <td>Optional</td>
+	  <td>0-n</td>
+	  <td></td>
+	</tr>
+	<tr>
+	  <td>Creator</td>
+	  <td>
+The main researchers involved in producing the data, or the authors of the publication, in priority order.</td>
+	  <td>List of names</td>
+	  <td>2. Creator</td>
+	  <td>Optional</td>
+	  <td>0-1</td>
+	  <td></td>
+	</tr>
+	<tr>
+	  <td>Publisher</td>
+	  <td>
+The name of the entity that holds, archives, publishes prints, distributes, releases, issues, or produces the resource. This property will be used to formulate the citation, so consider the prominence of the role.</td>
+	  <td>List of names</td>
+	  <td>4. Publisher</td>
+	  <td>Optional</td>
+	  <td>0-1</td>
+	  <td></td>
+	</tr>
+	<tr>
+	  <td>PublicationYear</td>
+	  <td>
+The year when the data was or will be made publicly available.</td>
+	  <td></td>
+	  <td> 
+5. PublicationYear</td>
+	  <td>Optional</td>
+	  <td>0-1</td>
+	  <td></td>
+	</tr>
+	<tr>
+	  <td>Language</td>
+	  <td></td>
+	  <td>
+Allowed values are taken from ISO 639‐1 language codes.</td>
+	  <td>9. Language</td>
+	  <td>Optional</td>
+	  <td>0-1</td>
+	  <td> 
+Examples: English, German, French</td>
+	</tr>
+	<tr>
+	  <td>Temporal Coverage</td>
+	  <td></td>
+	  <td></td>
+	  <td>8. Date</td>
+	  <td>Optional</td>
+	  <td>0-1</td>
+	  <td></td>
+	</tr>
+	<tr>
+	  <td>Statial Coverage</td>
+	  <td></td>
+	  <td></td>
+	  <td></td>
+	  <td>Optional</td>
+	  <td>0-1</td>
+	  <td></td>
+	</tr>
+	<tr>
+	  <td>Format</td>
+	  <td></td>
+	  <td></td>
+	  <td></td>
+	  <td>Optional</td>
+	  <td>0-1</td>
+	  <td></td>
+	</tr>
+	<tr>
+	  <td>ResourceType</td>
+	  <td>
+A description of the resource</td>
+	  <td></td>
+	  <td>
+10. ResourceType
+	  <td>Optional</td>
+	  <td>0-1</td>
+	  <td></td>
+	</tr>
+	<tr>
+	  <td>Contact</td>
+	  <td></td>
+	  <td></td>
+	  <td>[ may be 7. Contributor]</td>
+	  <td>Optional</td>
+	  <td>0-1</td>
+	  <td></td>
+	</tr>
+	<tr>
+	  <td>MetaDataAccess</td>
+	  <td>Link to the original harvested metadata record (GetRecord request)</td>
+	  <td></td>
+	  <td></td>
+	  <td>Optional</td>
+	  <td>0-1</td>
+	  <td></td>
+	</tr>
+      </table>
+
+
+	<h4><a name="concordance">Concordance with other Standards</a></h4>
+
+	<p> As said before the EUDAT-B2FIND schema is compatible with other widely used standards, which are based on the DataCite schema. In the following table the compability with the core schema of EUDAT-B2SHARE and the open access initiative OpenAIRE is shown by referring to the DataCite schema.</p>
+
+
+      <table border="1" class="docutils" style="width:100%">
+	<tr>
+	  <th>DCite #</th>
+	  <th>DataCite 4.0</th> 
+	  <th>B2FIND</th>
+	  <th>B2SHARE</th>
+	  <th>OpenAIRE</th>
+	  <th>Comments and Issues</th>
+	</tr>
+	<tr>
+	  <td>1</td>
+	  <td>Identifier (+ 1.1. identifierType=[DOI])</td>
+	  <td>Source | DOI | PID</td>
+	  <td>N/A (self referenced) </td>
+	  <td>Identifier (+ 1.1. identifierType=[DOI , ...])</td>
+	  <td></td>
+	</tr>
+	  <td>2</td>
+	  <td>Creator</td>
+	  <td>Creator</td>
+	  <td>Creator</td>
+	  <td>Creator</td>
+	  <td></td>
+	<tr>
+	  <td>3</td>
+	  <td>Title</td>
+	  <td>Title</td>
+	  <td>Title</td>
+	  <td>Title</td>
+	  <td></td>
+	</tr>
+	<tr>
+	  <td>4</td>
+	  <td>Publisher</td>
+	  <td>Publisher</td>
+	  <td>Publisher</td>
+	  <td>Publisher</td>
+	  <td></td>
+	</tr>
+	<tr>
+	  <td>5</td>
+	  <td>PublicationYear</td>
+	  <td>PublicationYear</td>
+	  <td>PublicationYear</td>
+	  <td>PublicationYear</td>
+	  <td></td>
+	</tr>
+	<tr>
+	  <td>6</td>
+	  <td>Subject</td>
+	  <td>Tags and Discipline</td>
+	  <td>Keywords and Discipline</td>
+	  <td></td>
+	  <td></td>
+	</tr>
+	<tr>
+	  <td>7</td>
+	  <td>Contributor</td>
+	  <td>[ --> Contact]</td>
+	  <td></td>
+	  <td></td>
+	  <td></td>
+	</tr>
+	<tr>
+	  <td>8</td>
+	  <td>Date</td>
+	  <td>[ --> Temporal Coverage]</td>
+	  <td></td>
+	  <td></td>
+	  <td></td>
+	</tr>
+	<tr>
+	  <td>9</td>
+	  <td>Language</td>
+	  <td>Language</td>
+	  <td></td>
+	  <td></td>
+	  <td></td>
+	</tr>
+	<tr>
+	  <td>10</td>
+	  <td>ResourceType</td>
+	  <td>Not yet</td>
+	  <td></td>
+	  <td></td>
+	  <td></td>
+	</tr>
+	<tr>
+	  <td>11</td>
+	  <td>AlternateIdentifier</td>
+	  <td></td>
+	  <td></td>
+	  <td></td>
+	  <td></td>
+	</tr>
+	<tr>
+	  <td>11</td>
+	  <td>AlternateIdentifier</td>
+	  <td></td>
+	  <td></td>
+	  <td></td>
+	  <td></td>
+	</tr>
+	<tr>
+	  <td>12</td>
+	  <td>RelatedIdentifier</td>
+	  <td></td>
+	  <td></td>
+	  <td></td>
+	  <td></td>
+	</tr>
+	<tr>
+	  <td>13</td>
+	  <td>Size</td>
+	  <td></td>
+	  <td></td>
+	  <td></td>
+	  <td></td>
+	</tr>
+	<tr>
+	  <td>14</td>
+	  <td>Format</td>
+	  <td>Format</td>
+	  <td></td>
+	  <td></td>
+	  <td></td>
+	</tr>
+	<tr>
+	  <td>15</td>
+	  <td>Version</td>
+	  <td>N/A [ --> checksum]</td>
+	  <td></td>
+	  <td></td>
+	  <td></td>
+	</tr>
+	<tr>
+	  <td>16</td>
+	  <td>Rights</td>
+	  <td></td>
+	  <td></td>
+	  <td></td>
+	  <td></td>
+	</tr>
+	<tr>
+	  <td>17</td>
+	  <td>Description</td>
+	  <td>Description</td>
+	  <td></td>
+	  <td></td>
+	  <td></td>
+	</tr>
+	<tr>
+	  <td>18</td>
+	  <td>GeoLocation</td>
+	  <td>Spatial Coverage</td>
+	  <td></td>
+	  <td></td>
+	  <td></td>
+	</tr>
+	<tr>
+	  <td>19</td>
+	  <td>FundingReference</td>
+	  <td>N/A</td>
+	  <td></td>
+	  <td></td>
+	  <td></td>
+	</tr>
+
+      </table> 
+
+	<h4><a name="discipline">The central facet Discipline</a></h4>
+
+    <p> For the central facet Discipline B2FIND has defined a closed vocabulary with three levels of sub disciplines:</p>
+
+
+    <ul>
+      <a onclick="toggleDisplayAll(this.parentNode.getElementsByTagName('ul')); return false;" href="#">1. Humanities</a>
+        <ul style="display:none;" style="list-style: none;">
+          <a onclick="toggleDisplayAll(this.parentNode.getElementsByTagName('ul')); return false;" href="#">1.1 Human History </a>
+            <ul style="display:none;" style="list-style: none;">
+              <li>1.1.1   African History </li>
+              <li>1.1.2   American History </li>
+	      <li>1.1.3   Ancient History</li>
+	      <li>1.1.4   History of Australia|Australian History</li>
+	      <li>1.1.5   History of Asia|Asian History</li>
+	      <li>1.1.6   History of Europe|European History</li>
+	      <li>1.1.7   History of China|Chinese History</li>
+	      <li>1.1.8   Economic History of the world|Economic History</li>
+	      <li>1.1.9   Ancient Greece|Greek History</li>
+	      <li>1.1.10  History of Iran|Iranian History</li>
+	      <li>1.1.11  History of India|Indian History</li>
+	      <li>1.1.12  History of Indonesia|Indonesian History</li>
+	      <li>1.1.13  Intellectual History</li>
+	      <li>1.1.14  History of Latin America|Latin American History</li>
+	      <li>1.1.15  Modern History</li>
+	      <li>1.1.16  History of political thought|Political History</li>
+	      <li>1.1.17  Pre-Columbian era</li>
+	      <li>1.1.18  Ancient Rome|Roman History</li>
+	      <li>1.1.19  History of Russia|Russian History</li>
+	      <li>1.1.20  History of Science|Scientific History</li>
+	      <li>1.1.21  History of Technology|Technological History</li>
+	      <li>1.1.22  World History</li>
+	    </ul>
+            <li> <a onclick="toggleDisplayAll(this.parentNode.getElementsByTagName('ul')); return false;" href="#">1.2   Linguistics </a> </li>
+            <ul style="display:none;">
+              <a onclick="toggleDisplayAll(this.parentNode.getElementsByTagName('li')); return false;" href="#">1.2.1   Languages </a>
+                <ul style="display:none;">
+                   <li style="display:none;">1.2.1.1  Business English</li>
+                </ul>
+            </ul>
+        </ul>
+      <br/> <a onclick="toggleDisplayAll(this.parentNode.getElementsByTagName('ul')); return false;" href="#">2. Social Sciences</a>
+        <ul style="display:none;" style="list-style: none;">
+          <a onclick="toggleDisplayAll(this.parentNode.getElementsByTagName('ul')); return false;" href="#">2.1 Anthropology  </a>
+            <ul style="display:none;" style="list-style: none;">
+              <li>2.1.1  Biological anthropology </li>
+            </ul>
+        </ul>
+      <br/> <a onclick="toggleDisplayAll(this.parentNode.getElementsByTagName('ul')); return false;" href="#">3. Natural Sciences</a>
+        <ul style="display:none;" style="list-style: none;">
+          <a onclick="toggleDisplayAll(this.parentNode.getElementsByTagName('ul')); return false;" href="#">3.1 Biology  </a>
+            <ul style="display:none;" style="list-style: none;">
+              <li>3.1.1  Aerobiology </li>
+            </ul>
+        </ul>
+      <br/> <a onclick="toggleDisplayAll(this.parentNode.getElementsByTagName('ul')); return false;" href="#">4. Formal Sciences</a>
+        <ul style="display:none;" style="list-style: none;">
+          <a onclick="toggleDisplayAll(this.parentNode.getElementsByTagName('ul')); return false;" href="#">4.0 Mathematics  </a>
+            <ul style="display:none;" style="list-style: none;">
+              <li>4.0.5  Statistics </li>
+            </ul>
+        </ul>
+      <br/> <a onclick="toggleDisplayAll(this.parentNode.getElementsByTagName('ul')); return false;" href="#">5. Professions</a>
+        <ul style="display:none;" style="list-style: none;">
+          <a onclick="toggleDisplayAll(this.parentNode.getElementsByTagName('ul')); return false;" href="#">5.1 Agriculture  </a>
+            <ul style="display:none;" style="list-style: none;">
+              <li>5.1.1  Agroecology </li>
+            </ul>
+        </ul>
+    </ul>
+
+
+{% endblock %}
+
+{% block secondary %}{% endblock %}

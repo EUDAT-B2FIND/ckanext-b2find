@@ -1,0 +1,90 @@
+{% extends "page.html" %}
+
+{% block subtitle %}{{ _('Introduction') }}{% endblock %}
+
+{% block breadcrumb_content %}
+  <li class="active">{% link_for _('Introduction'), controller='ckanext.b2find.controller:GuidelinesController', action='introduction' %}</li>
+{% endblock %}
+
+{% block primary %}
+  <article class="module">
+    <div class="module-content">
+
+        <p>Welcome to the guidelines of the metadata service EUDAT-B2FIND for data providers that help repository managers to publish metadata of research data. in the EUDAT metadata catalogue B2FIND. Especially information about the reqirements for sucessful integration in B2FIND are provided.</p>
+
+<!--
+      <h2><strong class="headerboxbodylogo">Contents</strong></h2>
+       &nbsp;&nbsp;&nbsp;<a href="#audience">Intended Audience</a>
+       <br/>&nbsp;&nbsp;&nbsp;<a href="#objective">Objective</a>
+       <br/>&nbsp;&nbsp;&nbsp;<a href="#principles">Open research data principles</a>
+       <br/>&nbsp;&nbsp;&nbsp;<a href="#content">Content</a>
+       <br/>&nbsp;&nbsp;&nbsp;<a href="#workflow">B2FIND workflow</a>
+       <br/>&nbsp;&nbsp;&nbsp;<a href="#versions">Versions</a>
+       <br/>&nbsp;&nbsp;&nbsp;<a href="#editors">Editors</a>
+ 
+
+      <br/>
+-->
+        <h3><a name="audience">Intended Audience</a></h3>
+
+	  <p>The target readership for this document are research data providers and repository managers who intend to publish their metadata in EUDAT-B2FIND.</p>
+
+        <h3><a name="audience">Objective</a></h3>
+
+        <p>EUDAT-B2FIND gathers together metadata related to research output of many heterogenous sources, with the aim of providing a discovery portal allowing search over a wide cross-disciplinary scope and access the underlying data collections. </p>
+
+        <p>The B2FIND guidelines will provide instructions for data providers to expose their metadata to the B2FIND catalogue.</p>
+
+
+        <h3><a name="principles">Open research data principles</a></h3>
+
+	  <p>In general EUDAT propagates 'best practices' which follow the so called FAIR principles. We refer here to the paper <a href="http://ec.europa.eu/research/participants/data/ref/h2020/grants_manual/hi/oa_pilot/h2020-hi-oa-data-mgt_en.pdf"> Guidelines on FAIR Data Management in Horizon 2020 </a>. Amongst other principles, the concordat promotes:
+	    <ul>
+	      <li>the availability of data supporting scholarly publications,</li> 
+	      <li>the use of data repositories, </li> 
+	      <li>the value of data curation to enable data access and reuse,</li> 
+	      <li> support for developing researchers’ data skills,</li> 
+	      <li> cultural norms of academia that ensure individuals can gain credit for data sharing.</li> 
+	     </ul>
+
+As far as this principles affect metadata we address them in the following sections.</p>
+
+        <h3><a name="content">Contents of the Guidelines</a></h3>
+      <p>The guidelines are divided in three thematic paragraphs :
+	<ol>
+	  <li>The first section addresses the policies for <a href="http://b2find.eudat.eu/guidelines/providing.html">Providing Metadata for EUDAT-B2FIND</a>, e.g. policies about the structure and availability of the provided metadata.</li>          <li>The subsequent section focuses on the <a href="http://b2find.eudat.eu/guidelines/harvesting.html">Harvesting of Metadata by B2FIND</a>.</li>
+	  <li>And finally we investigate the <a href="http://b2find.eudat.eu/guidelines/mapping.html"> Mapping onto the common B2FIND Schema</a> and gave some recommendations how metadata quality can be improved or asured during this process.</li>
+	</ol>
+
+      </p>
+
+        <h3><a name="workflow">B2FIND Workflow</a></h3>
+
+        <p> The associated ingestion workflow is divided in the three sub processes harvesting, mapping and uploading as schematically shown in the following figure.</p>
+
+      <figure>
+        <img border="1" vspace="1" class="left" src="/images/B2FIND_Workflow.png" width="600" height="120" alt="B2FIND ingestion workflow">
+        <figcaption> The B2FIND ingestion workflow</figcaption>
+      </figure>
+
+        <h3><a name="versions">Versions</a></h3>
+	<ul>
+	  <li>1.0 May 2017 - Initial publication</li>
+	  <li>0.1 February 2017 - Initial internal reviewed document</li>
+	  <li>0.0.2 January 2017 - added changes and proposels - still working paper</li>
+	  <li>0.0.1  December 2017 - Early draft, B2FIND team.</li>
+	</ul>
+
+    <h3><a name="editors">Editors</a></h3>
+      <ul>
+        <li>Juha Hakalan, NFL</li>
+        <li>Heinke Höck, DKRZ</li>
+        <li>Mikael Karlson, CSC</li>
+        <li>Michael Kurtz, DKRZ</li>
+        <li>Hannes Thiemann, DKRZ</li>
+        <li>Heinrich Widmann, DKRZ</li>
+      </ul>
+  </article>
+{% endblock %}
+
+{% block secondary %}{% endblock %}
