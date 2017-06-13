@@ -1,5 +1,30 @@
 {% extends "page.html" %}
 
+div.image
+{
+width:500px;
+height:250px;  
+border:2px solid;
+border-color:#CD853F;
+}
+div.box
+{
+width:400px;
+height:180px;
+margin:30px 50px;
+background-color:#ffffff;
+border:1px solid;
+border-color:#CD853F;
+opacity:0.6;
+filter:alpha(opacity=60);
+}
+   div.box p
+{
+margin:30px 40px;
+font-weight:bold;
+color:#CD853F;
+}
+
 {% block subtitle %}{{ _('Introduction') }}{% endblock %}
 
 {% block breadcrumb_content %}
@@ -8,9 +33,20 @@
 
 {% block primary %}
   <article class="module">
+
+   <div class="image">
+    <div class="box">
+     <p>
+       <img align="left" src="/images/UnderConstruction.jpg" width="60px">
+         !!! UNDER CONSTRUCTION !!! </br> This document is under construction and in a draft stage, please use with care
+     </p>
+    </div>
+   </div>
+
+
     <div class="module-content">
 
-        <p>Welcome to the guidelines of the metadata service EUDAT-B2FIND for data providers that help repository managers to publish metadata of research data. in the EUDAT metadata catalogue B2FIND. Especially information about the reqirements for sucessful integration in B2FIND are provided.</p>
+        <p>Welcome to the guidelines of the metadata service EUDAT-B2FIND for data providers that help repository managers to publish metadata of research data. in the EUDAT metadata catalogue B2FIND. Especially information about the requirements for successful integration in B2FIND are provided.</p>
 
 <!--
       <h2><strong class="headerboxbodylogo">Contents</strong></h2>
@@ -31,7 +67,7 @@
 
         <h3><a name="audience">Objective</a></h3>
 
-        <p>EUDAT-B2FIND gathers together metadata related to research output of many heterogenous sources, with the aim of providing a discovery portal allowing search over a wide cross-disciplinary scope and access the underlying data collections. </p>
+        <p>EUDAT-B2FIND gathers together metadata related to research output of many heterogeneous sources, with the aim of providing a discovery portal allowing search over a wide cross-disciplinary scope and access the underlying data collections. </p>
 
         <p>The B2FIND guidelines will provide instructions for data providers to expose their metadata to the B2FIND catalogue.</p>
 
@@ -77,9 +113,9 @@ As far as this principles affect metadata we address them in the following secti
 
     <h3><a name="editors">Editors</a></h3>
       <ul>
-        <li>Juha Hakala, NLF</li>
+        <li>Juha Hakalan, NFL</li>
         <li>Heinke Höck, DKRZ</li>
-        <li>Mikael Karlsson, CSC</li>
+        <li>Mikael Karlson, CSC</li>
         <li>Michael Kurtz, DKRZ</li>
         <li>Hannes Thiemann, DKRZ</li>
         <li>Heinrich Widmann, DKRZ</li>
