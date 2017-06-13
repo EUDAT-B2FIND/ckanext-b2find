@@ -17,8 +17,8 @@ class HelpController(base.BaseController):
     def searchguide(self):
         return plugins.toolkit.render('ckanext/help/searchguide.html')
 
-    def termofuse(self):
-        return plugins.toolkit.render('ckanext/help/termofuse.html')
+    def terms_of_use(self):
+        return plugins.toolkit.render('ckanext/help/terms_of_use.html')
 
     def dataprotection(self):
         return plugins.toolkit.render('ckanext/help/dataprotection.html')
