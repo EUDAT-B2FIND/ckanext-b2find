@@ -1,30 +1,5 @@
 {% extends "page.html" %}
 
-div.image
-{
-width:500px;
-height:250px;  
-border:2px solid;
-border-color:#CD853F;
-}
-div.box
-{
-width:400px;
-height:180px;
-margin:30px 50px;
-background-color:#ffffff;
-border:1px solid;
-border-color:#CD853F;
-opacity:0.6;
-filter:alpha(opacity=60);
-}
-   div.box p
-{
-margin:30px 40px;
-font-weight:bold;
-color:#CD853F;
-}
-
 {% block subtitle %}{{ _('Introduction') }}{% endblock %}
 
 {% block breadcrumb_content %}
@@ -34,15 +9,10 @@ color:#CD853F;
 {% block primary %}
   <article class="module">
 
-   <div class="image">
-    <div class="box">
-     <p>
-       <img align="left" src="/images/UnderConstruction.jpg" width="60px">
-         !!! UNDER CONSTRUCTION !!! </br> This document is under construction and in a draft stage, please use with care
-     </p>
+    <div class="alert alert-block">
+      <h4><i class="icon-wrench"></i> UNDER CONSTRUCTION <i class="icon-wrench"></i></h4>
+      This document is under construction and in a draft stage, please use with care!
     </div>
-   </div>
-
 
     <div class="module-content">
 
@@ -113,9 +83,9 @@ As far as this principles affect metadata we address them in the following secti
 
     <h3><a name="editors">Editors</a></h3>
       <ul>
-        <li>Juha Hakalan, NFL</li>
+        <li>Juha Hakala, NLF</li>
         <li>Heinke Höck, DKRZ</li>
-        <li>Mikael Karlson, CSC</li>
+        <li>Mikael Karlsson, CSC</li>
         <li>Michael Kurtz, DKRZ</li>
         <li>Hannes Thiemann, DKRZ</li>
         <li>Heinrich Widmann, DKRZ</li>
