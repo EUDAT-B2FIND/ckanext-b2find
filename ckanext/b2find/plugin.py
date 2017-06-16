@@ -43,12 +43,6 @@ class B2FindPlugin(plugins.SingletonPlugin):
             controller='ckanext.b2find.controller:LegalController'
         )
         map.connect(
-            'docs_search_guide',
-            '/docs/search-guide.html',
-            controller='ckanext.b2find.controller:DocsController',
-            action='search_guide'
-        )
-        map.connect(
             'help',
             '/help',
             controller='ckanext.b2find.controller:HelpController',
@@ -60,21 +54,9 @@ class B2FindPlugin(plugins.SingletonPlugin):
             controller='ckanext.b2find.controller:HelpController'
         )
         map.connect(
-            'guidelines',
-            '/guidelines',
-            controller='ckanext.b2find.controller:GuidelinesController',
-            action='index'
-        )
-        map.connect(
             'guidelines_action',
             '/guidelines/{action}.html',
             controller='ckanext.b2find.controller:GuidelinesController'
-        )
-        map.connect(
-            'contact',
-            '/contact',
-            controller='ckanext.b2find.controller:ContactController',
-            action='index'
         )
         map.connect(
             'contact_action',

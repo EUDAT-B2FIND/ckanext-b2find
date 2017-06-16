@@ -13,16 +13,16 @@
 
       <p> We describe in this section what has to be done on the data provider site to enable publishing metadata in the EUDAT-B2FIND catalogue. 
 
-First we state a few mandatory <a href="#requirements"> requirements </a> and additional some 'best parctice'  <a href="#recommendations"> recommendations </a>.
+First we state a few mandatory <a href="#requirements"> requirements </a> and additional some 'best practices' or <a href="#recommendations"> recommendations </a>.
 In the second subsection we discuss <a href="#mdformatsschemas"> metadata formats and schemes </a>, which are relevant for B2FIND.
-We address the 'granularity' of your data in the section  <a href="levels_aggr"> Levels of Aggregation </a>. Finally we will discuss in the section <a href="#mdquality"> metadata quality </a> what can be done to asure and improve the quality of the published metadata in more detail.
+We address the 'granularity' of data collections in the section  <a href="levels_aggr"> Levels of Aggregation </a>. Finally we will discuss in the section <a href="#mdquality"> metadata quality </a> what can be done to asure and improve the quality of the published metadata in more detail.
 </p>
 
 <p> According to these sections we can identify three main steps that need to be completed : 
 
       <ol>
 		  <li>Analyse and describe the quality of the available metadata.</li>
-		  <li>Implement your meatadata using standardised formats and schemes.</li>
+		  <li>Implement your metadata using standardised formats and schemes.</li>
 		  <li>Structure, order and group the provided metadata records using appropriate levels of aggregations and granularity.</li>
       </ol>
 
@@ -39,10 +39,15 @@ We address the 'granularity' of your data in the section  <a href="levels_aggr">
 
          <h4><a name="#requirements">Requirements</a></h4>
 
-	  <p>To get started joining EUDAT-B2FIND only a few requirements must be fulfilled by the data providers :
+	  <p>In order to join EUDAT-B2FIND the data providers must meet a few requirements :
           <ul>
-	    <li>Data provider has to agree with the storage policies of B2FIND, see for this the <a href="/legal">Legal Notice</a>. Especially the consent must be declared that the provided metadata are made publicly available and open accessible.</li>
-	    <li>Metadata should be static and in the 'best possible condition'. What the latter means is described in more detail in the section <a href="#mdqualtity"> Metadata Quality</a> and must be discussed for each case individually. Here are only a few central issues listed :</li>
+	    <li>Data provider has to agree with the licensing principles of EUDAT-B2FIND (see the <a href="/help/terms_of_use.html">Terms of Use for EUDAT-B2FIND</a> ) and DKRZ (see the <a href="/legal">Legal Notice of DKRZ</a>).</li>
+	    <li>Especially the consent must be declared that the provided metadata are made publicly available and open accessible under the licence <a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons Lizenzvertrag" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/88x31.png" /></a> <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4)</a></li>.
+	    <li>Metadata should be static and  'good enough'. This is described in more detail in the section Metadata Quality and will be determined with each data provider individually if and when necessary. 
+<!--
+Metadata should be static and in the 'best possible condition'. What the latter means is described in more detail in the section <a href="#mdqualtity"> Metadata Quality</a> and must be discussed for each case individually. Here are only a few central issues listed :
+-->
+             </li>
              <ul>
 	       <li>Metadata records should be as complete as possible and describe the entire dataset, and not only a component or part of it</li>
 	       <li>Additional information about the course structure and the used formats (see section <a href="#mdformatsschemas"> metadata formats and schemas </a> below) must be offered</li>
@@ -78,7 +83,7 @@ Preferably and as far as available DOIs (Digital Object Identifiers) should be p
 
         <h3><a name="#mdformatsschemas">Metadata Formats and Schemas</a></h3>
 
-	<p>As stated already in the requirements above the provided metadata should be available as formated records, which follow a defined schema. 
+	<p>As stated already in the requirements above the provided metadata should be available as formatted records, which follow a defined schema. 
 We list and describe in the following only metadata formats and schemes that are already supported by B2FIND.
 <!-- , but as well those which may be of interest for B2FIND in the future.-->
 
@@ -344,7 +349,7 @@ For illustration we show the CMDI hierarchy schema as used in <a href="https://c
  1. DKRZ-LTA supports single-parent (mono-hierarchical) relationships only.
 -->
       <figure>
-        <img border="1" vspace="10" class="left" src="/images/cera2_hierarchical_structure.png" width="474" height="66" alt="CERA2 Hierarchical Structure">
+        <img border="1" vspace="10" class="left" src="/images/userguide/cera2_hierarchical_structure.png" width="474" height="66" alt="CERA2 Hierarchical Structure">
         <figcaption> Fig. 3 - CERA2 Hierarchical Structure </figcaption>
       </figure>
 
@@ -362,7 +367,7 @@ Please let us know about the structure and granularity of your data.
         <h3><a name="#mdquality">Metadata Quality</a></h3>
 	T.b.d. !!!
 
-
+     </div>
   </article>
 {% endblock %}
 
