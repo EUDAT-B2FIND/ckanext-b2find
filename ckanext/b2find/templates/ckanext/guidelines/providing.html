@@ -11,51 +11,55 @@
     <div class="module-content">
       <h1 class="page-heading">{{ _('Providing Metadata for EUDAT-B2FIND') }}</h1>
 
-      <p> We describe in this section what has to be done on the data provider site to enable publishing metadata in the EUDAT-B2FIND catalogue. 
 
-First we state a few mandatory <a href="#requirements"> requirements </a> and additional some 'best practices' or <a href="#recommendations"> recommendations </a>.
-In the second subsection we discuss <a href="#mdformatsschemas"> metadata formats and schemes </a>, which are relevant for B2FIND.
-We address the 'granularity' of data collections in the section  <a href="levels_aggr"> Levels of Aggregation </a>. Finally we will discuss in the section <a href="#mdquality"> metadata quality </a> what can be done to asure and improve the quality of the published metadata in more detail.
-</p>
+      <p>This section describes the actions a data provider site must do in order to publish metadata in the EUDAT-B2FIND catalogue. There are a few mandatory <a href="#requirements"> Requirements </a> and some 'best practices' or <a href="#recommendations"> Recommendations </a>. The second section of the document concentrates on  <a href="#mdformatsschemas"> Metadata Encodings and Schemes </a> relevant for B2FIND. The 'granularity' of data collections is addressed in the section <a href="levels_aggr"> Aggregation Levels </a>. The section <a href="#mdquality"> Metadata Quality  </a> tells what can be done to assure and improve the quality of the metadata to be sent to and published in B2FIND in more detail. </p>
 
-<p> According to these sections we can identify three main steps that need to be completed : 
+<p> There are three main steps which each data provider should complete : 
 
       <ol>
 		  <li>Analyse and describe the quality of the available metadata.</li>
-		  <li>Implement your metadata using standardised formats and schemes.</li>
-		  <li>Structure, order and group the provided metadata records using appropriate levels of aggregations and granularity.</li>
+		  <li>Migrate, if necessary, the existing metadata into standard format and scheme.
+</li>
+		  <li>Structure, order and group the metadata records into appropriate levels of aggregation.</li>
       </ol>
 
-      This items have to be discussed iteratively between the domain experts and data managers at the data provider side and with the B2FIND team at service provider side.
+      <p>These topics may have to be discussed iteratively between the domain experts and data managers at the data provider side and the B2FIND team at the service provider side.</p>
 
 </p>
       <h2><strong class="headerboxbodylogo">Contents</strong></h2>
-       <br/>&nbsp;&nbsp;&nbsp;<a href="#requirements_recomm">1. Requirements and Recommendations</a>
-       <br/>&nbsp;&nbsp;&nbsp;<a href="#mdformats">2. Metadata Formats and Schemes</a>
-       <br/>&nbsp;&nbsp;&nbsp;<a href="#l_aggregations">3. Levels of aggregation</a>
-       <br/>&nbsp;&nbsp;&nbsp;<a href="#mdquality">4. Metadata Quality</a>
+       <br/>&nbsp;&nbsp;&nbsp;<a href="#requirements_recomm">Requirements and Recommendations</a>
+       <br/>&nbsp;&nbsp;&nbsp;<a href="#mdformats">Metadata Encodings and Schemes</a>
+       <br/>&nbsp;&nbsp;&nbsp;<a href="#l_aggregations">Aggregation Levels</a>
+       <br/>&nbsp;&nbsp;&nbsp;<a href="#mdquality">Metadata Quality</a>
 
         <h3><a name="#requirements_recomm">Requirements and Recommendations</a></h3>
 
+	<p>While there are only a few obligatory preconditions, we recommend additional 'best practices', which help to assure and improve the quality of teh metadata.</p>
+ 
          <h4><a name="#requirements">Requirements</a></h4>
 
 	  <p>In order to join EUDAT-B2FIND the data providers must meet a few requirements :
           <ul>
 	    <li>Data provider has to agree with the licensing principles of EUDAT-B2FIND (see the <a href="/help/terms_of_use.html">Terms of Use for EUDAT-B2FIND</a> ) and DKRZ (see the <a href="/legal">Legal Notice of DKRZ</a>).</li>
-	    <li>Especially the consent must be declared that the provided metadata are made publicly available and open accessible under the licence <a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons Lizenzvertrag" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/88x31.png" /></a> <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4)</a></li>.
-	    <li>Metadata should be static and  'good enough'. This is described in more detail in the section Metadata Quality and will be determined with each data provider individually if and when necessary. 
-<!--
-Metadata should be static and in the 'best possible condition'. What the latter means is described in more detail in the section <a href="#mdqualtity"> Metadata Quality</a> and must be discussed for each case individually. Here are only a few central issues listed :
--->
+	    <li>Especially the consent must be declared that the provided metadata are made publicly available and open accessible under the licence <a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons Lizenzvertrag" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/88x31.png" /></a> <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4)</a>
+	      <em>Note : This access licence is only applied to the metadata records published and visible in the B2FIND portal, but not necessarily applicable for the underlying data collections referred and described by the B2FIND datasets.</em>
+	    </li>.
+	    <li>The data provider agrees, that the metadata will be made available for free in B2FIND and that it can also be harvested by and  re-distributed to other metadata aggregators. No confidential metadata should be made available (although the described research data sets themselves may have access limitations). Copyright protected metadata can only be sent if there is a licence agreement between the data provider and EUDAT which meets the B2FIND requirements.</li>
+	    <li>Metadata should be static and  'good enough'. This is described in more detail in the section Metadata Quality and will be determined with each data provider individually if and when necessary. Some of the central issues include :
              </li>
              <ul>
 	       <li>Metadata records should be as complete as possible and describe the entire dataset, and not only a component or part of it</li>
-	       <li>Additional information about the course structure and the used formats (see section <a href="#mdformatsschemas"> metadata formats and schemas </a> below) must be offered</li>
-	       <li>There are only two mandatory metadata fields which have to be provided : a ‘Title’ and at least one identifier, which identifies and is linked to the underlying data resource.</li>
-	       <li>Metadata must use Unicode with UTF-8 encoding.</li> 
+	       <li>Metadata shall not be encrypted or obfuscated</li>
+	       <li>In addition to the metadata, the data provider must provide documentation needed for successful loading of the records, such as description of the structure, syntax and semantics of the meatdata records (see section <a href="#mdformatsschemas"> metadata encodings and schemas </a>).</li>
+	       <li>Two metadata elements are mandatory:
+		 <ul>
+		   <li>The ‘Title’ of the data set, i.e. a name or heading by which the referred resource is known and which should be unique and unambigous (avoid same title referencing two different data collections)</li>
+		   <li>At least one identifier, which has two roles: to identify the described resource, and to facilitate a persistent link to the research data set itself, which should be available in the Web.If the identifier is not persistent (actionable / resolvable), a HTTP URI of the described resource must be provided as well. The URI should be as persistent as reasonably achievable.</li>
+		 </ul>
+	       <li>Metadata must use Unicode with UTF-8 encoding. If the metadata is in non-Latin script such as Chinese, a version transliterated or transcribed to Latin characters should be provided as well.</li> 
 <!-- Unicode version x.x (or later) may be used.</li> -->
 	     </ul>
-	     <li>An interface to retrieve metadata must be available, accessible and usable (preferably OAI-PMH, but we support as well other APIs like JSON-API and CSW clients, for details see <a href="/guidelines/harvesting.html">Harvesting Metadata</a>. </li>
+	     <li>An interface to retrieve metadata must be available, accessible and usable (see <a href="/guidelines/harvesting.html">Harvesting Metadata</a> for more information about these interfaces). </li>
 	  </ul>
 	  </p>
 
@@ -63,41 +67,39 @@ Metadata should be static and in the 'best possible condition'. What the latter 
 
 	  <p>In addition to these musts we express the following ‘best practice’ recommendations : 
           <ul>
-	    <li>More detailed information about granularity, as explained in more details in the section <a href="l_aggregations"> levels of Aggregation </a> below.</li>
+	    <li>More detailed information about granularity should be provided when necessary, as explained in more details in the section <a href="l_aggregations"> levels of Aggregation </a> below.</li>
 	    <!--
 		<li>Important metadata elements should not be repeated or missing</li>
 	    -->
-	    <li>Metadata should not be encrypted or obfuscated</li>
-	    <li>Metadata should describe research data sets or related resources such as code books.</li>
-	    <li>As far as possible the metadata should comprise citation information, as e.g. the 'Creator' and the 'Publisher', of the described data resource.
+	    <li>Metadata should describe research data sets or related resources such as code books. Metadata describing e.g. publications should not be made available for harvesting, since the users do not expect to find such resources from B2FIND.</li>
+	    <li>Metadata should be as rich as possible, so as to allow creation of sufficiently rich citations. For instance the 'Creator' and the 'Publisher' of the described data resource should be included.</li>
 	    <!--
 		  <li>Metadata may also describe research data collections and component parts of research data sets. If so, there should be a two-way link between the collection description and metadata records belonging to the collection, or description of the data set and descriptions of component parts.</li>
 	    -->
-	    <li>Links should be based on persistent identifiers. URLs which act as deep links should be avoided, since they are not likely to be persistent. 
-Preferably and as far as available DOIs (Digital Object Identifiers) should be provided.
+	    <li>All links should be based on persistent identifiers (PIDs). URLs which act as deep links should be avoided, since they are not likely to be persistent. DOI (Digital Object Identifiers) is the preferred PID system, but other PIDs (Handle, URN, ARK) may also be used.
 <!-- Updates to existing records must have a key (identifier) with which the old record can be overwritten.
 -->
 	    </li>
 	  </ul>
 	  </p>
 
-        <h3><a name="#mdformatsschemas">Metadata Formats and Schemas</a></h3>
+        <h3><a name="#mdformatsschemas">Metadata Encodings and Schemas</a></h3>
 
 	<p>As stated already in the requirements above the provided metadata should be available as formatted records, which follow a defined schema. 
 We list and describe in the following only metadata formats and schemes that are already supported by B2FIND.
 <!-- , but as well those which may be of interest for B2FIND in the future.-->
 
-	<p>In case you use specific standards which are not listed below, please let us know. We are open and keen to extend B2FIND to further formats and schemes.
+	<p>In case you use standards which are not listed below, B2FIND maintenance should be contacted. We are open and keen to extend B2FIND to further formats and schemes.
 </p>
 
-For a detailed and comprehensive overview about the universe of metadata standards see at
+For a detailed and comprehensive overview of metadata specifications and standards, see:
 	<ul>
           <li> <a href="http://rd-alliance.github.io/metadata-directory/standards/"> RDA Metadata Directory </a> and </li>
           <li> <a href="http://www.dcc.ac.uk/resources/metadata-standards"> DCC Metadata Standards </a> </li>
         </ul>
            <h4><a name="#mdformats">Metadata Format List</a></h3>
              
- 	<p> Metadata formats provide rules for coding (i.e., the machine representation), and the syntax (i.e., the marking and arrangement) of metadata and are required for browsers, search engines, and other programs to reliably process the metadata.</p>
+ 	<p> Metadata formats provide rules for coding (i.e., the machine readable representation), and the syntax (i.e., the marking and arrangement) of metadata and are required for browsers, search engines, and other programs to reliably process the metadata.</p>
                
 	   <table border="1" class="docutils">
 	     <colgroup>
@@ -116,21 +118,21 @@ For a detailed and comprehensive overview about the universe of metadata standar
 	       <tr class="row-even">
 		 <td>XML</td>
 		 <td><class="docutils literal"><span class="pre"></span><a href="https://www.w3.org/XML"> https://www.w3.org/XML </a> </td>
-		 <td><class="docutils literal"><span class="pre"></span>Extendesible Markup Language, e.g. used as exchange format by OAI-PMH</td>
+		 <td><class="docutils literal"><span class="pre"></span>Extendesible Markup Language, used for message encoding in many protocols including OAI-PMH</td>
 	       </tr>
 	     </tbody>
 	     <tbody valign="top">
 	       <tr class="row-even">
 		 <td>MarcXML</td>
 		 <td><class="docutils literal"><span class="pre"></span><a href="http://www.loc.gov/standards/marcxml"> http://www.loc.gov/standards/marcxml </a> </td>
-		 <td><class="docutils literal"><span class="pre"></span>Machine readable Format (but sometimes used as 'schema' to provide metadata)</td>
+		 <td><class="docutils literal"><span class="pre"></span>XML-encoded version of libraries’ MARC 21 metadata format (MARC 21 provides the metadata 'schema')</td>
 	       </tr>
 	     </tbody>
 	     <tbody valign="top">
 	       <tr class="row-even">
 		 <td>JSON</td>
 		 <td><class="docutils literal"><span class="pre"></span> <a href="http://www.json.org/index.html"> http://www.json.org/index.html </a></td>
-		 <td><class="docutils literal"><span class="pre"></span>JavaScript Object Notation : Collection of key/value pairs or array of values.  </td>
+		 <td><class="docutils literal"><span class="pre"></span>JavaScript Object Notation : Collection of key/value pairs </td>
 <!--
 		 <td><class="docutils literal"><span class="pre"></span>JSON records are e.g. retrieved from GBIF and DataCite via a JSON-API </td>
 -->
@@ -148,9 +150,13 @@ For a detailed and comprehensive overview about the universe of metadata standar
 -->
 	   </table>
 
-           <h4><a name="#mdformats">Metadata Schema list</a></h3>
+	   <p>Please contact the B2FIND support, if for some reasons none of these formats are applicable to encode your metadata.</p>
 
-	  <p>A Metadata schema is a metadata set with a prescribed syntax and encoding with fixed and semantically unambiguous element designations. It provides rules which element is allowed for which context and lays down agreements about  allowed data types (e.g., text, numeric, date, etc.) and value ranges (numeric ranges, controlled vocabulary, etc.). EUDAT supports multiple discipline specific metadata schemas, only some of them are listed in the following table.</p>
+
+           <h4><a name="#mdformats">Metadata Schema List</a></h3>
+
+	  <p>A Metadata schema is a metadata set with a prescribed syntax and encoding with fixed and semantically unambiguous element designations. It provides rules which element is allowed for which context and lays down agreements about  allowed data types (e.g., text, numeric, date, etc.) and value ranges (numeric ranges, spatial or temporal coverage, controlled vocabularies, etc.).</p>
+	  <p>EUDAT supports multiple discipline specific metadata schemas, some of them are listed in the following table.</p>
 
 	   <table border="1" class="docutils">
 	     <colgroup>
@@ -221,9 +227,35 @@ For a detailed and comprehensive overview about the universe of metadata standar
 	   </table>
 
            <h4><a name="#mdformats">Example</a></h3>
-            We give here an example for well defined and validated metadata, formatted as a XML file and coded with the DataCite schema :
+            We give here an example for a well defined and validated metadata, encoded as a DublinCore XML file and with semantics based on the DataCite schema :
 
             <script id="xmlexample1" type="text/xmldata">
+<record xmlns="http://www.openarchives.org/OAI/2.0/" xmlns:xsi="http://www.w3.or
+g/2001/XMLSchema-instance">
+  <header>
+    <identifier>oai:oai.datacite.org:870045</identifier>
+    <datestamp>2016-07-08T02:15:17Z</datestamp>
+    <setSpec>ANDS</setSpec>
+    <setSpec>ANDS.CENTRE-1</setSpec>
+  </header>
+  <metadata>
+    <oai_dc:dc xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:oai_dc="http://
+www.openarchives.org/OAI/2.0/oai_dc/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
+      <dc:title>Clinical and Community Practice Innovation</dc:title>
+      <dc:title>Data Collection</dc:title>
+      <dc:creator>Kendall, Elizabeth</dc:creator>
+      <dc:creator>Sunderland, Naomi</dc:creator>
+      <dc:creator>Research Centre for Clinical and Community Practice Innovation, Griffith University</dc:creator>
+      <dc:publisher>Griffith University</dc:publisher>
+      <dc:date>2011</dc:date>
+      <dc:identifier>doi:10.4225/01/4F8E14EA3179E</dc:identifier>
+      <dc:description>Other</dc:description>
+      <dc:description>The Research Centre for Clinical and Community Practice Innovation consists of researchers from nursing, social work, human services, rehabilitation, psychology, physiotherapy, pharmacy and public health. This PUBLIC collection contains information that will help transform health and community services via the development of collaborative, innovative an&#8230;</dc:description>
+      <dc:type>Collection</dc:type>
+    </oai_dc:dc>
+  </metadata>
+</record>
+<!--
 	      <resource xmlns="http://datacite.org/schema/kernel-3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://datacite.org/schema/kernel-3 http://schema.datacite.org/meta/kernel-3/metadata.xsd">
 		<identifier identifierType="DOI">10.5072/D3P26Q35R-Test</identifier>
 		<creators>
@@ -259,16 +291,18 @@ For a detailed and comprehensive overview about the universe of metadata standar
 		  </description>
 		</descriptions>
 </resource>
+-->
 	    </script>
 
+<!-- !! Add some explanations : namespaces, header, dc:-tag etc. pp -->
 
-        <h3><a name="#l_aggregations">Levels of aggregation</a></h3>
+        <h3><a name="#l_aggregations">Aggregation levels</a></h3>
 
-	  <p>You should first think about the structure and  the granularity of your data and the dependent ancillary files which compose your research data and metadata which describe your data collections. Decide on how to structure your research data for making reuse and proper citation and annotation possible. In some cases your data will be composed of different files or items that belong to one collection, but in other cases your data might need to be segregated across a number of smaller aggregations and datasets.</p>
+	  <p>A data provider should analyze the structure and the granularity of his data set and the files the research data consist of. It is also important to investigate the metadata which describes the data collections. Based on the analysis, the data provider can decide how to structure the research data set in order to enable reuse and proper citation and annotation. Sometimes the data will be composed of different files or items that belong to one collection, but the data may also need to be segregated across a number of smaller subsets and datasets.
+B2FIND is a discovery portal for cited, inter-disciplinary data, and therefore metadata on the finest level of granularity (level 4 below) is out of scope. Metadata should preferably be on the level of 'citable entities' (level 2) or at least on the level of 'resolvable entities' (level 3).
+B2FIND has defined four ‘Levels of aggregation’. The table below illustrates them by existing use cases :</p>
 
-<p>From the perspective of B2FIND as a discovery portal for cited, inter-disciplinary data, we are interested to publish metadata NOT on the finest level of granularity (level 4 below), but preferably on the level of 'citable entities' or at least of 'resolvable entities' (level 2 or 3 below).</p>
-
-<p>In the following table we define four abstract ‘Levels of aggregation’ and illustrate this layers by existing usecases : 
+<p>B2FIND has defined four ‘Aggregation levels’. The table below illustrates them by existing use cases :
 
 	   <table border="1" class="docutils">
 	     <colgroup>
@@ -301,7 +335,7 @@ For a detailed and comprehensive overview about the universe of metadata standar
 		 <td>2</td>
 		 <td><class="docutils literal"><span class="pre"></span>Experment/Study level </td>
 		 <td><class="docutils literal"><span class="pre"></span>Referrenced by B2FIND record as citable entity (DOI recommended)</td>
-		 <td><class="docutils literal"><span class="pre"></span>Sub Corpora / e.g. Speech corpus</td>
+		 <td><class="docutils literal"><span class="pre"></span>Sub Corpora / e.g. Speech corpus. Represented as a 'Virtual collection'</td>
 		 <td><class="docutils literal"><span class="pre"></span>Experiment</td>
 	       </tr>
 	     </tbody>
@@ -310,7 +344,7 @@ For a detailed and comprehensive overview about the universe of metadata standar
 		 <td>3</td>
 		 <td><class="docutils literal"><span class="pre"></span>Sub group or sub set level </td>
 		 <td><class="docutils literal"><span class="pre"></span>Referrenced by B2FIND record as resolvable entity (PID, or better DOI recommended)</td>
-		 <td><class="docutils literal"><span class="pre"></span>sub corpora or corpus components</td>
+		 <td><class="docutils literal"><span class="pre"></span>sub corpora or corpus components, represented as a 'Virtual collection'</td>
 		 <td><class="docutils literal"><span class="pre"></span>Datasetgroup</td>
 	       </tr>
 	       <tr class="row-even">
@@ -325,49 +359,80 @@ For a detailed and comprehensive overview about the universe of metadata standar
 </p>
 
     <h4> The use cases </h4>
+    <h3>CLARIN - CMDI structure (Component Metadata Infrastructure) </h3>
+        <p>CMDI was developed by members of CLARIN (Common Language ... Infrastructure) to establish metadata exchange within CLARIN infrastructure and defines different levels of description (granularity): From complete corpora, sub corpora or corpus components, to individual resources, e.g. a recording of a dialogue (sound file + transcript).</p>
 
-	    <ul>
-	      <li>CLARIN - CMDI structure (Component Metadata Infrastructure) </li> CMDI was developed by members of CLARIN (Common Language ... Infrastructure)to establish metadata exchange within CLARIN infrastructure and defines different levels of description (granularity): From complete corpora, sub corpora or corpus components, to individual resources, e.g. a recording of a dialogue (sound file + transcript).
-
-For illustration we show the CMDI hierarchy schema as used in <a href="https://corpus1.mpi.nl/ds/asv/?4#"> The Language Archive </a> (see figure 1) and as the CMDI profile is applied in the project JASMIN (see figure 2).
+	<p>For illustration we show the CMDI hierarchy schema as used in <a href="https://corpus1.mpi.nl/ds/asv/?4#"> The Language Archive </a> (see figure 1) and as the CMDI profile is applied in the project JASMIN (see figure 2).
 
       <figure>
-        <img border="1" vspace="10" class="left" src="/images/CMDI_Hierarchy-and-granularity-TLA.png" width="474" height="66" alt="Hierarchy in The Language Archive">
+        <img border="1" vspace="10" class="left" src="/images/CMDI_Hierarchy-and-granularity-TLA.png" width="374" height="56" alt="Hierarchy in The Language Archive">
         <figcaption> Fig. 1 Hierarchy in the browswer of The Language Archive (see at <a href="https://corpus1.mpi.nl/ds/asv/?4#"> https://corpus1.mpi.nl/ds/asv/?4# </a>  </figcaption>
       </figure>
- 
-
 
       <figure>
         <img border="1" vspace="10" class="left" src="/images/CMDI_Hierarchy-and-granularity-in-JASMIN-profiles.png" width="474" height="66" alt="Hierarchy and granularity in JASMIN's CMDI profiles">
         <figcaption> Fig. 2 Hierarchy and granularity in JASMIN's CMDI profiles (see at <a href="https://www.researchgate.net/figure/228732331_fig2_Figure-2-Hierarchy-and-granularity-in-JASMIN-profiles"> https://www.researchgate.net/figure/228732331_fig2_Figure-2-Hierarchy-and-granularity-in-JASMIN-profiles </a> </figcaption>
       </figure>
-
-              </li>
-	      <li>DKRZ - LTA (Long Term Archive) : Data in DKRZ-LTA is organized in multiple layers with a hierarchical structure. These layers are definded in the associated CERA2 model as Projects, Experiments, Dataset groups and Datasets and the relationships between these different layers is shown as hierarchical tree structure in the following figure.
+      </p>
+       <h3>DKRZ - LTA (Long Term Archive)</h3>
+       <p>Data in the longterm archive of the DKRZ (DKRZ-LTA) is organized in multiple layers with a hierarchical structure. These layers are definded in the associated CERA2 model as Projects, Experiments, Dataset groups and Datasets and the relationships between these different layers is shown as hierarchical tree structure in Figure 3.
 <!--
  1. DKRZ-LTA supports single-parent (mono-hierarchical) relationships only.
 -->
       <figure>
-        <img border="1" vspace="10" class="left" src="/images/userguide/cera2_hierarchical_structure.png" width="474" height="66" alt="CERA2 Hierarchical Structure">
-        <figcaption> Fig. 3 - CERA2 Hierarchical Structure </figcaption>
+        <img border="1" vspace="10" class="left" src="/images/cera2_hierarchical_structure.png" width="474" height="66" alt="CERA2 Hierarchical Structure">
+        <figcaption> Fig. 3 : CERA2 Hierarchical Structure </figcaption>
       </figure>
+      </p>
 
-Belong other climate data the community ENES stores their CMIP5 experiments in the DKRZ-LTA archive. Only metadata records belonging to CMIP5 data collections, for which a DOI is assigned, are harvested from the CERA database and published in the discovery portal of B2FIND. The CMIP5 experiments are related to level 3 entities in the table above, because they are citable aggregations of datasets. And B2FIND metadata records refer via a DOI exactly to the landing page of these experiments or dataset groups in the DKRZ-LTA database CERA. 
-<!-- If you resolve one of this links you will get lead to the related DOI entry of the corresponing experiment in the DKRZ-LTA database CERA. 
--->
-Here you can now browse through the datasets of the experiment and finally downloud the datasets you are interested in.
-	      </li>
-       </ul>
+      <p>Belong other climate data the DKRZ-LTA archive stores the experiments of the model intercomparision project CMIP5 <sup><a href="#fn1" id="ref1">1</a></sup> and the associated metadata are kept in and accessible via the CERA database. B2FIND harvests only metadata records belonging to CMIP5 data collections, for which a DOI is assigned, from the CERA database.
+<!-- and publishs them in the discovery portal under the umbrella of the community ENES  <sup><a href="#fn2" id="ref2">2</a></sup>.
+--></p>
+<p>I.e. the CMIP5 experiments are related to entities of aggregation level 3 in B2FIND, because they are citable aggregations of datasets and each metadata record refers via a DOI exactly to the landing page of the associated experiment in the DKRZ-LTA database CERA. There a user can browse through the datasets of the experiment and download the datasets he is interested in.
 </p>
+<!-- If you resolve one of this links you will get lead to the related DOI entry of the corresponing experiment in the DKRZ-LTA database CERA. 
+
+Here you can now browse through the datasets of the experiment and finally downloud the datasets you are interested in.
+-->
+
+<p>
+These examples illustrate the importance of supplying sufficient information about the structure and granularity of the research data to B2FIND.
 
 Please let us know about the structure and granularity of your data.
-
+<p>
 
         <h3><a name="#mdquality">Metadata Quality</a></h3>
-	T.b.d. !!!
+	<h4>Integrity</h4>
+	<p>There are no initial changes to the metadata semantics during the B2FIND ingestion workflow. The harvested metadata may however be restructured and reformatted before it is indexed to allow search and discovery. B2FIND is in the process to improve the quality of metadata via a sophisticated validation and quality check process and close cooperation with and feedback from the data providers.</p>
+	<h4>Content</h4>
+	<p>Metadata should describe just research data sets or related resources such as code books, not other resources such as publications.</p>
+
+	<p>Metadata may describe research data collections and component parts of research data sets. If so, there should be a two-way link between the collection description and metadata records belonging to the collection, or description of the data set and descriptions of component parts.
+Links should be based on persistent identifiers. URLs which act as deep links should be avoided, since they are not likely to be persistent.
+
+	<p>Metadata records should be as complete as possible. That is, they should not be “dumbed down” as a result of the harvesting process. For instance, if the data set description is a rich DDI record, it should not be migrated into a simple Dublin Core record. 
+
+	<p>Each record in B2FIND has a unique and persistent identifier of the described resource assigned  by the data provider. If the provider sends an update to a record that has already been harvested to B2FIND, the updated record should contain the same identifier than the original record, in order to enable an easy replacement of the original record with the new one.   
+
+	  <h4>Validity</h4>
+	<p>Metadata about bibliographic resources (books, articles, maps, etc.) or archival materials is not relevant in B2FIND since users do not expect to find information like that from the system. Therefore bibliographic metadata should not be made available for harvesting, and EUDAT may remove such metadata from B2FIND database or from harvested metadata.
+Metadata confidentiality
+Any confidential metadata elements should be deleted before the metadata is made available for harvesting. Note that the research data set may have access limitations. 
+
+	<p>Metadata must not be encrypted or obfuscated.
+Scope
+	<p>Metadata should describe the entire dataset, and not only a component part of it, unless the description of the entire dataset is also available and the two metadata records are interlinked. 
+Structure 
+	<p>Mandatory metadata elements (title, identifier) must not be missing. Identifier must not be repeated, unless the metadata encoding indicates which identifier is the primary one.</p>
+
+	<h4>Persistent links</h4> 
+	<p>Harvested metadata records should have PID-based or other links to the described data resources. …
+B2FIND intends to check periodically that the links are still operational 
+Discontinued data providers will be a challenge (the first one of these is The European Library, which is no longer maintained and may be closed for good at any time)</p>
 
      </div>
+
+     <sup id="fn1">1. [CMIP5 is the Cliamte ... project, see ... for more information]<a href="#ref1" title="CMIP5">↩</a></sup>
   </article>
 {% endblock %}
 
