@@ -12,7 +12,13 @@
       <h1 class="page-heading">{{ _('Providing Metadata for EUDAT-B2FIND') }}</h1>
 
 
-      <p>This section describes the actions a data provider site must do in order to publish metadata in the EUDAT-B2FIND catalogue. There are a few mandatory <a href="#requirements"> Requirements </a> and some 'best practices' or <a href="#recommendations"> Recommendations </a>. The second section of the document concentrates on  <a href="#mdformatsschemas"> Metadata Encodings and Schemes </a> relevant for B2FIND. The 'granularity' of data collections is addressed in the section <a href="levels_aggr"> Aggregation Levels </a>. The section <a href="#mdquality"> Metadata Quality  </a> tells what can be done to assure and improve the quality of the metadata to be sent to and published in B2FIND in more detail. </p>
+
+      <p>This section describes the actions a data provider site must do in order to publish metadata in the EUDAT-B2FIND catalogue. 
+      There are a few mandatory <a href="#requirements"> Requirements </a> and some 'best practices' or <a href="#recommendations"> Recommendations </a>. 
+      The second section of the document concentrates on  <a href="#mdformatsschemas"> Metadata Encodings and Schemes </a> relevant for B2FIND. 
+      The 'granularity' of data collections is addressed in the section <a href="levels_aggr"> Aggregation Levels </a>. 
+      The section <a href="#mdquality"> Metadata Quality  </a> tells what can be done to assure and improve the quality of the metadata to be sent 
+      to and published in B2FIND in more detail. </p>
 
 <p> There are three main steps which each data provider should complete : 
 
@@ -41,18 +47,18 @@
 	  <p>In order to join EUDAT-B2FIND the data providers must meet a few requirements :
           <ul>
 	    <li>Data provider has to agree with the licensing principles of EUDAT-B2FIND (see the <a href="/help/terms_of_use.html">Terms of Use for EUDAT-B2FIND</a> ) and DKRZ (see the <a href="/legal">Legal Notice of DKRZ</a>).</li>
+
 	    <li>Especially the consent must be declared that the provided metadata are made publicly available and open accessible under the licence <a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons Lizenzvertrag" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/88x31.png" /></a> <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4)</a>
 	      <em>Note : This access licence is only applied to the metadata records published and visible in the B2FIND portal, but not necessarily applicable for the underlying data collections referred and described by the B2FIND datasets.</em>
 	    </li>.
 	    <li>The data provider agrees, that the metadata will be made available for free in B2FIND and that it can also be harvested by and  re-distributed to other metadata aggregators. No confidential metadata should be made available (although the described research data sets themselves may have access limitations). Copyright protected metadata can only be sent if there is a licence agreement between the data provider and EUDAT which meets the B2FIND requirements.</li>
-	    <li>Metadata should be static and  'good enough'. This is described in more detail in the section Metadata Quality and will be determined with each data provider individually if and when necessary. Some of the central issues include :
-             </li>
-             <ul>
+	    <li>Metadata should be stable and 'good enough'. This is described in more detail in the section Metadata Quality and will be determined with each data provider individually if and when necessary. Some of the central issues include :</li>
+        <ul>
 	       <li>Metadata records should be as complete as possible and describe the entire dataset, and not only a component or part of it</li>
 	       <li>Metadata shall not be encrypted or obfuscated</li>
 	       <li>In addition to the metadata, the data provider must provide documentation needed for successful loading of the records, such as description of the structure, syntax and semantics of the meatdata records (see section <a href="#mdformatsschemas"> metadata encodings and schemas </a>).</li>
 	       <li>Two metadata elements are mandatory:
-		 <ul>
+		     <ul>
 		   <li>The ‘Title’ of the data set, i.e. a name or heading by which the referred resource is known and which should be unique and unambigous (avoid same title referencing two different data collections)</li>
 		   <li>At least one identifier, which has two roles: to identify the described resource, and to facilitate a persistent link to the research data set itself, which should be available in the Web.If the identifier is not persistent (actionable / resolvable), a HTTP URI of the described resource must be provided as well. The URI should be as persistent as reasonably achievable.</li>
 		 </ul>
@@ -433,6 +439,7 @@ Discontinued data providers will be a challenge (the first one of these is The E
      </div>
 
      <sup id="fn1">1. [CMIP5 is the Cliamte ... project, see ... for more information]<a href="#ref1" title="CMIP5">↩</a></sup>
+
   </article>
 {% endblock %}
 
