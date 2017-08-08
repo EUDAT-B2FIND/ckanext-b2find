@@ -15,8 +15,10 @@
     </div>
 
     <div class="module-content">
+      <h1 class="page-heading">{{ _('Introduction') }}</h1>
 
-        <p>Welcome to the guidelines of the metadata service EUDAT-B2FIND for data providers that help repository managers to publish metadata of research data. in the EUDAT metadata catalogue B2FIND. Especially information about the requirements for successful integration in B2FIND are provided.</p>
+
+        <p>Welcome to the guidelines of the metadata service EUDAT-B2FIND for data providers. These guidelines are intended to provide information about the requirements for successful integration in B2FIND.</p>
 
 <!--
       <h2><strong class="headerboxbodylogo">Contents</strong></h2>
@@ -37,14 +39,16 @@
 
         <h3><a name="audience">Objective</a></h3>
 
-        <p>EUDAT-B2FIND gathers together metadata related to research output of many heterogeneous sources, with the aim of providing a discovery portal allowing search over a wide cross-disciplinary scope and access the underlying data collections. </p>
 
-        <p>The B2FIND guidelines will provide instructions for data providers to expose their metadata to the B2FIND catalogue.</p>
+        <p>EUDAT-B2FIND gathers together diverse metadata related to research output of many heterogeneous sources, with the aim of providing a unified discovery portal allowing widespread and cross-disciplinary search and access to the underlying data collections. </p>
+
+        <p>The B2FIND guidelines provide instructions to be followed and policies to be fulfilled during the establishment of the associated ingestion workflow.
+</p>
 
 
         <h3><a name="principles">Open research data principles</a></h3>
 
-	  <p>In general EUDAT propagates 'best practices' which follow the so called FAIR principles. We refer here to the paper <a href="http://ec.europa.eu/research/participants/data/ref/h2020/grants_manual/hi/oa_pilot/h2020-hi-oa-data-mgt_en.pdf"> Guidelines on FAIR Data Management in Horizon 2020 </a>. Amongst other principles, the concordat promotes:
+	  <p>EUDAT propagates 'best practices' which follow the so called FAIR principles. We refer here to the paper <a href="http://ec.europa.eu/research/participants/data/ref/h2020/grants_manual/hi/oa_pilot/h2020-hi-oa-data-mgt_en.pdf"> Guidelines on FAIR Data Management in Horizon 2020 </a>. Amongst other principles, the concordat promotes
 	    <ul>
 	      <li>the availability of data supporting scholarly publications,</li> 
 	      <li>the use of data repositories, </li> 
@@ -52,8 +56,10 @@
 	      <li> support for developing researchers’ data skills,</li> 
 	      <li> cultural norms of academia that ensure individuals can gain credit for data sharing.</li> 
 	     </ul>
+	  </p>
 
-As far as this principles affect metadata we address them in the following sections.</p>
+	<p>To the extend that these principles affect metadata we address them in the following sections.</p>
+	<p>In general great importance is lied to provide a low-barrier approach to allow easy integration in B2FIND.</p>   
 
         <h3><a name="content">Contents of the Guidelines</a></h3>
       <p>The guidelines are divided in three thematic paragraphs :
@@ -66,16 +72,24 @@ As far as this principles affect metadata we address them in the following secti
 
         <h3><a name="workflow">B2FIND Workflow</a></h3>
 
-        <p> The associated ingestion workflow is divided in the three sub processes harvesting, mapping and uploading as schematically shown in the following figure.</p>
+        <p>The B2FIND metadata ingestion workflow is schematically shown in the following figure.</p>
 
       <figure>
         <img border="1" vspace="1" class="left" src="/images/B2FIND_Workflow.png" width="600" height="120" alt="B2FIND ingestion workflow">
         <figcaption> The B2FIND ingestion workflow</figcaption>
       </figure>
 
+      <p>Beside the first (MD Generation) and last (MD Uploading) step, the sub processes ‘MD Providing’, ‘MD Harvesting’ and ‘MD Mapping’ correspond to the paragraphs of the guidelines.</p>
+      <p>While we don't go in the technical details, we refer
+	<ul>
+	  <li>data managers who are interested in the step by step implementation of the whole MD ingestion workflow to the <a href="https://github.com/EUDAT-Training/B2FIND-Training"> B2FIND-Training </a> and </li>
+	  <li>developers who are interested in the underlying software and the sourcecode to the github repository <a href="https://github.com/EUDAT-B2FIND"> EUDAT-B2FIND </a>.</li>.
+
         <h3><a name="versions">Versions</a></h3>
 	<ul>
-	  <li>1.0 May 2017 - Initial publication</li>
+	  <li>1.0 August 2017 - Initial publication on <a href="http://b2find.eudat.eu"> the productive B2FIND instance </a></li>
+	  <li>0.3 June 2017 - Initial publication on <a href="http://trng-b2find.eudat.eu"> the training instance </a>.</li>
+	  <li>0.2. May 2017 - Reviewed version and first draft for web pages</li>
 	  <li>0.1 February 2017 - Initial internal reviewed document</li>
 	  <li>0.0.2 January 2017 - added changes and proposels - still working paper</li>
 	  <li>0.0.1  December 2017 - Early draft, B2FIND team.</li>
