@@ -43,21 +43,19 @@ The section <a href="#mdquality"> Metadata Quality  </a> tells what can be done 
 
 	  <p>In order to join EUDAT-B2FIND, data providers must meet a these requirements :
           <ul>
-	    <li>Data provider must agree with the licensing principles of both, of B2FIND (see the <a href="http://b2find.eudat.eu/help/terms_of_use.html">Terms of Use for EUDAT-B2FIND</a> ) and of DKRZ (see the <a href="http://b2find.eudat.eu/legal">Legal Notice of DKRZ</a>).</li>
+	    <li>Data provider has to agree with the licensing principles of EUDAT-B2FIND (see the <a href="/help/terms_of_use.html">Terms of Use for EUDAT-B2FIND</a> ) and DKRZ (see the <a href="/legal">Legal Notice of DKRZ</a>).</li>
+
+	    <li>Especially the consent must be declared that the provided metadata are made publicly available and open accessible under the licence <a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons Lizenzvertrag" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/88x31.png" /></a> <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4)</a>
 	      <em>Note : This access licence is only applied to the metadata records published and visible in the B2FIND portal, but not necessarily applicable for the underlying data collections referred and described by the B2FIND datasets.</em>
 	    </li>.
-	    <li>Data provider must declare the consent that the provided metadata can be made publicly available by DKRZ under the <a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons Lizenzvertrag" style="border-width:0" width="10" src="https://i.creativecommons.org/l/by/4.0/88x31.png" /></a> <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution-ShareAlike 4.0 International license (CC BY-SA 4.).</a> This means for example that the B2FIND metadata may be harvested by and  re-distributed to other metadata aggregators.
-	      <em>Note : This licence is applied only to the metadata records in the B2FIND database. It does <em>not</em> cover the data sets described by the metadata records. Their use will be licensed separately by the owners of the data.</em></li>
-	    <li>Confidential metadata (if any) should not be made available for B2FIND harvesting, although metadata may describe research data sets which do have access limitations.</li>
-	    <li>Copyright protected metadata may be made available for harvesting only if the data provided is entitled to allow third parties to harvest the metadata.</li>
-	    <li>Metadata should be stable and its quality should be 'good enough'. This will be described in more detail in the section Metadata Quality (under development) and will be determined jointly by B2FIND and each data provider if and when necessary. Some of the central issues include :
-             </li>
-             <ul>
-	       <li>Metadata records should be sufficiently complete and describe the entire dataset, and not only a component or part of it</li>
+	    <li>The data provider agrees, that the metadata will be made available for free in B2FIND and that it can also be harvested by and  re-distributed to other metadata aggregators. No confidential metadata should be made available (although the described research data sets themselves may have access limitations). Copyright protected metadata can only be sent if there is a licence agreement between the data provider and EUDAT which meets the B2FIND requirements.</li>
+	    <li>Metadata should be stable and 'good enough'. This is described in more detail in the section Metadata Quality and will be determined with each data provider individually if and when necessary. Some of the central issues include :</li>
+        <ul>
+	       <li>Metadata records should be as complete as possible and describe the entire dataset, and not only a component or part of it</li>
 	       <li>Metadata shall not be encrypted or obfuscated</li>
 	       <li>In addition to the metadata themselves, data providers must provide documentation needed for successful B2FIND loading of the metadata, such as description of the structure, syntax and semantics of the metadata records (see section <a href="#mdformatsschemas"> metadata encodings and schemas </a>).</li>
 	       <li>Two metadata elements are mandatory:
-		 <ul>
+		     <ul>
 		   <li>The ‘Title’ of the data set, i.e. a name or heading by which the referred resource is known and which should be unique and unambigous (avoid same title referencing two different data collections)</li>
 		   <li>At least one identifier, which has two roles: to identify the described resource, and to facilitate a persistent link to the research data set itself, which should be available in the Web. If the identifier is not persistent (actionable / resolvable), a HTTP URI of the described resource must be provided as well. The URI should be as persistent as reasonably achievable.</li>
 		 </ul>
@@ -407,7 +405,7 @@ Discontinued data providers will be a challenge (the first one of these is The E
 
      </div>
 
-     <sup id="fn1">1. see http://cmip-pcmdi.llnl.gov/cmip5/design_overview.html<a href="#ref1" title="CMIP5">↩</a></sup>
+     <sup id="fn1">1. For more details about CMIP5 see http://cmip-pcmdi.llnl.gov/cmip5/design_overview.html<a href="#ref1" title="CMIP5">↩</a></sup>
   </article>
 {% endblock %}
 
