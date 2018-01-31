@@ -25,7 +25,7 @@
 
         <h3><a name="oai-pmh">OAI-PMH</a></h3>
 
-         OAI-PMH is the metadata harvesting protocol preferably used by EUDAT-B2FIND to fetch metadata directly from the data providers within research communities. The simplicity of the protocol allows a controlled and easy to manage transfer of metadata and only little information must be provided to enable B2FIND to perform the harvesting process :
+         <p>OAI-PMH is the metadata harvesting protocol preferably used by EUDAT-B2FIND to fetch metadata directly from the data providers within research communities. The simplicity of the protocol allows a controlled and easy to manage transfer of metadata and only little information must be provided to enable B2FIND to perform the harvesting process :
 	    <ul>
 	      <li>OAI endpoint : This is the URL of the OAI provider server on data provider site, which must be open for OAI-PMH read requests.</li>
 	      <li>OAI mdprefix : This is the OAI acronym for the metadata schema in which the provided XML records are coded in.</li>
@@ -34,16 +34,9 @@
 
 	    <h4>Example</h4>
 	    To harvest all Dublincore (OAI mdprefix is <em>oai_dc</em>) from the subset <em>ANDS-Centre_1</em> of the OAI provider of DataCite (<em>oai.datacite.org/oai</em>),we submit a HTTP request with the ‘verb’ <em>ListRecords</em> and the following OAI options set  :
-
-
 	    <code>https://oai.datacite.org/oai?verb=ListRecords&metadataPrefix=oai_dc&set=ANDS.CENTRE-1</code>
 
-	    <ul>
-	      <li>
-
-		<p>The community Seadatanet ( see seadatanet.org ) exposes georeferenced metadata via the base geonetwork portal with URL endpoint http://sextant.ifremer.fr/geonetwork/srv/fre/csw-SEADATANET . To retrieve the ISO19139 XML records (namespace specification gmd:MD_Metadata ) B2FIND submits a GetRecords request as follows :
-http://sextant.ifremer.fr/geonetwork/srv/fre/csw-SEADATANET?SERVICE=CSW&REQUEST=GetRecords&VERSION=2.0.2&typeNames=gmd:MD_Metadata
-If necessary, EUDAT will help the data providers to enable OAI-PMH harvesting of their metadata. Please check also module 02 of the <href="..." > B2FIND Training materials </a>, where you find a step by step guide to setup and configure an OAI server. For a detailed documentation of the OAI-PMH protocoal we refer to <a href="http://www.openarchives.org/OAI/openarchivesprotocol.html" >  http://www.openarchives.org/OAI/openarchivesprotocol.html </a> .</p>
+	    If necessary, EUDAT will help the data providers to enable OAI-PMH harvesting of their metadata. Please check also module 02 of the <href="..." > B2FIND Training materials </a>, where you find a step by step guide to setup and configure an OAI server. For a detailed documentation of the OAI-PMH protocoal we refer to <a href="http://www.openarchives.org/OAI/openarchivesprotocol.html" >  http://www.openarchives.org/OAI/openarchivesprotocol.html </a> .</p>
 
              <h3><a name="json-api">JSON-API</a></h3>
 
