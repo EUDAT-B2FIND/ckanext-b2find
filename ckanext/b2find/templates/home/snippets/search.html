@@ -6,13 +6,13 @@
     <h3 class="heading text-center">{{ _("Search Your Data") }}</h3>
     <div class="input-append" style="display:flex;">
       <input type="text" id="homeinput" class="search"  name="q" value="" autocomplete="off" placeholder="{{ placeholder }}" style="width:100%;" />
-      <button id="homesubmit" type="submit"><i class="icon-large icon-search"></i></button>
+      <button id="homesubmit" type="submit"><i class="fa fa-search fa-lg"></i></button>
     </div>
   </form>
   <div class="tags">
     <h3>{{ _('Popular Tags') }}</h3>
     {% for tag in tags %}
-      <a class="b2f_tag" href="{% url_for controller='package', action='search', tags=tag.name %}"><i class="icon-tag"></i> {{ h.truncate(tag.display_name, 18) }}</a>
+      <a class="b2f_tag" href="{% url_for controller='package', action='search', tags=tag.name %}"><i class="fa fa-tag"></i> {{ h.truncate(tag.display_name, 18) }}</a>
     {% endfor %}
   </div>
 </div>

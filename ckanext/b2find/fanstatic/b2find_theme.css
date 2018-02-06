@@ -189,11 +189,11 @@ a.b2f_tag:hover {
    ========================================================================= */
 
 /* The arrows for facet's accordion header. */
-.icon-chevron:before {
+.fa-chevron-down:before {
     content:          "\f077";
 }
 
-.collapsed .icon-chevron:before {
+.collapsed .fa-chevron-down:before {
     content:          "\f078";
 }
 
@@ -213,4 +213,9 @@ input.facet-filter, select.facet-filter {
 input.facet-filter {
     max-width: 60%;
     margin-right: 0;
+}
+
+/* Correct position of search icon on search_form input field */
+.search-form .search-input button {
+    top: 30%;
 }
