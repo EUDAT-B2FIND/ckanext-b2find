@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='ckanext-b2find',
-    version='2.3.0',
+    version='2.4.0',
     description='CKAN extension for B2FIND',
     long_description=
     '''
