@@ -143,7 +143,7 @@ a.b2f_tag:hover {
     background:       #F7F3E9 url("/images/color-line.jpg") repeat-x top left;
     padding:          20px 0;
     font-size:        12px;
-    width: 100%;
+    width:            100%;
 }
 
 .navbar-default {
@@ -187,6 +187,11 @@ a.b2f_tag:hover {
 /* =========================================================================
    Miscellaneous changes / additions
    ========================================================================= */
+
+tr.info_header {
+    color:            #ffffff;
+    background-color: #1f3a93;
+}
 
 /* The arrows for facet's accordion header. */
 .fa-chevron-down:before {

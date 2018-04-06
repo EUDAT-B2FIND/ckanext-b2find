@@ -1,0 +1,46 @@
+{% set info_title = "Provenance" %}
+
+{% extends "package/snippets/info_base.html" %}
+
+{% block info_table_body %}
+  {% if extras_dict.Discipline %}
+    <tr>
+      <th scope="row" class="dataset-label" property="rdfs:label">{{ _("Discipline") }}</th>
+      <td class="dataset-details" property="rdf:value">{{ extras_dict.Discipline }}</td>
+    </tr>
+  {% endif %}
+
+  {% if pkg_dict.author_email %}
+    <tr>
+      <th scope="row" class="dataset-label">{{ _("Creator") }}</th>
+      <td class="dataset-details" property="dc:creator">{{ h.mail_to(email_address=pkg_dict.author_email, name=pkg_dict.author) }}</td>
+    </tr>
+  {% elif pkg_dict.author %}
+    <tr>
+      <th scope="row" class="dataset-label">{{ _("Creator") }}</th>
+      <td class="dataset-details" property="dc:creator">{{ pkg_dict.author }}</td>
+    </tr>
+  {% endif %}
+
+  {% if extras_dict.Contact %}
+    <tr>
+      <th scope="row" class="dataset-label" property="rdfs:label">{{ _("Contact") }}</th>
+      <td class="dataset-details" property="rdf:value">{{ extras_dict.Contact }}</td>
+    </tr>
+  {% endif %}
+
+  {% if extras_dict.Publisher %}
+    <tr>
+      <th scope="row" class="dataset-label" property="rdfs:label">{{ _("Publisher") }}</th>
+      <td class="dataset-details" property="rdf:value">{{ extras_dict.Publisher }}</td>
+      </tr>
+  {% endif %}
+
+  {% if extras_dict.PublicationYear %}
+    <tr>
+      <th scope="row" class="dataset-label" property="rdfs:label">{{ _("Publication Year") }}</th>
+      <td class="dataset-details" property="rdf:value">{{ extras_dict.PublicationYear }}</td>
+    </tr>
+  {% endif %}
+
+{% endblock %}
