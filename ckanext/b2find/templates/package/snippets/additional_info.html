@@ -1,24 +1,25 @@
 <section class="additional-info">
-  <h3>{{ _('Additional Info') }}</h3>
-  {% if logged_in %}
-    {% set exclude_extras = [] %}
-  {% else %}
-    {% set exclude_extras = h.extras_to_exclude() %}
-  {% endif %}
+  <div class="infoblock">
+    {% if logged_in %}
+      {% set exclude_extras = [] %}
+    {% else %}
+      {% set exclude_extras = h.extras_to_exclude() %}
+    {% endif %}
 
-  {% set extras_dict = dict(h.sorted_extras(pkg_dict.extras,excluded_extras)) %}
+    {% set extras_dict = dict(h.sorted_extras(pkg_dict.extras,excluded_extras)) %}
 
-  {% snippet "package/snippets/identifier_info.html", pkg_dict=pkg_dict, extras_dict=extras_dict, logged_in=logged_in %}
+    {% snippet "package/snippets/identifier_info.html", pkg_dict=pkg_dict, extras_dict=extras_dict, logged_in=logged_in %}
 
-  {% snippet "package/snippets/provenance_info.html", pkg_dict=pkg_dict, extras_dict=extras_dict, logged_in=logged_in %}
+    {% snippet "package/snippets/provenance_info.html", pkg_dict=pkg_dict, extras_dict=extras_dict, logged_in=logged_in %}
 
-  {% snippet "package/snippets/representation_info.html", pkg_dict=pkg_dict, extras_dict=extras_dict, logged_in=logged_in %}
+    {% snippet "package/snippets/representation_info.html", pkg_dict=pkg_dict, extras_dict=extras_dict, logged_in=logged_in %}
 
-  {% snippet "package/snippets/coverage_info.html", pkg_dict=pkg_dict, extras_dict=extras_dict, logged_in=logged_in %}
+    {% snippet "package/snippets/coverage_info.html", pkg_dict=pkg_dict, extras_dict=extras_dict, logged_in=logged_in %}
 
-  {% if logged_in %}
-    {% snippet "package/snippets/b2find_internal.html", pkg_dict=pkg_dict, extras_dict=extras_dict %}
+    {% if logged_in %}
+      {% snippet "package/snippets/b2find_internal.html", pkg_dict=pkg_dict, extras_dict=extras_dict %}
 
-    {% snippet "package/snippets/ckan_internal.html", pkg_dict=pkg_dict, extras_dict=extras_dict %}
-  {% endif %}
+      {% snippet "package/snippets/ckan_internal.html", pkg_dict=pkg_dict, extras_dict=extras_dict %}
+    {% endif %}
+  </div>
 </section>

@@ -193,6 +193,10 @@ tr.info_header {
     background-color: #1f3a93;
 }
 
+.infoblock {
+    padding-top:      1.5em;
+}
+
 /* The arrows for facet's accordion header. */
 .fa-chevron-down:before {
     content:          "\f077";
