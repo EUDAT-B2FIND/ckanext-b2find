@@ -15,13 +15,6 @@
     </tr>
   {% endif %}
 
-  {% if extras_dict.Contact %}
-    <tr>
-      <th scope="row" class="dataset-label" property="rdfs:label">{{ _("Contact") }}</th>
-      <td class="dataset-details" property="rdf:value">{{ extras_dict.Contact }}</td>
-    </tr>
-  {% endif %}
-
   {% if extras_dict.Publisher %}
     <tr>
       <th scope="row" class="dataset-label" property="rdfs:label">{{ _("Publisher") }}</th>
@@ -33,6 +26,20 @@
     <tr>
       <th scope="row" class="dataset-label" property="rdfs:label">{{ _("Publication Year") }}</th>
       <td class="dataset-details" property="rdf:value">{{ extras_dict.PublicationYear }}</td>
+    </tr>
+  {% endif %}
+
+  {% if extras_dict.Rights %}
+    <tr>
+      <th scope="row" class="dataset-label" property="rdfs:label">{{ _("Rights") }}</th>
+      <td class="dataset-details" property="rdf:value">{{ extras_dict.Rights }}</td>
+      </tr>
+  {% endif %}
+
+  {% if extras_dict.Contact %}
+    <tr>
+      <th scope="row" class="dataset-label" property="rdfs:label">{{ _("Contact") }}</th>
+      <td class="dataset-details" property="rdf:value">{{ extras_dict.Contact }}</td>
     </tr>
   {% endif %}
 

@@ -23,4 +23,11 @@
       <td class="dataset-details" property="rdf:value">{{ extras_dict.Format }}</td>
     </tr>
   {% endif %}
+
+  {% if extras_dict.Checksum %}
+    <tr>
+      <th scope="row" class="dataset-label" property="rdfs:label">{{ _("Checksum") }}</th>
+      <td class="dataset-details" property="rdf:value">{{ extras_dict.Checksum }}</td>
+    </tr>
+  {% endif %}
 {% endblock %}
