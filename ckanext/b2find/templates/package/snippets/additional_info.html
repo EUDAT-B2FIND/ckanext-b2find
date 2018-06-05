@@ -1,84 +1,25 @@
 <section class="additional-info">
-  <h3>{{ _('Additional Info') }}</h3>
-  <table class="table table-striped table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th scope="col">{{ _('Field') }}</th>
-        <th scope="col">{{ _('Value') }}</th>
-      </tr>
-    </thead>
-    <tbody>
-      {% block package_additional_info %}
-        {% if pkg_dict.url %}
-          <tr>
-            <th scope="row" class="dataset-label">{{ _('Source') }}</th>
-            <td class="dataset-details" property="foaf:homepage">{{ h.link_to(pkg_dict.url, pkg_dict.url, rel='foaf:homepage', target='_blank') }}</td>
-          </tr>
-        {% endif %}
+  <div class="infoblock">
+    {% if logged_in %}
+      {% set exclude_extras = [] %}
+    {% else %}
+      {% set exclude_extras = h.extras_to_exclude() %}
+    {% endif %}
 
-        {% if pkg_dict.author_email %}
-          <tr>
-            <th scope="row" class="dataset-label">{{ _("Creator") }}</th>
-            <td class="dataset-details" property="dc:creator">{{ h.mail_to(email_address=pkg_dict.author_email, name=pkg_dict.author) }}</td>
-          </tr>
-        {% elif pkg_dict.author %}
-          <tr>
-            <th scope="row" class="dataset-label">{{ _("Creator") }}</th>
-            <td class="dataset-details" property="dc:creator">{{ pkg_dict.author }}</td>
-          </tr>
-        {% endif %}
+    {% set extras_dict = dict(h.sorted_extras(pkg_dict.extras,excluded_extras)) %}
 
-        {% if pkg_dict.maintainer_email %}
-          <tr>
-            <th scope="row" class="dataset-label">{{ _('Maintainer') }}</th>
-            <td class="dataset-details" property="dc:contributor">{{ h.mail_to(email_address=pkg_dict.maintainer_email, name=pkg_dict.maintainer) }}</td>
-          </tr>
-        {% elif pkg_dict.maintainer %}
-          <tr>
-            <th scope="row" class="dataset-label">{{ _('Maintainer') }}</th>
-            <td class="dataset-details" property="dc:contributor">{{ pkg_dict.maintainer }}</td>
-          </tr>
-        {% endif %}
+    {% snippet "package/snippets/identifier_info.html", pkg_dict=pkg_dict, extras_dict=extras_dict, logged_in=logged_in %}
 
-        {% if pkg_dict.version and logged_in %}
-          <tr>
-            <th scope="row" class="dataset-label">{{ _("Version") }}</th>
-            <td class="dataset-details">{{ pkg_dict.version }}</td>
-          </tr>
-        {% endif %}
+    {% snippet "package/snippets/provenance_info.html", pkg_dict=pkg_dict, extras_dict=extras_dict, logged_in=logged_in %}
 
-        {% if h.check_access('package_update',{'id':pkg_dict.id}) %}
-          <tr>
-            <th scope="row" class="dataset-label">{{ _("State") }}</th>
-            <td class="dataset-details">{{ pkg_dict.state }}</td>
-          </tr>
-        {% endif %}
+    {% snippet "package/snippets/representation_info.html", pkg_dict=pkg_dict, extras_dict=extras_dict, logged_in=logged_in %}
 
-      {% block extras scoped %}
+    {% snippet "package/snippets/coverage_info.html", pkg_dict=pkg_dict, extras_dict=extras_dict, logged_in=logged_in %}
 
-        {% if logged_in %}
-          {% set exclude_extras = [] %}
-        {% else %}
-          {% set exclude_extras = h.extras_to_exclude() %}
-        {% endif %}
+    {% if logged_in %}
+      {% snippet "package/snippets/b2find_internal.html", pkg_dict=pkg_dict, extras_dict=extras_dict %}
 
-        {% for extra in h.sorted_extras(pkg_dict.extras,exclude=exclude_extras) %}
-          {% set key, value = extra %}
-          <tr rel="dc:relation" resource="_:extra{{ i }}">
-            <th scope="row" class="dataset-label" property="rdfs:label">{{ _(key) }}</th>
-            {% if key in h.link_fields() %}
-              <td class="dataset-details" property="rdf:value">{{ h.link_to(value, value, target='_blank') }}</td>
-{#
-            <td class="dataset-details" property="rdf:value"><a href="{{ value }}">{{ value }}</a></td>
-#}
-            {% else %}
-            <td class="dataset-details" property="rdf:value">{{ value }}</td>
-            {% endif %}
-          </tr>
-        {% endfor %}
-      {% endblock %}
-
-      {% endblock %}
-    </tbody>
-  </table>
+      {% snippet "package/snippets/ckan_internal.html", pkg_dict=pkg_dict, extras_dict=extras_dict %}
+    {% endif %}
+  </div>
 </section>

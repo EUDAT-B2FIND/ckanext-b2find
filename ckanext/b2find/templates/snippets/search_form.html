@@ -8,26 +8,14 @@
 <form class="search-form{% if no_bottom_border %} no-bottom-border{% endif %}" method="get" action="" data-module="select-switch">
 
   {% block search_input %}
-    <div class="input-prepend" style="display: flex;">
-      <div class="btn-group">
-        <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" style="height: 52px;">
-          <i class="icon-large icon-question-sign"></i>
-          <span class="caret"></span>
-        </button>
-        <ul class="dropdown-menu" style="top: auto;">
-          <li><a href="/docs/search-guide.html" target="_blank"><i class="icon-medium icon-search"></i> Search Guide</a></li>
-          <li><a href="/docs/search-guide.html#geospatial-search" target="_blank"><i class="icon-medium icon-globe"></i> Filter by Location</a></li>
-          <li><a href="/docs/search-guide.html#temporal-search" target="_blank"><i class="icon-medium icon-time"></i> Filter by Time</a></li>
-          <li><a href="/docs/search-guide.html#temporal-search-2" target="_blank"><i class="icon-medium icon-calendar"></i> Publication Year</a></li>
-        </ul>
-      </div>
-      <div class="search-input control-group {{ search_class }}" style="width: 100%;" >
-        <input type="text" class="search" name="q" value="{{ query }}" autocomplete="off" placeholder="{{ placeholder }}">
-        <button type="submit" value="search">
-          <i class="icon-search"></i>
-          <span>{{ _('Search') }}</span>
-        </button>
-      </div>
+    <div class="search-input control-group {{ search_class }}">
+      <input type="text" class="search" name="q" value="{{ query }}" autocomplete="off" placeholder="{{ placeholder }}">
+      {% block search_input_button %}
+      <button type="submit" value="search">
+        <i class="fa fa-search"></i>
+        <span>{{ _('Submit') }}</span>
+      </button>
+      {% endblock %}
     </div>
   {% endblock %}
 
@@ -72,7 +60,7 @@
               {%- else -%}
                 {{ h.list_dict_filter(search_facets_items, 'name', 'display_name', value) }}
               {%- endif %}
-              <a href="{{ facets.remove_field(field, value) }}" class="remove" title="{{ _('Remove') }}"><i class="icon-remove"></i></a>
+              <a href="{{ facets.remove_field(field, value) }}" class="remove" title="{{ _('Remove') }}"><i class="fa fa-times"></i></a>
             </span>
           {% endfor %}
         {% endfor %}
