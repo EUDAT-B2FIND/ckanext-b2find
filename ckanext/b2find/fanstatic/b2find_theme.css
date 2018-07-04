@@ -167,14 +167,12 @@ a.b2f_tag:hover {
     border:           0;
 }
 
-.navbar-footer ul li a {
-    background-color: transparent;
-    color:            #666666;
+.navbar-footer .navbar-nav > li > a {
+    color:            #F45D00;
+    text-shadow:      none;
+    padding:          0px 15px 10px;
 }
 
-.navbar-footer ul li a:hover {
-    color:            #333333;
-}
 
 .header_logo {
     padding-left:     1em;
