@@ -60,7 +60,7 @@ controllers.BasicFacetController = function ($scope, $q) {
                 a[v.name] = v.title;
                 return a;
             }, {});
-            data = JSON.parse(data);
+            //data = JSON.parse(data);
             var fields = data.facet_counts.facet_fields;
             var basic_facets = {
                 communities: {

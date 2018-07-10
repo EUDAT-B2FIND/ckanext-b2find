@@ -143,7 +143,7 @@ a.b2f_tag:hover {
     background:       #F7F3E9 url("/images/color-line.jpg") repeat-x top left;
     padding:          20px 0;
     font-size:        12px;
-    width: 100%;
+    width:            100%;
 }
 
 .navbar-default {
@@ -167,14 +167,12 @@ a.b2f_tag:hover {
     border:           0;
 }
 
-.navbar-footer ul li a {
-    background-color: transparent;
-    color:            #666666;
+.navbar-footer .navbar-nav > li > a {
+    color:            #F45D00;
+    text-shadow:      none;
+    padding:          0px 15px 10px;
 }
 
-.navbar-footer ul li a:hover {
-    color:            #333333;
-}
 
 .header_logo {
     padding-left:     1em;
@@ -188,12 +186,21 @@ a.b2f_tag:hover {
    Miscellaneous changes / additions
    ========================================================================= */
 
+tr.info_header {
+    color:            #ffffff;
+    background-color: #1f3a93;
+}
+
+.infoblock {
+    padding-top:      1.5em;
+}
+
 /* The arrows for facet's accordion header. */
-.icon-chevron:before {
+.fa-chevron-down:before {
     content:          "\f077";
 }
 
-.collapsed .icon-chevron:before {
+.collapsed .fa-chevron-down:before {
     content:          "\f078";
 }
 
@@ -213,4 +220,9 @@ input.facet-filter, select.facet-filter {
 input.facet-filter {
     max-width: 60%;
     margin-right: 0;
+}
+
+/* Correct position of search icon on search_form input field */
+.search-form .search-input button {
+    top: 30%;
 }
