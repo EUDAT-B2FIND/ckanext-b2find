@@ -173,7 +173,7 @@ Must be resolvable URL and registered at a handle server</td>
 The main researchers involved in producing the data, or the authors of the publication, in priority order.</td>
 	  <td>List of names</td>
 	  <td>2. Creator</td>
-	  <td>Optional</td>
+	  <td>Recommended</td>
 	  <td>0-n</td>
 	  <td></td>
 	</tr>
@@ -183,7 +183,7 @@ The main researchers involved in producing the data, or the authors of the publi
 The name of the entity that holds, archives, publishes prints, distributes, releases, issues, or produces the resource. This property will be used to formulate the citation, so consider the prominence of the role.</td>
 	  <td>List of names</td>
 	  <td>4. Publisher</td>
-	  <td>Optional</td>
+	  <td>Recommended</td>
 	  <td>0-n</td>
 	  <td></td>
 	</tr>
@@ -194,7 +194,7 @@ The year when the data was or will be made publicly available.</td>
 	  <td>UTC Year format (YYYY)</td>
 	  <td> 
 5. PublicationYear</td>
-	  <td>Optional</td>
+	  <td>Recommended</td>
 	  <td>0-1</td>
 	  <td></td>
 	</tr>
@@ -210,8 +210,8 @@ resource.</td>
 	</tr>
 	<tr>
 	  <td>Contact</td>
-	  <td></td>
-	  <td></td>
+	  <td>Any contact information for this resource.</td>
+	  <td>List of Names</td>
 	  <td>[ may be 7. Contributor]</td>
 	  <td>Optional</td>
 	  <td>0-n</td>
@@ -234,7 +234,7 @@ Examples: English, German, French</td>
 	  <td>A description of the resource</td>
 	  <td>Textual</td>
 	  <td>10. ResourceType</td>
-	  <td>Optional</td>
+	  <td>Recommended</td>
 	  <td>0-1</td>
 	  <td></td>
 	</tr>
@@ -242,7 +242,7 @@ Examples: English, German, French</td>
 	  <td>Format</td>
 	  <td>Technical format of the resource</td>
 	  <td>Textual</td>
-	  <td></td>
+	  <td>14. Format</td>
 	  <td>Optional</td>
 	  <td>0-1</td>
 	  <td></td>
@@ -268,9 +268,10 @@ Examples: English, German, French</td>
 	</tr>
 	<tr>
 	  <td>Spatial Coverage</td>
-	  <td>A geolocation the research data itself is related to. Content of this category is displayed in plain text.  If a longitude/latitude information is given it will be displayed at the map.</td>
-	  <td>Geo spatial description (geonames and coordinates)</td>
-	  <td></td>
+	  <td>A geolocation where the research data was gathered or/and 
+about which the data is focused and related to. Content of this category is displayed in plain text. f a longitude/latitude information is given it will be displayed at the map.</td>
+	  <td>Textual geo spatial description (Spatial region or named place (geonames)) and if longitude/latitude information is given displayed at the map.</td>
+	  <td>18. Geolocation</td>
 	  <td>Optional</td>
 	  <td>0-1</td>
 	  <td></td>
@@ -279,10 +280,10 @@ Examples: English, German, French</td>
 	  <td>Temporal Coverage</td>
 	  <td>Period of time the research data itself is related to. Could be a date format or plain text.</td>
 	  <td>Date-time representation</td>
-	  <td>8. Date</td>
+	  <td>8. Date / [8.1 dateType = Collected?]</td>
 	  <td>Optional</td>
 	  <td>0-1</td>
-	  <td></td>
+	  <td>Not really provided by DataCite in the sense of coverage</td>
 	</tr>
       </table>
 
