@@ -30,16 +30,18 @@ The section <a href="#mdquality"> Metadata Quality  </a> tells what can be done 
       <p>These topics may need to be discussed iteratively between the domain experts and data managers on the data provider side, and the B2FIND team on the service provider side.</p>
 </p>
       <h2><strong class="headerboxbodylogo">Contents</strong></h2>
-       <br/>&nbsp;&nbsp;&nbsp;<a href="#requirements_recomm">Requirements and Recommendations</a>
-       <br/>&nbsp;&nbsp;&nbsp;<a href="#mdformats">Metadata Encodings and Schemas</a>
-       <br/>&nbsp;&nbsp;&nbsp;<a href="#l_aggregations">Aggregation Levels</a>
-       <br/>&nbsp;&nbsp;&nbsp;<a href="#mdquality">Metadata Quality</a>
+        <ul>
+          <li><a href="#requirements_recomm">Requirements and Recommendations</a></li>
+          <li><a href="#mdformats">Metadata Encodings and Schemas</a></li>
+          <li><a href="#l_aggregations">Aggregation Levels</a></li>
+          <li><a href="#mdquality">Metadata Quality</li>
+        </ul>
 
-        <h3><a name="#requirements_recomm">Requirements and Recommendations</a></h3>
+        <h3><a name="#requirements_recomm"></a>Requirements and Recommendations</h3>
 
 	<p>There are only a few obligatory preconditions for the metadata that is to be published on B2FIND. Here we describe these requirements, as well as additional best practices that help assure and improve the quality of the metadata.</p>
  
-         <h4><a name="#requirements">Requirements</a></h4>
+         <h4><a name="#requirements"></a>Requirements</h4>
 
 	  <p>In order to join EUDAT-B2FIND, the data provider must meet a few requirements:
           <ul>
@@ -66,7 +68,7 @@ The section <a href="#mdquality"> Metadata Quality  </a> tells what can be done 
 	  </ul>
 	  </p>
 
-         <h4><a name="#recommendations">Recommendations</a></h4>
+         <h4><a name="#recommendations"></a>Recommendations</h4>
 
 	  <p>In addition to these mandatory requirements, we highly recommend following these 'best practices' as well: 
           <ul>
@@ -86,7 +88,7 @@ The section <a href="#mdquality"> Metadata Quality  </a> tells what can be done 
 	  </ul>
 	  </p>
 
-        <h3><a name="#mdformatsschemas">Metadata Encodings and Schemas</a></h3>
+        <h3><a name="#mdformatsschemas"></a>Metadata Encodings and Schemas</h3>
 
 	<p>As stated already in the requirements above the provided metadata should be available as formatted records, which follow a defined schema. We list and describe in the following only metadata formats and schemes that are already supported by B2FIND. </p>
 
@@ -97,7 +99,7 @@ The section <a href="#mdquality"> Metadata Quality  </a> tells what can be done 
           <li> <a href="http://rd-alliance.github.io/metadata-directory/standards/"> RDA Metadata Directory </a> and </li>
           <li> <a href="http://www.dcc.ac.uk/resources/metadata-standards"> DCC Metadata Standards </a> </li>
         </ul>
-           <h4><a name="#mdformats">Metadata Format List</a></h3>
+           <h4><a name="#mdformats"></a>Metadata Format List</h3>
         </p>
 
  	<p> Metadata formats provide rules for coding (i.e., the machine readable representation), and the syntax (i.e., the marking and arrangement) of metadata and are required for browsers, search engines, and other programs to reliably process the metadata.</p>
@@ -154,7 +156,7 @@ The section <a href="#mdquality"> Metadata Quality  </a> tells what can be done 
 	   <p>Please contact the B2FIND support, if none of these formats are applicable to encode your metadata.</p>
 
 
-           <h4><a name="#mdformats">Metadata Schema List</a></h3>
+           <h4><a name="#mdformats"></a>Metadata Schema List</h3>
 
 	  <p>A Metadata schema is a metadata set with a prescribed syntax and encoding with fixed and semantically unambiguous element designations. It provides rules for which element is allowed for which context and lays down agreements about allowed data types (e.g., text, numeric, date, etc.) and value ranges (numeric ranges, spatial or temporal coverage, controlled vocabularies, etc.).
 		</p>
@@ -228,7 +230,7 @@ The section <a href="#mdquality"> Metadata Quality  </a> tells what can be done 
 -->
 	   </table>
 
-           <h4><a name="#mdformats">Example</a></h3>
+           <h4><a name="#mdformats"></a>Example</h3>
           Here we give an example for a well defined and validated metadata, encoded as a DublinCore XML file and with semantics based on the DataCite schema:
    <!--         <script id="xmlexample1" type="text/xmldata"> -->
 <record xmlns="http://www.openarchives.org/OAI/2.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
@@ -258,7 +260,7 @@ The section <a href="#mdquality"> Metadata Quality  </a> tells what can be done 
 
 <!-- !! Add some explanations : namespaces, header, dc:-tag etc. pp -->
 
-        <h3><a name="#l_aggregations">Aggregation levels</a></h3>
+        <h3><a name="#l_aggregations"></a>Aggregation levels</h3>
 
 	  <p>Data providers should analyse the structure and the granularity of their data sets and the files the research data consist of. Based on the analysis, the data provider can decide how to structure the research data set in order to enable reuse and proper citation and annotation. Sometimes the data will be composed of various files or items that belong to a single collection, but the data may also need to be segregated across a number of smaller subsets and datasets.
 			B2FIND is a discovery portal for cited, inter-disciplinary data, and therefore metadata on the finest level of granularity (level 4 below) is out of scope.
@@ -361,7 +363,7 @@ Here you can now browse through the datasets of the experiment and finally downl
 <p>These examples illustrate the importance of supplying sufficient information about the structure and granularity of the research data to B2FIND. Please let us know about the structure and granularity of your data.
 <p>
 
-        <h3><a name="#mdquality">Metadata Quality</a></h3>
+        <h3><a name="#mdquality"></a>Metadata Quality</h3>
 	<h4>Integrity</h4>
 	<p>There are no initial changes to the metadata semantics during the B2FIND ingestion workflow. The harvested metadata may, however, be restructured and reformatted before it is indexed, to allow search and discovery.
 		 B2FIND is in the process of improving the quality of metadata via a sophisticated validation and quality check process. We do this in close cooperation with the data providers, taking into consideration their feedback.
