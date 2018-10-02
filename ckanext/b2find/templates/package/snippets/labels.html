@@ -1,7 +1,7 @@
 <div>
 {% if extras_dict.DOI %}
   {% if h.is_url(extras_dict.DOI) %}
-    <a href='{{ extras_dict.DOI }}' target='_blank'><span class="label label-doi">DOI</span></a>
+    <a href='{{ extras_dict.DOI }}' target='_blank'><span class="label package-label-doi">DOI</span></a>
   {% else %}
     <span class="label package-label-doi">DOI</span>
   {% endif %}
@@ -9,7 +9,7 @@
 
 {% if extras_dict.PID %}
   {% if h.is_url(extras_dict.PID) %}
-    <a href='{{ extras_dict.PID }}' target='_blank'><span class="label">PID</span></a>
+    <a href='{{ extras_dict.PID }}' target='_blank'><span class="label package-label-pid">PID</span></a>
   {% else %}
     <span class="label package-label-pid">PID</span>
   {% endif %}
