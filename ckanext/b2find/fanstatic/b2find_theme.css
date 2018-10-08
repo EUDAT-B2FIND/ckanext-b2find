@@ -222,6 +222,16 @@ input.facet-filter {
     margin-right: 0;
 }
 
+.package-label-doi {
+    background-color: #fcb426;
+    color:            black;
+    margin-bottom:    20px;
+}
+
+.package-label-pid {
+    margin-bottom:    20px;
+}
+
 /* Correct position of search icon on search_form input field */
 .search-form .search-input button {
     top: 30%;

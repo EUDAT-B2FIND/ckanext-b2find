@@ -36,6 +36,17 @@
     </tr>
   {% endif %}
 
+  {% if extras_dict.RelatedIdentifier %}
+    <tr>
+      <th scope="row" class="dataset-label" property="rdfs:label">{{ _("Related Identifier") }}</th>
+      {% if h.is_url(extras_dict.RelatedIdentifier) %}
+        <td class="dataset-details" property="rdf:value">{{ h.link_to(extras_dict.RelatedIdentifier, extras_dict.RelatedIdentifier, target='_blank') }}</td>
+      {% else %}
+        <td class="dataset-details" property="rdf:value">{{ extras_dict.RelatedIdentifier }}</td>
+      {% endif %}
+    </tr>
+  {% endif %}
+
   {% if extras_dict.MetaDataAccess %}
     <tr>
       <th scope="row" class="dataset-label" property="rdfs:label">{{ _("Metadata Access") }}</th>
