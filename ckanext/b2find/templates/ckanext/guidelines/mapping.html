@@ -101,12 +101,10 @@ This mapping procedure needs regular adaption and extensions according to the ne
 	  <td>Try to use keyword thesauri from communities</td>
 	</tr>
 	<tr>
-	  <th rowspan="4">Identifier</th>
+	  <th rowspan="5">Identifier</th>
 	  <td>DOI</td>
-	  <td>
-A persistent, citable identifier (registered at DataCite) that uniquely identifies a resource.</td>
-	  <td>
-Must be resolvable URL, registered at DataCite as DOI</td>
+	  <td>A persistent, citable identifier (registered at DataCite) that uniquely identifies a resource.</td>
+	  <td>Must be resolvable URL, registered at DataCite as DOI</td>
 	  <td>
 1.Identifier
 1.1. identiferType = DOI</td>
@@ -116,10 +114,8 @@ Must be resolvable URL, registered at DataCite as DOI</td>
 	</tr>
 	<tr>
 	  <td>PID
-	  <td>
-A persistent identifier (implemented as a handle in a Handleserver) that uniquely identifies a resource.</td>
-	  <td> 
-Must be resolvable URL and registered at a handle server</td>
+	  <td>A persistent identifier (implemented as a handle in a Handleserver) that uniquely identifies a resource.</td>
+	  <td>Must be resolvable URL and registered at a handle server</td>
 	  <td>1.Identifier</td>
 	  <td></td>
 	</tr>
@@ -130,20 +126,28 @@ Must be resolvable URL and registered at a handle server</td>
 	  <td>1.Identifier</td>
 	  <td></td>
 	</tr>
+        <tr>
+          <td>RelatedIdentifier</td>
+          <td>A link to related resources or supplements.</td>
+          <td>Should be resolvable URL</td>
+          <td>12. relatedIdentifier</td>
+          <td>Optional</td>
+          <td>0-n</td>
+          <td></td>
+        </tr>
 	<tr>
 	  <td>MetaDataAccess</td>
 	  <td>Link to the original harvested metadata record (GetRecord request)</td>
 	  <td>Should be resolvable URL</td>
 	  <td>N/A</td>
-	  <td>0-1</td>
 	  <td>Recommended</td>
+	  <td>0-1</td>
           <td></td>
 	</tr>
 	<tr>
-	  <th rowspan="5">Provenance</th>
+	  <th rowspan="7">Provenance</th>
 	  <td>Creator</td>
-	  <td>
-The main researchers involved in producing the data, or the authors of the publication, in priority order.</td>
+	  <td>The main researchers involved in producing the data, or the authors of the publication, in priority order.</td>
 	  <td>List of names</td>
 	  <td>2. Creator</td>
 	  <td>Recommended</td>
@@ -152,35 +156,49 @@ The main researchers involved in producing the data, or the authors of the publi
 	</tr>
 	<tr>
 	  <td>Publisher</td>
-	  <td>
-The name of the entity that holds, archives, publishes prints, distributes, releases, issues, or produces the resource. This property will be used to formulate the citation, so consider the prominence of the role.</td>
+	  <td>The name of the entity that holds, archives, publishes prints, distributes, releases, issues, or produces the resource. This property will be used to formulate the citation, so consider the prominence of the role.</td>
 	  <td>List of names</td>
 	  <td>4. Publisher</td>
 	  <td>Recommended</td>
 	  <td>0-n</td>
 	  <td></td>
 	</tr>
+        <tr>
+          <td>Contributor</td>
+          <td>The institution or person responsible for collecting, managing, distributing, or otherwise contributing to the development of the resource.</td>
+          <td>List of names</td>
+          <td>7. Contributor</td>
+          <td>Optional</td>
+          <td>0-n</td>
+          <td></td>
+        </tr>
 	<tr>
 	  <td>PublicationYear</td>
-	  <td>
-The year when the data was or will be made publicly available.</td>
+	  <td>The year when the data was or will be made publicly available.</td>
 	  <td>UTC Year format (YYYY)</td>
-	  <td> 
-5. PublicationYear</td>
+	  <td>5. PublicationYear</td>
 	  <td>Recommended</td>
 	  <td>0-1</td>
 	  <td></td>
 	</tr>
 	<tr>
 	  <td>Rights</td>
-	  <td>Any rights information for this
-resource.</td>
+	  <td>Any rights information for this resource.</td>
 	  <td>Textual</td>
 	  <td>16. Rights</td>
 	  <td>Optional</td>
 	  <td>0-1</td>
 	  <td></td>
 	</tr>
+        <tr>
+          <td>OpenAccess</td>
+          <td>Is the dataset openly accessible or not.</td>
+          <td>Boolean</td>
+          <td></td>
+          <td>Optional</td>
+          <td>0-1</td>
+          <td></td>
+        </tr>
 	<tr>
 	  <td>Contact</td>
 	  <td>Any contact information for this resource.</td>
@@ -194,13 +212,11 @@ resource.</td>
 	  <th rowspan="4">Representation</th>
 	  <td>Language</td>
 	  <td>The primary language of the resource.</td>
-	  <td>
-Allowed values are taken from ISO 639‐1 language codes.</td>
+	  <td>Allowed values are taken from ISO 639-1 language codes.</td>
 	  <td>9. Language</td>
 	  <td>Optional</td>
 	  <td>0-1</td>
-	  <td> 
-Examples: English, German, French</td>
+	  <td>Examples: English, German, French</td>
 	</tr>
 	<tr>
 	  <td>ResourceType</td>
@@ -221,15 +237,6 @@ Examples: English, German, French</td>
 	  <td></td>
 	</tr>
 	<tr>
-	  <td>Checksum</td>
-	  <td>Checksum of the underlying data resource</td>
-	  <td>MD5 checksum</td>
-	  <td>N/A</td>
-	  <td>Optional</td>
-	  <td>0-1</td>
-	  <td></td>
-	</tr>
-	<tr>
 	  <th rowspan="3">Coverage</th>
 	  <td>Discipline</td>
 	  <td>The scientific disciplines linked with the resource.</td>
@@ -242,7 +249,7 @@ Examples: English, German, French</td>
 	<tr>
 	  <td>Spatial Coverage</td>
 	  <td>A geolocation where the research data was gathered or/and 
-about which the data is focused and related to. Content of this category is displayed in plain text. f a longitude/latitude information is given it will be displayed at the map.</td>
+about which the data is focused and related to. Content of this category is displayed in plain text. If a longitude/latitude information is given it will be displayed at the map.</td>
 	  <td>Textual geo spatial description (Spatial region or named place (geonames)) and if longitude/latitude information is given displayed at the map.</td>
 	  <td>18. Geolocation</td>
 	  <td>Optional</td>
