@@ -22,6 +22,8 @@ controllers.BasicFacetController = function ($scope, $q) {
             { name: "facet.field", value: "extras_Publisher" },
             { name: "facet.field", value: "extras_Language" },
             { name: "facet.field", value: "extras_Discipline" },
+            { name: "facet.field", value: "extras_Contributor" },
+            { name: "facet.field", value: "extras_ResourceType" },
         ].concat(fq.map(function (x) { return ({ name: "fq", value: x }); })));
         var cached = false;
         localforage.getItem("timestamp").then(function (timestamp) {
@@ -71,7 +73,9 @@ controllers.BasicFacetController = function ($scope, $q) {
                 creator: { data: _.chunk(fields.author, 2), name: "author" },
                 discipline: { data: _.chunk(fields.extras_Discipline, 2), name: "extras_Discipline" },
                 language: { data: _.chunk(fields.extras_Language, 2), name: "extras_Language" },
-                publisher: { data: _.chunk(fields.extras_Publisher, 2), name: "extras_Publisher" }
+                publisher: { data: _.chunk(fields.extras_Publisher, 2), name: "extras_Publisher" },
+                contributor: { data: _.chunk(fields.extras_Contributor, 2), name: "extras_Contributor" },
+                resourcetype: { data: _.chunk(fields.extras_ResourceType, 2), name: "extras_ResourceType" }
             };
             /** Mark full population started */
             if (limit == -1)
