@@ -1,0 +1,445 @@
+{% extends "page.html" %}
+
+{% block subtitle %}{{ _('Mapping Metadata') }}{% endblock %}
+
+{% block breadcrumb_content %}
+  <li class="active">{% link_for _('Mapping Metadata'), controller='ckanext.b2find.controller:GuidelinesController', action='mapping' %}</li>
+{% endblock %}
+
+{% block primary %}
+  <article class="module">
+    <div class="module-content">
+      <h1 class="page-heading">{{ _('Mapping onto EUDAT-B2FIND Metadata Schema') }}</h1>
+
+      <p> The provided metadata must be mapped to the B2FIND schema in a meaningful way. Currently this is done in close cooperation between
+       the data provider and the B2FIND team. By iteratively discussing the process a suitable solution is reached in each case.
+      </p>
+
+      <h2><strong class="headerboxbodylogo">Contents</strong></h2>
+      <ul>
+        <li><a href="#semanticmapping">Specification of community metadata</a></li>
+        <li><a href="#semanticmapping">Homogenisation and semantic mapping</a></li>
+        <li><a href="#b2fmdschema">EUDAT-B2FIND metadata schema</a></li>
+        <li><a href="#concordance">Concordance with other standards</a></li>
+      </ul>
+
+      <h3><a name="semanticmapping"></a>Specification of community metadata</h3>
+
+	<p>
+         The implementation of the mapping, as described in the following subsection, is based on a detailed specification and documentation of the community-specific metadata. We have designed a spreadsheet template for gathering the required data. The Excel template can be requested via the support form, by sending us an email or by downloading the version in the google drive at <a href="https://drive.google.com/drive/u/0/folders/0BzPDgtP0RXQPOV8wdXBKTWVIUFE"> Community-B2FIND_template.xlsx </a> <p>. 
+<!-- Not yet ready
+Alternatively you can fill out the online web form at <a href="http://eudat6d.dkrz.de/contact/applyform.html"> Apply for B2FIND integration </a> <p>.
+-->
+
+	This template is divided into several parts, each in their own tab:
+	<ul>
+	  <li> General Information: In this tab, data providers should provide information about the contact persons and the community.</li>
+	  <li> Metadata Specification: Please give us more detailed information about the specific metadata formats, schemas and structure used.</li>
+	  <li> Harvesting: Here the 'harvesting endpoints' (e.g. OAI-URL's) should be provided, as well as the protocols and APIs used, and the subsets, if available.</li>  
+	  <li> Mapping: In this table, the mapping of the community properties to the B2FIND schema and coverage information should be laid out. This is iteratively discussed and developed with the data provider during the initial intake process.</li>   
+	</ul>
+
+	</p>
+   
+        <h3><a name="semanticmapping"></a>Homogenisation and Semantic Mapping</h3>
+<p>To transform and reformat the harvested raw metadata records to datasets, which can be uploaded to the B2FIND catalogue and indexed and displayed in the B2FIND portal, the following processing steps must be carried out:
+
+<ol>
+  <li> Select entries from the XML records, based on XPATH rules that depend on community-specific metadata formats (see providing metadata).
+  <li> Parse through the selected values and assign them to the keys specified in the XPATH rules, i.e. fields of the B2FIND schema.
+  <li> Store the resulting key-value pairs in JSON dictionaries.
+  <li> Check and validate these JSON records before uploading to the B2FIND repository.
+</ol>
+
+This mapping procedure needs regular adaption and extensions according to the needs of the changing requirements of the communities.
+</p>
+
+        <h3><a name="b2fmdschema"></a>EUDAT-B2FIND Metadata Schema</h3>
+	To allow a unique search space, B2FIND established a common, interdisciplinary metadata schema. This schema is based on the <a href="http://schema.datacite.org/meta/kernel-4.1/">DataCite Metadata Schema 4.1</a> and therefore as well compatible with guidelines of other e-infrastructures as <a href="https://www.openaire.eu/">OpenAire</a>, their schemas are based as well on the DataCite schema.
+
+      <p>The B2FIND Metadata Schema 1.0 is the current version and was released on August 12, 2017. The associated XSD file is available and downloadable as XSD file from <a href="http://b2find.eudat.eu/schemas/b2find_schema_0.1.xsd"> b2find_schema_0.1.xsd </a> .</p>
+
+<p>Currently the schema comprises 19 fields or facets as listed in the following table with their description, allowed values and references to the associated properties in the <a href="https://schema.datacite.org/meta/kernel-4.1/ "> DataCite Metadata Schema 4.1</a>.</p>
+
+      <table border="1" class="docutils" style="width:100%">
+	<tr>
+	  <th>Metadata Type</th>
+	  <th>B2FIND Name</th>
+	  <th>Description</th> 
+	  <th>Allowed values</th>
+	  <th>DataCite 4.0 reference</th>
+	  <th>Obligation</th>
+	  <th>Occurence</th>
+	  <th>Comments and Issues</th>
+	</tr>
+	<tr>
+	  <th rowspan="3">General Information</th>
+	  <td>Title</td>
+	  <td>A name or a title by which a resource is known</td> 
+	  <td>Textual</td>
+	  <td>3. Title</td>
+	  <th>Mandatory</th>
+	  <td>1</td>
+	  <td>Coding must be UTF-8 (unicode)</td>
+	</tr>
+	<tr>
+	  <td>Description</td>
+	  <td>An additional information describing the content of the resource. Could be an abstract, a summary or a Table of Content.</td> 
+	  <td>Textual</td>
+	  <td>17.Description</td>
+	  <td>Recommended</td>
+	  <td>0-1</td>
+	  <td>Coding should be UTF-8 (unicode)</td>
+	</tr>
+	<tr>
+	  <td>Tags</td>
+	  <td>A subject, keyword, classification code, or key phrase describing the content.</td>
+	  <td>List of strings, filter out 'non nouns' by using 'stop words'
+	  <td>6.Subject</td>
+	  <td>Optional</td>
+	  <td>1</td>
+	  <td>Try to use keyword thesauri from communities</td>
+	</tr>
+	<tr>
+	  <th rowspan="5">Identifier</th>
+	  <td>DOI</td>
+	  <td>A persistent, citable identifier (registered at DataCite) that uniquely identifies a resource.</td>
+	  <td>Must be resolvable URL, registered at DataCite as DOI</td>
+	  <td>
+1.Identifier
+1.1. identiferType = DOI</td>
+	  <th rowspan="3"> Mandatory (at least one resource identifier is mandatory)</th>
+	  <td rowspan="3">1-3</td>
+	  <td></td>
+	</tr>
+	<tr>
+	  <td>PID
+	  <td>A persistent identifier (implemented as a handle in a Handleserver) that uniquely identifies a resource.</td>
+	  <td>Must be resolvable URL and registered at a handle server</td>
+	  <td>1.Identifier</td>
+	  <td></td>
+	</tr>
+	<tr>
+	  <td>Source</td>
+	  <td>An identifier (URL) that uniquely identifies a resource.</td>
+	  <td>Should be resolvable URL</td>
+	  <td>1.Identifier</td>
+	  <td></td>
+	</tr>
+        <tr>
+          <td>RelatedIdentifier</td>
+          <td>A link to related resources or supplements.</td>
+          <td>Should be resolvable URL</td>
+          <td>12. relatedIdentifier</td>
+          <td>Optional</td>
+          <td>0-n</td>
+          <td></td>
+        </tr>
+	<tr>
+	  <td>MetaDataAccess</td>
+	  <td>Link to the original harvested metadata record (GetRecord request)</td>
+	  <td>Should be resolvable URL</td>
+	  <td>N/A</td>
+	  <td>Recommended</td>
+	  <td>0-1</td>
+          <td></td>
+	</tr>
+	<tr>
+	  <th rowspan="7">Provenance</th>
+	  <td>Creator</td>
+	  <td>The main researchers involved in producing the data, or the authors of the publication, in priority order.</td>
+	  <td>List of names</td>
+	  <td>2. Creator</td>
+	  <td>Recommended</td>
+	  <td>0-n</td>
+	  <td></td>
+	</tr>
+	<tr>
+	  <td>Publisher</td>
+	  <td>The name of the entity that holds, archives, publishes prints, distributes, releases, issues, or produces the resource. This property will be used to formulate the citation, so consider the prominence of the role.</td>
+	  <td>List of names</td>
+	  <td>4. Publisher</td>
+	  <td>Recommended</td>
+	  <td>0-n</td>
+	  <td></td>
+	</tr>
+        <tr>
+          <td>Contributor</td>
+          <td>The institution or person responsible for collecting, managing, distributing, or otherwise contributing to the development of the resource.</td>
+          <td>List of names</td>
+          <td>7. Contributor</td>
+          <td>Optional</td>
+          <td>0-n</td>
+          <td></td>
+        </tr>
+	<tr>
+	  <td>PublicationYear</td>
+	  <td>The year when the data was or will be made publicly available.</td>
+	  <td>UTC Year format (YYYY)</td>
+	  <td>5. PublicationYear</td>
+	  <td>Recommended</td>
+	  <td>0-1</td>
+	  <td></td>
+	</tr>
+	<tr>
+	  <td>Rights</td>
+	  <td>Any rights information for this resource.</td>
+	  <td>Textual</td>
+	  <td>16. Rights</td>
+	  <td>Optional</td>
+	  <td>0-1</td>
+	  <td></td>
+	</tr>
+        <tr>
+          <td>OpenAccess</td>
+          <td>Is the dataset openly accessible or not.</td>
+          <td>Boolean</td>
+          <td></td>
+          <td>Optional</td>
+          <td>0-1</td>
+          <td></td>
+        </tr>
+	<tr>
+	  <td>Contact</td>
+	  <td>Any contact information for this resource.</td>
+	  <td>List of Names</td>
+	  <td>[ may be 7. Contributor]</td>
+	  <td>Optional</td>
+	  <td>0-n</td>
+	  <td></td>
+	</tr>
+	<tr>
+	  <th rowspan="3">Representation</th>
+	  <td>Language</td>
+	  <td>The primary language of the resource.</td>
+	  <td>Allowed values are taken from ISO 639-1 language codes.</td>
+	  <td>9. Language</td>
+	  <td>Optional</td>
+	  <td>0-1</td>
+	  <td>Examples: English, German, French</td>
+	</tr>
+	<tr>
+	  <td>ResourceType</td>
+	  <td>A description of the resource</td>
+	  <td>Textual</td>
+	  <td>10. ResourceType</td>
+	  <td>Recommended</td>
+	  <td>0-1</td>
+	  <td></td>
+	</tr>
+	<tr>
+	  <td>Format</td>
+	  <td>Technical format of the resource</td>
+	  <td>Textual</td>
+	  <td>14. Format</td>
+	  <td>Optional</td>
+	  <td>0-1</td>
+	  <td></td>
+	</tr>
+	<tr>
+	  <th rowspan="3">Coverage</th>
+	  <td>Discipline</td>
+	  <td>The scientific disciplines linked with the resource.</td>
+	  <td>Controlled vocabulary, see <a href="https://github.com/EUDAT-B2FIND/md-ingestion/blob/master/mapfiles/b2find_disciplines.json">b2find_disciplines.json</a></td>
+	  <td>N/A [ sometimes information in 6. Subject ]</td>
+	  <td>Recommended</td>
+	  <td>0-n</td>
+	  <td></td>
+	</tr>
+	<tr>
+	  <td>Spatial Coverage</td>
+	  <td>A geolocation where the research data was gathered or/and 
+about which the data is focused and related to. Content of this category is displayed in plain text. If a longitude/latitude information is given it will be displayed at the map.</td>
+	  <td>Textual geo spatial description (Spatial region or named place (geonames)) and if longitude/latitude information is given displayed at the map.</td>
+	  <td>18. Geolocation</td>
+	  <td>Optional</td>
+	  <td>0-1</td>
+	  <td></td>
+	</tr>
+ 	<tr>
+	  <td>Temporal Coverage</td>
+	  <td>Period of time the research data itself is related to. Could be a date format or plain text.</td>
+	  <td>Date-time representation</td>
+	  <td>8. Date / [8.1 dateType = Collected?]</td>
+	  <td>Optional</td>
+	  <td>0-1</td>
+	  <td>Not really provided by DataCite in the sense of coverage</td>
+	</tr>
+      </table>
+
+
+	<h3><a name="concordance"></a>Concordance with other Standards</h3>
+
+	<p> As said before the EUDAT-B2FIND schema is compatible with other widely used standards. In the following table the compatibility with the core schema of EUDAT-B2SHARE and the open access initiative OpenAIRE is shown by referring to the DataCite schema. The obligation is specified for each field, where M stands for mandatory, R for recommended and O for optional.  </p>
+
+
+      <table border="1" class="docutils" style="width:100%">
+	<tr>
+	  <th>DataCite #</th>
+	  <th>DataCite 4.1</th> 
+	  <th>B2FIND</th>
+	  <th>B2SHARE</th>
+	  <th>OpenAIRE</th>
+	  <th>Comments and Issues</th>
+	</tr>
+	<tr>
+	  <td>1</td>
+	  <td>Identifier(M) (+ 1.1. identifierType=[DOI])</td>
+	  <td>[Source(URL) | DOI | PID] (M)</td>
+	  <td>PID(M),DOI,URL </td>
+	  <td>Identifier(M) (+ 1.1. identifierType=[DOI , ...])</td>
+	  <td>While for B2SHARE always a PID is provided, B2FIND requires at least an URL linked to the underlying data resource</td>
+	</tr>
+	  <td>2</td>
+	  <td>Creator(M)</td>
+	  <td>Creator(R)</td>
+	  <td>Creator(R)</td>
+	  <td>Creator(M)</td>
+	  <td></td>
+	<tr>
+	  <td>3</td>
+	  <td>Title(M)</td>
+	  <td>Title(M)</td>
+	  <td>Title(M)</td>
+	  <td>Title(M)</td>
+	  <td></td>
+	</tr>
+	<tr>
+	  <td>4</td>
+	  <td>Publisher(M)</td>
+	  <td>Publisher(R)</td>
+	  <td>Publisher(R)</td>
+	  <td>Publisher(M)</td>
+	  <td></td>
+	</tr>
+	<tr>
+	  <td>5</td>
+	  <td>PublicationYear(M)</td>
+	  <td>PublicationYear(O)</td>
+	  <td>PublicationYear(O)</td>
+	  <td>PublicationYear(M)</td>
+	  <td></td>
+	</tr>
+	<tr>
+	  <td>6</td>
+	  <td>Subject(R)</td>
+	  <td>Tags and Discipline(R)</td>
+	  <td>Keywords and Discipline(R)</td>
+	  <td>Subject(O)</td>
+	  <td></td>
+	</tr>
+	<tr>
+	  <td>7</td>
+	  <td>Contributor</td>
+	  <td>[ --> Contact]</td>
+	  <td>Contributors</td>
+	  <td>Contributor (MA/O)</td>
+	  <td></td>
+	</tr>
+	<tr>
+	  <td>8</td>
+	  <td>Date</td>
+	  <td>[ --> Temporal Coverage]</td>
+	  <td></td>
+	  <td></td>
+	  <td>The DataCite definition is here very vague (*Different dates relevant to the work*). For B2FIND we have here *PubicationYear*, i.e. the year the dataset is published, and *TemperalCoverage*, i.e. the interval in time the data covers, with a powerful 'Filter by time' associated.</td>
+	</tr>
+	<tr>
+	  <td>9</td>
+	  <td>Language(O)</td>
+	  <td>Language(O)</td>
+	  <td>Language(O)</td>
+	  <td>Language(R)</td>
+	  <td></td>
+	</tr>
+	<tr>
+	  <td>10</td>
+	  <td>ResourceType(M)</td>
+	  <td>ResourceType(R)</td>
+	  <td>ResourceType(R)</td>
+	  <td>ResourceType(R)</td>
+	  <td></td>
+	</tr>
+	<tr>
+	  <td>11</td>
+	  <td>AlternateIdentifier(O)</td>
+	  <td>N/A</td>
+	  <td>Alternate Identifiers(O)</td>
+	  <td>AlternateIdentifier(O)</td>
+	  <td></td>
+	</tr>
+	<tr>
+	  <td>12</td>
+	  <td>RelatedIdentifier(R)</td>
+	  <td>N/A</td>
+	  <td>N/A</td>
+	  <td>RelatedIdentifier(MA)</td>
+	  <td></td>
+	</tr>
+	<tr>
+	  <td>13</td>
+	  <td>Size</td>
+	  <td>N/A</td>
+	  <td>Size per data object (file)</td>
+	  <td>Size(O)</td>
+	  <td></td>
+	</tr>
+	<tr>
+	  <td>14</td>
+	  <td>Format</td>
+	  <td>Format</td>
+	  <td></td>
+	  <td>Format(O)</td>
+	  <td></td>
+	</tr>
+	<tr>
+	  <td>15</td>
+	  <td>Version</td>
+	  <td>N/A [ --> checksum]</td>
+	  <td></td>
+	  <td>Version(O)</td>
+	  <td></td>
+	</tr>
+	<tr>
+	  <td>16</td>
+	  <td>Rights(O)</td>
+	  <td></td>
+	  <td>Rights(MA)</td>
+	  <td></td>
+	  <td></td>
+	</tr>
+	<tr>
+	  <td>17</td>
+	  <td>Description</td>
+	  <td>Description</td>
+	  <td></td>
+	  <td>Description(MA)</td>
+	  <td></td>
+	</tr>
+	<tr>
+	  <td>18</td>
+	  <td>GeoLocation(R)</td>
+	  <td>SpatialCoverage(O)</td>
+	  <td></td>
+	  <td>GeoLocation(O)</td>
+	  <td>In B2FIND *SpatialCoverage*, i.e. the geo spatial coverage, is associated with a 'Filter by location' interface.</td>
+	</tr>
+	<tr>
+	  <td>19</td>
+	  <td>FundingReference</td>
+	  <td>N/A</td>
+	  <td></td>
+	  <td>N/A</td>
+	  <td>N/A</td>
+	</tr>
+
+      </table>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block secondary %}{% endblock %}
