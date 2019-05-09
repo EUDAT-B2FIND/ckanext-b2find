@@ -49,6 +49,12 @@ class B2FindPlugin(plugins.SingletonPlugin):
             controller='ckanext.b2find.controller:HelpController'
         )
         map.connect(
+            'guidelines',
+            '/guidelines',
+            controller='ckanext.b2find.controller:GuidelinesController',
+            action='index'
+        )
+        map.connect(
             'guidelines_action',
             '/guidelines/{action}.html',
             controller='ckanext.b2find.controller:GuidelinesController'

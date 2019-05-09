@@ -13,8 +13,8 @@ class HelpController(base.BaseController):
         return plugins.toolkit.render('ckanext/docs/help/searchguide.html')
 
 class GuidelinesController(base.BaseController):
-    def introduction(self):
-        return plugins.toolkit.render('ckanext/docs/guidelines/introduction.html')
+    def index(self):
+        return plugins.toolkit.render('ckanext/docs/guidelines/index.html')
 
     def providing(self):
         return plugins.toolkit.render('ckanext/docs/guidelines/providing.html')
