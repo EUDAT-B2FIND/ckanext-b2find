@@ -1,4 +1,10 @@
 <div>
+{% if extras_dict.OpenAccess %}
+  {% if h.equals_ignore_case(extras_dict.OpenAccess, "true") %}
+    <i class="fa fa-unlock" title="Open Access"></i>
+  {% endif %}
+{% endif %}
+
 {% if extras_dict.DOI %}
   {% if h.is_url(extras_dict.DOI) %}
     <a href='{{ extras_dict.DOI }}' target='_blank'><span class="label package-label-doi">DOI</span></a>

@@ -146,6 +146,11 @@ a.b2f_tag:hover {
     width:            100%;
 }
 
+.dropdown-menu > li > a:hover {
+    background-color: #113497;
+    background-image: none;
+}
+
 .navbar-default {
     background-color: transparent !important;
     border:           0;
