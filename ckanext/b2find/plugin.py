@@ -13,7 +13,8 @@ class B2FindPlugin(plugins.SingletonPlugin):
         return {
             'featured_groups': helpers.featured_groups,
             'extras_to_exclude': helpers.extras_to_exclude,
-            'link_fields': helpers.link_fields
+            'link_fields': helpers.link_fields,
+            'equals_ignore_case': helpers.equals_ignore_case
         }
 
     def update_config(self, config):
@@ -43,25 +44,20 @@ class B2FindPlugin(plugins.SingletonPlugin):
             controller='ckanext.b2find.controller:LegalController'
         )
         map.connect(
-            'help',
-            '/help',
-            controller='ckanext.b2find.controller:HelpController',
-            action='index'
-        )
-        map.connect(
             'help_action',
             '/help/{action}.html',
             controller='ckanext.b2find.controller:HelpController'
         )
         map.connect(
+            'guidelines',
+            '/guidelines',
+            controller='ckanext.b2find.controller:GuidelinesController',
+            action='index'
+        )
+        map.connect(
             'guidelines_action',
             '/guidelines/{action}.html',
             controller='ckanext.b2find.controller:GuidelinesController'
-        )
-        map.connect(
-            'contact_action',
-            '/contact/{action}.html',
-            controller='ckanext.b2find.controller:ContactController'
         )
 
         return map

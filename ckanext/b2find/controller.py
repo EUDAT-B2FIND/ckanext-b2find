@@ -1,49 +1,26 @@
 import ckan.plugins as plugins
 import ckan.lib.base as base
 
-
 class LegalController(base.BaseController):
     def index(self):
         return plugins.toolkit.render('ckanext/legal/index.html')
 
-    def datenschutz(self):
-        return plugins.toolkit.render('ckanext/legal/datenschutz.html')
-
     def nutzungsbedingungen(self):
         return plugins.toolkit.render('ckanext/legal/nutzungsbedingungen.html')
 
-
 class HelpController(base.BaseController):
     def searchguide(self):
-        return plugins.toolkit.render('ckanext/help/searchguide.html')
-
-    def terms_of_use(self):
-        return plugins.toolkit.render('ckanext/help/terms_of_use.html')
-
-    def dataprotection(self):
-        return plugins.toolkit.render('ckanext/help/dataprotection.html')
+        return plugins.toolkit.render('ckanext/docs/help/searchguide.html')
 
 class GuidelinesController(base.BaseController):
-    def introduction(self):
-        return plugins.toolkit.render('ckanext/guidelines/introduction.html')
+    def index(self):
+        return plugins.toolkit.render('ckanext/docs/guidelines/index.html')
 
     def providing(self):
-        return plugins.toolkit.render('ckanext/guidelines/providing.html')
+        return plugins.toolkit.render('ckanext/docs/guidelines/providing.html')
 
     def harvesting(self):
-        return plugins.toolkit.render('ckanext/guidelines/harvesting.html')
-
-    def mdschema(self):
-        return plugins.toolkit.render('ckanext/guidelines/mdschema.html')
+        return plugins.toolkit.render('ckanext/docs/guidelines/harvesting.html')
 
     def mapping(self):
-        return plugins.toolkit.render('ckanext/guidelines/mapping.html')
-
-
-class ContactController(base.BaseController):
-    def eudatcontact(self):
-        return plugins.toolkit.render('ckanext/contact/eudatcontact.html')
-
-    def applyform(self):
-        return plugins.toolkit.render('ckanext/contact/applyform.html')
-
+        return plugins.toolkit.render('ckanext/docs/guidelines/mapping.html')

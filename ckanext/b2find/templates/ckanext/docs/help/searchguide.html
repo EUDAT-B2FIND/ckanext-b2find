@@ -11,29 +11,46 @@
     <div class="module-content">
       <h1 class="page-heading">{{ _('B2FIND Search Guide') }}</h1>
 
-      <h2><strong class="headerboxbodylogo">Contains</strong></h2>
+      <div class="well well-small">
+        <h2>Contents</h2>
+        <ul>
+          <li><a href="#intro">Introduction</a></li>
+          <li><a href="#access-b2find">The B2FIND Portal</a>
+            <ul>
+              <li><a href="#free-text-search">Free Text Search</a>
+                <ul>
+                  <li><a href="#full-text-search">Full Text Search</a></li>
+                  <li><a href="#facets">Key-Value Search</li>
+                  <li><a href="#combined-search">Combined Search</a></li>
+                </ul>
+              </li>
+              <li><a href="#faceted-search">Faceted Search Interface</a>
+                <ul>
+                  <li><a href="#geospatial-search">Filter by Location</a></li>
+                  <li><a href="#temporal-search">Filter by Time</a></li>
+                  <li><a href="#temporal-search-2">Filter by Publication Year</a></li>
+                  <li><a href="#textual-facets">Filter and Sort Textual Facets</a></li>
+                </ul>
+              </li>
+              <li><a href="#search-results">Search Results</a>
+                <ul>
+                  <li><a href="#dataset-display">Metadata Display</a></li>
+                  <li><a href="#data-access">Data Access</a>
+                    <ul>
+	              <li><a href="#resource-access">Resource Data</a></li>
+                      <li><a href="#metadata-access">Metadata as Harvested</a></li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+          <li><a href="#command-line">Command Line Interface</a></li>
+          <li><a href="#use-case">Use Case Scenario</a></li>
+        </ul>
+      </div>
 
-      <br/>&nbsp;&nbsp;&nbsp;<a href="#intro">Introduction</a>
-      <br/>&nbsp;&nbsp;&nbsp;<a href="#access-b2find">The B2FIND Portal</a>
-      <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#free-text-search">Free Text Search</a>
-      <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#full-text-search">Full Text Search</a>
-      <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#facets">Key-Value Search</a>
-      <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#combined-search">Combined Search</a>
-      <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#faceted-search">Faceted Search Interface</a>
-      <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#geospatial-search">Filter by Location</a>
-      <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#temporal-search">Filter by Time</a>
-      <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#temporal-search-2">Filter by Publication Year</a>
-      <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#textual-facets">Filter and Sort Textual Facets</a>
-      <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#search-results">Search Results</a>
-      <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#dataset-display">Metadata Display</a>
-      <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#data-access">Data Access</a>
-      <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#resource-access">Resource Data</a>
-      <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#metadata-access">Metadata as Harvested</a>
-      <br/>&nbsp;&nbsp;&nbsp;<a href="#command-line">Command Line Interface</a>
-      <br/>&nbsp;&nbsp;&nbsp;<a href="#use-case">Use Case Scenario</a>
-      <br/><br/>
-
-      <h2><a name="intro">Introduction</a></h2>
+      <h2><a name="intro"></a>Introduction</h2>
 
       <p>The EUDAT metadata service B2FIND can be utilized in two ways:</p>
 
@@ -58,12 +75,11 @@
       In the following we describe the usage of B2FIND step by step.</p>
       <br/>
 
-      <h2><a name="access-b2find">The B2FIND Portal</a></h2>
+      <h2><a name="access-b2find"></a>The B2FIND Portal</h2>
 
-      <p>
-        You can access the B2FIND web portal at <a href="/">b2find.eudat.eu</a>. The only required prerequisite -
-        beside access to the internet - to use the web interface is, that JavaScript is enabled in the used web browser.
-      </p>
+      <p>You can access the B2FIND web portal at <a href="/">b2find.eudat.eu</a>. The only
+      prerequisite - beside access to the internet - to use the web interface is, that JavaScript
+      is enabled in the used web browser.</p>
 
       <figure>
         <img border="1" vspace="10" class="left" src="/images/userguide/B2FIND_entry_page.jpg" width="474" height="66" alt="B2FIND portal entry page">
@@ -71,7 +87,7 @@
       </figure>
 
       <p>
-        By clicking 'Communities' you get an overview about all communities that provide metadata to B2FIND.<br>
+        By clicking 'Communities' you get an overview about all communities that provide metadata to B2FIND.<br/>
         There are two ways to start the search process and to get taken to the search result page (fig. 2), with all available datasets listed on the right side and the interface to several search and filter functionalities in the navigation bar on the left side:
       </p>
 
@@ -81,9 +97,9 @@
           By pressing the magnifying glass in the free text field 'Search your data'. (At this stage you can already enter a string to be searched for or choose one of the shown 'Popular Tags').
         </li>
       </ol>
-      <br>
+      <br/>
 
-      <h3><a name="free-text-search">Free Text Search</a></h3>
+      <h3><a name="free-text-search"></a>Free Text Search</h3>
 
       <p>
         As in the entry page, shown in fig. 1, as well the main search page provides a "Google-like" <strong>free text search</strong>
@@ -91,7 +107,7 @@
       </p>
       <br/>
 
-      <h4><a name="full-text-search">Full Text Search</a></h4>
+      <h4><a name="full-text-search"></a>Full Text Search</h4>
 
       <p>
         You would usually simply type the keywords you are interested in and hit return.
@@ -109,19 +125,13 @@
       </figure>
       <br/>
 
-      <h4><a name="facets">Key-Value Search</a></h4>
+      <h4><a name="facets"></a>Key-Value Search</h4>
 
       <p>
         You may use the free text search field as well to search for certain
         values of 'keys' or 'facets' by using a colon. Facets are searchable
         B2FIND categories. Please have a look at the next section for a detailed
         explanation of the interfaces to smart faceted search functionalities in the navigation bar.
-
-        <!--
-        on the left side toolbar at the Search Result Page and may be used to
-        narrow down the search result. Please have a look at the next section for a
-        detailed explanation of Faceted search
-        -->
 
         Here we only address the possibility to search for facets via the 'Free Text Search Field'.
       </p>
@@ -137,8 +147,7 @@
 
       <p>
         A full list of facets, which can be searched for in the B2FIND catalog, and their description is found in the user documentation in the section
-        <a href="http://eudat.eu/User%20Documentation%20-%20b2find-integration#UserDocumentation-B2FIND-Metadatamapping">Metadata
-        field definitions</a>.
+        <a href="http://eudat.eu/User%20Documentation%20-%20b2find-integration#UserDocumentation-B2FIND-Metadatamapping">Metadata field definitions</a>.
 
         Please note that this search method is case intensive and requires accurate spelling. E.g. typing
       </p>
@@ -147,13 +156,10 @@
 
       <p>
         will lead to no result, because there exists no facet <em>discipline</em> with small letter <em>d</em>.
-        <!--
-        Of course you may get the same result by clicking 'Biology' within the facet 'Discipline' on the left side.
-        -->
       </p>
-      <br>
+      <br/>
 
-      <h4><a name="combined-search">Combined Search</a></h4>
+      <h4><a name="combined-search"></a>Combined Search</h4>
 
       <p>
         In order to specify your search you may combine several different search methods. With the Boolean Operators
@@ -168,9 +174,9 @@
         <img src="/images/userguide/B2FIND_combinedSearch_result.jpg" width="474" height="66" alt="B2FIND Free text Search Result Page">
         <figcaption> Fig. 4 - Search Result Page for Combined Search</figcaption>
       </figure>
-      <br>
+      <br/>
 
-      <h3><a name="faceted-search">Faceted Search Interface</a></h3>
+      <h3><a name="faceted-search"></a>Faceted Search Interface</h3>
 
       <p>
         The faceted search interface provides you with options to filter your search by choosing
@@ -192,15 +198,14 @@
         within a given period of years.</li>
       </ul>
 
-      <br>
-
       Furthermore filtering and sorting for facets like 'Creator',
       'Discipline', 'Language' or 'Publisher' are provided.
 
       In the following sub sections the usage of these different kinds of
-      faceted search is described in datail. 
+      faceted search is described in detail. 
+      <br/>
 
-      <h4><a name="geospatial-search">Filter by location</a></h4>
+      <h4><a name="geospatial-search"></a>Filter by location</h4>
 
       <p>
         In the world map widget in the left upper corner you can select a region by drag and drop.
@@ -250,7 +255,7 @@
       </table>
 
 
-      <h4><a name="temporal-search">Filter by time</a></h4>
+      <h4><a name="temporal-search"></a>Filter by time</h4>
 
       <p>
         With the search widget 'Filter by time' you can select a time period the research data are
@@ -345,7 +350,7 @@
         </tr>
       </table>
 
-      <h4><a name="temporal-search-2">Filter by Publication Year</a></h4>
+      <h4><a name="temporal-search-2"></a>Filter by Publication Year</h4>
 
       <p>
         With the search widget 'Publication Year' you can search for datasets that are <strong>published</strong>
@@ -402,14 +407,12 @@
         </tr>
       </table>
 
-
-      <h4><a name="textual-facets">Filter and Sort Textual Facets</a></h4>
+      <h4><a name="textual-facets"></a>Filter and Sort Textual Facets</h4>
 
       For the crucial textual facets 'Communities', 'Tags', 'Creator',
       'Disciplines', 'Languages' and 'Publisher' filtering and sorting is
       provided with auto-complete functionality. This is illustrated by
       the following figures describing the search for a specific 'Creator'.
-
 
       <table border="0" cellpadding="16" width="700">
         <tr>
@@ -438,9 +441,10 @@
             <img src="/images/userguide/B2FIND_textual_facets_select_creator.jpg" width="180" alt="B2FIND Select Creator">
           </td>
         </tr>
-     </table>
+      </table>
+      <br/>
 
-      <h3><a name="search-results">Search Results</a></h3>
+      <h3><a name="search-results"></a>Search Results</h3>
 
       <p>
         The datasets found to fulfill the search criteria are shown on the
@@ -456,8 +460,9 @@
         <img class="left" src="/images/userguide/B2FIND_textual_facets_result.jpg" width="474" height="66" alt="B2FIND textual facet result">
         <figcaption>Fig. 5 - B2FIND result of combined textual facet search</figcaption>
       </figure>
+      <br/>
 
-      <h4><a name="dataset-display">Metadata Display</a></h4>
+      <h4><a name="dataset-display"></a>Metadata Display</h4>
 
       <p>
         By clicking the dataset title the dataset view opens. The textual metadata are shown on the right side; on top the title,
@@ -472,7 +477,7 @@
 
       <br/>
 
-      <h4><a name="data-access">Data Access</a></h4>
+      <h4><a name="data-access"></a>Data Access</h4>
 
       <p>Among these fields are links provided that enable access on related data.</p>
 
@@ -482,7 +487,7 @@
       </ul>
       <br/>
 
-      <h5><a name="resource-access">Resource Data</a></h5>
+      <h5><a name="resource-access"></a>Resource Data</h5>
 
       <p>
         If you are interested to download the data resource lying behind the found metadata,
@@ -498,11 +503,9 @@
         In our example the link leads you to the landing page of the related data of the WDCC.
         On this page are further metadata provided and a further link under 'Data access' is provided,
         to allow you the download of the data, if you have the needed authorisation information.
-
-        <!-- ??? In other cases you can access directly the data object or the URL can't be resolved at all -->
       </p>
 
-      <h5><a name="metadata-access">Metadata as Harvested</a></h5>
+      <h5><a name="metadata-access"></a>Metadata as Harvested</h5>
 
       <p>
         If you want to examine the 'raw' metadata as originally harvested by B2FIND from the data provider
@@ -518,7 +521,7 @@
       <p>In this case the metadata is provided in community specific format (ISO19139) and namespaces are used to describe the geo referenced fields.</p>
       <br/>
 
-      <h2><a name="command-line">The Command Line Search</a></h2>
+      <h2><a name="command-line"></a>The Command Line Search</h2>
 
       <p>
         Beside the possibility to search over the web interface you can as
@@ -581,8 +584,9 @@ Examples:
              searchs in eudat-b1.dkrz.de for all datasets having an author starting with "Jones" and belongs to the discipline "Crystal Structure"
            3. >./searchB2FIND.py -c narcis DOI:'*' --ids DOI
              returns the list of id's and DOI's for all records in community "NARCIS" that have a DOI</code></pre>
+      <br/>
 
-      <h2><a name="use-case">Use Case Scenario</a></h2>
+      <h2><a name="use-case"></a>Use Case Scenario</h2>
 
       <p>To demonstrate a possible combined search via the provided faceted
       search functionalities we take the example of th following use case scenario :</p>

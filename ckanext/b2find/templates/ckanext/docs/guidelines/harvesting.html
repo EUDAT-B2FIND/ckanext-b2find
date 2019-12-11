@@ -3,13 +3,14 @@
 {% block subtitle %}{{ _('Harvesting of Metadata') }}{% endblock %}
 
 {% block breadcrumb_content %}
-  <li class="active">{% link_for _('Harvesting of Metadata'), controller='ckanext.b2find.controller:GuidelinesController', action='harvesting' %}</li>
+  <li>{% link_for _('Guidelines'), controller='ckanext.b2find.controller:GuidelinesController', action='index' %}</li>
+  <li class="active">{% link_for _('Harvesting Metadata'), controller='ckanext.b2find.controller:GuidelinesController', action='harvesting' %}</li>
 {% endblock %}
 
 {% block primary %}
   <article class="module">
     <div class="module-content">
-      <h1 class="page-heading">{{ _('Harvesting of Metadata') }}</h1>
+      <h1 class="page-heading">{{ _('Harvesting Metadata') }}</h1>
 
       <h2><strong class="headerboxbodylogo">Contents</strong></h2>
       <ul>

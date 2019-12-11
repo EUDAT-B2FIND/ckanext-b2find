@@ -9,10 +9,12 @@
       <button id="homesubmit" type="submit"><i class="fa fa-search fa-lg"></i></button>
     </div>
   </form>
+<!--
   <div class="tags">
     <h3>{{ _('Popular Tags') }}</h3>
     {% for tag in tags %}
       <a class="b2f_tag" href="{% url_for controller='package', action='search', tags=tag.name %}"><i class="fa fa-tag"></i> {{ h.truncate(tag.display_name, 18) }}</a>
     {% endfor %}
   </div>
+-->
 </div>
