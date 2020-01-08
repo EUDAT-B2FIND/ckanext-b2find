@@ -31,3 +31,11 @@ def equals_ignore_case(*args, **kw):
             return False
     except IndexError:
         return False
+
+def split_extra(*args, **kw):
+    '''
+    '''
+    if not args:
+        return False;
+
+    return args[0].split(';')
