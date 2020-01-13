@@ -217,11 +217,13 @@ a.b2f_tag:hover {
 }
 
 .voffset125 {
-    padding-top:      125px;
+    padding-top:      6vh;
+//    padding-top:      125px;
 }
 
 .voffset50 {
-    padding-top:      50px;
+    padding-top:      3vh;
+//    padding-top:      50px;
 }
 
 /* =========================================================================
@@ -272,6 +274,26 @@ input.facet-filter {
 
 .package-label-pid {
     margin-bottom:    20px;
+}
+
+.dataset-details > a {
+    text-decoration:  none;
+    color:            #264899;
+}
+
+.dataset-details > a:hover {
+    text-decoration:  none;
+    color:            #F45D00;
+}
+
+.dataset-heading > a {
+    text-decoration:  none;
+    color:            black;
+}
+
+.dataset-heading > a:hover {
+    text-decoration:  none;
+    color:            #F45D00;
 }
 
 /* Correct position of search icon on search_form input field */
