@@ -81,7 +81,7 @@ body {
 #homeinput {
     height:           34px;
     border-width:     2px;
-    border-color:     #113497;
+    border-color:     #264899;
     border-style:     solid none solid solid;
     border-radius:    5px 0 0 5px;
 }
@@ -90,9 +90,9 @@ body {
     height:           46px;
     width:            100px;
     color:            #ffffff;
-    background-color: #113497;
+    background-color: #264899;
     border-width:     2px;
-    border-color:     #113497;
+    border-color:     #264899;
     border-style:     solid solid solid none;
     border-radius:    0 5px 5px 0;
 }
@@ -182,7 +182,7 @@ a.b2f_tag:hover {
 }
 
 .dropdown-menu > li > a:hover {
-    background-color: #113497;
+    background-color: #264899;
     background-image: none;
 }
 
