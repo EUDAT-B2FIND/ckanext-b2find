@@ -5,7 +5,7 @@
 body {
     background:       #FAFAFA url("/images/bg_page.png") no-repeat center;
     position:         relative;
-    font: 300 15px/1.55 "Open Sans", sans-serif;
+    font:             300 15px/1.55 "Open Sans", sans-serif;
 }
 
 [role=main] {
@@ -133,7 +133,7 @@ a.b2f_tag:hover {
     border-right:     1px solid #577CD5;
     padding:          5px 10px 5px 10px;
     display:          inline-block;
-    font-size:        12px;
+    font-size:        14px;
     font-weight:      bold;
 }
 .eudat-link a {
