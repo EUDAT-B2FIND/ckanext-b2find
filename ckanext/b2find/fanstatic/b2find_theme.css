@@ -177,9 +177,19 @@ a.b2f_tag:hover {
     color:            #F45D00;
 }
 
-
 .footer-logo {
     margin:           0 50px;
+}
+
+.footer-line {
+    border-top:       1px solid #888;
+    border-bottom:    0;
+    margin:           10px 0;
+}
+
+.footer-powered {
+    padding-right:    25px;
+    text-align:       right;
 }
 
 .dropdown-menu > li > a:hover {
