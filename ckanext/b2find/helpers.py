@@ -18,6 +18,14 @@ def link_fields():
     field_list = [ 'MetaDataAccess', 'PID', 'DOI' ]
     return field_list
 
+def strip_brackets(*args, **kw):
+    '''
+    '''
+    if not args:
+        return False
+
+    return args[0].strip("{}")
+
 def equals_ignore_case(*args, **kw):
     '''
     '''
@@ -36,6 +44,6 @@ def split_extra(*args, **kw):
     '''
     '''
     if not args:
-        return False;
+        return False
 
     return args[0].split(';')
