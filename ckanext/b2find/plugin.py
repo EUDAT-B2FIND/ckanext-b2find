@@ -81,5 +81,6 @@ class B2FindPlugin(plugins.SingletonPlugin):
         facets_dict['extras_Publisher'] = 'Publisher'
         facets_dict['extras_Contributor'] = 'Contributor'
         facets_dict['extras_ResourceType'] = 'ResourceType'
+        facets_dict['extras_OpenAccess'] = 'OpenAccess'
 
         return facets_dict
