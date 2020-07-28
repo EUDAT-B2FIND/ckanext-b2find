@@ -9,7 +9,6 @@ body {
 }
 
 [role=main] {
-//    min-height:       800px;
     min-height:       75vh;
 }
 
@@ -18,7 +17,6 @@ body {
 }
 
 .homepage [role=main] {
-//    min-height:       800px;
     min-height:       75vh;
 }
 
@@ -29,18 +27,23 @@ body {
 .account-masthead {
     background-color: rgb(40, 40, 40);
 }
-
+/*
 .account-masthead .account .notifications a span {
     background-color: black;
 }
+*/
 
 .account-masthead .account ul li a {
-    color:            rgba(255, 255, 255, 0.6);
+    color:            white;
 }
 
 .account-masthead .account ul li a:hover {
-    color:            rgba(255, 255, 255, 0.7);
-    background-color: black;
+    color:            #F45D00;
+    background:       black;
+}
+
+.account.avatar.authed {
+    height: 31px;
 }
 
 /* =========================================================================
@@ -229,12 +232,10 @@ a.b2f_tag:hover {
 
 .voffset125 {
     padding-top:      6vh;
-//    padding-top:      125px;
 }
 
 .voffset50 {
     padding-top:      3vh;
-//    padding-top:      50px;
 }
 
 /* =========================================================================
