@@ -70,7 +70,7 @@ controllers.BasicFacetController = function ($scope, $q) {
                     data: _(fields.groups).chunk(2).map(function (x) { return _(x).push(groups[x[0]]).reverse().value(); }).value(),
                     name: "groups"
                 },
-                tags: { data: _.chunk(fields.tags, 2), name: "tags" },
+                keywords: { data: _.chunk(fields.tags, 2), name: "tags" },
                 creator: { data: _.chunk(fields.author, 2), name: "author" },
                 discipline: { data: _.chunk(fields.extras_Discipline, 2), name: "extras_Discipline" },
                 language: { data: _.chunk(fields.extras_Language, 2), name: "extras_Language" },
