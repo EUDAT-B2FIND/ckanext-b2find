@@ -1,7 +1,17 @@
+# encoding: utf-8
 import ckan.plugins as plugins
 import ckan.plugins.toolkit as toolkit
 import ckanext.b2find.helpers as helpers
 
+def legacy_pager(self, *args, **kwargs):
+    kwargs.update(
+        format=u"<div class='pagination-wrapper pagination pagination-centered'><ul>"
+        "$link_previous ~2~ $link_next</ul></div>",
+        symbol_previous=u'«', symbol_next=u'»',
+        curpage_attr={'class': 'active'}, link_attr={}
+    )
+    from ckan.lib.helpers import Page
+    return super(Page, self).pager(*args, **kwargs)
 
 class B2FindPlugin(plugins.SingletonPlugin):
     plugins.implements(plugins.IConfigurer)
@@ -23,6 +33,11 @@ class B2FindPlugin(plugins.SingletonPlugin):
         toolkit.add_public_directory(config, 'public')
         toolkit.add_template_directory(config, 'templates')
         toolkit.add_resource('fanstatic', 'ckanext-b2find')
+
+        if 'ckan.base_templates_folder' in config and config['ckan.base_templates_folder'] == 'templates-bs2':
+            from ckan.lib.helpers import Page
+            Page.pager = legacy_pager
+        return config
 
     def dataset_facets(self, facets_dict, package_type):
         return self._facets(facets_dict)
