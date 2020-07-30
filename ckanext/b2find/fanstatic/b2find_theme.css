@@ -308,6 +308,14 @@ input.facet-filter {
     color:            #F45D00;
 }
 
+.pagination > ul > li > a {
+    color:            #264899;
+}
+
+.pagination > ul > li > a:hover {
+    color:            #F45D00;
+}
+
 /* Correct position of search icon on search_form input field */
 .search-form .search-input button {
     top: 30%;
