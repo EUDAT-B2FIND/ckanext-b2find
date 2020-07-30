@@ -18,4 +18,6 @@ User-agent: MJ12bot
 Disallow: /
 User-agent: SemrushBot
 Disallow: /
+User-agent: BLEXBot
+Disallow: /
 {%- endblock %}

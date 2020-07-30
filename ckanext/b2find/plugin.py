@@ -14,7 +14,9 @@ class B2FindPlugin(plugins.SingletonPlugin):
             'featured_groups': helpers.featured_groups,
             'extras_to_exclude': helpers.extras_to_exclude,
             'link_fields': helpers.link_fields,
-            'equals_ignore_case': helpers.equals_ignore_case
+            'strip_brackets': helpers.strip_brackets,
+            'equals_ignore_case': helpers.equals_ignore_case,
+            'split_extra': helpers.split_extra
         }
 
     def update_config(self, config):

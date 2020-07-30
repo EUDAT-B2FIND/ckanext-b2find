@@ -1,6 +1,6 @@
 <div>
 {% if extras_dict.OpenAccess %}
-  {% if h.equals_ignore_case(extras_dict.OpenAccess, "true") %}
+  {% if h.equals_ignore_case(h.strip_brackets(extras_dict.OpenAccess), "true") %}
     <i class="fa fa-unlock" title="Open Access"></i>
   {% endif %}
 {% endif %}
