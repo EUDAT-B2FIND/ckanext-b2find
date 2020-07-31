@@ -8,6 +8,16 @@ body {
     font:             300 15px/1.55 "Open Sans", sans-serif;
 }
 
+a {
+    color:            #264899;
+    text-decoration:  none;
+}
+
+a:hover {
+    color:            #F45D00;
+    text-decoration:  none;
+}
+
 [role=main] {
     min-height:       75vh;
 }
