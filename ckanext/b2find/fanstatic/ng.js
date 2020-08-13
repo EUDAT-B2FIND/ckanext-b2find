@@ -24,6 +24,8 @@ controllers.BasicFacetController = function ($scope, $q) {
             { name: "facet.field", value: "extras_Discipline" },
             { name: "facet.field", value: "extras_Contributor" },
             { name: "facet.field", value: "extras_ResourceType" },
+            { name: "facet.field", value: "extras_OpenAccess" },
+            { name: "facet.field", value: "extras_Instrument" }
         ].concat(fq.map(function (x) { return ({ name: "fq", value: x }); })));
         var cached = false;
         localforage.getItem("timestamp").then(function (timestamp) {
@@ -69,13 +71,15 @@ controllers.BasicFacetController = function ($scope, $q) {
                     data: _(fields.groups).chunk(2).map(function (x) { return _(x).push(groups[x[0]]).reverse().value(); }).value(),
                     name: "groups"
                 },
-                tags: { data: _.chunk(fields.tags, 2), name: "tags" },
+                keywords: { data: _.chunk(fields.tags, 2), name: "tags" },
                 creator: { data: _.chunk(fields.author, 2), name: "author" },
+                instrument: { data: _.chunk(fields.extras_Instrument, 2), name: "extras_Instrument" },
                 discipline: { data: _.chunk(fields.extras_Discipline, 2), name: "extras_Discipline" },
                 language: { data: _.chunk(fields.extras_Language, 2), name: "extras_Language" },
                 publisher: { data: _.chunk(fields.extras_Publisher, 2), name: "extras_Publisher" },
                 contributor: { data: _.chunk(fields.extras_Contributor, 2), name: "extras_Contributor" },
-                resourcetype: { data: _.chunk(fields.extras_ResourceType, 2), name: "extras_ResourceType" }
+                resourcetype: { data: _.chunk(fields.extras_ResourceType, 2), name: "extras_ResourceType" },
+                openaccess: { data: _.chunk(fields.extras_OpenAccess, 2), name: "extras_OpenAccess" }
             };
             /** Mark full population started */
             if (limit == -1)

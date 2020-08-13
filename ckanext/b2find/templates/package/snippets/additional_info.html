@@ -14,8 +14,6 @@
 
     {% snippet "package/snippets/representation_info.html", pkg_dict=pkg_dict, extras_dict=extras_dict, logged_in=logged_in %}
 
-    {% snippet "package/snippets/coverage_info.html", pkg_dict=pkg_dict, extras_dict=extras_dict, logged_in=logged_in %}
-
     {% if logged_in %}
       {% snippet "package/snippets/b2find_internal.html", pkg_dict=pkg_dict, extras_dict=extras_dict %}
 

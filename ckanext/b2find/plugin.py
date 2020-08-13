@@ -73,13 +73,17 @@ class B2FindPlugin(plugins.SingletonPlugin):
         # Renamed facets
         if 'groups' in facets_dict:
             facets_dict['groups'] = 'Communities'
+        if 'tags' in facets_dict:
+            facets_dict['tags'] = 'Keywords'
 
         # New facets
         facets_dict['author'] = 'Creator'
+        facets_dict['instrument'] = 'Instrument'
         facets_dict['extras_Discipline'] = 'Discipline'
         facets_dict['extras_Language'] = 'Language'
         facets_dict['extras_Publisher'] = 'Publisher'
         facets_dict['extras_Contributor'] = 'Contributor'
         facets_dict['extras_ResourceType'] = 'ResourceType'
+        facets_dict['extras_OpenAccess'] = 'OpenAccess'
 
         return facets_dict

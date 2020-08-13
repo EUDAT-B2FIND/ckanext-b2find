@@ -15,6 +15,13 @@
     </tr>
   {% endif %}
 
+  {% if extras_dict.Instrument %}
+    <tr>
+      <th scope="row" class="dataset-label" property="rdfs:label">{{ _("Instrument") }}</th>
+      <td class="dataset-details" property="rdf:value">{{ extras_dict.Instrument }}</td>
+      </tr>
+  {% endif %}
+
   {% if extras_dict.Publisher %}
     <tr>
       <th scope="row" class="dataset-label" property="rdfs:label">{{ _("Publisher") }}</th>
@@ -34,6 +41,13 @@
       <th scope="row" class="dataset-label" property="rdfs:label">{{ _("Publication Year") }}</th>
       <td class="dataset-details" property="rdf:value">{{ extras_dict.PublicationYear }}</td>
     </tr>
+  {% endif %}
+
+  {% if extras_dict.FundingReference %}
+    <tr>
+      <th scope="row" class="dataset-label" property="rdfs:label">{{ _("Funding Reference") }}</th>
+      <td class="dataset-details" property="rdf:value">{{ extras_dict.FundingReference }}</td>
+      </tr>
   {% endif %}
 
   {% if extras_dict.Rights %}
