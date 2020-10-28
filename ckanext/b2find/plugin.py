@@ -93,7 +93,7 @@ class B2FindPlugin(plugins.SingletonPlugin):
 
         # New facets
         facets_dict['author'] = 'Creator'
-        facets_dict['instrument'] = 'Instrument'
+#        facets_dict['instrument'] = 'Instrument'
         facets_dict['extras_Discipline'] = 'Discipline'
         facets_dict['extras_Language'] = 'Language'
         facets_dict['extras_Publisher'] = 'Publisher'
