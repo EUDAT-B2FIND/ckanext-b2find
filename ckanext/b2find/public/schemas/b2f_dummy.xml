@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resource
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns="http://b2find.eudat.eu/schemas"
+  xsi:schemaLocation="http://b2find.eudat.eu/schemas file:///Users/pingu/Documents/GitHub/b2f/ckanext-b2find/ckanext/b2find/public/schemas/b2find_schema_2.0.xsd">
+  <titles>
+    <title>Test</title>
+    <title>Subtitle</title>
+  </titles>
+  <community>test</community>
+</resource>
