@@ -76,7 +76,7 @@ TODO: check and/or define namespace for xmlns
           </xs:annotation>
         </xs:element>
 
-        <xs:element name="PID" type="xs:anyURI" minOccurs="0" maxOccurs="1">
+        <xs:element name="source" type="xs:anyURI" minOccurs="0" maxOccurs="1">
           <xs:annotation>
             <xs:documentation>An identifier that uniquely identifies a resource. It may link to the data itself or a landing page that curates the data.</xs:documentation>
           </xs:annotation>
