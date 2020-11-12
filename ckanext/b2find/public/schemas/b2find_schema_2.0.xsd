@@ -3,15 +3,12 @@
 2020-11-11  XSD definition for B2FIND schema v2.0
 TODO: check and/or define namespace for xmlns
 -->
-<xs:schema
-  xmlns:xs="http://www.w3.org/2001/XMLSchema"
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xmlns="http://b2find.eudat.eu/schemas"
-  targetNamespace="http://b2find.eudat.eu/schemas"
-  attributeFormDefault="unqualified"
-  elementFormDefault="qualified"
-  xml:lang="EN">
-  <xs:import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="http://www.w3.org/2009/01/xml.xsd"/>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://b2find.eudat.eu/schemas"
+  targetNamespace="http://b2find.eudat.eu/schemas" attributeFormDefault="unqualified"
+  elementFormDefault="qualified" xml:lang="EN">
+  <xs:import namespace="http://www.w3.org/XML/1998/namespace"
+    schemaLocation="http://www.w3.org/2009/01/xml.xsd"/>
 
   <xs:element name="resource">
     <xs:annotation>
@@ -85,7 +82,8 @@ TODO: check and/or define namespace for xmlns
         <xs:element name="relatedIdentifiers">
           <xs:complexType>
             <xs:sequence>
-              <xs:element name="relatedIdentifier" type="xs:anyURI" minOccurs="0" maxOccurs="unbounded">
+              <xs:element name="relatedIdentifier" type="xs:anyURI" minOccurs="0"
+                maxOccurs="unbounded">
                 <xs:annotation>
                   <xs:documentation>Identifiers of related resources.</xs:documentation>
                 </xs:annotation>
@@ -149,7 +147,7 @@ TODO: check and/or define namespace for xmlns
           </xs:complexType>
         </xs:element>
 
-        <xs:element name="publicationYear" type="xs:date" minOccurs="1" maxOccurs="1">
+        <xs:element name="publicationYear" type="xs:gYear" minOccurs="1" maxOccurs="1">
           <xs:annotation>
             <xs:documentation>Year when the data is made publicly available. If an embargo period has been in effect, use the date when the embargo period ends.</xs:documentation>
           </xs:annotation>
@@ -158,7 +156,8 @@ TODO: check and/or define namespace for xmlns
         <xs:element name="fundingReferences">
           <xs:complexType>
             <xs:sequence>
-              <xs:element name="fundingReference" type="xs:string" minOccurs="0" maxOccurs="unbounded">
+              <xs:element name="fundingReference" type="xs:string" minOccurs="0"
+                maxOccurs="unbounded">
                 <xs:annotation>
                   <xs:documentation>Information about financial support (funding) for the resource.</xs:documentation>
                 </xs:annotation>
