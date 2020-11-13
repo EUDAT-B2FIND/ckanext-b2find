@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Revision history
 2020-11-11  XSD definition for B2FIND schema v2.0
-TODO: check and/or define namespace for xmlns
 -->
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://b2find.eudat.eu/schemas"
