@@ -250,30 +250,34 @@ Providers, who submit both the mandatory and recommended sets of properties sign
 	  <td></td>
 	</tr>
 	<tr>
-	  <td>Spatial Coverage</td>
-	  <td>A geolocation where the research data was gathered or/and 
-about which the data is focused and related to. Content of this category is displayed in plain text. If a longitude/latitude information is given it will be displayed at the map.</td>
-	  <td>Textual geo spatial description (Spatial region or named place (geonames)) and if longitude/latitude information is given displayed at the map.</td>
-	  <td>18. Geolocation</td>
-	  <td>Optional</td>
+	  <td>Spatial Coverage (O)</td>
+	  <td>The spatial coverage the research data is related to. Content of this category is displayed in plain text. If a longitude/latitude information is given it will be displayed on the map.</td>
 	  <td>0-1</td>
-	  <td></td>
+	  <td>Geographical coordinates
+	  	<ul>
+    		<li>lat/lon for point</li> 
+    		<li>[min_lat, min_lon, max_lat, max_lon] for bounding box</li>
+    		<li>or free text</li>
+    	</ul>
+
+	Recommended, in accordance with DataCite:
+
+    Use WGS 84 (World Geodetic System) coordinates. Use only decimal numbers for coordinates. Longitudes are -180 to 180(0 is Greenwich, negative numbers are west, positive numbers are east), Latitudes are -90 to 90 (0 is the equator; negative numbers are south, positive numbers north)</td>
+	   <td></td>
 	</tr>
  	<tr>
-	  <td>Temporal Coverage</td>
+	  <td>Temporal Coverage (O)</td>
 	  <td>Period of time the research data itself is related to. Could be a date format or plain text.</td>
-	  <td>Date-time representation</td>
-	  <td>8. Date / [8.1 dateType = Collected?]</td>
-	  <td>Optional</td>
 	  <td>0-1</td>
-	  <td>Not really provided by DataCite in the sense of coverage</td>
+	  <td>UTC: YYYY,YYYY-MM-DD, YYYY-MM-DDThh:mm:ssTZD, or plain text, e.g. Viking Age</td>
+	  <td></td>
 	</tr>
       </table>
 
 
-	<h3><a name="concordance"></a>Concordance with other Standards</h3>
+	<h3><a name="concordance"></a>Concordance with Other Standards</h3>
 
-	<p> As said before the EUDAT-B2FIND schema is compatible with other widely used standards. In the following table the compatibility with the core schema of EUDAT-B2SHARE and the open access initiative OpenAIRE is shown by referring to the DataCite schema. The obligation is specified for each field, where M stands for mandatory, R for recommended and O for optional.  </p>
+	<p> As said before the EUDAT-B2FIND schema is compatible with other widely used standards. In the following table the compatibility with the core schema of EUDAT-B2SHARE and the open access initiative OpenAIRE is shown by referring to the DataCite schema.</p>
 
 
       <table border="1" class="docutils" style="width:100%">
