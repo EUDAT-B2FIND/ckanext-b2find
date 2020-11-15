@@ -17,13 +17,13 @@
 
       <h2><strong class="headerboxbodylogo">Contents</strong></h2>
       <ul>
-        <li><a href="#semanticmapping">Specification of community metadata</a></li>
-        <li><a href="#semanticmapping">Homogenisation and semantic mapping</a></li>
-        <li><a href="#b2fmdschema">EUDAT-B2FIND metadata schema</a></li>
-        <li><a href="#concordance">Concordance with other standards</a></li>
+        <li><a href="#semanticmapping">Specification of Community Metadata</a></li>
+        <li><a href="#semanticmapping">Homogenisation and Semantic Mapping</a></li>
+        <li><a href="#b2fmdschema">EUDAT-B2FIND Metadata Schema</a></li>
+        <li><a href="#concordance">Concordance with other Standards</a></li>
       </ul>
 
-      <h3><a name="semanticmapping"></a>Specification of community metadata</h3>
+      <h3><a name="semanticmapping"></a>Specification of Community Metadata</h3>
 
 	<p>
          The implementation of the mapping, as described in the following subsection, is based on a detailed specification and documentation of the community-specific metadata. We have designed a template for gathering the required data, see <a href="https://b2drop.eudat.eu/s/KZJXroDeB24HEgi"> B2FIND community_template</a>. This file will document the communication process and decisions regarding the ingestion of the provider's metadata into B2FIND.
@@ -46,7 +46,7 @@ Alternatively you can fill out the online web form at <a href="http://eudat6d.dk
 <p>To transform and reformat the harvested raw metadata records to datasets which can be uploaded to the B2FIND catalogue and indexed and displayed in the B2FIND portal, the following processing steps must be carried out:
 
 <ol>
-  <li> Select entries from the XML records that depend on community-specific metadata formats (see providing metadata).
+  <li> Select entries from the XML records that depend on community-specific metadata formats (see Providing Metadata).
   <li> Parse through the selected values and assign them to the keys specified in the elements of the B2FIND schema.
   <li> Store the resulting key-value pairs in JSON dictionaries.
   <li> Check and validate these JSON records before uploading to B2FIND.
@@ -56,69 +56,71 @@ This mapping procedure needs regular adaption and extensions according to the ne
 </p>
 
         <h3><a name="b2fmdschema"></a>EUDAT-B2FIND Metadata Schema</h3>
-	To allow a unique search space, B2FIND established a common, interdisciplinary metadata schema. This schema is based on the <a href="http://schema.datacite.org/meta/kernel-4.1/">DataCite Metadata Schema 4.1</a> and therefore as well compatible with guidelines of other e-infrastructures as <a href="https://www.openaire.eu/">OpenAire</a>, their schemas are based as well on the DataCite schema.
+	To allow a single but interdisciplinary search space, B2FIND established a generic, non-hierarchical metadata schema. This schema is based on the <a href="https://schema.datacite.org/">DataCite Metadata Schema</a> and therefore is also compatible with guidelines of other e-infrastructures such as <a href="https://www.openaire.eu/">OpenAire</a>, as their schemas are based on the DataCite schema as well.
 
-     <p>The B2FIND Metadata Schema 1.0 is the current version and was released on November 12, 2017. The associated XSD file is available and downloadable as XSD file from <a href="http://b2find.eudat.eu/schemas/b2find_schema_0.1.xsd"> b2find_schema_0.1.xsd </a> .</p>
+     <p>The B2FIND Metadata Schema 2.0 is the current version and was released on November 11, 2020. The associated XSD file is available as XSD file at <a href="http://b2find.eudat.eu/schema/b2f/2.0/meta.xsd"> b2find_schema_2.0.xsd</a>. </p>
 
-<p>Currently the schema comprises 19 fields or facets as listed in the following table with their description, allowed values and references to the associated properties in the <a href="https://schema.datacite.org/meta/kernel-4.1/ "> DataCite Metadata Schema 4.1</a>.</p>
+<p>Currently the schema consists of 26 elements. These are listed in the following table with their description, occurrences and allowed values. The level of obligation is indicated with each element as follows:
+	<ul>
+  		<li> Mandatory (M): properties must be provided.</li>
+  		<li> Mandatory if applicable: (M/A): if your metadata contains this value, you must provide it.</li>
+  		<li> Recommended (R): properties are optional, but strongly recommended for interoperability and higher quality of the metadata.</li>
+  		<li> Optional (O): properties are optional and provide richer description.</li>     
+	</ul>
+Providers, who submit both the mandatory and recommended sets of properties significantly enhance the chance of their metadata being found, cited and linked to original research.
+	
+</p>
 
       <table border="1" class="docutils" style="width:100%">
 	<tr>
 	  <th>Metadata Type</th>
 	  <th>B2FIND Name</th>
-	  <th>Description</th> 
+      <th>Description</th>
+	  <th>Occurence</th> 
 	  <th>Allowed values</th>
-	  <th>DataCite 4.0 reference</th>
-	  <th>Obligation</th>
-	  <th>Occurence</th>
 	  <th>Comments and Issues</th>
 	</tr>
 	<tr>
-	  <th rowspan="3">General Information</th>
-	  <td>Title</td>
-	  <td>A name or a title by which a resource is known</td> 
-	  <td>Textual</td>
-	  <td>3. Title</td>
-	  <th>Mandatory</th>
+	  <th rowspan="4">General Information</th>
+	  <td>Community (M)</td>
+	  <td>The scientific community, research infrastructure, project or data provider from which B2FIND harvests the metadata.</td> 
 	  <td>1</td>
+	  <td>Textual</td>
+    <td></td>
+  	</tr>
+  	<tr>
+	  <td>Title (M)</td>
+	  <td>A name or a title by which a resource is known</td>
+	  <td>1-n</td> 
+	  <td>Textual</td>
 	  <td>Coding must be UTF-8 (unicode)</td>
 	</tr>
 	<tr>
-	  <td>Description</td>
-	  <td>An additional information describing the content of the resource. Could be an abstract, a summary or a Table of Content.</td> 
+	  <td>Description (R)</td>
+	  <td>All additional information that does not fit in any of the other categories. May be used for technical information. Could be an abstract, a summary or a table of content.It is a best practice to supply a description.</td><td>0-1</td>
 	  <td>Textual</td>
-	  <td>17.Description</td>
-	  <td>Recommended</td>
-	  <td>0-1</td>
 	  <td>Coding should be UTF-8 (unicode)</td>
 	</tr>
 	<tr>
-	  <td>Tags</td>
-	  <td>A subject, keyword, classification code, or key phrase describing the content.</td>
-	  <td>List of strings, filter out 'non nouns' by using 'stop words'
-	  <td>6.Subject</td>
-	  <td>Optional</td>
-	  <td>1</td>
-	  <td>Try to use keyword thesauri from communities</td>
+	  <td>Keywords (R)</td>
+	  <td>Subject, keyword, classification code, or key phrase describing the resource.</td>
+	  <td>0-n</td>
+	  <td>List of strings</td>
+	  <td>Try to use keyword thesauri from community-specific vocabularies.</td>
 	</tr>
 	<tr>
 	  <th rowspan="5">Identifier</th>
-	  <td>DOI</td>
-	  <td>A persistent, citable identifier (registered at DataCite) that uniquely identifies a resource.</td>
-	  <td>Must be resolvable URL, registered at DataCite as DOI</td>
-	  <td>
-1.Identifier
-1.1. identiferType = DOI</td>
-	  <th rowspan="3"> Mandatory (at least one resource identifier is mandatory)</th>
-	  <td rowspan="3">1-3</td>
-	  <td></td>
+	  <td>DOI (M/A)</td>
+	  <td>A persistent citable identifier registered at DataCite that uniquely identifies a resource.</td>
+	  <td>0-1</td>
+	  <td>Must be resolvable URL, registered at DataCite as DOI.</td>
+	  <th rowspan="3">At least one resource identifier is mandatory.</th>
 	</tr>
 	<tr>
-	  <td>PID
-	  <td>A persistent identifier (implemented as a handle in a Handleserver) that uniquely identifies a resource.</td>
-	  <td>Must be resolvable URL and registered at a handle server</td>
-	  <td>1.Identifier</td>
-	  <td></td>
+	  <td>PID (M/A)</td>
+	  <td>A persistent identifier implemented as a handle in a Handleserver that uniquely identifies a resource.</td>
+	  <td>0-1</td>
+	  <td>Must be resolvable URL, registered at a handle server.</td>
 	</tr>
 	<tr>
 	  <td>Source</td>
