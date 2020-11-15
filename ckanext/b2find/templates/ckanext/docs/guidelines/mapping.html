@@ -86,20 +86,20 @@ Providers, who submit both the mandatory and recommended sets of properties sign
 	  <td>The scientific community, research infrastructure, project or data provider from which B2FIND harvests the metadata.</td> 
 	  <td>1</td>
 	  <td>Textual</td>
-    <td></td>
+      <td>Coding must be UTF-8 (unicode)</td>
   	</tr>
   	<tr>
 	  <td>Title (M)</td>
 	  <td>A name or a title by which a resource is known</td>
 	  <td>1-n</td> 
 	  <td>Textual</td>
-	  <td>Coding must be UTF-8 (unicode)</td>
+	  <td></td>
 	</tr>
 	<tr>
 	  <td>Description (R)</td>
-	  <td>All additional information that does not fit in any of the other categories. May be used for technical information. Could be an abstract, a summary or a table of content.It is a best practice to supply a description.</td><td>0-1</td>
+	  <td>All additional information that does not fit in any of the other categories. May be used for technical information. Could be an abstract, a summary or a table of content.It is good practice to supply a description.</td><td>0-1</td>
 	  <td>Textual</td>
-	  <td>Coding should be UTF-8 (unicode)</td>
+	  <td></td>
 	</tr>
 	<tr>
 	  <td>Keywords (R)</td>
@@ -147,8 +147,8 @@ Providers, who submit both the mandatory and recommended sets of properties sign
 	  <td>Creator (R)</td>
 	  <td>The main researchers involved working on the data, or the authors of the publication in priority order. May be a corporate/institutional or personal name.</td>
 	  <td>0-n</td>
-	  <td>Examples: Smith, John; Miller, Elizabeth. The personal name format should be: family, given. Non-roman names may be transliterated according to the ALA-LC schemes.</td>
-	  <td></td>
+	  <td>The personal name format should be: family, given. Non-roman names may be transliterated according to the ALA-LC schemes.</td>
+	  <td>Examples: Smith, John; Miller, Elizabeth.</td>
 	</tr>
 	<tr>
 	  <td>Publisher (M)</td>
@@ -218,36 +218,36 @@ Providers, who submit both the mandatory and recommended sets of properties sign
 	  <td>ResourceType (R)</td>
 	  <td>The type(s) of the resource.</td>
 	  <td>0-n</td>
-	  <td>Free text. Examples: Dataset; Image; Audiovisual</td>
-	  <td></td>
+	  <td>Free text.</td>
+	  <td>Examples: Dataset; Image; Audiovisual</td>
 	</tr>
 	<tr>
 	  <td>Format (R)</td>
 	  <td>Technical format of the resource.</td>
 	  <td>0-n</td>
-	  <td>Textual. Use file extension or MIME type where possible, e.g. PDF, XML, MPG or application/pdf, text/xml, video/mpeg.</td>
-	  <td></td>
+	  <td>Textual.</td>
+	  <td>Use file extension or MIME type where possible, e.g. PDF, XML, MPG or application/pdf, text/xml, video/mpeg.</td>
 	</tr>
 	<tr>
 	  <td>Size (O)</td>
 	  <td>Size information about the resource.</td>
 	  <td>0-n</td>
-	  <td>Free text. Examples: 15 pages; 6 MB; 45 minutes</td>
-	  <td></td>
+	  <td>Free text.</td>
+	  <td>Examples: 15 pages; 6 MB; 45 minutes.</td>
 	</tr>
 	<tr>
 	  <td>Version (O)</td>
 	  <td>Version information about the resource.</td>
 	  <td>0-n</td>
-	  <td>Suggested practice: track major_version.minor_version. Example: v1.02</td>
-	  <td></td>
+	  <td>Suggested practice: track major_version.minor_version.</td>
+	  <td>Example: v1.02</td>
 	</tr>
 	<tr>
 	  <td>Discipline (M)</td>
 	  <td>The research discipline(s) the resource can be categorized in.</td>
 	  <td>1-n</td>
-	  <td>Controlled vocabulary, see <a href="https://github.com/EUDAT-B2FIND/md-ingestion/blob/master/etc/b2find_disciplines.json">b2find_disciplines.json</a> or, if not applicable, add community specific discipline term.</td>
-	  <td></td>
+	  <td>Controlled vocabulary, see <a href="https://github.com/EUDAT-B2FIND/md-ingestion/blob/master/etc/b2find_disciplines.json">b2find_disciplines.json</a>.</td>
+	  <td>If not applicable, add community specific discipline term.</td>
 	</tr>
 	<tr>
 	  <td>Spatial Coverage (O)</td>
@@ -257,13 +257,12 @@ Providers, who submit both the mandatory and recommended sets of properties sign
 	  	<ul>
     		<li>lat/lon for point</li> 
     		<li>[min_lat, min_lon, max_lat, max_lon] for bounding box</li>
-    		<li>or free text</li>
+    		<li>or free text.</li>
     	</ul>
+	  </td>
+	  <td>Recommended, in accordance with DataCite:
 
-	Recommended, in accordance with DataCite:
-
-    Use WGS 84 (World Geodetic System) coordinates. Use only decimal numbers for coordinates. Longitudes are -180 to 180(0 is Greenwich, negative numbers are west, positive numbers are east), Latitudes are -90 to 90 (0 is the equator; negative numbers are south, positive numbers north)</td>
-	   <td></td>
+    Use WGS 84 (World Geodetic System) coordinates. Use only decimal numbers for coordinates. Longitudes are -180 to 180(0 is Greenwich, negative numbers are west, positive numbers are east), Latitudes are -90 to 90 (0 is the equator; negative numbers are south, positive numbers north).</td>
 	</tr>
  	<tr>
 	  <td>Temporal Coverage (O)</td>
