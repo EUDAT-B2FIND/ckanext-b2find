@@ -111,41 +111,34 @@ Providers, who submit both the mandatory and recommended sets of properties sign
 	<tr>
 	  <th rowspan="5">Identifier</th>
 	  <td>DOI (M/A)</td>
-	  <td>A persistent citable identifier registered at DataCite that uniquely identifies a resource.</td>
+	  <td>A persistent citable identifier that uniquely identifies a resource.</td>
 	  <td>0-1</td>
-	  <td>Must be resolvable URL, registered at DataCite as DOI.</td>
+	  <td>Must be resolvable URI, registered at DataCite as DOI.</td>
 	  <th rowspan="3">At least one resource identifier is mandatory.</th>
 	</tr>
 	<tr>
 	  <td>PID (M/A)</td>
-	  <td>A persistent identifier implemented as a handle in a Handleserver that uniquely identifies a resource.</td>
+	  <td>A persistent identifier that uniquely identifies a resource.</td>
 	  <td>0-1</td>
-	  <td>Must be resolvable URL, registered at a handle server.</td>
+	  <td>Must be resolvable URI, registered at a handle server.</td>
 	</tr>
 	<tr>
-	  <td>Source</td>
-	  <td>An identifier (URL) that uniquely identifies a resource.</td>
-	  <td>Should be resolvable URL</td>
-	  <td>1.Identifier</td>
-	  <td></td>
+	  <td>Source (M/A)</td>
+	  <td>An identifier that uniquely identifies a resource. It may link to the data itself or a landing page that curates the data.</td>
+	  <td>0-1</td>
+	  <td>Should be resolvable URI.</td>
 	</tr>
         <tr>
-          <td>RelatedIdentifier</td>
-          <td>A link to related resources or supplements.</td>
-          <td>Should be resolvable URL</td>
-          <td>12. relatedIdentifier</td>
-          <td>Optional</td>
+          <td>RelatedIdentifier (O)</td>
+          <td>Identifiers of related resources.</td>
           <td>0-n</td>
-          <td></td>
-        </tr>
+          <td>Should be resolvable URI.</td>
+    </tr>
 	<tr>
-	  <td>MetaDataAccess</td>
-	  <td>Link to the original harvested metadata record (GetRecord request)</td>
-	  <td>Should be resolvable URL</td>
-	  <td>N/A</td>
-	  <td>Recommended</td>
+	  <td>Metadata Access (R)</td>
+	  <td>Link to the originally harvested metadata record (GetRecord request for OAI-PMH).</td>
 	  <td>0-1</td>
-          <td></td>
+	  <td>Should be resolvable URL</td>
 	</tr>
 	<tr>
 	  <th rowspan="7">Provenance</th>
