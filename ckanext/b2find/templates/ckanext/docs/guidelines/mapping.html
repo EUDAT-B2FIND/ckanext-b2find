@@ -281,53 +281,53 @@ Providers, who submit both the mandatory and recommended sets of properties sign
 
       <table border="1" class="docutils" style="width:100%">
 	<tr>
-	  <th>DataCite #</th>
-	  <th>DataCite 4.1</th> 
+	  <th>DataCite 4.3</th>
 	  <th>B2FIND</th>
-	  <th>B2SHARE</th>
 	  <th>OpenAIRE</th>
+	  <th>DublinCore</th>
+	  <th>DDI-2.X</th>
 	  <th>Comments and Issues</th>
 	</tr>
 	<tr>
-	  <td>1</td>
-	  <td>Identifier(M) (+ 1.1. identifierType=[DOI])</td>
-	  <td>[Source(URL) | DOI | PID] (M)</td>
-	  <td>PID(M),DOI,URL </td>
-	  <td>Identifier(M) (+ 1.1. identifierType=[DOI , ...])</td>
-	  <td>While for B2SHARE always a PID is provided, B2FIND requires at least an URL linked to the underlying data resource</td>
+	  <td>1. Identifier</td>
+	  <td>Identifier [DOI or PID or Source (URL)]</td>
+	  <td>1. Identifier</td>
+	  <td>Identifier</td>
+	  <td>&lt;IDNo&gt; 2.1.1.5; </td>
+	  <td>While for DataCite a DOI is always provided, B2FIND requires "only" at least an URL linked to the underlying data resource</td>
 	</tr>
-	  <td>2</td>
-	  <td>Creator(M)</td>
-	  <td>Creator(R)</td>
-	  <td>Creator(R)</td>
-	  <td>Creator(M)</td>
+	  <td>2.1 creatorName</td>
+	  <td>Creator</td>
+	  <td>2.1 creatorName</td>
+	  <td>Creator</td>
+	  <td>&lt;AuthEnty&gt; 2.1.2.1</td>
 	  <td></td>
 	<tr>
-	  <td>3</td>
-	  <td>Title(M)</td>
-	  <td>Title(M)</td>
-	  <td>Title(M)</td>
-	  <td>Title(M)</td>
-	  <td></td>
-	</tr>
-	<tr>
-	  <td>4</td>
-	  <td>Publisher(M)</td>
-	  <td>Publisher(R)</td>
-	  <td>Publisher(R)</td>
-	  <td>Publisher(M)</td>
+	  <td>3. Title</td>
+	  <td>Title</td>
+	  <td>3. Title(M)</td>
+	  <td>Title</td>
+	  <td>&lt;titl&gt; 2.1.1.1</td>
 	  <td></td>
 	</tr>
 	<tr>
-	  <td>5</td>
-	  <td>PublicationYear(M)</td>
-	  <td>PublicationYear(O)</td>
-	  <td>PublicationYear(O)</td>
-	  <td>PublicationYear(M)</td>
+	  <td>4. Publisher</td>
+	  <td>Publisher</td>
+	  <td>4. Publisher</td>
+	  <td>Publisher</td>
+	  <td>&lt;producer&gt; 2.1.3.1</td>
 	  <td></td>
 	</tr>
 	<tr>
-	  <td>6</td>
+	  <td>5. PublicationYear</td>
+	  <td>PublicationYear</td>
+	  <td>PublicationYear</td>
+	  <td>Date</td>
+	  <td>N/A</td>
+	  <td></td>
+	</tr>
+	<tr>
+	  <td>6. Subject</td>
 	  <td>Subject(R)</td>
 	  <td>Tags and Discipline(R)</td>
 	  <td>Keywords and Discipline(R)</td>
