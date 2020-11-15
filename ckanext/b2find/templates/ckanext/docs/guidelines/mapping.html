@@ -268,7 +268,7 @@ Providers, who submit both the mandatory and recommended sets of properties sign
 	  <td>Temporal Coverage (O)</td>
 	  <td>Period of time the research data itself is related to. Could be a date format or plain text.</td>
 	  <td>0-1</td>
-	  <td>UTC: YYYY,YYYY-MM-DD, YYYY-MM-DDThh:mm:ssTZD, or plain text, e.g. Viking Age</td>
+	  <td>YYY,YYYY-MM-DD, YYYY-MM-DDThh:mm:ssTZD or any other format or level of granularity described in W3CDTF24. Use RKMS-ISO860125 standard for depicting date ranges.Example: 2004-03-02/2005-06-02.Years before 0000 must be prefixed with a - sign, e.g. -0054 to indicate 55 BC. You can also use plain text, e.g. Viking Age.</td>
 	  <td></td>
 	</tr>
       </table>
@@ -285,7 +285,7 @@ Providers, who submit both the mandatory and recommended sets of properties sign
 	  <th>B2FIND</th>
 	  <th>OpenAIRE</th>
 	  <th>DublinCore</th>
-	  <th>DDI-2.X</th>
+	  <th>DDI-3.1</th>
 	  <th>Comments and Issues</th>
 	</tr>
 	<tr>
@@ -293,21 +293,21 @@ Providers, who submit both the mandatory and recommended sets of properties sign
 	  <td>Identifier [DOI or PID or Source (URL)]</td>
 	  <td>1. Identifier</td>
 	  <td>Identifier</td>
-	  <td>&lt;IDNo&gt; 2.1.1.5; </td>
+	  <td>&lt;r:InternationalIdentifier type=”DOI”&gt;</td>
 	  <td>While for DataCite a DOI is mandatory as identifier, B2FIND requires "only" at least an URL linked to the underlying data resource.</td>
 	</tr>
 	  <td>2.1 creatorName</td>
 	  <td>Creator</td>
 	  <td>2.1 creatorName</td>
 	  <td>Creator</td>
-	  <td>&lt;AuthEnty&gt; 2.1.2.1</td>
+	  <td>&lt;r:Creator&gt;</td>
 	  <td></td>
 	<tr>
 	  <td>3. Title</td>
 	  <td>Title</td>
-	  <td>3. Title(M)</td>
+	  <td>3. Title</td>
 	  <td>Title</td>
-	  <td>&lt;titl&gt; 2.1.1.1</td>
+	  <td>&lt;r:Title&gt;</td>
 	  <td></td>
 	</tr>
 	<tr>
@@ -315,7 +315,7 @@ Providers, who submit both the mandatory and recommended sets of properties sign
 	  <td>Publisher</td>
 	  <td>4. Publisher</td>
 	  <td>Publisher</td>
-	  <td>&lt;producer&gt; 2.1.3.1</td>
+	  <td>&lt;r:Publisher&gt;</td>
 	  <td></td>
 	</tr>
 	<tr>
@@ -331,7 +331,7 @@ Providers, who submit both the mandatory and recommended sets of properties sign
 	  <td>Keywords and/or Discipline</td>
 	  <td>6. Subject</td>
 	  <td>Subject</td>
-	  <td>&lt;keyword&gt; 2.2.1.1 and &lt;topcClas&gt; 2.2.1.2</td>
+	  <td>&lt;r:UserID &gt; or &lt;r:Subject&gt; or &lt;r:Keywords>&gt;</td>
 	  <td></td>
 	</tr>
 	<tr>
@@ -339,39 +339,39 @@ Providers, who submit both the mandatory and recommended sets of properties sign
 	  <td>Contributor</td>
 	  <td>7. Contributor</td>
 	  <td>Contributor</td>
-	  <td>&lt;othId&gt; 2.1.2.2</td>
+	  <td>&lt;r:Contributor&gt;</td>
 	  <td></td>
 	</tr>
 	<tr>
-	  <td>8</td>
+	  <td>8. Date</td>
+	  <td>PublicationYear or TemporalCoverage</td>
+	  <td>8. Date</td>
 	  <td>Date</td>
-	  <td>[ --> Temporal Coverage]</td>
-	  <td></td>
-	  <td></td>
-	  <td>The DataCite definition is here very vague (*Different dates relevant to the work*). For B2FIND we have here *PubicationYear*, i.e. the year the dataset is published, and *TemperalCoverage*, i.e. the interval in time the data covers, with a powerful 'Filter by time' associated.</td>
+	  <td>&lt;r:Date&gt;</td>
+	  <td>The DataCite definition here is a bit vague (*Different dates relevant to the work*). For B2FIND we have *PubicationYear*, i.e. the year the dataset is published or when its embargo period ends. Another temporal element of B2Find would be *TemporalCoverage*, i.e. the interval of time that the underlying data of the resource covers, with a useful 'Filter by time' search option associated on the B2FIND GUI.</td>
 	</tr>
 	<tr>
-	  <td>9</td>
-	  <td>Language(O)</td>
-	  <td>Language(O)</td>
-	  <td>Language(O)</td>
-	  <td>Language(R)</td>
-	  <td></td>
-	</tr>
-	<tr>
-	  <td>10</td>
-	  <td>ResourceType(M)</td>
-	  <td>ResourceType(R)</td>
-	  <td>ResourceType(R)</td>
-	  <td>ResourceType(R)</td>
+	  <td>9. Language</td>
+	  <td>Language</td>
+	  <td>9. Language</td>
+	  <td>Language</td>
+	  <td>&lt;r:Language&gt;</td>
 	  <td></td>
 	</tr>
 	<tr>
-	  <td>11</td>
-	  <td>AlternateIdentifier(O)</td>
+	  <td>10. ResourceType</td>
+	  <td>ResourceType</td>
+	  <td>10. ResourceType</td>
+	  <td>Type</td>
+	  <td>&lt;dcore:DCElements&gt;&lt;dcore2:type&gt;</td>
+	  <td></td>
+	</tr>
+	<tr>
+	  <td>11. AlternateIdentifier</td>
 	  <td>N/A</td>
-	  <td>Alternate Identifiers(O)</td>
-	  <td>AlternateIdentifier(O)</td>
+	  <td>11. AlternateIdentifier</td>
+	  <td>N/A</td>
+	  <td>&lt;r:UserID&gt; or &lt;a:CallNumber&gt;</td>
 	  <td></td>
 	</tr>
 	<tr>
