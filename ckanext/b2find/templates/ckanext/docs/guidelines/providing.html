@@ -38,7 +38,7 @@ The section <a href="#mdquality"> Metadata Quality  </a> tells what can be done 
           <li><a href="#mdquality">Metadata Quality</li>
         </ul>
 
-        <h3><a name="#requirements_recomm"></a>Requirements and Recommendations</h3>
+        <h3><a name="requirements_recomm"></a>Requirements and Recommendations</h3>
 
 	<p>There are only a few obligatory preconditions for the metadata that is to be published on B2FIND. Here we describe these requirements, as well as additional best practices that help assure and improve the quality of the metadata.</p>
  
@@ -73,7 +73,7 @@ The section <a href="#mdquality"> Metadata Quality  </a> tells what can be done 
 
 	  <p>In addition to these mandatory requirements, we highly recommend following these 'best practices' as well: 
           <ul>
-	    <li>More detailed information about granularity should be provided when necessary, as elaborated in the section on <a href="levels_aggr">aggregation levels</a> below.</li>
+	    <li>More detailed information about granularity should be provided when necessary, as elaborated in the section on <a href="#levels_aggr">aggregation levels</a> below.</li>
 	    <!--
 		<li>Important metadata elements should not be repeated or missing</li>
 	    -->
@@ -100,7 +100,7 @@ The section <a href="#mdquality"> Metadata Quality  </a> tells what can be done 
           <li> <a href="http://rd-alliance.github.io/metadata-directory/standards/"> RDA Metadata Directory </a> and </li>
           <li> <a href="http://www.dcc.ac.uk/resources/metadata-standards"> DCC Metadata Standards </a> </li>
         </ul>
-           <h4><a name="#mdformats"></a>Metadata Format List</h3>
+           <h4><a name="mdformats"></a>Metadata Format List</h3>
         </p>
 
  	<p> Metadata formats provide rules for coding (i.e., the machine readable representation), and the syntax (i.e., the marking and arrangement) of metadata and are required for browsers, search engines, and other programs to reliably process the metadata.</p>
@@ -157,7 +157,7 @@ The section <a href="#mdquality"> Metadata Quality  </a> tells what can be done 
 	   <p>Please contact the B2FIND support, if none of these formats are applicable to encode your metadata.</p>
 
 
-           <h4><a name="#mdformats"></a>Metadata Schema List</h3>
+           <h4><a name="mdschemas"></a>Metadata Schema List</h3>
 
 	  <p>A Metadata schema is a metadata set with a prescribed syntax and encoding with fixed and semantically unambiguous element designations. It provides rules for which element is allowed for which context and lays down agreements about allowed data types (e.g., text, numeric, date, etc.) and value ranges (numeric ranges, spatial or temporal coverage, controlled vocabularies, etc.).
 		</p>
@@ -231,32 +231,33 @@ The section <a href="#mdquality"> Metadata Quality  </a> tells what can be done 
 -->
 	   </table>
 
-           <h4><a name="#mdformats"></a>Example</h3>
+           <h4>Example</h4>
           Here we give an example for a well defined and validated metadata, encoded as a DublinCore XML file and with semantics based on the DataCite schema:
    <!--         <script id="xmlexample1" type="text/xmldata"> -->
-<record xmlns="http://www.openarchives.org/OAI/2.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <header>
-    <identifier>oai:oai.datacite.org:870045</identifier>
-    <datestamp>2016-07-08T02:15:17Z</datestamp>
-    <setSpec>ANDS</setSpec>
-    <setSpec>ANDS.CENTRE-1</setSpec>
-  </header>
-  <metadata>
-    <oai_dc:dc xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
-      <dc:title>Clinical and Community Practice Innovation</dc:title>
-      <dc:title>Data Collection</dc:title>
-      <dc:creator>Kendall, Elizabeth</dc:creator>
-      <dc:creator>Sunderland, Naomi</dc:creator>
-      <dc:creator>Research Centre for Clinical and Community Practice Innovation, Griffith University</dc:creator>
-      <dc:publisher>Griffith University</dc:publisher>
-      <dc:date>2011</dc:date>
-      <dc:identifier>doi:10.4225/01/4F8E14EA3179E</dc:identifier>
-      <dc:description>Other</dc:description>
-      <dc:description>The Research Centre for Clinical and Community Practice Innovation consists of researchers from nursing, social work, human services, rehabilitation, psychology, physiotherapy, pharmacy and public health. This PUBLIC collection contains information that will help transform health and community services via the development of collaborative, innovative an&#8230;</dc:description>
-      <dc:type>Collection</dc:type>
-    </oai_dc:dc>
-  </metadata>
-</record>
+<p>
+	&lt;record xmlns="http://www.openarchives.org/OAI/2.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"&gt;
+  &lt;header&gt;
+    &lt;identifier&gt;oai:oai.datacite.org:870045&lt;/identifier&gt;
+    &lt;datestamp&gt;2016-07-08T02:15:17Z&lt;/datestamp&gt;
+    &lt;setSpec&gt;ANDS&lt;/setSpec&gt;
+    &lt;setSpec&lt;ANDS.CENTRE-1&lt;/setSpec&gt;
+  &lt;/header&gt;
+  &lt;metadata&gt;
+    &lt;oai_dc:dc xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd"&gt;
+      &lt;dc:title&gt;Clinical and Community Practice Innovation&lt;/dc:title&gt;
+      &lt;dc:title&gt;Data Collection&lt;/dc:title&gt;
+      &lt;dc:creator&gt;Kendall, Elizabeth&lt;/dc:creator&gt;
+      &lt;dc:creator&gt;Sunderland, Naomi</dc:creator>
+      &lt;dc:creator&gt;Research Centre for Clinical and Community Practice Innovation, Griffith University</dc:creator>
+      &lt;dc:publisher&gt;Griffith University</dc:publisher>
+      &lt;dc:date&gt;2011</dc:date>
+      &lt;dc:identifier&gt;doi:10.4225/01/4F8E14EA3179E</dc:identifier>
+      &lt;dc:description&gt;Other</dc:description>
+      &lt;dc:description&gt;The Research Centre for Clinical and Community Practice Innovation consists of researchers from nursing, social work, human services, rehabilitation, psychology, physiotherapy, pharmacy and public health. This PUBLIC collection contains information that will help transform health and community services via the development of collaborative, innovative an&#8230;&lt;/dc:description&gt;
+      &lt;dc:type&gt;Collection&lt;/dc:type&gt;
+    &lt;/oai_dc:dc&gt;
+  &lt;/metadata&gt;
+&lt;/record&gt;
 <!--	    </script> -->
 
 <!-- !! Add some explanations : namespaces, header, dc:-tag etc. pp -->
