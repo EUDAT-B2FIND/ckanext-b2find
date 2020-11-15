@@ -43,11 +43,11 @@
 
 <p>In order to join EUDAT-B2FIND, the data provider must meet a few requirements:
      <ul>
-	    <li>The data provider must agree with the licensing principles of EUDAT-B2FIND (see the <a href="https://www.eudat.eu/eudat-cdi-aup">Terms of Use for EUDAT-Services</a> ) and DKRZ (see the <a href="/legal">Legal Notice of DKRZ</a>).</li>
-		<li> In particular, the provider must consent to the provided metadata being made publicly available and openly accessible under the <a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons Lizenzvertrag" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/88x31.png" /></a> <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4)</a>
-	      <strong>Note: This open access licence only applies to the metadata records published and visible in the B2FIND portal, but not necessarily to the underlying data collections referred to and described by the B2FIND datasets.</strong></li>
-	    <li>The data provider agrees to the metadata being made available for free in B2FIND and also for it to be harvested by and re-distributed to other metadata aggregators. No confidential metadata should be provided (although the described research data sets themselves may have access limitations). Copyright-protected metadata can only be published if there is a licence agreement between the data provider and EUDAT that meets the B2FIND requirements.</li>
-	    <li>An interface to retrieve metadata must be available, accessible and usable (see <a href="/guidelines/harvesting.html">Harvesting Metadata</a> for more information about such interfaces). </li>
+	    <li>The data provider must agree with the licensing principles of EUDAT-B2FIND (see the <a href="https://www.eudat.eu/eudat-cdi-aup">Terms of Use for EUDAT-Services</a> ) and DKRZ (see the <a href="/legal">Legal Notice of DKRZ</a>).<br>
+		In particular, the provider must consent to the provided metadata being made publicly available and openly accessible under the <a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons Lizenzvertrag" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/88x31.png" /></a> <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4)</a>
+	      <strong>Note: This open access licence only applies to the metadata records published and visible in the B2FIND portal, but not necessarily to the underlying data collections referred to and described by the B2FIND datasets.</strong><br>
+	    The data provider agrees to the metadata being made available for free in B2FIND and also for it to be harvested by and re-distributed to other metadata aggregators. No confidential metadata should be provided (although the described research data sets themselves may have access limitations). Copyright-protected metadata can only be published if there is a licence agreement between the data provider and EUDAT that meets the B2FIND requirements.</li>
+	    <li>An interface to retrieve metadata must be available, accessible and usable (see <a href="/guidelines/harvesting.html">Harvesting Metadata</a> for more information about such interfaces).</li>
 	 </ul>
 </p>
 	    
@@ -62,7 +62,7 @@
 	<p>
 		Six metadata elements are mandatory:
 		 <ul>
-		   <li> the research &lt;Community&gt; or (meta)data provider B2FIND harvests from. This ensures the visibility of the data providers.</li>
+		   <li> the name of the research &lt;Community&gt; or data provider B2FIND harvests from. This ensures the visibility of the data providers and research infrastructures.</li>
 		   <li>the &lt;Title&gt; of the data set, i.e. a unique and unambiguous name or heading by which the referred resource is known (avoid referencing two different data collections by same title).</li>
 		   <li>at least one &lt;Identifier&gt;, which has two roles: to identify the described resource, and to facilitate a persistent link to the research data set itself, which should be available on the web. If the identifier is not persistent (actionable/resolvable), an HTTP URI of the described resource must be provided as well. The URI should be as persistent as reasonably achievable.</li>
 		   <li>the research &lt;Discipline(s)&gt; the metadata adhere to (chosen from <a href="https://github.com/EUDAT-B2FIND/md-ingestion/blob/master/etc/b2find_disciplines.json">b2find_disciplines.json</a>). This list is under constant revision, so missing disciplines can be added.</li>
@@ -94,9 +94,8 @@
 
         <h2><a name="mdformatsschemas"></a>Metadata Encodings and Schemas</h2>
 
-	<p>As stated in the requirements above, the provided metadata should be available as formatted records which follow a defined schema. We list and describe in the following only metadata formats and schemes that are already supported by B2FIND.</p>
-
-	<p>In case you use standards which are not listed below, B2FIND maintenance should be contacted. We are open and keen to extend B2FIND to further formats and schemes. </p>
+	<p>As stated in the requirements above, the provided metadata should be available as formatted records which follow a defined schema. We list and describe in the following only metadata formats and schemes that are already supported by B2FIND.<br> In case you use standards which are not listed below, B2FIND maintenance should be contacted. We are open and keen to extend B2FIND to further formats and schemes. 
+	</p>
 
 	<p>For a detailed and comprehensive overview of metadata specifications and standards, see: 
 	<ul>
@@ -162,7 +161,7 @@
 
            <h3><a name="mdschemas"></a>Metadata Schema List</h3>
 
-	  <p>A Metadata schema is a metadata set with a prescribed syntax and encoding with fixed and semantically unambiguous element designations. It provides rules for which element is allowed for which context and lays down agreements about allowed data types (e.g., text, numeric, date, etc.) and value ranges (numeric ranges, spatial or temporal coverage, controlled vocabularies, etc.).
+	  <p>A Metadata schema is a metadata set with a prescribed syntax and encoding with fixed and semantically unambiguous element designations. It provides rules that determine which element is allowed in which context and lays down agreements about allowed data types (e.g., text, numeric, date, etc.) and value ranges (numeric ranges, spatial or temporal coverage, controlled vocabularies, etc.).
 		</p>
 	  <p>EUDAT supports multiple discipline-specific metadata schemas. Some of them are listed in the following table.</p>
 
@@ -182,8 +181,8 @@
 	     <tbody valign="top">
 	       <tr class="row-even">
 		 <td>DataCite</td>
-		 <td><class="docutils literal"><span class="pre"></span><a href="https://schema.datacite.org/meta/kernel-4.0/"> https://schema.datacite.org/meta/kernel-4.0/</a></td>
-		 <td><class="docutils literal"><span class="pre"></span>The DataCite Metadata Schema is a list of core metadata properties chosen for an accurate and consistent identification of a resource for citation and retrieval purposes, along with recommended use instructions. Widely used schema, defined by DataCite to provide Digital Object Identifiers (DOIs) to help research communities to locate, identify, and cite research data with confidence.</td>
+		 <td><class="docutils literal"><span class="pre"></span><a href="https://schema.datacite.org/"> https://schema.datacite.org</a></td>
+		 <td><class="docutils literal"><span class="pre"></span>The DataCite metadata schema is a list of core metadata properties chosen for an accurate and consistent identification of a resource for citation and retrieval purposes, along with recommended use instructions. Widely used schema, defined by DataCite to provide Digital Object Identifiers (DOIs) to help research communities to locate, identify, and cite research data with confidence.</td>
 	       </tr>
 	     </tbody>
 	     <tbody valign="top">
@@ -200,13 +199,13 @@
 		 <td><class="docutils literal"><span class="pre"></span> ISO 19115-1:2014 defines the schema required for describing geographic information and services by means of metadata. It provides information about the identification, the extent, the quality, the spatial and temporal aspects, the content, the spatial reference, the portrayal, distribution, and other properties of digital geographic data and services. </td>
 	       </tr>
 	     </tbody>
-	     <tbody valign="top">
+	    <!--<tbody valign="top">
 	       <tr class="row-even">
 		 <td>CMDI</td>
 		 <td><class="docutils literal"><span class="pre"></span><a href="https://www.clarin.eu/content/component-metadata"> https://www.clarin.eu/content/component-metadata </a></td>
 		 <td><class="docutils literal"><span class="pre"></span> The Component MetaData Infrastructure (CMDI) provides a framework to describe and reuse metadata blueprints. Description building blocks (“components”, which include field definitions) can be grouped into a ready-made description format (a “profile”). </td>
 	       </tr>
-	     </tbody>
+	     </tbody> -->
 	     <tbody valign="top">
 	       <tr class="row-even">
 		 <td>DDI</td>
