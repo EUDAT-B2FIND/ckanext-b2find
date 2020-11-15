@@ -76,7 +76,7 @@ Providers, who submit both the mandatory and recommended sets of properties sign
 	  <th>Metadata Type</th>
 	  <th>B2FIND Name</th>
       <th>Description</th>
-	  <th>Occurence</th> 
+	  <th>Occurrence</th> 
 	  <th>Allowed values</th>
 	  <th>Comments and Issues</th>
 	</tr>
@@ -293,21 +293,21 @@ Providers, who submit both the mandatory and recommended sets of properties sign
 	  <td>Identifier [DOI or PID or Source (URL)]</td>
 	  <td>1. Identifier</td>
 	  <td>Identifier</td>
-	  <td>&lt;r:InternationalIdentifier type=”DOI”&gt;</td>
+	  <td>1.12.3 DOI or 1.12.4 URL</td>
 	  <td>While for DataCite a DOI is mandatory as identifier, B2FIND requires "only" at least an URL linked to the underlying data resource.</td>
 	</tr>
 	  <td>2.1 creatorName</td>
 	  <td>Creator</td>
 	  <td>2.1 creatorName</td>
 	  <td>Creator</td>
-	  <td>&lt;r:Creator&gt;</td>
+	  <td>1.7 Principle Investigator</td>
 	  <td></td>
 	<tr>
 	  <td>3. Title</td>
 	  <td>Title</td>
 	  <td>3. Title</td>
 	  <td>Title</td>
-	  <td>&lt;r:Title&gt;</td>
+	  <td>1.4 Title</td>
 	  <td></td>
 	</tr>
 	<tr>
@@ -315,7 +315,7 @@ Providers, who submit both the mandatory and recommended sets of properties sign
 	  <td>Publisher</td>
 	  <td>4. Publisher</td>
 	  <td>Publisher</td>
-	  <td>&lt;r:Publisher&gt;</td>
+	  <td>1.8 Publisher</td>
 	  <td></td>
 	</tr>
 	<tr>
@@ -323,7 +323,7 @@ Providers, who submit both the mandatory and recommended sets of properties sign
 	  <td>PublicationYear</td>
 	  <td>PublicationYear</td>
 	  <td>Date</td>
-	  <td>N/A</td>
+	  <td>1.9 Year of Publication</td>
 	  <td></td>
 	</tr>
 	<tr>
@@ -331,7 +331,7 @@ Providers, who submit both the mandatory and recommended sets of properties sign
 	  <td>Keywords and/or Discipline</td>
 	  <td>6. Subject</td>
 	  <td>Subject</td>
-	  <td>&lt;r:UserID &gt; or &lt;r:Subject&gt; or &lt;r:Keywords>&gt;</td>
+	  <td>1.17 Keywords</td>
 	  <td></td>
 	</tr>
 	<tr>
@@ -339,7 +339,7 @@ Providers, who submit both the mandatory and recommended sets of properties sign
 	  <td>Contributor</td>
 	  <td>7. Contributor</td>
 	  <td>Contributor</td>
-	  <td>&lt;r:Contributor&gt;</td>
+	  <td>2.5.2 Name of Contributor</td>
 	  <td></td>
 	</tr>
 	<tr>
@@ -347,15 +347,15 @@ Providers, who submit both the mandatory and recommended sets of properties sign
 	  <td>PublicationYear or TemporalCoverage</td>
 	  <td>8. Date</td>
 	  <td>Date</td>
-	  <td>&lt;r:Date&gt;</td>
-	  <td>The DataCite definition here is a bit vague (*Different dates relevant to the work*). For B2FIND we have *PubicationYear*, i.e. the year the dataset is published or when its embargo period ends. Another temporal element of B2Find would be *TemporalCoverage*, i.e. the interval of time that the underlying data of the resource covers, with a useful 'Filter by time' search option associated on the B2FIND GUI.</td>
+	  <td>1.14.2 Date</td>
+	  <td>The DataCite definition here is a bit vague (*Different dates relevant to the work*). B2FIND has the element *PubicationYear*, i.e. the year the dataset is published or when its embargo period ends. Another temporal element of B2Find would be *TemporalCoverage*, i.e. the interval of time that the underlying data of the resource covers, with a useful 'Filter by time' search option associated on the B2FIND GUI.</td>
 	</tr>
 	<tr>
 	  <td>9. Language</td>
 	  <td>Language</td>
 	  <td>9. Language</td>
 	  <td>Language</td>
-	  <td>&lt;r:Language&gt;</td>
+	  <td>7.6 Document Language</td>
 	  <td></td>
 	</tr>
 	<tr>
@@ -363,7 +363,7 @@ Providers, who submit both the mandatory and recommended sets of properties sign
 	  <td>ResourceType</td>
 	  <td>10. ResourceType</td>
 	  <td>Type</td>
-	  <td>&lt;dcore:DCElements&gt;&lt;dcore2:type&gt;</td>
+	  <td>1.11.1.1 Resource Type</td>
 	  <td></td>
 	</tr>
 	<tr>
@@ -371,72 +371,72 @@ Providers, who submit both the mandatory and recommended sets of properties sign
 	  <td>N/A</td>
 	  <td>11. AlternateIdentifier</td>
 	  <td>N/A</td>
-	  <td>&lt;r:UserID&gt; or &lt;a:CallNumber&gt;</td>
+	  <td>1.13 Alternate IDs</td>
 	  <td></td>
 	</tr>
 	<tr>
-	  <td>12</td>
-	  <td>RelatedIdentifier(R)</td>
-	  <td>N/A</td>
-	  <td>N/A</td>
-	  <td>RelatedIdentifier(MA)</td>
+	  <td>12. RelatedIdentifier </td>
+	  <td>RelatedIdentifier</td>
+	  <td>12. RelatedIdentifier</td>
+	  <td>Relation or Source</td>
+	  <td>1.32 Literature</td>
 	  <td></td>
 	</tr>
 	<tr>
-	  <td>13</td>
+	  <td>13. Size</td>
 	  <td>Size</td>
+	  <td>13. Size</td>
 	  <td>N/A</td>
-	  <td>Size per data object (file)</td>
-	  <td>Size(O)</td>
+	  <td>4.14 File Size</td>
 	  <td></td>
 	</tr>
 	<tr>
-	  <td>14</td>
+	  <td>14. Format</td>
 	  <td>Format</td>
+	  <td>14. Format</td>
 	  <td>Format</td>
-	  <td></td>
-	  <td>Format(O)</td>
+	  <td>4.15 File Format</td>
 	  <td></td>
 	</tr>
 	<tr>
-	  <td>15</td>
+	  <td>15. Version</td>
 	  <td>Version</td>
-	  <td>N/A [ --> checksum]</td>
-	  <td></td>
-	  <td>Version(O)</td>
-	  <td></td>
-	</tr>
-	<tr>
-	  <td>16</td>
-	  <td>Rights(O)</td>
-	  <td></td>
-	  <td>Rights(MA)</td>
-	  <td></td>
+	  <td>15. Version</td>
+	  <td>N/A</td>
+	  <td>1.12.1 Version Number </td>
 	  <td></td>
 	</tr>
 	<tr>
-	  <td>17</td>
+	  <td>16. Rights</td>
+	  <td>Rights</td>
+	  <td>16. Rights</td>
+	  <td>Rights</td>
+	  <td>1.30 Rights</td>
+	  <td></td>
+	</tr>
+	<tr>
+	  <td>17. Description</td>
 	  <td>Description</td>
+	  <td>17. Description</td>
 	  <td>Description</td>
-	  <td></td>
-	  <td>Description(MA)</td>
+	  <td>1.15 Content/Abstract</td>
 	  <td></td>
 	</tr>
 	<tr>
-	  <td>18</td>
-	  <td>GeoLocation(R)</td>
-	  <td>SpatialCoverage(O)</td>
-	  <td></td>
-	  <td>GeoLocation(O)</td>
-	  <td>In B2FIND *SpatialCoverage*, i.e. the geo spatial coverage, is associated with a 'Filter by location' interface.</td>
+	  <td>18. GeoLocation</td>
+	  <td>SpatialCoverage</td>
+	  <td>18. GeoLocation</td>
+	  <td>Coverage</td>
+	  <td>1.19 Study Area</td>
+	  <td>In B2FIND *SpatialCoverage*, i.e. the geospatial coverage, is associated with a 'Filter by location' map search interface.</td>
 	</tr>
 	<tr>
-	  <td>19</td>
+	  <td>19. FundingReference</td>
 	  <td>FundingReference</td>
+	  <td>7. Contributor, 7.1 contributorType="Funder"</td>
 	  <td>N/A</td>
+	  <td>2.5.5. Funding Agency</td>
 	  <td></td>
-	  <td>N/A</td>
-	  <td>N/A</td>
 	</tr>
 
       </table>
