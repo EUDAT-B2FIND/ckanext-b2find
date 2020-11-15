@@ -202,10 +202,8 @@ Providers, who submit both the mandatory and recommended sets of properties sign
 	<tr>
 	  <td>Contact (O)</td>
 	  <td>A reference to contact information for this resource.</td>
-	  <td>List of Names</td>
-	  <td>[ may be 7. Contributor]</td>
-	  <td>Optional</td>
 	  <td>0-n</td>
+	  <td>List of Names</td>
 	  <td></td>
 	</tr>
 	<tr>
@@ -231,13 +229,24 @@ Providers, who submit both the mandatory and recommended sets of properties sign
 	  <td></td>
 	</tr>
 	<tr>
-	  <th rowspan="3">Coverage</th>
-	  <td>Discipline</td>
-	  <td>The scientific disciplines linked with the resource.</td>
-	  <td>Controlled vocabulary, see <a href="https://github.com/EUDAT-B2FIND/md-ingestion/blob/master/mapfiles/b2find_disciplines.json">b2find_disciplines.json</a></td>
-	  <td>N/A [ sometimes information in 6. Subject ]</td>
-	  <td>Recommended</td>
+	  <td>Size (O)</td>
+	  <td>Size information about the resource.</td>
 	  <td>0-n</td>
+	  <td>Free text. Examples: 15 pages; 6 MB; 45 minutes</td>
+	  <td></td>
+	</tr>
+	<tr>
+	  <td>Version (O)</td>
+	  <td>Version information about the resource.</td>
+	  <td>0-n</td>
+	  <td>Suggested practice: track major_version.minor_version. Example: v1.02</td>
+	  <td></td>
+	</tr>
+	<tr>
+	  <td>Discipline (M)</td>
+	  <td>The research discipline(s) the resource can be categorized in.</td>
+	  <td>1-n</td>
+	  <td>Controlled vocabulary, see <a href="https://github.com/EUDAT-B2FIND/md-ingestion/blob/master/etc/b2find_disciplines.json">b2find_disciplines.json</a> or, if not applicable, add community specific discipline term.</td>
 	  <td></td>
 	</tr>
 	<tr>
