@@ -13,8 +13,8 @@
       <h1 class="page-heading">{{ _('Providing Metadata for EUDAT-B2FIND') }}</h1>
 
 
-			<p>This section describes the actions a data provider site must take in order to publish metadata in the EUDAT-B2FIND catalogue. There are a few mandatory <a href="#requirements"> requirements </a> and some 'best practices' or <a href="#recommendations"> recommendations </a>. The second section of the document concentrates on <a href="#mdformatsschemas"> metadata encodings and schemas </a> relevant for B2FIND. 
-				The 'granularity' of data collections is addressed in the section <a href="levels_aggr"> aggregation levels </a>. In the <a href="#mdquality"> metadata quality </a> section, we explain how the quality of metadata provided and published in B2FIND can be improved and assured.		
+			<p>This section describes the actions a data provider site must take in order to publish metadata in the EUDAT-B2FIND catalogue. There are a few mandatory <a href="#requirements"> requirements </a> and some 'best practices' or <a href="#recommendations"> recommendations </a>. The second section of the document concentrates on <a href="#mdformatsschemas"> metadata encodings and schemas</a> relevant for B2FIND. 
+			The 'granularity' of data collections is addressed in the section <a href="levels_aggr"> aggregation levels </a>. In the <a href="#mdquality"> metadata quality </a> section, we explain how the quality of metadata provided and published in B2FIND can be improved and assured.		
 			</p>
 					 <!--
 The section <a href="#mdquality"> Metadata Quality  </a> tells what can be done to assure and improve the quality of the metadata to be sent to and published in B2FIND in more detail. </p>
@@ -69,7 +69,7 @@ The section <a href="#mdquality"> Metadata Quality  </a> tells what can be done 
 	  </ul>
 	  </p>
 
-         <h4><a name="#recommendations"></a>Recommendations</h4>
+         <h4><a name="recommendations"></a>Recommendations</h4>
 
 	  <p>In addition to these mandatory requirements, we highly recommend following these 'best practices' as well: 
           <ul>
@@ -89,7 +89,7 @@ The section <a href="#mdquality"> Metadata Quality  </a> tells what can be done 
 	  </ul>
 	  </p>
 
-        <h3><a name="#mdformatsschemas"></a>Metadata Encodings and Schemas</h3>
+        <h3><a name="mdformatsschemas"></a>Metadata Encodings and Schemas</h3>
 
 	<p>As stated already in the requirements above the provided metadata should be available as formatted records, which follow a defined schema. We list and describe in the following only metadata formats and schemes that are already supported by B2FIND. </p>
 
@@ -261,7 +261,7 @@ The section <a href="#mdquality"> Metadata Quality  </a> tells what can be done 
 
 <!-- !! Add some explanations : namespaces, header, dc:-tag etc. pp -->
 
-        <h3><a name="#l_aggregations"></a>Aggregation levels</h3>
+        <h3><a name="levels_aggr"></a>Aggregation Levels</h3>
 
 	  <p>Data providers should analyse the structure and the granularity of their data sets and the files the research data consist of. Based on the analysis, the data provider can decide how to structure the research data set in order to enable reuse and proper citation and annotation. Sometimes the data will be composed of various files or items that belong to a single collection, but the data may also need to be segregated across a number of smaller subsets and datasets.
 			B2FIND is a discovery portal for cited, inter-disciplinary data, and therefore metadata on the finest level of granularity (level 4 below) is out of scope.
@@ -364,7 +364,7 @@ Here you can now browse through the datasets of the experiment and finally downl
 <p>These examples illustrate the importance of supplying sufficient information about the structure and granularity of the research data to B2FIND. Please let us know about the structure and granularity of your data.
 <p>
 
-        <h3><a name="#mdquality"></a>Metadata Quality</h3>
+        <h3><a name="mdquality"></a>Metadata Quality</h3>
 	<h4>Integrity</h4>
 	<p>There are no initial changes to the metadata semantics during the B2FIND ingestion workflow. The harvested metadata may, however, be restructured and reformatted before it is indexed, to allow search and discovery.
 		 B2FIND is in the process of improving the quality of metadata via a sophisticated validation and quality check process. We do this in close cooperation with the data providers, taking into consideration their feedback.
