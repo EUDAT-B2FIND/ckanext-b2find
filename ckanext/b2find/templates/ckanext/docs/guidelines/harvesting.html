@@ -18,7 +18,7 @@
         <ul>
           <li><a href="#oai-pmh">OAI-PMH</a></li>
           <li><a href="#json-api">JSON-API</a></li>
-          <li><a href="#csw">CSW2.0</a></li>
+          <li><a href="#csw">CSW</a></li>
         </ul>
         <li><a href="#initial_uptake">Initial Uptake of a new Data Provider</a></li>
         <li><a href="#operational_ingestion">Synchronous and Operational Ingestion</a></li>
@@ -41,7 +41,7 @@
 	    </ul>
 	  </p>
 
-	    <h3>Example:</h3>
+	    <h4>Example:</h4>
 	    <p>To harvest all Dublin Core (OAI mdprefix is oai_dc) from the subset "ANDS.Centre-1" from DataCite's OAI provider (oai.datacite.org/oai),we submit a HTTP-request with the verb "ListRecords" and the following OAI options set:</p>
 	    <p> https://oai.datacite.org/oai?verb=ListRecords&metadataPrefix=oai_dc&set=ANDS.CENTRE-1
 		</p>
@@ -62,10 +62,10 @@
 		<p>Catalog Service for the Web (CSW) is a standard for exposing a catalogue of geospatial records in XML on the Internet (over HTTP). The catalogue is made up of records that describe geospatial data and services. B2FIND uses a CSW implementation to harvest XML records from so-called GeoNetwork portals.
 		</p>
 
-	    <h3>Example:</h3>
-		<p>The community Seadatanet (see seadatanet.org) exposes georeferenced metadata via the base GeoNetwork portal with URL endpoint <code>http://sextant.ifremer.fr/geonetwork/srv/fre/csw-SEADATANET</code>. To retrieve the ISO19139 XML records (namespace specification <code>gmd:MD_Metadata</code>), B2FIND submits a <code>GetRecords</code> request as follows:<p>
+	    <h4>Example:</h4>
+		<p>The community Seadatanet (see seadatanet.org) exposes georeferenced metadata via the base GeoNetwork portal with URL endpoint http://sextant.ifremer.fr/geonetwork/srv/fre/csw-SEADATANET. To retrieve the ISO 19139 XML records (namespace specification &lt;gmd:MD_Metadata&gt;), B2FIND submits a "GetRecord" request as follows:</p>
 
-		 <p>http://sextant.ifremer.fr/geonetwork/srv/fre/csw-SEADATANET?SERVICE=CSW&amp;REQUEST=GetRecords&amp;VERSION=2.0.2&amp;typeNames=gmd:MD_Metadata</p>
+		 <p>http://sextant.ifremer.fr/geonetwork/srv/fre/csw-SEADATANET?SERVICE=CSW&amp;REQUEST=GetRecord&amp;VERSION=2.0.2&amp;typeNames=gmd:MD_Metadata</p>
 
         <h2><a name="initial_uptake"></a>Initial Uptake of a new Data Provider</h2>
 
