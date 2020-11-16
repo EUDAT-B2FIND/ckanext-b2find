@@ -267,10 +267,9 @@
 
         <h2><a name="levels_aggr"></a>Aggregation Levels</h2>
 
-	  <p>Data providers should analyse the structure and the granularity of their data sets and the files the research data consist of. Based on the analysis, the data provider can decide how to structure the research data set in order to enable reuse and proper citation and annotation. Sometimes the data will be composed of various files or items that belong to a single collection, but the data may also need to be segregated across a number of smaller subsets and datasets.
-			B2FIND is a discovery portal for cited, inter-disciplinary data, and therefore metadata on the finest level of granularity (level 4 below) is out of scope.
-			 Metadata should preferably be on the level of citable entities (level 2) or at least on the level of resolvable entities (level 3).
-			  B2FIND has defined four levels of aggregation. The table below illustrates them with the help of existing use cases:
+	  <p>Data providers should analyse the structure and the granularity of their datasets and the files the research data consist of. Based on the analysis, the data provider can decide how to structure the research data set in order to enable reuse and proper citation and annotation. Sometimes the data will be composed of various files or items that belong to a single collection, but the data may also need to be segregated across a number of smaller subsets and datasets.</p>
+	  <p>B2FIND has defined four levels of aggregation. The table below illustrates them with the help of existing use cases. Being a discovery portal for cited, interdisciplinary data, metadata on the finest level of granularity (level 4 below) is out of scope.<br>
+	  Provided Metadata should preferably be on the level of citable entities (level 2) or at least on the level of resolvable entities (level 3).</p>
 
 	   <table border="1" class="docutils">
 	     <colgroup>
@@ -284,7 +283,7 @@
 	       <tr class="row-odd">
 		 <th class="head">#</th>
 		 <th class="head">Level Description</th>
-		 <th class="head">Spedification w.r.t. B2FIND</th>
+		 <th class="head">Specification w.r.t. B2FIND</th>
 		 <th class="head">CMDI Model</th>
 		 <th class="head">DKRZ LTA</th>
 	       </tr>
@@ -328,6 +327,7 @@
 </p>
 
     <h2> The Use Cases </h2>
+    <p></p>
     <h3>CLARIN - CMDI structure (Component Metadata Infrastructure) </h3>
         <p>CMDI was developed by members of CLARIN (Common Language Resources and Technology Infrastructure) to establish metadata exchange within the CLARIN infrastructure. It defines different levels of description (granularity): from complete corpora, subcorpora or corpus components, to individual resources, e.g. a recording of a dialogue (sound file + transcript).</p>
 
@@ -343,6 +343,7 @@
         <figcaption> Fig. 2 Hierarchy and granularity in JASMIN's CMDI profiles (see at <a href="https://www.researchgate.net/figure/228732331_fig2_Figure-2-Hierarchy-and-granularity-in-JASMIN-profiles"> https://www.researchgate.net/figure/228732331_fig2_Figure-2-Hierarchy-and-granularity-in-JASMIN-profiles </a> </figcaption>
       </figure>
       </p>
+      <p></p>
        <h3>DKRZ - LTA (Long Term Archive)</h3>
        <p>Data in the long-term archive of the DKRZ (DKRZ-LTA) is organized in multiple layers with a hierarchical structure. These layers are defined in the associated CERA2 model as Projects, Experiments, Dataset groups and Datasets. The relationships between these different layers are shown as a hierarchical tree structure in Figure 3.
 <!--
@@ -354,7 +355,7 @@
       </figure>
       </p>
 
-      <p>Among other climate data, the DKRZ-LTA archive stores the experiments of the model intercomparison project CMIP5 <sup><a href="#fn1" id="ref1">1</a></sup>.This data and its associated metadata are kept in and accessible via the CERA database. B2FIND harvests metadata records corresponding to CMIP5 data collections from the CERA database, but only records for which a DOI is assigned.
+      <p>Among other climate data, the DKRZ-LTA archive stores the experiments of the model intercomparison project CMIP5 <sup><a href="#fn1" id="ref1">1</a></sup>.This data and its associated metadata are kept in and are accessible via the CERA database. B2FIND harvests metadata records corresponding to CMIP5 data collections from the CERA database, but only records for which a DOI is assigned.
 
 <!-- and publishs them in the discovery portal under the umbrella of the community ENES  <sup><a href="#fn2" id="ref2">2</a></sup>.
 --></p>
@@ -366,46 +367,44 @@ Here you can now browse through the datasets of the experiment and finally downl
 -->
 
 <p>These examples illustrate the importance of supplying sufficient information about the structure and granularity of the research data to B2FIND. Please let us know about the structure and granularity of your data.
-<p>
+</p>
 
         <h2><a name="mdquality"></a>Metadata Quality</h2>
 	<h3>Integrity</h3>
-	<p>There are no initial changes to the metadata semantics during the B2FIND ingestion workflow. The harvested metadata may, however, be restructured and reformatted before it is indexed, to allow search and discovery.
-		 B2FIND is in the process of improving the quality of metadata via a sophisticated validation and quality check process. We do this in close cooperation with the data providers, taking into consideration their feedback.
-		</p>
+	<p>There are no initial changes to the metadata semantics during the B2FIND ingestion workflow. The harvested metadata may, however, be restructured and reformatted before it is indexed, to allow optimal searchability and findability.
+	B2FIND is in the process of improving the quality of metadata via a sophisticated validation and quality check process. We do this in close cooperation with the data providers, taking their feedback into consideration.
+	</p>
 	<h3>Content</h3>
-	<p>Metadata should only describe research data sets or related resources, such as code books, not other resources, e.g. publications.
-		</p>
-
-	<p>Metadata may describe research data collections and component parts of research data sets. If so, there should be a two-way link between the collection description and metadata records belonging to the collection, or description of the data set and descriptions of component parts. 
-		Links should be based on persistent identifiers. URLs which act as deep links should be avoided, since they are not likely to be persistent.
-</p>
+	<p>Metadata should only describe research datasets or related resources, such as code books, not other resources, e.g. publications.<br>
+	Metadata may describe research data collections and component parts of research datasets. If so, there should be a two-way link between the collection description and metadata records belonging to the collection, or description of the data set and descriptions of component parts (e.g. via the &lt;RelatedIdentifier&gt; element).<br>
+	Links should be based on persistent identifiers. URLs which act as deep links should be avoided, since they are not likely to be persistent.
+	</p>
 
 	<p>Metadata records should be as complete as possible. This means that they should not be “dumbed down” as a result of the harvesting process. For instance, if the data set description is a rich DDI record, it should not be migrated into a simple Dublin Core record.
-</p> 
+	</p> 
 
-	<p>Each record in B2FIND has a unique and persistent identifier of the described resource assigned by the data provider. If the data provider sends an update to a record that has already been harvested to B2FIND, the updated record should contain the same identifier as the original record, so that the original record can be easily replaced by the new one.
+	<p>Each record in B2FIND has a unique and persistent identifier of the described resource, assigned by the data provider. If the data provider sends an update to a record that has already been harvested by B2FIND, the updated record should contain the same identifier as the original record, so that the original record can be easily replaced by the new one.
    </p>
 
-	  <h3>Validity</h3>
-	<p>Metadata about bibliographic resources (books, articles, maps etc.) or archival materials is not relevant in B2FIND since users do not expect to find such information on the system. Therefore bibliographic metadata should not be made available for harvesting, and EUDAT may remove such metadata from the B2FIND database or from harvested metadata.
-</p>
-		<h3>Metadata confidentiality</h3>
-<p>Any confidential metadata elements should be deleted before the metadata is made available for harvesting. Note that the research data set may have access limitations. Metadata must not be encrypted or obfuscated. 
-	</p>
-<h3>Scope</h3>
-	<p>Metadata should describe the entire dataset, not only a component or part of it, unless the description of the entire dataset is also available and the two metadata records are interlinked. 
-</p>
-		<h3>Structure</h3> 
-	<p>The metadata elements <i>title</i> and <i>identifier</i> are mandatory. The identifier must not be repeated, unless the metadata encoding indicates which identifier is the primary one.</p>
-	<h4>Persistent links</h4> 
-	<p>Harvested metadata records should have PIDs or other links that connect them to the described data resources. 
-		B2FIND shall periodically check whether the links still work. Discontinued data providers will be challenged and their data will be removed if they fail to provide valid links within a specified time frame (the first one of these is The European Library, which is no longer maintained and may be closed for good at any time).
+	<h3>Validity</h3>
+		<p>Metadata about bibliographic resources (books, articles, maps etc.) or archival materials is not relevant in B2FIND since users do not expect to find such information on the system. Therefore bibliographic metadata should not be made available for harvesting, and EUDAT may remove such metadata from the B2FIND database or from harvested metadata.
+		</p>
+	<h3>Metadata Confidentiality</h3>
+		<p>Any confidential metadata elements should be deleted before the metadata is made available for harvesting. Note that the research datasets may have access limitations. Metadata must not be encrypted or obfuscated. 
+		</p>
+	<h3>Scope</h3>
+		<p>Metadata should describe the entire dataset, not only a component or part of it, unless the description of the entire dataset is also available and the two metadata records are interlinked. 
+		</p>
+	<h3>Structure</h3> 
+		<p>The metadata elements &lt;Community&gt;, &lt;Title&gt;, &lt;Identifier&gt;, &lt;Discipline&gt;, &lt;Publisher&gt; and &lt;PublicationYear&gt; are mandatory. The &lt;Identifier&gt; must not be repeated, unless the metadata encoding indicates which identifier is the primary one.</p>
+	<h3>Persistent Links</h3> 
+		<p>Harvested metadata records should have PIDs or other resolvable links that connect them to the described data resources. 
+		B2FIND shall check during the ingestion process whether the links still work. Discontinued data providers will be addressed and their data will be removed if they fail to provide valid links within a specified time frame.
 		</p>
 
      </div>
 
-     <sup id="fn1">1. For more details about CMIP5 see http://cmip-pcmdi.llnl.gov/cmip5/design_overview.html <a href="#ref1" title="CMIP5">↩</a></sup>
+     <sup id="fn1">1. For more details about CMIP5 see https://pcmdi.llnl.gov/mips/cmip5/ <a href="#ref1" title="CMIP5">↩</a></sup>
   </article>
 {% endblock %}
 
