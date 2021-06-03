@@ -254,7 +254,7 @@
         <xs:element name="disciplines">
           <xs:complexType>
             <xs:sequence>
-              <xs:element name="discipline" type="xs:string" minOccurs="1" maxOccurs="unbounded">
+              <xs:element name="discipline" type="xs:string" minOccurs="0" maxOccurs="unbounded">
                 <xs:annotation>
                   <xs:documentation>The research discipline(s) the resource can be categorized in.</xs:documentation>
                 </xs:annotation>
@@ -263,10 +263,46 @@
           </xs:complexType>
         </xs:element>
 
-        <xs:element name="spatialCoverage" type="xs:string" minOccurs="0" maxOccurs="1">
+        <xs:element name="spatialCoverages" minOccurs="0">
           <xs:annotation>
-            <xs:documentation>The spatial coverage the research data itself is related to. Content of this category is displayed in plain text. If a longitude/latitude information is given it will be displayed on the map.</xs:documentation>
+            <xs:documentation>The spatial coverage the research data itself is related to.</xs:documentation>
           </xs:annotation>
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="spatialCoverage" minOccurs="0" maxOccurs="unbounded">
+                <xs:complexType>
+                  <xs:choice maxOccurs="unbounded">
+                    <xs:element name="geoLocationPlace" minOccurs="0">
+                      <xs:annotation>
+                        <xs:documentation>The name of the place the research data is related to.</xs:documentation>
+                      </xs:annotation>
+                    </xs:element>
+                    <xs:element name="geoLocationPoint" type="point" minOccurs="0">
+                      <xs:annotation>
+                        <xs:documentation>A point contains a single latitude-longitude pair.</xs:documentation>
+                      </xs:annotation>
+                    </xs:element>
+                    <xs:element name="geoLocationBox" type="box" minOccurs="0">
+                      <xs:annotation>
+                        <xs:documentation>A bounding box.</xs:documentation>
+                      </xs:annotation>
+                    </xs:element>
+                    <xs:element name="geoLocationPolygon" minOccurs="0" maxOccurs="unbounded">
+                      <xs:annotation>
+                        <xs:documentation>A drawn polygon area, defined by a set of points and lines connecting the points in a closed chain.</xs:documentation>
+                      </xs:annotation>
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="polygonPoint" type="point" minOccurs="4" maxOccurs="unbounded" />
+                          <xs:element name="inPolygonPoint" type="point" minOccurs="0" maxOccurs="1" />
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:choice>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
         </xs:element>
 
         <xs:element name="temporalCoverage" type="xs:string" minOccurs="0" maxOccurs="1">
@@ -274,8 +310,38 @@
             <xs:documentation>Period of time the research data itself is related to. Could be a date format or plain text.</xs:documentation>
           </xs:annotation>
         </xs:element>
-
       </xs:all>
     </xs:complexType>
   </xs:element>
+
+<!-- TYPE DECLARATIONS -->
+<!-- definitions for geoLocation -->
+  <xs:complexType name="point">
+    <xs:all>
+      <xs:element name="pointLongitude" type="longitudeType" minOccurs="1" />
+      <xs:element name="pointLatitude" type="latitudeType" minOccurs="1" />
+    </xs:all>
+  </xs:complexType>
+  <xs:complexType name="box">
+    <xs:all>
+      <xs:element name="westBoundLongitude" type="longitudeType" minOccurs="1" />
+      <xs:element name="eastBoundLongitude" type="longitudeType" minOccurs="1" />
+      <xs:element name="southBoundLatitude" type="latitudeType" minOccurs="1" />
+      <xs:element name="northBoundLatitude" type="latitudeType" minOccurs="1" />
+    </xs:all>
+  </xs:complexType>
+  <xs:simpleType name="longitudeType">
+    <xs:restriction base="xs:float">
+      <xs:minInclusive value="-180" />
+      <xs:maxInclusive value="180" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="latitudeType">
+    <xs:restriction base="xs:float">
+      <xs:minInclusive value="-90" />
+      <xs:maxInclusive value="90" />
+    </xs:restriction>
+  </xs:simpleType>
+</xs:schema>
+
 </xs:schema>
