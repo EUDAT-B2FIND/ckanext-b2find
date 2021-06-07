@@ -144,7 +144,7 @@
 
         <xs:element name="publicationYear" type="xs:gYear" minOccurs="1" maxOccurs="1">
           <xs:annotation>
-            <xs:documentation>Year when the data is made publicly available. If an embargo period has been in effect, use the date when the embargo period ends.</xs:documentation>
+            <xs:documentation>Year when the data is made publicly available. If an embargo period has been in effect, use the date when the embargo period ends. If there is no standard publication year value, use the date that would be preferred from a citation perspective.</xs:documentation>
           </xs:annotation>
         </xs:element>
 
