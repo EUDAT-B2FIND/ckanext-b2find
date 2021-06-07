@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Revision history
-2020-11-11  XSD definition for B2FIND schema v2.0
+2021-06-06  XSD definition for B2FIND schema v2.0
 -->
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -305,8 +305,7 @@
             <xs:sequence>
               <xs:element name="temporalCoverage" minOccurs="0" maxOccurs="unbounded">
                 <xs:annotation>
-                  <xs:documentation> Period of time the research data is related to. Could be a date format or plain text.
-                  <xs:documentation>
+                  <xs:documentation> Period of time the research data is related to. Could be a date format or plain text.</xs:documentation>
                 </xs:annotation> 
                 <xs:complexType>
                   <xs:choice maxOccurs="unbounded">
@@ -319,6 +318,7 @@
                       <xs:annotation>
                         <xs:documentation>End of time period the data relates to.</xs:documentation>
                       </xs:annotation>
+                    </xs:element>
                     <xs:element name="span" type="xs:string" minOccurs="0" maxOccurs="unbounded">
                       <xs:annotation>
                         <xs:documentation>Time period the data relates to.</xs:documentation>
@@ -365,4 +365,3 @@
   </xs:simpleType>
 </xs:schema>
 
-</xs:schema>
