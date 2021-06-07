@@ -49,22 +49,16 @@
   </xs:element>
 
   <!-- Identifier -->
-  <xs:element name="DOI" type="xs:anyURI" minOccurs="0" maxOccurs="1">
-    <xs:annotation>
-      <xs:documentation>A persistent, citable identifier that uniquely identifies a resource.</xs:documentation>
-    </xs:annotation>
-  </xs:element>
-
-  <xs:element name="PID" type="xs:anyURI" minOccurs="0" maxOccurs="1">
-    <xs:annotation>
-      <xs:documentation>A persistent identifier that uniquely identifies a resource.</xs:documentation>
-    </xs:annotation>
-  </xs:element>
-
-  <xs:element name="PID" type="xs:anyURI" minOccurs="0" maxOccurs="1">
-    <xs:annotation>
-      <xs:documentation>An identifier that uniquely identifies a resource. It may link to the data itself or a landing page that curates the data.</xs:documentation>
-    </xs:annotation>
+  <xs:element name="identifiers" minOccurs="1" maxOccurs="1">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="identifier" type="xs:string" minOccurs="1" maxOccurs="unbounded">
+          <xs:annotation>
+            <xs:documentation>One or more unique strings that identify a single resource, ideally persistent.</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
   </xs:element>
 
   <xs:element name="relatedIdentifiers">
