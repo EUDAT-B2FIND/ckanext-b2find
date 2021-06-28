@@ -36,11 +36,11 @@ class B2FindPlugin(plugins.SingletonPlugin):
         toolkit.add_public_directory(config_, 'public')
         toolkit.add_resource('fanstatic',
             'b2find')
-        
-        if 'ckan.base_templates_folder' in config and config['ckan.base_templates_folder'] == 'templates-bs2':
+
+        if 'ckan.base_templates_folder' in config_ and config_['ckan.base_templates_folder'] == 'templates-bs2':
             from ckan.lib.helpers import Page
             Page.pager = legacy_pager
-        return config
+        return config_
 
     def dataset_facets(self, facets_dict, package_type):
         return self._facets(facets_dict)
