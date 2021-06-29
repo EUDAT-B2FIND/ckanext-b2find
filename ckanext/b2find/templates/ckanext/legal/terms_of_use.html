@@ -1,0 +1,36 @@
+{% extends "page.html" %}
+
+{% block subtitle %}{{ _('Terms of Use for EUDAT-B2FIND Service') }}{% endblock %}
+
+{% block breadcrumb_content %}
+  <li class="active">{% link_for _('Terms of Use'), controller='ckanext.b2find.controller:HelpController', action='terms_of_use' %}</li>
+{% endblock %}
+
+{% block primary %}
+  <article class="module">
+    <div class="module-content">
+      <h1 class="page-heading">{{ _('Terms of Use for EUDAT-B2FIND') }}</h1>
+
+      <p>Before using any EUDAT services and resources each user must have read and agreed to the <a href="https://hdl.handle.net/11304/e43b2e3f-83c5-4e3f-b8b7-18d38d37a6cd">EUDAT Services Terms of Use</a>.</p>
+
+      <p>By using the EUDAT B2FIND discovery service or publishing metadata in  EUDAT B2FIND (hereafter “B2FIND”) catalogue you accept the following conditions of use:</p>
+
+      <ul>
+	<li>B2FIND is made available to researchers in order to search for data collections and to communities in order to publish meta data. B2FIND should not be used for personal, recreational, political or commercial purposes.</li>
+	<li>Use of the EUDAT services and resources is at your own risk. There is no guarantee that the B2FIND service and resources will be available at any time or that it will suit any purpose. EUDAT is not liable to any compensation in case of lost data or loss of service.</li>
+	<li>Logged information used for administrative, operational, accounting, monitoring and security purposes only. This information may be disclosed, via secured mechanisms, only for the same purposes and only as far as necessary to other organizations cooperating with EUDAT. Although efforts are made to maintain confidentiality, no guarantees are given.</li>
+	<li>All metadata stored in B2FIND, except private information such as email addresses and phone numbers, must be publicly available.</li>
+	<li>You must not use B2FIND for any unlawful purpose and not attempt to breach, or breach or circumvent any administrative or security controls.</li>
+	<li>You must respect the legal protection provided by copyright and licensing of software and data as well as intellectual property and confidentiality agreements. Do not provide metadata refering to illegal copies of music, films, software or other media on B2FIND.</li>
+	<li>You must not publish or access any potentially unlawful or clearly inappropriate content or data on B2FIND</li>
+	<li>EUDAT is entitled to regulate, suspend or terminate your access to the service.</li>
+	<li>You are liable for the consequences of violation of any of the conditions of use.</li>
+      </ul>
+
+      <p>You can find further information related to the B2FIND service in the User documentation.</p>
+
+     </div>
+  </article>
+{% endblock %}
+
+{% block secondary %}{% endblock %}

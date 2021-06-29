@@ -1,0 +1,33 @@
+{% extends "page.html" %}
+
+{% block subtitle %}{{ _('Legal Notice') }}{% endblock %}
+
+{% block breadcrumb_content %}
+  <li class="active">{% link_for _('Legal Notice'), controller='ckanext.b2find.controller:LegalController', action='index' %}</li>
+{% endblock %}
+
+{% block primary %}
+  <article class="module">
+    <div class="module-content">
+      <h1 class="page-heading">{{ _('Legal Notice') }}</h1>
+
+      <p>
+        <h3>DKRZ Legal Notice</h3>
+        <a href="http://www.dkrz.de/about/kontakt/impressum">http://www.dkrz.de/about/kontakt/impressum</a>
+      </p>
+      <br/>
+
+      <p>
+        <h3>DKRZ Data Privacy Policy</h3>
+        <a href="https://www.dkrz.de/about-en/contact/en-datenschutzhinweise">https://www.dkrz.de/about-en/contact/en-datenschutzhinweise</a>
+      </p>
+      <br/>
+
+      <p>
+        <h3>EUDAT-Services Terms of Use</h3>
+        <a href="https://eudat.eu/eudat-cdi-aup">https://eudat.eu/eudat-cdi-aup</a>
+      </p>
+  </article>
+{% endblock %}
+
+{% block secondary %}{% endblock %}
