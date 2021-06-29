@@ -17,7 +17,7 @@ class B2FindPlugin(plugins.SingletonPlugin):
     plugins.implements(plugins.IConfigurer)
     plugins.implements(plugins.IFacets)
     #plugins.implements(plugins.ITemplateHelpers)
-    #plugins.implements(plugins.IRoutes, inherit=True)
+    plugins.implements(plugins.IRoutes, inherit=True)
 
     # IConfigurer
 
