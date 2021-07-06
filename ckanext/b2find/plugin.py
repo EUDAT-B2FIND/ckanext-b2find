@@ -54,17 +54,6 @@ class B2FindPlugin(plugins.SingletonPlugin):
 
     def after_map(self, map):
         map.connect(
-            'legal',
-            '/legal',
-            controller='ckanext.b2find.controller:LegalController',
-            action='index'
-        )
-        map.connect(
-            'legal_action',
-            '/legal/{action}.html',
-            controller='ckanext.b2find.controller:LegalController'
-        )
-        map.connect(
             'help_action',
             '/help/{action}.html',
             controller='ckanext.b2find.controller:HelpController'
