@@ -1,0 +1,60 @@
+{% set info_title = "Identifier" %}
+
+{% extends "package/snippets/info_base.html" %}
+
+{% block info_table_body %}
+  {% if extras_dict.DOI %}
+    <tr>
+      <th scope="row" class="dataset-label" property="rdfs:label">{{ _("DOI") }}</th>
+      {% if h.is_url(extras_dict.DOI) %}
+        <td class="dataset-details" property="rdf:value">{{ h.link_to(extras_dict.DOI, extras_dict.DOI, target='_blank') }}</td>
+      {% else %}
+        <td class="dataset-details" property="rdf:value">{{ extras_dict.DOI }}</td>
+      {% endif %}
+    </tr>
+  {% endif %}
+
+  {% if extras_dict.PID %}
+    <tr>
+      <th scope="row" class="dataset-label" property="rdfs:label">{{ _("PID") }}</th>
+      {% if h.is_url(extras_dict.PID) %}
+        <td class="dataset-details" property="rdf:value">{{ h.link_to(extras_dict.PID, extras_dict.PID, target='_blank') }}</td>
+      {% else %}
+        <td class="dataset-details" property="rdf:value">{{ extras_dict.PID }}</td>
+      {% endif %}
+    </tr>
+  {% endif %}
+
+  {% if pkg_dict.url %}
+    <tr>
+      <th scope="row" class="dataset-label">{{ _('Source') }}</th>
+      {% if h.is_url(pkg_dict.url) %}
+        <td class="dataset-details" property="foaf:homepage">{{ h.link_to(pkg_dict.url, pkg_dict.url, rel='foaf:homepage', target='_blank') }}</td>
+      {% else %}
+        <td class="dataset-details" property="foaf:homepage">{{ pkg_dict.url }}</td>
+      {% endif %}
+    </tr>
+  {% endif %}
+
+  {% if extras_dict.RelatedIdentifier %}
+    {% set relIds = h.split_extra(extras_dict.RelatedIdentifier) %}
+    {% for relId in relIds %}
+      <tr>
+        <th scope="row" class="dataset-label" property="rdfs:label">{{ _("Related Identifier") }}</th>
+          <td class="dataset-details" property="rdf:value">{{ h.link_to(relId, relId, target='_blank') }}</td>
+      </tr>
+    {% endfor %}
+  {% endif %}
+
+  {% if extras_dict.MetaDataAccess %}
+    <tr>
+      <th scope="row" class="dataset-label" property="rdfs:label">{{ _("Metadata Access") }}</th>
+      {% if h.is_url(extras_dict.MetaDataAccess) %}
+        <td class="dataset-details" property="rdf:value">{{ h.link_to(extras_dict.MetaDataAccess, extras_dict.MetaDataAccess, target='_blank') }}</td>
+      {% else %}
+        <td class="dataset-details" property="rdf:value">{{ extras_dict.MetaDataAccess }}</td>
+      {% endif %}
+    </tr>
+  {% endif %}
+
+{% endblock %}

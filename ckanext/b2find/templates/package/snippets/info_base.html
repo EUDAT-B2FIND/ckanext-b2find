@@ -1,0 +1,13 @@
+<table class="table table-striped table-bordered table-condensed">
+  <thead>
+    {% block info_table_header %}
+      <tr class="info_header">
+        <th scope="col" colspan="2">{{ _(info_title) }}</th>
+      </tr>
+    {% endblock %}
+  </thead>
+  <tbody>
+    {% block info_table_body %}
+    {% endblock %}
+  </tbody>
+</table>
