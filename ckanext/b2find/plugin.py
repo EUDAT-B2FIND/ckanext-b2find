@@ -1,6 +1,7 @@
 import ckan.plugins as plugins
 import ckan.plugins.toolkit as toolkit
 import ckanext.b2find.helpers as helpers
+import ckanext.b2find.blueprints as blueprints
 
 
 def legacy_pager(self, *args, **kwargs):
@@ -18,7 +19,7 @@ class B2FindPlugin(plugins.SingletonPlugin):
     plugins.implements(plugins.IConfigurer)
     plugins.implements(plugins.IFacets)
     plugins.implements(plugins.ITemplateHelpers)
-    plugins.implements(plugins.IRoutes, inherit=True)
+    plugins.implements(plugins.IBlueprint)
 
     # IConfigurer
 
@@ -52,25 +53,8 @@ class B2FindPlugin(plugins.SingletonPlugin):
     def organization_facets(self, facets_dict, organization_type, package_type):
         return self._facets(facets_dict)
 
-    def after_map(self, map):
-        map.connect(
-            'help_action',
-            '/help/{action}.html',
-            controller='ckanext.b2find.controller:HelpController'
-        )
-        map.connect(
-            'guidelines',
-            '/guidelines',
-            controller='ckanext.b2find.controller:GuidelinesController',
-            action='index'
-        )
-        map.connect(
-            'guidelines_action',
-            '/guidelines/{action}.html',
-            controller='ckanext.b2find.controller:GuidelinesController'
-        )
-
-        return map
+    def get_blueprint(self):
+        return [blueprints.b2find]
 
     def _facets(self, facets_dict):
         # Deleted facets

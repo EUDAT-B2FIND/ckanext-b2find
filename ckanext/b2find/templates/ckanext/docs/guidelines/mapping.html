@@ -3,8 +3,8 @@
 {% block subtitle %}{{ _('Mapping Metadata') }}{% endblock %}
 
 {% block breadcrumb_content %}
-  <li>{% link_for _('Guidelines'), controller='ckanext.b2find.controller:GuidelinesController', action='index' %}</li>
-  <li class="active">{% link_for _('Mapping Metadata'), controller='ckanext.b2find.controller:GuidelinesController', action='mapping' %}</li>
+  <li><a class="active" href="{{ h.url_for('b2find.guidelines', qualified=True) }}">Guidelines</a></li>
+  <li class="active"><a class="active" href="{{ h.url_for('b2find.guidelines_mapping', qualified=True) }}">Mapping Metadata</a></li>
 {% endblock %}
 
 {% block primary %}
@@ -36,12 +36,12 @@ Alternatively you can fill out the online web form at <a href="http://eudat6d.dk
 	<ul>
 	  <li> General Information: In this tab, data providers should provide information about the contact persons and the community.</li>
 	  <li> Metadata Specification: Please give us more detailed information about the specific metadata formats, schemas and structure used.</li>
-	  <li> Harvesting: Here the harvesting endpoints (e.g. OAI-URLs) should be provided, as well as the protocols and APIs used, and the subsets, if available.</li>  
-	  <li> Mapping: In this table, the mapping of the community properties to the B2FIND schema and coverage information should be laid out. This is iteratively discussed and developed with the data provider during the initial intake process.</li>   
+	  <li> Harvesting: Here the harvesting endpoints (e.g. OAI-URLs) should be provided, as well as the protocols and APIs used, and the subsets, if available.</li>
+	  <li> Mapping: In this table, the mapping of the community properties to the B2FIND schema and coverage information should be laid out. This is iteratively discussed and developed with the data provider during the initial intake process.</li>
 	</ul>
 
 	</p>
-   
+
         <h2><a name="semanticmapping"></a>Homogenisation and Semantic Mapping</h2>
 <p>To transform and reformat the harvested raw metadata records to datasets which can be uploaded to the B2FIND catalogue and indexed and displayed in the B2FIND portal, the following processing steps must be carried out:
 
@@ -65,10 +65,10 @@ This mapping procedure needs regular adaption and extensions according to the ne
   		<li> Mandatory (M): properties must be provided.</li>
   		<li> Mandatory if applicable: (M/A): if your metadata contains this value, you must provide it.</li>
   		<li> Recommended (R): properties are optional, but strongly recommended for interoperability and higher quality of the metadata.</li>
-  		<li> Optional (O): properties are optional and provide richer description.</li>     
+  		<li> Optional (O): properties are optional and provide richer description.</li>
 	</ul>
 Providers, who submit both the mandatory and recommended sets of properties significantly enhance the chance of their metadata being found, cited and linked to original research.
-	
+
 </p>
 
       <table border="1" class="docutils" style="width:100%">
@@ -76,14 +76,14 @@ Providers, who submit both the mandatory and recommended sets of properties sign
 	  <th>Metadata Type</th>
 	  <th>B2FIND Name</th>
       <th>Description</th>
-	  <th>Occurrence</th> 
+	  <th>Occurrence</th>
 	  <th>Allowed values</th>
 	  <th>Comments and Issues</th>
 	</tr>
 	<tr>
 	  <th rowspan="4">General Information</th>
 	  <td>Community (M)</td>
-	  <td>The scientific community, research infrastructure, project or data provider from which B2FIND harvests the metadata.</td> 
+	  <td>The scientific community, research infrastructure, project or data provider from which B2FIND harvests the metadata.</td>
 	  <td>1</td>
 	  <td>Textual</td>
       <td></td>
@@ -91,7 +91,7 @@ Providers, who submit both the mandatory and recommended sets of properties sign
   	<tr>
 	  <td>Title (M)</td>
 	  <td>A name or a title by which a resource is known</td>
-	  <td>1-n</td> 
+	  <td>1-n</td>
 	  <td>Textual</td>
 	  <td></td>
 	</tr>
@@ -175,14 +175,14 @@ Providers, who submit both the mandatory and recommended sets of properties sign
 	  <td>PublicationYear (M)</td>
 	  <td>Year when the data is made publicly available. If an embargo period has been in effect, use the date when the embargo period ends.</td>
 	  <td>1</td>
-	  <td>UTC Year format (YYYY)</td>	  
+	  <td>UTC Year format (YYYY)</td>
 	  <td></td>
 	</tr>
 	<tr>
 	  <td>FundingReference (O)</td>
 	  <td>Information about financial support (funding) for the resource.</td>
 	  <td>0-n</td>
-	  <td>Could be funder name or grant number.</td>	  
+	  <td>Could be funder name or grant number.</td>
 	  <td></td>
 	</tr>
 	<tr>
@@ -255,7 +255,7 @@ Providers, who submit both the mandatory and recommended sets of properties sign
 	  <td>0-1</td>
 	  <td>Geographical coordinates
 	  	<ul>
-    		<li>lat/lon for point</li> 
+    		<li>lat/lon for point</li>
     		<li>[min_lat, min_lon, max_lat, max_lon] for bounding box</li>
     		<li>or free text.</li>
     	</ul>
