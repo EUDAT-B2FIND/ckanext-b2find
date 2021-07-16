@@ -3,7 +3,7 @@
 {% block subtitle %}{{ _('B2FIND Search Guide') }}{% endblock %}
 
 {% block breadcrumb_content %}
-  <li class="active">{% link_for _('B2FIND Search Guide'), controller='ckanext.b2find.controller:HelpController', action='searchguide' %}</li>
+  <li class="active"><a class="active" href="{{ h.url_for('b2find.help', qualified=True) }}">B2FIND Search Guide</a></li>
 {% endblock %}
 
 {% block primary %}
@@ -181,7 +181,7 @@
       <p>
         The faceted search interface provides you with options to filter your search by choosing
         'facets'. This tool may help you to narrow down the search results for
-        your specific search demands. 
+        your specific search demands.
       </p>
 
       <p>
@@ -202,7 +202,7 @@
       'Discipline', 'Language' or 'Publisher' are provided.
 
       In the following sub sections the usage of these different kinds of
-      faceted search is described in detail. 
+      faceted search is described in detail.
       <br/>
 
       <h4><a name="geospatial-search"></a>Filter by location</h4>
@@ -526,13 +526,13 @@
       <p>
         Beside the possibility to search over the web interface you can as
         well use the CKAN API suite to submit search requests
-        directly from the command line. 
+        directly from the command line.
 
         Adapted for the needs and features of B2FIND the Python
         script <code>searchB2FIND.py</code> is provides a powerful and
         userfriendly tool to submit complex search demands. The script resides in the git repository
         <code>https://github.com/EUDAT-B2FIND/md-ingestion</code> and can be downloaded
-        from there. 
+        from there.
 
         If you want for instance a list of all records which belongs to the discipline 'Earth Sciences', enter:
       </p>
@@ -678,7 +678,7 @@ Examples:
             datasets. Above the title of all chosen foki (values) of the textual facets
             - here for Discipline and Creator - are displayed.
             By clicking on the 'x' a new search query will start that exclude the closed facets.
- 
+
           </td>
           <td align="right" valign="top">
             <img src="/images/userguide/B2FIND_useCase_choose_Creator.jpg" width="300" alt="B2FIND_useCase_choose_Creator">
