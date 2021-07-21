@@ -4,17 +4,6 @@ import ckanext.b2find.helpers as helpers
 import ckanext.b2find.blueprints as blueprints
 
 
-def legacy_pager(self, *args, **kwargs):
-    kwargs.update(
-        format=u"<div class='pagination-wrapper pagination pagination-centered'><ul>"
-        "$link_previous ~2~ $link_next</ul></div>",
-        symbol_previous=u'«', symbol_next=u'»',
-        curpage_attr={'class': 'active'}, link_attr={}
-    )
-    from ckan.lib.helpers import Page
-    return super(Page, self).pager(*args, **kwargs)
-
-
 class B2FindPlugin(plugins.SingletonPlugin):
     plugins.implements(plugins.IConfigurer)
     plugins.implements(plugins.IFacets)
@@ -38,10 +27,6 @@ class B2FindPlugin(plugins.SingletonPlugin):
         toolkit.add_public_directory(config_, 'public')
         toolkit.add_public_directory(config_, 'fanstatic')
         toolkit.add_resource('fanstatic', 'ckanext-b2find')
-
-        if 'ckan.base_templates_folder' in config_ and config_['ckan.base_templates_folder'] == 'templates-bs2':
-            from ckan.lib.helpers import Page
-            Page.pager = legacy_pager
         return config_
 
     def dataset_facets(self, facets_dict, package_type):
