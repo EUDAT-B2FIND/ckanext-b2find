@@ -1,59 +1,23 @@
-{% extends "package/base.html" %}
-
-{% block subtitle %}{{ h.dataset_display_name(pkg) }} - {{ super() }}{% endblock %}
-
-{% block head_extras -%}
-  {{ super() }}
-  {% set description = h.markdown_extract(pkg.notes, extract_length=200)|forceescape %}
-  <meta property="og:title" content="{{ h.dataset_display_name(pkg) }} - {{ g.site_title }}">
-  <meta property="og:description" content="{{ description|forceescape|trim }}">
-{% endblock -%}
-
-{% block content_action %}
-  {% if h.check_access('package_update', {'id':pkg.id }) %}
-    {% link_for _('Manage'), controller='dataset', action='edit', id=pkg.name, class_='btn', icon='wrench' %}
-  {% endif %}
-{% endblock %}
+{% ckan_extends %}
 
 {% block content_primary_nav %}
-  {{ h.build_nav_icon('dataset_read', _('Dataset'), id=pkg.name) }}
-  {{ h.build_nav_icon('dataset_groups', _('Communities'), id=pkg.name) }}
-  {# {{ h.build_nav_icon('dataset_activity', _('Activity Stream'), id=pkg.name) }} #}
+  {{ h.build_nav_icon(dataset_type ~ '.read', _('Dataset'), id=pkg.id if is_activity_archive else pkg.name, icon='sitemap') }}
+  {{ h.build_nav_icon(dataset_type ~ '.groups', _('Communities'), id=pkg.id if is_activity_archive else pkg.name, icon='users') }}
 {% endblock %}
 
-{% block primary_content_inner %}
-    {% block package_revision_info %}
-      {% if c.revision_date %}
-        <div class="module info alert alert-info">
-          <p class="module-content">
-            {% set timestamp = h.render_datetime(c.revision_date, with_hours=True) %}
-            {% set url = h.url_for(controller='dataset', action='read', id=pkg.name) %}
-
-            {% trans timestamp=timestamp, url=url %}This is an old revision of this dataset, as edited at {{ timestamp }}. It may differ significantly from the <a href="{{ url }}">current revision</a>.{% endtrans %}
-          </p>
-        </div>
-      {% endif %}
-    {% endblock %}
-{% endblock %}
-
-{% block secondary_content %}
-
-  {% block secondary_help_content %}{% endblock %}
-
-  {% block package_info %}{% endblock %}
-
+{% block package_info %}
   {# ckanext-spatial: dataset extent #}
-  {% set dataset_extent = h.get_pkg_dict_extra(c.pkg_dict, 'spatial', '') %}
+  {% set dataset_extent = h.get_pkg_dict_extra(pkg, 'spatial', '') %}
   {% if dataset_extent %}
     {% snippet "spatial/snippets/dataset_map_sidebar.html", extent=dataset_extent %}
   {% endif %}
+{% endblock %}
 
-  {% block package_social %}
-    {% snippet "snippets/social.html" %}
-  {% endblock %}
+{% block package_organization %}
+{% endblock %}
 
-  {% block package_license %}
-    {% snippet "snippets/license.html", pkg_dict=pkg %}
-  {% endblock %}
+{% block package_social %}
+{% endblock %}
 
+{% block package_license %}
 {% endblock %}
