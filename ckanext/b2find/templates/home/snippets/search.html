@@ -1,14 +1,20 @@
-{% set placeholder = _('e.g. IPCC') %}
+{% set tags = h.get_facet_items_dict('tags', limit=4) %}
+{% set placeholder = _('eg. IPCC') %}
 
 <div class="module module-search module-narrow module-shallow box">
-  <form class="module-content search-form" method="get" action="{% url_for 'dataset.search' %}">
+  <form class="module-content search-form" method="get" action="{% url_for controller='package', action='search' %}">
     <h3 class="heading text-center">{{ _("Search data") }}</h3>
-    <div class="search-input form-group search-giant">
-      <input aria-label="{% block header_site_search_label %}{{ _('Search datasets') }}{% endblock %}" id="homeinput" type="text" class="form-control" name="q" value="" autocomplete="off" placeholder="{% block search_placeholder %}{{ placeholder }}{% endblock %}" />
-      <button id="homesubmit" type="submit" aria-labelledby="search-label">
-        <i class="fa fa-search fa-lg"></i>
-        <span class="sr-only" id="search-label">{{ _('Search') }}</span>
-      </button>
+    <div class="input-append" style="display:flex;">
+      <input type="text" id="homeinput" class="search"  name="q" value="" autocomplete="off" placeholder="{{ placeholder }}" style="width:100%;" />
+      <button id="homesubmit" type="submit"><i class="fa fa-search fa-lg"></i></button>
     </div>
   </form>
+<!--
+  <div class="tags">
+    <h3>{{ _('Popular Tags') }}</h3>
+    {% for tag in tags %}
+      <a class="b2f_tag" href="{% url_for controller='package', action='search', tags=tag.name %}"><i class="fa fa-tag"></i> {{ h.truncate(tag.display_name, 18) }}</a>
+    {% endfor %}
+  </div>
+-->
 </div>
