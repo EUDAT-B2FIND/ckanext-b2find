@@ -1,5 +1,12 @@
 {% extends "package/read_base.html" %}
 
+{% set pkg = c.pkg_dict %}
+
+{# determine if user is logged in #}
+{% if c.userobj %}
+  {% set logged_in = 1 %}
+{% endif %}
+
 {% block primary_content_inner %}
   {{ super() }}
   {% block package_description %}
@@ -9,17 +16,7 @@
         {{ _('Private') }}
       </span>
     {% endif %}
-    {% block package_archive_notice %}
-      {% if is_activity_archive %}
-        <div class="alert alert-danger">
-          {% trans url=h.url_for(pkg.type ~ '.read', id=pkg.id) %}
-          You're currently viewing an old version of this dataset. To see the
-          current version, click <a href="{{ url }}">here</a>.
-          {% endtrans %}
-        </div>
-      {% endif %}
-    {% endblock %}
-    <h1>
+    <h2>
       {% block page_heading %}
         {{ h.dataset_display_name(pkg) }}
         {% if pkg.state.startswith('draft') %}
@@ -28,8 +25,15 @@
         {% if pkg.state == 'deleted' %}
           [{{ _('Deleted') }}]
         {% endif %}
+
       {% endblock %}
-    </h1>
+    </h2>
+
+    {% block package_labels %}
+      {% set extras_dict = dict(h.sorted_extras(pkg.extras,excluded_extras)) %}
+      {% snippet "package/snippets/labels.html", pkg_dict=pkg_dict, extras_dict=extras_dict, logged_in=logged_in %}
+    {% endblock %}
+
     {% block package_notes %}
       {% if pkg.notes %}
         <div class="notes embedded-content">
@@ -41,16 +45,14 @@
     <span class="insert-comment-thread"></span>
   {% endblock %}
 
-  {% block package_resources %}
-    {% snippet "package/snippets/resources_list.html", pkg=pkg, resources=pkg.resources, is_activity_archive=is_activity_archive %}
-  {% endblock %}
+  {% block package_resources %}{% endblock %}
 
   {% block package_tags %}
     {% snippet "package/snippets/tags.html", tags=pkg.tags %}
   {% endblock %}
 
   {% block package_additional_info %}
-    {% snippet "package/snippets/additional_info.html", pkg_dict=pkg %}
+    {% snippet "package/snippets/additional_info.html", pkg_dict=pkg, logged_in=logged_in %}
   {% endblock %}
 
 {% endblock %}
