@@ -19,7 +19,7 @@
         </div>
       {% endif %}
     {% endblock %}
-    <h1>
+    <h2>
       {% block page_heading %}
         {{ h.dataset_display_name(pkg) }}
         {% if pkg.state.startswith('draft') %}
@@ -29,7 +29,13 @@
           [{{ _('Deleted') }}]
         {% endif %}
       {% endblock %}
-    </h1>
+    </h2>
+
+     {% block package_labels %}
+      {% set extras_dict = dict(h.sorted_extras(pkg.extras,excluded_extras)) %}
+      {% snippet "package/snippets/labels.html", pkg_dict=pkg_dict, extras_dict=extras_dict, logged_in=logged_in %}
+    {% endblock %}
+
     {% block package_notes %}
       {% if pkg.notes %}
         <div class="notes embedded-content">
