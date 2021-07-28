@@ -6,6 +6,7 @@ import ckanext.b2find.blueprints as blueprints
 
 class B2FindPlugin(plugins.SingletonPlugin):
     plugins.implements(plugins.IConfigurer)
+    plugins.implements(plugins.IPackageController, inherit=True)
     plugins.implements(plugins.IFacets)
     plugins.implements(plugins.ITemplateHelpers)
     plugins.implements(plugins.IBlueprint)
@@ -28,6 +29,33 @@ class B2FindPlugin(plugins.SingletonPlugin):
         toolkit.add_public_directory(config_, 'fanstatic')
         toolkit.add_resource('fanstatic', 'ckanext-b2find')
         return config_
+
+    def before_search(self, search_params):
+        extras = search_params.get('extras')
+        if not extras:
+            # There are no extras in the search params, so do nothing.
+            return search_params
+
+        start_date = extras.get('ext_startdate')
+
+        end_date = extras.get('ext_enddate')
+
+        if not start_date and not end_date:
+            # The user didn't select either a start and/or end date, so do nothing.
+            return search_params
+        if not start_date:
+            start_date = '*'
+        if not end_date:
+            end_date = '*'
+
+        # Add a date-range query with the selected start and/or end dates into the Solr facet queries.
+        fq = search_params.get('fq', '')
+        fq = '{fq} +extras_PublicationTimestamp:[{sd} TO {ed}]'.format(fq=fq, sd=start_date, ed=end_date)
+
+        search_params['fq'] = fq
+
+        return search_params
+
 
     def dataset_facets(self, facets_dict, package_type):
         return self._facets(facets_dict)
