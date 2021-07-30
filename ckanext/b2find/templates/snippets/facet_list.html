@@ -27,8 +27,8 @@
         <li class="{{ nav_item_class or 'nav-item' }}"
           ng-repeat="item in items | limitTo:{{ facet_id }}.limit"
           ng-class="{ active: item.active }">
-          <a href="#" title="{{ item.name | angular }}">
-            <span class="item-label"> {{ item.name | angular }} </span>
+          <a href="#" title="{{ '{{ item.name }}' }}">
+            <span class="item-label"> {{ '{{ item.name }}' }} </span>
             <span class="hidden separator"> - </span>
             <span class="item-count badge"> 5 </span>
           </a>
