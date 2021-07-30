@@ -27,14 +27,10 @@
         <li class="{{ nav_item_class or 'nav-item' }}"
           ng-repeat="item in items | limitTo:{{ facet_id }}.limit"
           ng-class="{ active: item.active }">
-        {% set href = h.remove_url_param(name, item.name, extras=extras, alternative_url=alternative_url) if item.active else h.add_url_param(new_params={name: item.name}, extras=extras, alternative_url=alternative_url) %}
-        {% set label = label_function(item) if label_function else item.display_name %}
-        {% set label_truncated = h.truncate(label, 22) if not label_function else label %}
-        {% set count = count_label(item['count']) if count_label else ('%d' % item['count']) %}
-          <a href="{{ href }}" title="{{ label if label != label_truncated else '' }}">
-            <span class="item-label">{{ label_truncated }}</span>
+          <a href="#" title="{{'{{ item.name }}' }}">
+            <span class="item-label"> lalala </span>
             <span class="hidden separator"> - </span>
-            <span class="item-count badge">{{ count }}</span>
+            <span class="item-count badge"> 5 </span>
           </a>
         </li>
       </ul>
