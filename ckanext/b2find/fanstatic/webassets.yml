@@ -28,11 +28,11 @@ ng:
   filters: rjsmin
   output: ckanext-b2find/%(version)s_ng.js
 
-datepicker-css:
+bootstrap-datepicker-css:
   contents:
-    - datepicker.css
+    - bootstrap-datepicker.css
   filters: cssrewrite
-  output: ckanext-b2find/%(version)s_datepicker.css
+  output: ckanext-b2find/%(version)s_bootstrap-datepicker.css
 
 bootstrap-datepicker:
   contents:
