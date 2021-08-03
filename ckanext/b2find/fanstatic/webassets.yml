@@ -51,4 +51,3 @@ moment:
     - moment.js
   filters: rjsmin
   output: ckanext-b2find/%(version)s_moment.js
-

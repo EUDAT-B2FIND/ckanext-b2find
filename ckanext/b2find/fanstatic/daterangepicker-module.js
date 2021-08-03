@@ -1,4 +1,4 @@
-this.ckan.module('daterangepicker-module', function ($, _) {
+ckan.module('daterangepicker-module', function ($) {
     return {
         initialize: function () {
 
@@ -12,6 +12,15 @@ this.ckan.module('daterangepicker-module', function ($, _) {
             param_start = $.urlParam('ext_startdate');
             param_end = $.urlParam('ext_enddate');
 
+            // Add hidden <input> tags #ext_startdate and #ext_enddate, if they don't already exist.
+            var form = $(".search-form");
+            if ($("#ext_startdate").length === 0) {
+                $('<input type="hidden" id="ext_startdate" name="ext_startdate" />').appendTo(form);
+            }
+            if ($("#ext_enddate").length === 0) {
+                $('<input type="hidden" id="ext_enddate" name="ext_enddate" />').appendTo(form);
+            }
+
             // Populate the datepicker and hidden fields
             if (param_start) {
                 $('#datepicker #start').val(moment.utc(param_start).year());
@@ -22,23 +31,10 @@ this.ckan.module('daterangepicker-module', function ($, _) {
                 $('#ext_enddate').val(param_end);
             }
 
-            // Add hidden <input> tags #ext_startdate and #ext_enddate, if they don't already exist.
-            var form = $("#dataset-search");
-            // CKAN 2.1
-            if (!form.length) {
-                form = $(".search-form");
-            }
-            if ($("#ext_startdate").length === 0) {
-                $('<input type="hidden" id="ext_startdate" name="ext_startdate" />').appendTo(form);
-            }
-            if ($("#ext_enddate").length === 0) {
-                $('<input type="hidden" id="ext_enddate" name="ext_enddate" />').appendTo(form);
-            }
-
             // Add a date-range picker widget to the <input> with id #daterange
             $('#datepicker.input-daterange').datepicker({
                 format: "yyyy",
-                startView: 3,
+                startView: 2,
                 minViewMode: 2,
                 keyboardNavigation: false,
                 autoclose: true

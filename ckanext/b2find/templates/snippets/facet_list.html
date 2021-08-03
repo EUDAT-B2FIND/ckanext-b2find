@@ -25,17 +25,17 @@
     <nav aria-label="{{ title }}">
       <ul class="{{ nav_class or 'list-unstyled nav nav-simple nav-facet' }}">
         <li class="{{ nav_item_class or 'nav-item' }}"
-          ng-repeat="item in items | limitTo:{{ facet_id }}.limit"
-          ng-class="{ active: item.active }">
-          <a href="#" title="{{ '{{ item.name }}' }}">
-            <span class="item-label"> {{ '{{ item.name }}' }} </span>
+          ng-repeat="item in getData('{{ facet_id }}') | limitTo:{{ facet_id }}.limit"
+          ng-class="{ active: item.a }">
+          <a href="{{ '{{ href(item, ' + facet_id + '.name) }}' }}" title="{{ '{{ item.l }}' }}">
+            <span class="item-label">{{ '{{ truncate(item) }}' }}</span>
             <span class="hidden separator"> - </span>
-            <span class="item-count badge"> 5 </span>
+            <span class="item-count badge">{{ '{{ item.c }}' }}</span>
           </a>
         </li>
       </ul>
     </nav>
-
+    
     <p class="module-footer">
       <a href="" class="read-more" ng-hide="{{ facet_id }}.limit == facetMinLimit" ng-click="{{ facet_id }}.limit = {{ facet_id }}.limit - 10">Less</a>
       <a href="" class="read-more pull-right" ng-hide="{{ facet_id }}.limit == facetMaxLimit || {{ facet_id }}.limit >= {{ facet_id }}.data.length" ng-click="{{ facet_id }}.limit = {{ facet_id }}.limit + 10">More</a>

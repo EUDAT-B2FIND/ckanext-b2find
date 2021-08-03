@@ -2,14 +2,21 @@
 
 {% block styles %}
   {{ super() }}
+
   {% asset 'ckanext-b2find/b2find-css' %}
+{% endblock %}
+
+{% block scripts %}
+  {{ super() }}
+
   {% asset 'ckanext-b2find/angular' %}
   {% asset 'ckanext-b2find/localforage' %}
   {% asset 'ckanext-b2find/lodash' %}
-  {# {% asset 'ckanext-b2find/ng' %} #}
+  {% asset 'ckanext-b2find/ng' %}
 {% endblock %}
 
 {% block bodytag %}
   {{ super() }}
-  {# ng-app="b2findApp" #}
+
+  ng-app="b2findApp"
 {% endblock %}
