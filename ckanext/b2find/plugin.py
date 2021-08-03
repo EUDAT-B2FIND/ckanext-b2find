@@ -2,6 +2,9 @@ import ckan.plugins as plugins
 import ckan.plugins.toolkit as toolkit
 import ckanext.b2find.helpers as helpers
 import ckanext.b2find.blueprints as blueprints
+from ckan.common import c
+
+import json
 
 
 class B2FindPlugin(plugins.SingletonPlugin):
@@ -50,12 +53,21 @@ class B2FindPlugin(plugins.SingletonPlugin):
 
         # Add a date-range query with the selected start and/or end dates into the Solr facet queries.
         fq = search_params.get('fq', '')
-        fq = '{fq} +extras_PublicationTimestamp:[{sd} TO {ed}]'.format(fq=fq, sd=start_date, ed=end_date)
+        fq = '{fq} +extras_PublicationTimestamp:[{sd}/YEAR TO {ed}/YEAR]'.format(fq=fq, sd=start_date, ed=end_date)
 
         search_params['fq'] = fq
 
         return search_params
 
+    def after_search(self, search_results, search_params):
+        '''
+        Exports Solr 'q' and 'fq' to the context so the timeline can use them
+        '''
+
+        c.timeline_q = search_params.get('q', '')
+        c.timeline_fq = json.dumps(search_params.get('fq', []))
+
+        return search_results
 
     def dataset_facets(self, facets_dict, package_type):
         return self._facets(facets_dict)

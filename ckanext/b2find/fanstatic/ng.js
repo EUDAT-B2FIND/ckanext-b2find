@@ -26,7 +26,7 @@ controllers.BasicFacetController = function ($scope, $q) {
             { name: "facet.field", value: "extras_ResourceType" },
             { name: "facet.field", value: "extras_OpenAccess" },
             { name: "facet.field", value: "extras_Instrument" }
-        ].concat(fq.map(function (x) { return ({ name: "fq", value: x }); })));
+        ].concat(fq.map(function (x) { return ({ name: "fq", value: x }); })) );
         var cached = false;
         localforage.getItem("timestamp").then(function (timestamp) {
             if (timestamp && (Date.now() > timestamp + 1000 * 60 * 60)) {
@@ -35,13 +35,14 @@ controllers.BasicFacetController = function ($scope, $q) {
             return;
         }).then(function () { return $q.all([
             localforage.getItem(solrParams).then(function (data) {
-                if (data) {
-                    cached = true;
-                    return data;
-                }
-                else {
-                    return $.post("/solr/select", solrParams);
-                }
+                return $.post("/solr/select", solrParams);
+                // if (data) {
+                //     cached = true;
+                //     return data;
+                // }
+                // else {
+                //     return $.post("/solr/select", solrParams);
+                // }
             }),
             localforage.getItem("groups").then(function (group_data) {
                 if (group_data)
