@@ -1,0 +1,9 @@
+#, fuzzy
+msgid ""
+msgstr ""
+
+#: ckan/templates/group/base_form_page.html:4
+#: ckan/templates/group/index.html:3 ckan/templates/group/index.html:6
+#: ckan/templates/group/index.html:18
+msgid "Groups"
+msgstr "blablatest"
