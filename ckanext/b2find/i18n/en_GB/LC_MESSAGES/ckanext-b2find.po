@@ -4,4 +4,4 @@ msgstr ""
 
 #: ckan/templates/group/base_form_page.html:4
 msgid "Groups"
-msgstr "Communities"
+msgstr "blablatest"
