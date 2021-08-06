@@ -4,6 +4,8 @@ import ckanext.b2find.helpers as helpers
 import ckanext.b2find.blueprints as blueprints
 from ckan.common import c
 
+from ckanext.b2find import timeline
+
 import json
 
 
@@ -40,7 +42,6 @@ class B2FindPlugin(plugins.SingletonPlugin):
             return search_params
 
         start_date = extras.get('ext_startdate')
-
         end_date = extras.get('ext_enddate')
 
         if not start_date and not end_date:
@@ -53,7 +54,7 @@ class B2FindPlugin(plugins.SingletonPlugin):
 
         # Add a date-range query with the selected start and/or end dates into the Solr facet queries.
         fq = search_params.get('fq', '')
-        fq = '{fq} +extras_PublicationTimestamp:[{sd}/YEAR TO {ed}/YEAR]'.format(fq=fq, sd=start_date, ed=end_date)
+        fq = f'{fq} +extras_PublicationTimestamp:[{start_date} TO {end_date}]'
 
         search_params['fq'] = fq
 
@@ -66,6 +67,10 @@ class B2FindPlugin(plugins.SingletonPlugin):
 
         c.timeline_q = search_params.get('q', '')
         c.timeline_fq = json.dumps(search_params.get('fq', []))
+
+        script, plot = timeline.html_components(search_params)
+        c.timeline_script = script
+        c.timeline_plot = plot
 
         return search_results
 

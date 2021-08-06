@@ -1,0 +1,19 @@
+{# This  is the timeline widget in the sidebar. #}
+
+<section id="timeline-search" class="module module-narrow module-shallow">
+  <h2 class="module-heading">
+      <i class="fa fa-clock-o"></i>
+      {{ _('Filter by time') }}
+      <a href="" class="action">{{ _('Clear') }}</a>
+  </h2>
+  <div id="timeline-search-container">
+    <div class="container">
+      <div class="row">
+        {{ c.timeline_plot | safe }}
+      </div>
+    </div>
+
+    {{ c.timeline_script | safe }}
+
+  </div>
+</section>
