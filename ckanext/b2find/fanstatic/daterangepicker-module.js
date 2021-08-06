@@ -1,4 +1,4 @@
-ckan.module('daterangepicker-module', function ($) {
+this.ckan.module('daterangepicker-module', function ($) {
     return {
         initialize: function () {
 
@@ -32,10 +32,12 @@ ckan.module('daterangepicker-module', function ($) {
             }
 
             // Add a date-range picker widget to the <input> with id #daterange
-            $('#datepicker.input-daterange').datepicker({
+            $('#datepicker.input-daterange input').each(function() {
+              $(this).datepicker({
                 format: "yyyy",
                 startView: 2,
                 minViewMode: 2,
+                maxViewMode: 2,
                 keyboardNavigation: false,
                 autoclose: true
             }).on('changeDate', function (ev) {
@@ -44,7 +46,6 @@ ckan.module('daterangepicker-module', function ($) {
                     // Format the start and end dates into strings in a date format that Solr understands.
                     var v = moment(ev.date);
                     var fs = 'YYYY-MM-DDTHH:mm:ss';
-
                     switch (ev.target.name) {
                         case 'start':
                             // Set the value of the hidden <input id="ext_startdate"> to the chosen start date.
@@ -67,6 +68,7 @@ ckan.module('daterangepicker-module', function ($) {
                     // Submit the <form id="dataset-search">.
                     form.submit();
                 });
+              });
         }
     }
 });

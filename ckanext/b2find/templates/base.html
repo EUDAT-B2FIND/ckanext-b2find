@@ -4,6 +4,7 @@
   {{ super() }}
 
   {% asset 'ckanext-b2find/b2find-css' %}
+  <link href="http://cdn.pydata.org/bokeh/release/bokeh-2.3.2.min.css" rel="stylesheet">
 {% endblock %}
 
 {% block scripts %}
@@ -13,6 +14,7 @@
   {% asset 'ckanext-b2find/localforage' %}
   {% asset 'ckanext-b2find/lodash' %}
   {% asset 'ckanext-b2find/ng' %}
+  <script src="https://cdn.bokeh.org/bokeh/release/bokeh-2.3.2.min.js"></script>
 {% endblock %}
 
 {% block bodytag %}
