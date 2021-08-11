@@ -94,6 +94,9 @@ schema. In this case the version should be set to the next CKAN version number.
     </fieldType>
 
     <!-- B2FIND - start -->
+    <!-- A DateRange based date field for truly faster date range queries. -->
+    <fieldType name="dateRange" class="solr.DateRangeField"/>
+
     <!-- semicolonDelimited - based on PatternTokenizer -->
     <fieldType name="semicolonDelimited" class="solr.TextField" positionIncrementGap="100">
         <analyzer type="index">
@@ -205,6 +208,7 @@ schema. In this case the version should be set to the next CKAN version number.
     <field name="extras_PublicationTimestamp" type="date" indexed="true" stored="true"/>
     <field name="extras_TempCoverageBegin" type="long" indexed="true" stored="true" />
     <field name="extras_TempCoverageEnd" type="long" indexed="true" stored="true" />
+    <field name="extras_TempCoverage" type="dateRange" indexed="true" stored="true" />
     <dynamicField name="extras_*" type="textfacet" indexed="true" stored="true" multiValued="false"/>
     <!-- B2FIND - end -->
 
