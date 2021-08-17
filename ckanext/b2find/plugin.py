@@ -4,7 +4,7 @@ import ckanext.b2find.helpers as helpers
 import ckanext.b2find.blueprints as blueprints
 from ckan.common import c
 
-from ckanext.b2find import timeline
+from ckanext.b2find import timeline, pubyear
 
 import json
 
@@ -36,42 +36,15 @@ class B2FindPlugin(plugins.SingletonPlugin):
         return config_
 
     def before_search(self, search_params):
-        extras = search_params.get('extras')
-        if not extras:
-            # There are no extras in the search params, so do nothing.
-            return search_params
-
-        start_date = extras.get('ext_startdate')
-        end_date = extras.get('ext_enddate')
-
-        if not start_date and not end_date:
-            # The user didn't select either a start and/or end date, so do nothing.
-            return search_params
-        if not start_date:
-            start_date = '*'
-        if not end_date:
-            end_date = '*'
-
-        # Add a date-range query with the selected start and/or end dates into the Solr facet queries.
-        fq = search_params.get('fq', '')
-        fq = f'{fq} +extras_PublicationTimestamp:[{start_date} TO {end_date}]'
-
-        search_params['fq'] = fq
-
-        return search_params
+        return pubyear.before_search(search_params)
 
     def after_search(self, search_results, search_params):
-        '''
-        Exports Solr 'q' and 'fq' to the context so the timeline can use them
-        '''
-
+        # Exports Solr 'q' and 'fq' to the context so the timeline can use them
         c.timeline_q = search_params.get('q', '')
         c.timeline_fq = json.dumps(search_params.get('fq', []))
 
-        script, plot = timeline.html_components(search_params)
-        c.timeline_script = script
-        c.timeline_plot = plot
-
+        timeline.after_search(search_params)
+        pubyear.after_search(search_params)
         return search_results
 
     def dataset_facets(self, facets_dict, package_type):

@@ -28,24 +28,6 @@ ng:
   filters: rjsmin
   output: ckanext-b2find/%(version)s_ng.js
 
-bootstrap-datepicker-css:
-  contents:
-    - bootstrap-datepicker.css
-  filters: cssrewrite
-  output: ckanext-b2find/%(version)s_bootstrap-datepicker.css
-
-bootstrap-datepicker:
-  contents:
-    - bootstrap-datepicker.js
-  filters: rjsmin
-  output: ckanext-b2find/%(version)s_bootstrap-datepicker.js
-
-daterangepicker-module:
-  contents:
-    - daterangepicker-module.js
-  filters: rjsmin
-  output: ckanext-b2find/%(version)s_daterangepicker-module.js
-
 moment:
   contents:
     - moment.js
