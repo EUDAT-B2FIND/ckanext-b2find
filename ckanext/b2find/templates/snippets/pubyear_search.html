@@ -1,25 +1,21 @@
 
 {# This <section> is the date-range picker widget in the sidebar. #}
 
-{% asset 'ckanext-b2find/bootstrap-datepicker-css' %}
-{% asset 'ckanext-b2find/moment' %}
-{% asset 'ckanext-b2find/bootstrap-datepicker' %}
-{% asset 'ckanext-b2find/daterangepicker-module' %}
-
 <section class="module module-narrow module-shallow">
   <h2 class="module-heading">
     <i class="fa fa-calendar"></i> {{ _('Publication Year') }}
     <a href="{{ h.remove_url_param(['ext_startdate', 'ext_enddate']) }}" class="action">{{ _('Clear') }}</a>
   </h2>
-  <div class="module-content input-daterange input-group" id="datepicker" data-module="daterangepicker-module">
-    <form class="form-inline">
-      <div class="form-group">
-        <div class="input-group">
-          <input type="text" class="form-control input-sm" style="cursor:pointer;" readonly="" name="start" id="start"/>
-          <span class="input-group-addon" style="border:none;background-color:#ffffff;">&nbsp;&nbsp;to&nbsp;&nbsp;</span>
-          <input type="text" class="form-control input-sm" style="cursor:pointer;" readonly="" name="end" id="end"/>
+
+  <div class="module-content">
+    <div id="pubyear-search-container">
+      <div class="container">
+        <div class="row">
+          {{ c.pubyear_plot | safe }}
         </div>
       </div>
-    </form>
+    </div>
   </div>
+
+  {{ c.pubyear_script | safe }}
 </section>
