@@ -9,23 +9,7 @@ controllers.BasicFacetController = function ($scope, $q) {
     var populated = false;
     function populate(limit) {
         var solrParams = $.param([
-            { name: "echoParams", value: "none" },
-            { name: "wt", value: "json" },
             { name: "q", value: q },
-            { name: "rows", value: 0 },
-            { name: "facet", value: true },
-            { name: "facet.limit", value: limit },
-            { name: "facet.mincount", value: 1 },
-            { name: "facet.field", value: "author" },
-            { name: "facet.field", value: "tags" },
-            { name: "facet.field", value: "groups" },
-            { name: "facet.field", value: "extras_Publisher" },
-            { name: "facet.field", value: "extras_Language" },
-            { name: "facet.field", value: "extras_Discipline" },
-            { name: "facet.field", value: "extras_Contributor" },
-            { name: "facet.field", value: "extras_ResourceType" },
-            { name: "facet.field", value: "extras_OpenAccess" },
-            { name: "facet.field", value: "extras_Instrument" }
         ].concat(fq.map(function (x) { return ({ name: "fq", value: x }); })) );
         var cached = false;
         localforage.getItem("timestamp").then(function (timestamp) {
@@ -35,13 +19,13 @@ controllers.BasicFacetController = function ($scope, $q) {
             return;
         }).then(function () { return $q.all([
             localforage.getItem(solrParams).then(function (data) {
-                return $.post("/b2find/facets/search", solrParams);
+                return $.get("/b2find/facets/search", solrParams);
                 // if (data) {
                 //     cached = true;
                 //     return data;
                 // }
                 // else {
-                //     return $.post("/solr/select", solrParams);
+                //     return $.post("/b2find/facets/search", solrParams);
                 // }
             }),
             localforage.getItem("groups").then(function (group_data) {

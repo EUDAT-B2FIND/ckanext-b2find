@@ -1,7 +1,11 @@
 from flask import Blueprint
 from ckan.plugins import toolkit
-from ckantoolkit import request
+from ckan.plugins.toolkit import request
 import ckan.lib.search
+
+import logging
+
+LOGGER = logging.getLogger(__name__)
 
 b2find = Blueprint('b2find', __name__)
 
@@ -31,15 +35,18 @@ def mapping():
     return toolkit.render('ckanext/docs/guidelines/mapping.html')
 
 
-@b2find.route('/b2find/facets/search', endpoint='search_facets', methods=['POST'])
+@b2find.route('/b2find/facets/search', endpoint='search_facets', methods=['GET', 'POST'])
 def search_facets():
     solr = ckan.lib.search.make_connection()
-    # print(f"request params: {request.params}")
+    LOGGER.debug(f"solr search request params: {request.params}")
+    q = request.params.get('q')
+    fq = request.params.get('fq')
     solr_params = {
         'echoParams': 'none',
         'rows': 0,
         'wt': 'json',
-        'q': '*',
+        'q': q,
+        'fq': fq,
         'facet': 'true',
         'facet.sort': 'index',
         'facet.limit': 100,
