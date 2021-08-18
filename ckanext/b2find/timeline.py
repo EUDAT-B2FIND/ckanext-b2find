@@ -100,7 +100,7 @@ def get_data(search_params):
 def plot_preview(df):
     source = ColumnDataSource(df)
 
-    p = figure(plot_height=250,
+    p = figure(plot_height=200,
                title=None,
                y_axis_type=None,
                sizing_mode="stretch_width",
