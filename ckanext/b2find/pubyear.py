@@ -1,6 +1,7 @@
 import pandas as pd
-from bokeh.models import CustomJS, RangeSlider
+from bokeh.models import CustomJS, Button, RangeSlider
 from bokeh.embed import components
+from bokeh.layouts import column
 
 import ckan.lib.search
 from ckan.common import c
@@ -43,7 +44,7 @@ def get_data(search_params):
 
 
 def plot(df):
-    callback = CustomJS(code="""
+    slider_callback = CustomJS(code="""
         // console.log('date_range_slider: value=' + this.value, this.toString());
         var form = $(".search-form");
         $(['ext_startdate', 'ext_enddate']).each(function(index, item){
@@ -53,7 +54,6 @@ def plot(df):
         });
         $('#ext_startdate').val(this.value[0]);
         $('#ext_enddate').val(this.value[1]);
-        form.submit();
     """)
     start = df.years[0]
     end = df.years[len(df)-1]
@@ -67,8 +67,22 @@ def plot(df):
         sizing_mode="stretch_width",
         max_width=260,
     )
-    slider.js_on_change("value_throttled", callback)
-    return slider
+    slider.js_on_change("value_throttled", slider_callback)
+
+    # buttons
+    apply_button = Button(
+        label="Apply",
+        button_type="success",
+        sizing_mode="stretch_width",
+        max_width=260,
+    )
+    apply_button.js_on_click(CustomJS(code="""
+        // console.log('button: click!', this.toString());
+        var form = $(".search-form");
+        form.submit();
+    """))
+
+    return column(slider, apply_button)
 
 
 def html_components(search_params):
