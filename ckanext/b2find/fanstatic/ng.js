@@ -35,7 +35,7 @@ controllers.BasicFacetController = function ($scope, $q) {
             return;
         }).then(function () { return $q.all([
             localforage.getItem(solrParams).then(function (data) {
-                return $.post("/solr/select", solrParams);
+                return $.post("/b2find/facets/search", solrParams);
                 // if (data) {
                 //     cached = true;
                 //     return data;

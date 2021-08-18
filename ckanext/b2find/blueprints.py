@@ -31,8 +31,8 @@ def mapping():
     return toolkit.render('ckanext/docs/guidelines/mapping.html')
 
 
-@b2find.route('/mysolr/select', endpoint='solr_select', methods=['GET', 'POST'])
-def solr_select():
+@b2find.route('/b2find/facets/search', endpoint='search_facets', methods=['POST'])
+def search_facets():
     solr = ckan.lib.search.make_connection()
     # print(f"request params: {request.params}")
     solr_params = {
