@@ -7,9 +7,58 @@ from bokeh.embed import components
 import ckan.lib.search
 from ckan.common import c
 
+import logging
+
+LOGGER = logging.getLogger(__name__)
+
+
+def start_date(search_params):
+    facet = "extras_TemporalCoverageBeginDate"
+    fq = search_params.get('fq', [])
+    fq.append(f"+{facet}:[* TO *]")
+    LOGGER.debug(f"fq={fq}")
+    solr = ckan.lib.search.make_connection()
+    solr_params = {
+        'echoParams': 'none',
+        'rows': 1,
+        'wt': 'json',
+        'q': search_params.get('q', '*'),
+        'fq': fq,
+        'fl': facet,
+        'sort': f"{facet} asc",
+        'indent': 'false',
+    }
+    results = solr.search(**solr_params)
+    start = results.docs[0][facet].isoformat()+'Z'
+    # start = "0001-01-01T12:00:00Z"
+    return start
+
+
+def end_date(search_params):
+    facet = "extras_TemporalCoverageEndDate"
+    fq = search_params.get('fq', [])
+    fq.append(f"+{facet}:[* TO *]")
+    LOGGER.debug(f"fq={fq}")
+    solr = ckan.lib.search.make_connection()
+    solr_params = {
+        'echoParams': 'none',
+        'rows': 1,
+        'wt': 'json',
+        'q': search_params.get('q', '*'),
+        'fq': fq,
+        'fl': facet,
+        'sort': f"{facet} desc",
+        'indent': 'false',
+    }
+    results = solr.search(**solr_params)
+    end = results.docs[0][facet].isoformat()+'Z'
+    return end
+
 
 def get_data(search_params):
     search_facet = "extras_TempCoverage"
+    start = start_date(search_params)
+    end = end_date(search_params)
     solr = ckan.lib.search.make_connection()
     solr_params = {
         'echoParams': 'none',
@@ -21,8 +70,8 @@ def get_data(search_params):
         'facet.range': [
             search_facet,
         ],
-        'facet.range.start': '-1000-01-01T00:00:00Z/YEAR',
-        'facet.range.end': '2300-12-31T23:59:59Z/YEAR',
+        'facet.range.start': f'{start}/YEAR',
+        'facet.range.end': f'{end}/YEAR',
         'facet.range.gap': '+1YEARS',
     }
     results = solr.search(**solr_params)
