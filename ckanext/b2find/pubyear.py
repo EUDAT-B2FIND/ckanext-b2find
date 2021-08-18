@@ -72,7 +72,7 @@ def plot(df):
         form.submit();
     """))
     slider_callback = CustomJS(args=dict(button=apply_button), code="""
-        console.log('date_range_slider: value=' + this.value, this.toString());
+        // console.log('date_range_slider: value=' + this.value, this.toString());
         var form = $(".search-form");
         $(['ext_startdate', 'ext_enddate']).each(function(index, item){
             if ($("#" + item).length === 0) {
@@ -82,7 +82,6 @@ def plot(df):
         $('#ext_startdate').val(this.value[0]);
         $('#ext_enddate').val(this.value[1]);
         // enable apply button
-        console.log('enable button');
         button.disabled = false;
     """)
     slider.js_on_change("value_throttled", slider_callback)
