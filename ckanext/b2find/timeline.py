@@ -15,8 +15,17 @@ LOGGER = logging.getLogger(__name__)
 
 def start_date(search_params):
     facet = "extras_TemporalCoverageBeginDate"
+    start, end = parse_params(search_params)
+    if start:
+        start = f"{start}-01-01T00:00:00Z"
+    else:
+        start = "*"
+    if end:
+        end = f"{end}-12-31T23:59:59Z"
+    else:
+        end = "*"
     fq = search_params.get('fq', [])
-    fq.append(f"+{facet}:[* TO *]")
+    fq.append(f"+{facet}:[{start} TO {end}]")
     LOGGER.debug(f"fq={fq}")
     solr = ckan.lib.search.make_connection()
     solr_params = {
@@ -30,15 +39,23 @@ def start_date(search_params):
         'indent': 'false',
     }
     results = solr.search(**solr_params)
-    start = results.docs[0][facet].isoformat()+'Z'
-    # start = "0001-01-01T12:00:00Z"
-    return start
+    new_start = results.docs[0][facet].isoformat()+'Z'
+    return new_start
 
 
 def end_date(search_params):
     facet = "extras_TemporalCoverageEndDate"
+    start, end = parse_params(search_params)
+    if start:
+        start = f"{start}-01-01T00:00:00Z"
+    else:
+        start = "*"
+    if end:
+        end = f"{end}-12-31T23:59:59Z"
+    else:
+        end = "*"
     fq = search_params.get('fq', [])
-    fq.append(f"+{facet}:[* TO *]")
+    fq.append(f"+{facet}:[{start} TO {end}]")
     LOGGER.debug(f"fq={fq}")
     solr = ckan.lib.search.make_connection()
     solr_params = {
@@ -52,8 +69,8 @@ def end_date(search_params):
         'indent': 'false',
     }
     results = solr.search(**solr_params)
-    end = results.docs[0][facet].isoformat()+'Z'
-    return end
+    new_end = results.docs[0][facet].isoformat()+'Z'
+    return new_end
 
 
 def get_data(search_params):

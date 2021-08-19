@@ -75,13 +75,15 @@ def plot(df):
     slider_callback = CustomJS(args=dict(button=apply_button), code="""
         // console.log('date_range_slider: value=' + this.value, this.toString());
         var form = $(".search-form");
-        $(['ext_startdate', 'ext_enddate']).each(function(index, item){
+        $(['ext_pstart', 'ext_pend']).each(function(index, item){
             if ($("#" + item).length === 0) {
                 $('<input type="hidden" />').attr({'id': item, 'name': item}).appendTo(form);
             }
         });
-        $('#ext_startdate').val(this.value[0]);
-        $('#ext_enddate').val(this.value[1]);
+        var start = parseInt(this.value[0]);
+        var end = parseInt(this.value[1]);
+        $('#ext_pstart').val(start);
+        $('#ext_pend').val(end);
         // enable apply button
         button.disabled = false;
     """)
@@ -99,8 +101,8 @@ def html_components(search_params):
 def parse_params(search_params):
     extras = search_params.get('extras')
     if extras:
-        start = extras.get('ext_startdate')
-        end = extras.get('ext_enddate')
+        start = extras.get('ext_pstart')
+        end = extras.get('ext_pend')
     else:
         start = end = None
     return start, end
@@ -120,9 +122,9 @@ def before_search(search_params):
     fq = f"{fq}+extras_PublicationYear:[{start} TO {end}]"
 
     search_params['fq'] = fq
-
     return search_params
 
 
 def after_search(search_params):
     c.pubyear_script, c.pubyear_plot = html_components(search_params)
+    return search_params
