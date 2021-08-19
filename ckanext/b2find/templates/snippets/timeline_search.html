@@ -5,7 +5,7 @@
   <h2 class="module-heading">
       <i class="fa fa-clock-o"></i>
       {{ _('Temporal Coverage') }}
-      <a href="" class="btn action">{{ _('Clear') }}</a>
+      <a href="{{ h.remove_url_param(['ext_tstart', 'ext_tend']) }}" class="btn action">{{ _('Clear') }}</a>
       <!-- a href="#timeline-modal" data-toggle="modal" class="btn action">{{ _('Edit') }}</a -->
   </h2>
   <div id="timeline-search-container">
