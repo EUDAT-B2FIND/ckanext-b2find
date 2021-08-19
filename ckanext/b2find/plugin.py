@@ -2,8 +2,11 @@ import ckan.plugins as plugins
 import ckan.plugins.toolkit as toolkit
 import ckanext.b2find.helpers as helpers
 import ckanext.b2find.blueprints as blueprints
+from ckan.common import c
 
 from ckanext.b2find import timeline, pubyear
+
+import json
 
 
 class B2FindPlugin(plugins.SingletonPlugin):
@@ -38,6 +41,10 @@ class B2FindPlugin(plugins.SingletonPlugin):
         return search_params
 
     def after_search(self, search_results, search_params):
+        # Exports Solr 'q' and 'fq' to the context so the timeline can use them
+        c.timeline_q = search_params.get('q', '')
+        c.timeline_fq = json.dumps(search_params.get('fq', []))
+
         search_params = timeline.after_search(search_params)
         search_params = pubyear.after_search(search_params)
         return search_results

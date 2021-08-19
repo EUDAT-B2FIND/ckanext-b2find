@@ -35,12 +35,12 @@ def mapping():
     return toolkit.render('ckanext/docs/guidelines/mapping.html')
 
 
-@b2find.route('/b2find/facets/search', endpoint='search_facets', methods=['GET', 'POST'])
+@b2find.route('/b2find/facets/search', endpoint='search_facets', methods=['GET'])
 def search_facets():
     solr = ckan.lib.search.make_connection()
     LOGGER.debug(f"solr search request params: {request.params}")
-    q = request.params.get('q')
-    fq = request.params.get('fq')
+    q = request.params.get('q', '*')
+    fq = request.params.get('fq', '*')
     solr_params = {
         'echoParams': 'none',
         'rows': 0,
