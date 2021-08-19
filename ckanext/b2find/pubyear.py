@@ -53,6 +53,7 @@ def plot(df):
         value=(start, end),
         start=start,
         end=end,
+        # format="0",
         sizing_mode="stretch_width",
         max_width=260,
     )

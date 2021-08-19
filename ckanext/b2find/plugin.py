@@ -36,15 +36,17 @@ class B2FindPlugin(plugins.SingletonPlugin):
         return config_
 
     def before_search(self, search_params):
-        return pubyear.before_search(search_params)
+        search_params = pubyear.before_search(search_params)
+        search_params = timeline.before_search(search_params)
+        return search_params
 
     def after_search(self, search_results, search_params):
         # Exports Solr 'q' and 'fq' to the context so the timeline can use them
         c.timeline_q = search_params.get('q', '')
         c.timeline_fq = json.dumps(search_params.get('fq', []))
 
-        timeline.after_search(search_params)
-        pubyear.after_search(search_params)
+        search_params = timeline.after_search(search_params)
+        search_params = pubyear.after_search(search_params)
         return search_results
 
     def dataset_facets(self, facets_dict, package_type):

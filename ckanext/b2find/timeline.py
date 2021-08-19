@@ -140,8 +140,20 @@ def plot_preview(df):
 
     callback = CustomJS(args=dict(xr=p.x_range, button=apply_button), code="""
         console.log("update "+this.value);
-        xr.start = this.value[0];
-        xr.end = this.value[1];
+        // update form for ext_tstart and ext_tend
+        var form = $(".search-form");
+        $(['ext_tstart', 'ext_tend']).each(function(index, item){
+            if ($("#" + item).length === 0) {
+                $('<input type="hidden" />').attr({'id': item, 'name': item}).appendTo(form);
+            }
+        });
+        var start = parseInt(this.value[0]);
+        var end = parseInt(this.value[1]);
+        $('#ext_tstart').val(start);
+        $('#ext_tend').val(end);
+        // update plot
+        xr.start = start;
+        xr.end = end;
         // enable apply button
         button.disabled = false;
     """)
@@ -152,6 +164,7 @@ def plot_preview(df):
             start=start,
             end=end,
             step=1,
+            # format="0",
             sizing_mode="stretch_width",
             max_width=260)
     select.js_on_change("value", callback)
@@ -205,9 +218,38 @@ def html_components(search_params):
     return comps
 
 
+def parse_params(search_params):
+    extras = search_params.get('extras')
+    if extras:
+        start = extras.get('ext_tstart')
+        end = extras.get('ext_tend')
+    else:
+        start = end = None
+    return start, end
+
+
+def before_search(search_params):
+    start, end = parse_params(search_params)
+
+    if not start and not end:
+        # The user didn't select either a start and/or end date, so do nothing.
+        return search_params
+    start = start or '*'
+    end = end or '*'
+
+    # Add a date-range query with the selected start and/or end dates into the Solr facet queries.
+    fq = search_params.get('fq', '')
+    fq = f"{fq}+extras_TempCoverage:[{start}-01-01T00:00:00Z TO {end}-12-31T23:59:59Z]"
+
+    search_params['fq'] = fq
+
+    return search_params
+
+
 def after_search(search_params):
     comps = html_components(search_params)
     # c.timeline_script = comps["plot"][0]
     # c.timeline_plot = comps["plot"][1]
     c.timeline_preview_script = comps["preview"][0]
     c.timeline_preview_plot = comps["preview"][1]
+    return search_params
