@@ -2,6 +2,7 @@ import pandas as pd
 from bokeh.plotting import figure
 from bokeh.layouts import column
 from bokeh.models import ColumnDataSource, RangeTool
+from bokeh.models import CustomJS, RangeSlider
 from bokeh.embed import components
 
 import ckan.lib.search
@@ -117,7 +118,27 @@ def plot_preview(df):
     p.yaxis.visible = False
     p.xgrid.grid_line_color = None
     p.y_range.start = 0
-    return p
+
+    # select range slider
+    start = df.years.loc[0]
+    end = df.years.loc[len(df)-1]
+
+    callback = CustomJS(args=dict(xr=p.x_range), code="""
+        console.log("update "+this.value);
+        xr.start = this.value[0];
+        xr.end = this.value[1];
+    """)
+
+    select = RangeSlider(
+            value=(start, end),
+            start=start,
+            end=end,
+            step=1)
+    select.js_on_change("value", callback)
+
+    layout = column(select, p)
+
+    return layout
 
 
 def plot(df):
@@ -159,14 +180,14 @@ def plot(df):
 def html_components(search_params):
     df = get_data(search_params)
     comps = {}
-    comps["plot"] = components(plot(df))
+    # comps["plot"] = components(plot(df))
     comps["preview"] = components(plot_preview(df))
     return comps
 
 
 def after_search(search_params):
     comps = html_components(search_params)
-    c.timeline_script = comps["plot"][0]
-    c.timeline_plot = comps["plot"][1]
+    # c.timeline_script = comps["plot"][0]
+    # c.timeline_plot = comps["plot"][1]
     c.timeline_preview_script = comps["preview"][0]
     c.timeline_preview_plot = comps["preview"][1]
