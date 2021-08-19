@@ -49,7 +49,7 @@ def plot(df):
     if start == end:
         end = start + 1
     slider = RangeSlider(
-        title="Selected Years",
+        title="Selected years",
         value=(start, end),
         start=start,
         end=end,
@@ -86,7 +86,8 @@ def plot(df):
     """)
     slider.js_on_change("value_throttled", slider_callback)
 
-    return column(slider, apply_button)
+    layout = column(slider, apply_button)
+    return layout
 
 
 def html_components(search_params):

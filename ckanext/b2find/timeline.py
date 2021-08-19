@@ -2,7 +2,7 @@ import pandas as pd
 from bokeh.plotting import figure
 from bokeh.layouts import column
 from bokeh.models import ColumnDataSource, RangeTool
-from bokeh.models import CustomJS, RangeSlider
+from bokeh.models import CustomJS, RangeSlider, Button
 from bokeh.embed import components
 
 import ckan.lib.search
@@ -119,24 +119,44 @@ def plot_preview(df):
     p.xgrid.grid_line_color = None
     p.y_range.start = 0
 
+    # apply button
+    apply_button = Button(
+        label="Apply",
+        button_type="success",
+        sizing_mode="stretch_width",
+        max_width=260,
+        disabled=True,
+    )
+    # events
+    apply_button.js_on_click(CustomJS(code="""
+        // console.log('button: click!', this.toString());
+        var form = $(".search-form");
+        form.submit();
+    """))
+
     # select range slider
     start = df.years.loc[0]
     end = df.years.loc[len(df)-1]
 
-    callback = CustomJS(args=dict(xr=p.x_range), code="""
+    callback = CustomJS(args=dict(xr=p.x_range, button=apply_button), code="""
         console.log("update "+this.value);
         xr.start = this.value[0];
         xr.end = this.value[1];
+        // enable apply button
+        button.disabled = false;
     """)
 
     select = RangeSlider(
+            title="Selected years",
             value=(start, end),
             start=start,
             end=end,
-            step=1)
+            step=1,
+            sizing_mode="stretch_width",
+            max_width=260)
     select.js_on_change("value", callback)
 
-    layout = column(select, p)
+    layout = column(select, p, apply_button)
 
     return layout
 
