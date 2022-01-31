@@ -96,6 +96,33 @@ attribute with the form `ckan-X.Y` -->
       </analyzer>
     </fieldType>
 
+    <!-- B2FIND - start -->
+    <!-- A DateRange based date field for truly faster date range queries. -->
+    <fieldType name="dateRange" class="solr.DateRangeField"/>
+
+    <!-- semicolonDelimited - based on PatternTokenizer -->
+    <fieldType name="semicolonDelimited" class="solr.TextField" positionIncrementGap="100">
+        <analyzer type="index">
+            <tokenizer class="solr.PatternTokenizerFactory" pattern="\s*;\s*"/>
+        </analyzer>
+        <analyzer type="query">
+            <tokenizer class="solr.PatternTokenizerFactory" pattern="\s*;\s*"/>
+        </analyzer>
+    </fieldType>
+
+    <!-- textfacet - based on KeywordTokenizer -->
+    <fieldType name="textfacet" class="solr.TextField" positionIncrementGap="100">
+        <analyzer type="index">
+            <tokenizer class="solr.KeywordTokenizerFactory"/>
+            <filter class="solr.LowerCaseFilterFactory"/>
+        </analyzer>
+        <analyzer type="query">
+            <tokenizer class="solr.KeywordTokenizerFactory"/>
+            <filter class="solr.LowerCaseFilterFactory"/>
+        </analyzer>
+    </fieldType>
+    <!-- B2FIND - end -->
+
 </types>
 
 
@@ -116,7 +143,9 @@ attribute with the form `ckan-X.Y` -->
     <field name="ckan_url" type="string" indexed="true" stored="true" omitNorms="true" />
     <field name="download_url" type="string" indexed="true" stored="true" omitNorms="true" />
     <field name="notes" type="text" indexed="true" stored="true"/>
-    <field name="author" type="text_general" indexed="true" stored="true" />
+    <!-- B2FIND - start -->
+    <field name="author" type="semicolonDelimited" indexed="true" stored="true" />
+    <!-- B2FIND - end -->
     <field name="author_email" type="text_general" indexed="true" stored="true" />
     <field name="maintainer" type="text_general" indexed="true" stored="true" />
     <field name="maintainer_email" type="text_general" indexed="true" stored="true" />
@@ -169,10 +198,30 @@ attribute with the form `ckan-X.Y` -->
 
     <dynamicField name="*_date" type="date" indexed="true" stored="true" multiValued="false"/>
 
-    <dynamicField name="extras_*" type="text" indexed="true" stored="true" multiValued="false"/>
+    <!-- B2FIND - start -->
+    <field name="extras_Discipline" type="semicolonDelimited" indexed="true" stored="true" />
+    <field name="extras_Publisher" type="semicolonDelimited" indexed="true" stored="true" />
+    <field name="extras_Language" type="semicolonDelimited" indexed="true" stored="true" />
+    <field name="extras_Contributor" type="semicolonDelimited" indexed="true" stored="true" />
+    <field name="extras_ResourceType" type="semicolonDelimited" indexed="true" stored="true" />
+    <field name="extras_Instrument" type="semicolonDelimited" indexed="true" stored="true" />
+    <field name="extras_FundingReference" type="semicolonDelimited" indexed="true" stored="true" />
+    <field name="extras_PublicationTimestamp" type="date" indexed="true" stored="true"/>
+    <field name="extras_TempCoverageBegin" type="long" indexed="true" stored="true" />
+    <field name="extras_TempCoverageEnd" type="long" indexed="true" stored="true" />
+    <field name="extras_TempCoverage" type="dateRange" indexed="true" stored="true" />
+    <dynamicField name="extras_*" type="textfacet" indexed="true" stored="true" multiValued="false"/>
+    <!-- B2FIND - end -->
     <dynamicField name="res_extras_*" type="text" indexed="true" stored="true" multiValued="true"/>
     <dynamicField name="vocab_*" type="string" indexed="true" stored="true" multiValued="true"/>
     <dynamicField name="*" type="string" indexed="true"  stored="false"/>
+
+    <!-- Additional fields for ckanext-spatial -->
+    <field name="bbox_area" type="float" indexed="true" stored="true" />
+    <field name="maxx" type="float" indexed="true" stored="true" />
+    <field name="maxy" type="float" indexed="true" stored="true" />
+    <field name="minx" type="float" indexed="true" stored="true" />
+    <field name="miny" type="float" indexed="true" stored="true" />
 </fields>
 
 <uniqueKey>index_id</uniqueKey>
