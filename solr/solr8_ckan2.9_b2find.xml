@@ -212,7 +212,6 @@ attribute with the form `ckan-X.Y` -->
     <field name="extras_TempCoverage" type="dateRange" indexed="true" stored="true" />
     <dynamicField name="extras_*" type="textfacet" indexed="true" stored="true" multiValued="false"/>
     <!-- B2FIND - end -->
-    <dynamicField name="extras_*" type="text" indexed="true" stored="true" multiValued="false"/>
     <dynamicField name="res_extras_*" type="text" indexed="true" stored="true" multiValued="true"/>
     <dynamicField name="vocab_*" type="string" indexed="true" stored="true" multiValued="true"/>
     <dynamicField name="*" type="string" indexed="true"  stored="false"/>
