@@ -1,1 +1,11 @@
-site_name: My Docs
+site_name: B2Find
+site_url: http://b2find.eudat.eu//
+nav:
+    - Home: index.md
+    - Guidelines: guidelines.md
+    - Search Guide: searchguide.md
+    - About: about.md
+
+markdown_extensions:
+    - toc:
+        permalink: True

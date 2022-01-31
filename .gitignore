@@ -43,3 +43,6 @@ docs/_build
 
 # JupyterNotebooks
 .ipynb_checkpoints
+
+# mkdocs
+site
