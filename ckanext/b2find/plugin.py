@@ -4,8 +4,6 @@ import ckanext.b2find.helpers as helpers
 import ckanext.b2find.blueprints as blueprints
 from ckan.common import c
 
-from ckanext.b2find import timeline, pubyear
-
 import json
 
 
@@ -35,20 +33,6 @@ class B2FindPlugin(plugins.SingletonPlugin):
         toolkit.add_resource('fanstatic', 'ckanext-b2find')
         return config_
 
-    def before_search(self, search_params):
-        search_params = pubyear.before_search(search_params)
-        search_params = timeline.before_search(search_params)
-        return search_params
-
-    def after_search(self, search_results, search_params):
-        # Exports Solr 'q' and 'fq' to the context so the timeline can use them
-        c.timeline_q = search_params.get('q', '')
-        c.timeline_fq = json.dumps(search_params.get('fq', []))
-
-        search_params = timeline.after_search(search_params)
-        search_params = pubyear.after_search(search_params)
-        return search_results
-
     def dataset_facets(self, facets_dict, package_type):
         return self._facets(facets_dict)
 
@@ -75,7 +59,7 @@ class B2FindPlugin(plugins.SingletonPlugin):
 
         # New facets
         facets_dict['author'] = 'Creator'
-        # facets_dict['extras_Instrument'] = 'Instrument'
+        facets_dict['extras_Instrument'] = 'Instrument'
         facets_dict['extras_Discipline'] = 'Discipline'
         facets_dict['extras_Language'] = 'Language'
         facets_dict['extras_Publisher'] = 'Publisher'
