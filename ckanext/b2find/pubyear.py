@@ -1,6 +1,7 @@
 import pandas as pd
-from bokeh.models import CustomJS, RangeSlider
+from bokeh.models import CustomJS, Button, RangeSlider
 from bokeh.embed import components
+from bokeh.layouts import column
 
 import ckan.lib.search
 from ckan.common import c
@@ -43,32 +44,53 @@ def get_data(search_params):
 
 
 def plot(df):
-    callback = CustomJS(code="""
-        // console.log('date_range_slider: value=' + this.value, this.toString());
-        var form = $(".search-form");
-        $(['ext_startdate', 'ext_enddate']).each(function(index, item){
-            if ($("#" + item).length === 0) {
-                $('<input type="hidden" />').attr({'id': item, 'name': item}).appendTo(form);
-            }
-        });
-        $('#ext_startdate').val(this.value[0]);
-        $('#ext_enddate').val(this.value[1]);
-        form.submit();
-    """)
     start = df.years[0]
     end = df.years[len(df)-1]
     if start == end:
         end = start + 1
     slider = RangeSlider(
-        title="Selected Years",
+        title="Selected years",
         value=(start, end),
         start=start,
         end=end,
+        # format="0",
         sizing_mode="stretch_width",
         max_width=260,
     )
-    slider.js_on_change("value_throttled", callback)
-    return slider
+
+    # buttons
+    apply_button = Button(
+        label="Apply",
+        button_type="success",
+        sizing_mode="stretch_width",
+        max_width=260,
+        disabled=True,
+    )
+    # events
+    apply_button.js_on_click(CustomJS(code="""
+        // console.log('button: click!', this.toString());
+        var form = $(".search-form");
+        form.submit();
+    """))
+    slider_callback = CustomJS(args=dict(button=apply_button), code="""
+        // console.log('date_range_slider: value=' + this.value, this.toString());
+        var form = $(".search-form");
+        $(['ext_pstart', 'ext_pend']).each(function(index, item){
+            if ($("#" + item).length === 0) {
+                $('<input type="hidden" />').attr({'id': item, 'name': item}).appendTo(form);
+            }
+        });
+        var start = parseInt(this.value[0]);
+        var end = parseInt(this.value[1]);
+        $('#ext_pstart').val(start);
+        $('#ext_pend').val(end);
+        // enable apply button
+        button.disabled = false;
+    """)
+    slider.js_on_change("value_throttled", slider_callback)
+
+    layout = column(slider, apply_button)
+    return layout
 
 
 def html_components(search_params):
@@ -76,31 +98,33 @@ def html_components(search_params):
     return components(plot(df))
 
 
-def before_search(search_params):
+def parse_params(search_params):
     extras = search_params.get('extras')
-    if not extras:
-        # There are no extras in the search params, so do nothing.
-        return search_params
+    if extras:
+        start = extras.get('ext_pstart')
+        end = extras.get('ext_pend')
+    else:
+        start = end = None
+    return start, end
 
-    start_date = extras.get('ext_startdate')
-    end_date = extras.get('ext_enddate')
 
-    if not start_date and not end_date:
+def before_search(search_params):
+    start, end = parse_params(search_params)
+
+    if not start and not end:
         # The user didn't select either a start and/or end date, so do nothing.
         return search_params
-    if not start_date:
-        start_date = '*'
-    if not end_date:
-        end_date = '*'
+    start = start or '*'
+    end = end or '*'
 
     # Add a date-range query with the selected start and/or end dates into the Solr facet queries.
     fq = search_params.get('fq', '')
-    fq = f"{fq}+extras_PublicationYear:[{start_date} TO {end_date}]"
+    fq = f"{fq}+extras_PublicationYear:[{start} TO {end}]"
 
     search_params['fq'] = fq
-
     return search_params
 
 
 def after_search(search_params):
     c.pubyear_script, c.pubyear_plot = html_components(search_params)
+    return search_params
