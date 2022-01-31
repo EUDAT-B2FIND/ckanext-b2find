@@ -2,10 +2,24 @@
 
 {% block styles %}
   {{ super() }}
-  {% resource 'ckanext-b2find/b2find_theme.css' %}
+
+  {% asset 'ckanext-b2find/b2find-css' %}
+  <link href="http://cdn.pydata.org/bokeh/release/bokeh-2.3.2.min.css" rel="stylesheet" crossorigin="anonymous">
+{% endblock %}
+
+{% block scripts %}
+  {{ super() }}
+
+  {% asset 'ckanext-b2find/angular' %}
+  {% asset 'ckanext-b2find/localforage' %}
+  {% asset 'ckanext-b2find/lodash' %}
+  {% asset 'ckanext-b2find/ng' %}
+  <script src="https://cdn.bokeh.org/bokeh/release/bokeh-2.3.2.min.js" crossorigin="anonymous" ></script>
+  <script src="https://cdn.bokeh.org/bokeh/release/bokeh-widgets-2.3.2.min.js" crossorigin="anonymous" ></script>
 {% endblock %}
 
 {% block bodytag %}
   {{ super() }}
+
   ng-app="b2findApp"
 {% endblock %}

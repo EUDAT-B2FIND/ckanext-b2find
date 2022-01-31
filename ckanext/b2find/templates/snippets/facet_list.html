@@ -1,67 +1,48 @@
+{% ckan_extends %}
 
 {% set facet_id = title|lower %}
 
-{% block facet_list %}
-  {% set hide_empty = hide_empty or false %}
-  {% with items = items or h.get_facet_items_dict(name) %}
-    {% if items or not hide_empty %}
-      {% if within_tertiary %}
-        {% set nav_class = 'nav nav-pills nav-stacked' %}
-        {% set nav_item_class = ' ' %}
-        {% set wrapper_class = 'nav-facet nav-facet-tertiary' %}
-      {% endif %}
-
-      {% block facet_list_item %}
-        <section class="{{ wrapper_class or 'module module-narrow module-shallow' }}">
-
-          {% block facet_list_heading %}
-            <h2 class="module-heading accordion-toggle" data-toggle="collapse" data-target="#facet_{{ facet_id }}" ng-class="{ collapsed: !{{ facet_id }}.active }" title="{{ '{{ ' + facet_id + '.data.length || 0 }} matches, {{ ' + facet_id + '.limit || 0 }} shown'}}">
-              <i class="fa fa-filter" aria-hidden="true"></i>
-              {% set title = title or h.get_facet_title(name) %}
-              {{ title }}
-              <i class="fa fa-chevron-down pull-right" aria-hidden="true"></i>
-            </h2>
-          {% endblock %}
-
-          {% block facet_list_items %}
-            {% with items = items or h.get_facet_items_dict(name) %}
-            <div id="facet_{{ facet_id }}" class="collapse" ng-class="{ in: {{ facet_id }}.active }">
-            {% if items %}
-              <input type="text" placeholder="Filter" class="facet-filter" ng-model="{{ facet_id }}.search" ng-model-options="{ debounce: 500 }"/>
-              <select class="facet-filter pull-right" ng-model="{{ facet_id }}.order">
-                <option value="na">A-Z</option>
-                <option value="nd">Z-A</option>
-                <option value="ca">1-9</option>
-                <option value="cd">9-1</option>
-              </select>
-              <nav>
-                <ul class="{{ nav_class or 'unstyled nav nav-simple nav-facet' }}">
-                  <li class="{{ nav_item_class or 'nav-item' }}"
-                      ng-repeat="item in getData('{{ facet_id }}') | limitTo:{{ facet_id }}.limit"
-                      ng-class="{ active: item.a }">
-                    <a href="{{ '{{ href(item, ' + facet_id + '.name) }}' }}" title="{{ '{{ item.l }}' }}">
-                      <span>{{ '{{ truncate(item) }} ({{ item.c }})' }}</span>
-                    </a>
-                  </li>
-                </ul>
-              </nav>
-
-              <p class="module-footer">
-                <a href="" class="read-more" ng-hide="{{ facet_id }}.limit == facetMinLimit" ng-click="{{ facet_id }}.limit = {{ facet_id }}.limit - 10">Less</a>
-                <a href="" class="read-more pull-right" ng-hide="{{ facet_id }}.limit == facetMaxLimit || {{ facet_id }}.limit >= {{ facet_id }}.data.length" ng-click="{{ facet_id }}.limit = {{ facet_id }}.limit + 10">More</a>
-              </p>
-            {% else %}
-              <p class="module-content empty">{{ _('There are no {facet_type} that match this search').format(facet_type=title) }}</p>
-            {% endif %}
-            </div>
-            {% endwith %}
-          {% endblock %}
-
-        </section>
-      {% endblock %}
-
-    {% endif %}
-  {% endwith %}
+{% block facet_list_heading %}
+  <h2 class="module-heading accordion-toggle" data-toggle="collapse" data-target="#facet_{{ facet_id }}" ng-class="{ collapsed: !{{ facet_id }}.active }" title="{{ '{{ ' + facet_id + '.data.length || 0 }} matches, {{ ' + facet_id + '.limit || 0 }} shown'}}">
+    <i class="fa fa-filter" aria-hidden="true"></i>
+    {% set title = title or h.get_facet_title(name) %}
+    {{ title }}
+    <i class="fa fa-chevron-down pull-right" aria-hidden="true"></i>
+  </h2>
 {% endblock %}
 
-{% resource 'ckanext-b2find/angular' %}
+{% block facet_list_items %}
+  {% with items = items or h.get_facet_items_dict(name, search_facets or c.search_facets) %}
+  <div id="facet_{{ facet_id }}" class="collapse" ng-class="{ in: {{ facet_id }}.active }">
+  {% if items %}
+    <input type="text" placeholder="Filter" class="facet-filter" ng-model="{{ facet_id }}.search" ng-model-options="{ debounce: 500 }"/>
+    <select class="facet-filter pull-right" ng-model="{{ facet_id }}.order">
+      <option value="na">A-Z</option>
+      <option value="nd">Z-A</option>
+      <option value="ca">1-9</option>
+      <option value="cd">9-1</option>
+    </select>
+    <nav aria-label="{{ title }}">
+      <ul class="{{ nav_class or 'list-unstyled nav nav-simple nav-facet' }}">
+        <li class="{{ nav_item_class or 'nav-item' }}"
+          ng-repeat="item in getData('{{ facet_id }}') | limitTo:{{ facet_id }}.limit"
+          ng-class="{ active: item.a }">
+          <a href="{{ '{{ href(item, ' + facet_id + '.name) }}' }}" title="{{ '{{ item.title }}' }}">
+            <span class="item-label">{{ '{{ item.label }}' }}</span>
+            <span class="hidden separator"> - </span>
+            <span class="item-count badge">{{ '{{ item.count }}' }}</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+
+    <p class="module-footer">
+      <a href="" class="read-more" ng-hide="{{ facet_id }}.limit == facetMinLimit" ng-click="{{ facet_id }}.limit = {{ facet_id }}.limit - 10">Less</a>
+      <a href="" class="read-more pull-right" ng-hide="{{ facet_id }}.limit == facetMaxLimit || {{ facet_id }}.limit >= {{ facet_id }}.data.length" ng-click="{{ facet_id }}.limit = {{ facet_id }}.limit + 10">More</a>
+    </p>
+  {% else %}
+    <p class="module-content empty">{{ _('There are no {facet_type} that match this search').format(facet_type=title) }}</p>
+  {% endif %}
+  </div>
+  {% endwith %}
+{% endblock %}

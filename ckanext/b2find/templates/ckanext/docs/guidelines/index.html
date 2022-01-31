@@ -3,7 +3,7 @@
 {% block subtitle %}{{ _('Introduction') }}{% endblock %}
 
 {% block breadcrumb_content %}
-  <li class="active">{% link_for _('Guidelines'), controller='ckanext.b2find.controller:GuidelinesController', action='index' %}</li>
+  <li class="active"><a class="active" href="{{ h.url_for('b2find.guidelines', qualified=True) }}">Guidelines</a></li>
 {% endblock %}
 
 {% block primary %}

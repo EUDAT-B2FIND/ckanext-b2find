@@ -3,8 +3,8 @@
 {% block subtitle %}{{ _('Harvesting of Metadata') }}{% endblock %}
 
 {% block breadcrumb_content %}
-  <li>{% link_for _('Guidelines'), controller='ckanext.b2find.controller:GuidelinesController', action='index' %}</li>
-  <li class="active">{% link_for _('Harvesting Metadata'), controller='ckanext.b2find.controller:GuidelinesController', action='harvesting' %}</li>
+  <li><a class="active" href="{{ h.url_for('b2find.guidelines', qualified=True) }}">Guidelines</a></li>
+  <li class="active"><a class="active" href="{{ h.url_for('b2find.guidelines_harvesting', qualified=True) }}">Harvesting Metadata</a></li>
 {% endblock %}
 
 {% block primary %}
@@ -52,7 +52,7 @@
 
 		<p>Some data providers offer their metadata encoded as JSON records, which can be retrieved, queried and browsed via a REST API. The API is generally RESTful and returns results in JSON, as the API follows the JSONAPI specification.</p>
 	    <h4>Example:</h4>
-	    <p>The community GBIF (see gbif.org) provides their metadata via the JSON-API at the base URL http://api.gbif.org/v1. 
+	    <p>The community GBIF (see gbif.org) provides their metadata via the JSON-API at the base URL http://api.gbif.org/v1.
 	    By the following request the first 100 JSON records are retrieved from the repository:</p>
 	    <p>http://api.gbif.org/v1/dataset?offset=0&limit=100</p>
 
@@ -85,7 +85,7 @@
 	<p>In the long term, not only is it important to have a reliable and sustainable harvesting mechanism established, but also to implement a frequent harvesting schedule.
 	This will guarantee sufficient synchronicity between the provider (community) database and EUDAT service (B2FIND). The OAI-PMH the parameter from can be used to harvest only records which are newly created or changed during a given period. If for instance an update interval of once a week is agreed upon, B2FIND establishes a cron job that is triggered on a weekly basis, with the harvesting option &lt;fromdate&gt; set to a date one week earlier.
 	</p>
-		  
+
 
   </article>
 {% endblock %}

@@ -1,18 +1,12 @@
-{% extends "page.html" %}
-
-{% set pkg = c.pkg_dict or pkg_dict %}
-
-{% block breadcrumb_content_selected %} class="active"{% endblock %}
-
-{% block subtitle %}{{ _('Datasets') }}{% endblock %}
+{% ckan_extends %}
 
 {% block breadcrumb_content %}
   {% if pkg %}
     {% set dataset = h.dataset_display_name(pkg) %}
-    <li>{% link_for _('Datasets'), controller='package', action='search' %}</li>
-    <li{{ self.breadcrumb_content_selected() }}>{% link_for dataset|truncate(30), controller='package', action='read', id=pkg.name %}</li>
+    <li>{% link_for _(dataset_type.title()), named_route=dataset_type ~ '.search' %}</li>
+    <li{{ self.breadcrumb_content_selected() }}>{% link_for dataset|truncate(30), named_route=pkg.type ~ '.read', id=pkg.id if is_activity_archive else pkg.name %}</li>
   {% else %}
-    <li>{% link_for _('Datasets'), controller='package', action='search' %}</li>
+    <li>{% link_for _(dataset_type.title()), named_route=dataset_type ~ '.search' %}</li>
     <li class="active"><a href="">{{ _('Create Dataset') }}</a></li>
   {% endif %}
 {% endblock %}
