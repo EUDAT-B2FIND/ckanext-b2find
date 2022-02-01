@@ -3,9 +3,15 @@
 <div class="module module-search module-narrow module-shallow box">
   <form class="module-content search-form" method="get" action="{% url_for 'dataset.search' %}">
     <h3 class="heading text-center">{{ _("Search data") }}</h3>
-    <div class="input-append" style="display:flex;">
-      <input type="text" id="b2f_homeinput" class="search"  name="q" value="" autocomplete="off" placeholder="{{ placeholder }}" style="width:100%;" />
-      <button id="b2f_homesubmit" type="submit"><i class="fa fa-search fa-lg"></i></button>
+
+    <div class="input-group search-input-group">
+      <input aria-label="{% block header_site_search_label %}{{ placeholder }}{% endblock %}" id="field-giant-search" type="text" class="form-control input-lg" name="q" value="{{ query }}" autocomplete="off" placeholder="{{ placeholder }}">
+      <span class="input-group-btn">
+        <button class="btn btn-info btn-lg" type="submit" value="search" aria-label="{{_('Submit')}}">
+          <i class="fa fa-search fa-lg"></i>
+        </button>
+      </span>
     </div>
+
   </form>
 </div>

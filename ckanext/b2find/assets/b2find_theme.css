@@ -91,25 +91,6 @@ a:hover {
    Front page content - new elements for b2find version 2
    ========================================================================= */
 
-#b2f_homeinput {
-    height:           46px;
-    border-width:     2px;
-    border-color:     #264899;
-    border-style:     solid none solid solid;
-    border-radius:    5px 0 0 5px;
-}
-
-#b2f_homesubmit {
-    height:           46px;
-    width:            100px;
-    color:            #ffffff;
-    background-color: #264899;
-    /* border-width:     2px; */
-    border-color:     #264899;
-    border-style:     solid solid solid none;
-    border-radius:    0 5px 5px 0;
-}
-
 .b2f_tag {
     display:          inline-block;
     margin-bottom:    4px;
@@ -327,6 +308,6 @@ input.facet-filter {
 }
 
 /* Correct position of search icon on search_form input field */
-.search-form .search-input button {
+/* .search-form .search-input button {
     top: 30%;
-}
+} */
