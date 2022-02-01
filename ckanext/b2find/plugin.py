@@ -1,10 +1,6 @@
 import ckan.plugins as plugins
 import ckan.plugins.toolkit as toolkit
 import ckanext.b2find.helpers as helpers
-import ckanext.b2find.blueprints as blueprints
-from ckan.common import c
-
-import json
 
 
 class B2FindPlugin(plugins.SingletonPlugin):
@@ -12,7 +8,6 @@ class B2FindPlugin(plugins.SingletonPlugin):
     plugins.implements(plugins.IPackageController, inherit=True)
     plugins.implements(plugins.IFacets)
     plugins.implements(plugins.ITemplateHelpers)
-    plugins.implements(plugins.IBlueprint)
 
     # IConfigurer
 
@@ -41,9 +36,6 @@ class B2FindPlugin(plugins.SingletonPlugin):
 
     def organization_facets(self, facets_dict, organization_type, package_type):
         return self._facets(facets_dict)
-
-    def get_blueprint(self):
-        return [blueprints.b2find]
 
     def _facets(self, facets_dict):
         # Deleted facets
