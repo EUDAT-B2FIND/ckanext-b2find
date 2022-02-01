@@ -24,8 +24,8 @@ class B2FindPlugin(plugins.SingletonPlugin):
     def update_config(self, config_):
         toolkit.add_template_directory(config_, 'templates')
         toolkit.add_public_directory(config_, 'public')
-        toolkit.add_public_directory(config_, 'fanstatic')
-        toolkit.add_resource('fanstatic', 'ckanext-b2find')
+        # toolkit.add_public_directory(config_, 'assets')
+        toolkit.add_resource('assets', 'ckanext-b2find')
         return config_
 
     def dataset_facets(self, facets_dict, package_type):
