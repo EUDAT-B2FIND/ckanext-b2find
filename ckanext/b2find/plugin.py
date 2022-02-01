@@ -13,9 +13,9 @@ class B2FindPlugin(plugins.SingletonPlugin):
 
     def get_helpers(self):
         return {
-            'featured_groups': helpers.featured_groups,
+            # 'featured_groups': helpers.featured_groups,
             'extras_to_exclude': helpers.extras_to_exclude,
-            'link_fields': helpers.link_fields,
+            # 'link_fields': helpers.link_fields,
             'strip_brackets': helpers.strip_brackets,
             'equals_ignore_case': helpers.equals_ignore_case,
             'split_extra': helpers.split_extra
