@@ -5,7 +5,7 @@ import ckanext.b2find.helpers as helpers
 
 class B2FindPlugin(plugins.SingletonPlugin):
     plugins.implements(plugins.IConfigurer)
-    plugins.implements(plugins.IPackageController, inherit=True)
+    # plugins.implements(plugins.IPackageController, inherit=True)
     plugins.implements(plugins.IFacets)
     plugins.implements(plugins.ITemplateHelpers)
 
