@@ -91,20 +91,20 @@ a:hover {
    Front page content - new elements for b2find version 2
    ========================================================================= */
 
-#homeinput {
-    height:           34px;
+#b2f_homeinput {
+    height:           46px;
     border-width:     2px;
     border-color:     #264899;
     border-style:     solid none solid solid;
     border-radius:    5px 0 0 5px;
 }
 
-#homesubmit {
+#b2f_homesubmit {
     height:           46px;
     width:            100px;
     color:            #ffffff;
     background-color: #264899;
-    border-width:     2px;
+    /* border-width:     2px; */
     border-color:     #264899;
     border-style:     solid solid solid none;
     border-radius:    0 5px 5px 0;
