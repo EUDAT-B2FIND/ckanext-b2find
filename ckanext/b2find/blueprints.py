@@ -10,6 +10,20 @@ LOGGER = logging.getLogger(__name__)
 b2find = Blueprint('b2find', __name__)
 
 
+def _translate_sort(sort=None):
+    if sort == "cd":
+        sort_param = {"count": "desc"}
+    elif sort == "ca":
+        sort_param = {"count": "asc"}
+    elif sort == "id":
+        sort_param = {"index": "desc"}
+    elif sort == "ia":
+        sort_param = {"index": "asc"}
+    else:
+        sort_param = {"count": "desc"}
+    return sort_param
+
+
 @b2find.route('/b2find/query', endpoint='query_facets',
               methods=['GET'])
 def query_facets():
@@ -17,7 +31,7 @@ def query_facets():
     LOGGER.debug(f"solr search request params: {request.params}")
     query = request.params.get('q', '*:*')
     filter = request.params.get('fq', '*')
-    sort = request.params.get('sort', 'cd')
+    sort = request.params.get('sort', 'tags:cd')
     limit = 3
 
     fields = [
@@ -40,16 +54,10 @@ def query_facets():
       "facet": {},
     }
 
-    if sort == "cd":
-        sort_param = {"count": "desc"}
-    elif sort == "ca":
-        sort_param = {"count": "asc"}
-    elif sort == "id":
-        sort_param = {"index": "desc"}
-    elif sort == "ia":
-        sort_param = {"index": "asc"}
-    else:
-        sort_param = {"count": "desc"}
+    fields_sort = {}
+    for item in sort.split(","):
+        key, val = item.split(":")
+        fields_sort[key] = _translate_sort(val)
 
     for field in fields:
         json_query["facet"][field] = {
@@ -57,7 +65,7 @@ def query_facets():
           "field": field,
           "limit": limit,
           "mincount": 1,
-          "sort": sort_param,
+          "sort": fields_sort.get(field, _translate_sort()),
         }
 
     resp = requests.post(
