@@ -1,16 +1,24 @@
 import ckan.plugins as plugins
 import ckan.plugins.toolkit as toolkit
+import ckanext.b2find.blueprints as blueprints
 import ckanext.b2find.helpers as helpers
 
 
 class B2FindPlugin(plugins.SingletonPlugin):
     plugins.implements(plugins.IConfigurer)
-    # plugins.implements(plugins.IPackageController, inherit=True)
     plugins.implements(plugins.IFacets)
     plugins.implements(plugins.ITemplateHelpers)
+    plugins.implements(plugins.IBlueprint)
 
     # IConfigurer
+    def update_config(self, config_):
+        toolkit.add_template_directory(config_, 'templates')
+        toolkit.add_public_directory(config_, 'public')
+        # toolkit.add_public_directory(config_, 'assets')
+        toolkit.add_resource('assets', 'ckanext-b2find')
+        return config_
 
+    # ITemplateHelpers
     def get_helpers(self):
         return {
             'extras_to_exclude': helpers.extras_to_exclude,
@@ -19,13 +27,7 @@ class B2FindPlugin(plugins.SingletonPlugin):
             'split_extra': helpers.split_extra
         }
 
-    def update_config(self, config_):
-        toolkit.add_template_directory(config_, 'templates')
-        toolkit.add_public_directory(config_, 'public')
-        # toolkit.add_public_directory(config_, 'assets')
-        toolkit.add_resource('assets', 'ckanext-b2find')
-        return config_
-
+    # IFacets
     def dataset_facets(self, facets_dict, package_type):
         return self._facets(facets_dict)
 
@@ -58,3 +60,7 @@ class B2FindPlugin(plugins.SingletonPlugin):
         facets_dict['extras_OpenAccess'] = 'OpenAccess'
 
         return facets_dict
+
+    # IBlueprint
+    def get_blueprint(self):
+        return [blueprints.b2find]
