@@ -3,11 +3,16 @@ import ckan.plugins.toolkit as toolkit
 import ckanext.b2find.blueprints as blueprints
 import ckanext.b2find.helpers as helpers
 
+from ckan.lib.search.query import VALID_SOLR_PARAMETERS
+VALID_SOLR_PARAMETERS.add('json.facet')
+VALID_SOLR_PARAMETERS.add('facet.sort')
+
 
 class B2FindPlugin(plugins.SingletonPlugin):
     plugins.implements(plugins.IConfigurer)
     plugins.implements(plugins.IFacets)
     plugins.implements(plugins.ITemplateHelpers)
+    plugins.implements(plugins.IPackageController, inherit=True)
     plugins.implements(plugins.IBlueprint)
 
     # IConfigurer
@@ -60,6 +65,20 @@ class B2FindPlugin(plugins.SingletonPlugin):
         facets_dict['extras_OpenAccess'] = 'OpenAccess'
 
         return facets_dict
+
+    # IPackageController
+    def before_search(self, search_params):
+        search_params["rows"] = 10
+        search_params["facet"] = "true"
+        search_params["facet.limit"] = 5
+        search_params["facet.sort"] = "index"
+        search_params["json.facet"] = '{"tags":{"type":"terms", "field":"tags","limit":3,"sort":{"count":"asc"}}}'
+        # print(search_params)
+        return search_params
+
+    def after_search(self, search_results, search_params):
+        # print(search_results)
+        return search_results
 
     # IBlueprint
     def get_blueprint(self):
