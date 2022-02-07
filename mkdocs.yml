@@ -6,7 +6,18 @@ nav:
     - Guidelines: guidelines.md
     - Search Guide: searchguide.md
     - About: about.md
+    - WtF: wtf.md
 
 markdown_extensions:
     - toc:
         permalink: True
+
+theme:
+    name: readthedocs
+    highlightjs: true
+    hljs_languages:
+        - yaml
+        - rust
+        - xml
+        - python
+
