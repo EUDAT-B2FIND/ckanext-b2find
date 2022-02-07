@@ -1,0 +1,12 @@
+site_name: B2Find
+site_url: http://b2find.eudat.eu/
+site_dir: site
+nav:
+    - Home: index.md
+    - Guidelines: guidelines.md
+    - Search Guide: searchguide.md
+    - About: about.md
+
+markdown_extensions:
+    - toc:
+        permalink: True
