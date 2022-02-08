@@ -5,3 +5,16 @@
 
   {% asset 'ckanext-b2find/b2find-css' %}
 {% endblock %}
+
+{% block scripts %}
+  {{ super() }}
+
+  {% asset 'ckanext-b2find/angular' %}
+  {% asset 'ckanext-b2find/ng' %}
+{% endblock %}
+
+{% block bodytag %}
+  {{ super() }}
+
+  ng-app="b2findApp"
+{% endblock %}
