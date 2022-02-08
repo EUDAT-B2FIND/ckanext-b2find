@@ -22,20 +22,23 @@
       <option value="ca">1-9</option>
       <option value="cd">9-1</option>
     </select>
-    <pre ng-show='debug'>{{ facet_id }}</pre>
 
     <nav aria-label="{{ title }}">
-      <ul class="{{ nav_class or 'list-unstyled nav nav-simple nav-facet' }}">
-        <li class="{{ nav_item_class or 'nav-item' }}"
-          ng-repeat="item in getData('{{ facet_id }}') | limitTo:{{ facet_id }}.limit"
-          ng-class="{ active: item.a }">
-          <a href="{{ '{{ href(item, ' + facet_id + '.name) }}' }}" title="{{ '{{ item.title }}' }}">
-            <span class="item-label">{{ '{{ item.val }}' }}</span>
+        <ul class="{{ nav_class or 'list-unstyled nav nav-simple nav-facet' }}">
+      {% for item in items %}
+          {% set href = h.remove_url_param(name, item.name, extras=extras, alternative_url=alternative_url) if item.active else h.add_url_param(new_params={name: item.name}, extras=extras, alternative_url=alternative_url) %}
+          {% set label = label_function(item) if label_function else item.display_name %}
+          {% set label_truncated = h.truncate(label, 22) if not label_function else label %}
+          {% set count = count_label(item['count']) if count_label else ('%d' % item['count']) %}
+          <li class="{{ nav_item_class or 'nav-item' }}{% if item.active %} active{% endif %}">
+        <a href="{{ href }}" title="{{ label if label != label_truncated else '' }}">
+            <span class="item-label">{{ label_truncated }}</span>
             <span class="hidden separator"> - </span>
-            <span class="item-count badge">{{ '{{ item.count }}' }}</span>
-          </a>
-        </li>
-      </ul>
+            <span class="item-count badge">{{ count }}</span>
+        </a>
+          </li>
+      {% endfor %}
+        </ul>
     </nav>
 
     <p class="module-footer">
