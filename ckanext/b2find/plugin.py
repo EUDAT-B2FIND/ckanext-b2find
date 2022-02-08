@@ -68,10 +68,10 @@ class B2FindPlugin(plugins.SingletonPlugin):
 
     # IPackageController
     def before_search(self, search_params):
-        search_params["rows"] = 10
+        search_params["rows"] = 3
         search_params["facet"] = "true"
-        search_params["facet.limit"] = 5
-        search_params["facet.sort"] = "index"
+        search_params["facet.limit"] = 3
+        search_params["facet.sort"] = "count"
         search_params["json.facet"] = '{"tags":{"type":"terms", "field":"tags","limit":3,"sort":{"count":"asc"}}}'
         # print(search_params)
         return search_params
