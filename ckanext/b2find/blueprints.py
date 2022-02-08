@@ -73,4 +73,5 @@ def query_facets():
         json=json_query)
 
     print(resp.json())
+    # result = {"items": [{"label": "test", "count": 10}]}
     return resp.json()

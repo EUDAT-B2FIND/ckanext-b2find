@@ -10,8 +10,8 @@ angular:
   filters: rjsmin
   output: ckanext-b2find/%(version)s_angular.js
 
-ng:
+app:
   contents:
-    - ng.js
+    - app.js
   filters: rjsmin
-  output: ckanext-b2find/%(version)s_ng.js
+  output: ckanext-b2find/%(version)s_app.js

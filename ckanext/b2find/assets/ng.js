@@ -6,8 +6,8 @@ controllers.BasicFacetController = function ($scope, $q) {
     $scope.facetMaxLimit = 100;
     console.log("b2f controller");
     var params = getJsonFromUrl();
-    // var q = "*:*"; // $("#timeline-q").val();
-    // var fq = "*"; // JSON.parse($("#timeline-fq").val());
+    var q = $("#timeline-q").val();
+    var fq = JSON.parse($("#timeline-fq").val());
 
     /**
      * Build and return data belonging to facet
@@ -68,7 +68,6 @@ controllers.BasicFacetController = function ($scope, $q) {
         return e.h;
     };
 };
-console.log("b2f ng2");
 app.controller(controllers);
 /**
  * Build object of GET parameters from location URL
@@ -89,4 +88,3 @@ function getJsonFromUrl() {
     });
     return result;
   }
-  console.log("b2f ng3");
