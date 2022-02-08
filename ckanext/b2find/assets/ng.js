@@ -1,11 +1,13 @@
 var app = angular.module('b2findApp', []);
 var controllers = {};
+console.log("b2f ng");
 controllers.BasicFacetController = function ($scope, $q) {
     $scope.facetMinLimit = 10;
     $scope.facetMaxLimit = 100;
+    console.log("b2f controller");
     var params = getJsonFromUrl();
-    var q = $("#timeline-q").val();
-    var fq = JSON.parse($("#timeline-fq").val());
+    // var q = "*:*"; // $("#timeline-q").val();
+    // var fq = "*"; // JSON.parse($("#timeline-fq").val());
 
     /**
      * Build and return data belonging to facet
@@ -32,7 +34,7 @@ controllers.BasicFacetController = function ($scope, $q) {
         $.ajax({
             async: false,
             type: "GET",
-            url: "/b2find/facets/search2",
+            url: "/b2find/query",
             data: solrParams,
             contentType: "application/json; charset=utf-8",
             dataType: "json",
@@ -66,12 +68,14 @@ controllers.BasicFacetController = function ($scope, $q) {
         return e.h;
     };
 };
+console.log("b2f ng2");
 app.controller(controllers);
 /**
  * Build object of GET parameters from location URL
  * Modification of http://stackoverflow.com/a/8486188
  */
 function getJsonFromUrl() {
+    console.log("getJsonFromUrl");
     var query = location.search.substr(1);
     var result = {};
     query.split("&").forEach(function (part) {
@@ -84,4 +88,5 @@ function getJsonFromUrl() {
         }
     });
     return result;
-}
+  }
+  console.log("b2f ng3");

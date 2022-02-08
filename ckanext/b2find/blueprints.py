@@ -71,4 +71,6 @@ def query_facets():
     resp = requests.post(
         url=f"{solr.url}/query",
         json=json_query)
+
+    print(resp.json())
     return resp.json()
