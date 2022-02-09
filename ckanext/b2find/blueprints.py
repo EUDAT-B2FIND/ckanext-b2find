@@ -3,10 +3,6 @@ from ckan.plugins.toolkit import request
 import ckan.lib.search
 import requests
 
-import logging
-
-LOGGER = logging.getLogger(__name__)
-
 b2find = Blueprint('b2find', __name__)
 
 
@@ -28,24 +24,11 @@ def _translate_sort(sort=None):
               methods=['GET'])
 def query_facets():
     solr = ckan.lib.search.make_connection()
-    LOGGER.debug(f"solr search request params: {request.params}")
     query = request.params.get('q', '*:*')
     filter = request.params.get('fq', '*')
-    sort = request.params.get('sort', 'tags:cd')
-    limit = 3
-
-    fields = [
-        'author',
-        'tags',
-        'groups',
-        'extras_Publisher',
-        'extras_Language',
-        'extras_Discipline',
-        'extras_Contributor',
-        'extras_ResourceType',
-        'extras_OpenAccess',
-        'extras_Instrument',
-    ]
+    field = request.params.get('field', 'tags')
+    limit = int(request.params.get('limit', 10))
+    sort = request.params.get('sort', 'cd')
 
     json_query = {
       "query": query,
@@ -54,24 +37,22 @@ def query_facets():
       "facet": {},
     }
 
-    fields_sort = {}
-    for item in sort.split(","):
-        key, val = item.split(":")
-        fields_sort[key] = _translate_sort(val)
-
-    for field in fields:
-        json_query["facet"][field] = {
-          "type": "terms",
-          "field": field,
-          "limit": limit,
-          "mincount": 1,
-          "sort": fields_sort.get(field, _translate_sort()),
-        }
+    json_query["facet"][field] = {
+        "type": "terms",
+        "field": field,
+        "limit": limit,
+        "mincount": 1,
+        "sort": _translate_sort(sort),
+    }
 
     resp = requests.post(
         url=f"{solr.url}/query",
         json=json_query)
 
-    print(resp.json())
-    # result = {"items": [{"label": "test", "count": 10}]}
-    return resp.json()
+    # print(resp.json())
+    result = {}
+    if field in resp.json()["facets"]:
+        result["items"] = resp.json()["facets"][field]["buckets"]
+    else:
+        result["items"] = []
+    return result
