@@ -1,19 +1,25 @@
-var app = angular.module('b2findApp',[]);
+'use strict';
 
-app.controller('BasicFacetController', function($scope){
-    $scope.getData = function (facet) {
-      $.ajax({
-          type: 'GET',
-          url: "/b2find/query",
-          dataType: 'json',
-          success: function(json) {
-            console.log("b2f facet: " + facet); 
-            console.log("b2f json: " + json.facets.author.buckets[0].val );
-            $scope.data = json.facets.author.buckets;
-          },
-          data: {},
-          async: false
-      });
-      return $scope.data;
-    };
-});
+const e = React.createElement;
+
+class LikeButton extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { liked: false };
+  }
+
+  render() {
+    if (this.state.liked) {
+      return 'You liked this.';
+    }
+
+    return e(
+      'button',
+      { onClick: () => this.setState({ liked: true }) },
+      'Like'
+    );
+  }
+}
+
+const domContainer = document.querySelector('#like_button_container');
+ReactDOM.render(e(LikeButton), domContainer);

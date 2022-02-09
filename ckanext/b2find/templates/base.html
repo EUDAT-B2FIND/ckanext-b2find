@@ -3,18 +3,16 @@
 {% block styles %}
   {{ super() }}
 
-  {% asset 'ckanext-b2find/b2find-css' %}
+  {% asset 'ckanext-b2find/theme' %}
 {% endblock %}
 
 {% block scripts %}
   {{ super() }}
 
-  {% asset 'ckanext-b2find/angular' %}
+  <!-- Load React. -->
+  <!-- Note: when deploying, replace "development.js" with "production.min.js". -->
+  <script src="https://unpkg.com/react@17/umd/react.development.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js" crossorigin></script
+  <!-- Load our React component. -->
   {% asset 'ckanext-b2find/app' %}
-{% endblock %}
-
-{% block bodytag %}
-  {{ super() }}
-
-  ng-app="b2findApp"
 {% endblock %}

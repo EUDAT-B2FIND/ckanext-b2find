@@ -1,14 +1,8 @@
-b2find-css:
+theme:
   contents:
-    - b2find_theme.css
+    - theme.css
   filters: cssrewrite
-  output: ckanext-b2find/%(version)s_b2find_theme.css
-
-angular:
-  contents:
-    - angular.js
-  filters: rjsmin
-  output: ckanext-b2find/%(version)s_angular.js
+  output: ckanext-b2find/%(version)s_theme.css
 
 app:
   contents:
