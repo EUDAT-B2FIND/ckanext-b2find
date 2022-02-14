@@ -146,7 +146,12 @@ class Facet extends React.Component {
   }
 }
 
+// ReactDOM.render(
+//   <Facet facet_id="tags" />,
+//   document.getElementById('b2find_facet_keywords')
+// );
+
 ReactDOM.render(
-  <Facet facet_id="tags" />,
-  document.getElementById('b2find_facet')
+  <Facet facet_id="author" />,
+  document.getElementById('b2find_facet_creator')
 );
