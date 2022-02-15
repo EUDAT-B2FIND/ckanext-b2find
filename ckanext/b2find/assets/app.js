@@ -26,11 +26,14 @@ function SearchBar(props) {
 }
 
 function SelectSort(props) {
+  const sort = props.sort;
+  const setSort = props.setSort;
+
   return (
     <select
       className="facet-filter pull-right"
-      onChange={e => props.handleSortChange(e.target.value)}
-      defaultValue={props.sort}>
+      onChange={e => setSort(e.target.value)}
+      defaultValue={sort}>
       <option value="ia">A-Z</option>
       <option value="id">Z-A</option>
       <option value="ca">1-9</option>
@@ -48,7 +51,7 @@ function Item(props) {
 
   queryParams.append(field, title);
 
-  console.log("href", URL);
+  // console.log("href", URL);
 
   return (
     <li className="nav-item">
@@ -82,10 +85,24 @@ function Items(props) {
 }
 
 function Footer(props) {
+  const limit = props.limit;
+  const setLimit = props.setLimit;
+  const lessDisabled = limit <= 10;
   return (
     <p className="module-footer">
-      <a href="" className="read-more">Less</a>
-      <a href="" className="read-more pull-right">More</a>
+      <button
+        className="btn btn-default"
+        disabled={lessDisabled}
+        type="button"
+        onClick={e => setLimit(limit - 10)}>
+        Less
+      </button>
+      <button
+        className="btn btn-default"
+        type="button"
+        onClick={e => setLimit(limit + 10)}>
+        More
+      </button>
     </p>
   )
 }
@@ -97,7 +114,7 @@ function Facet(props) {
   const [items, setItems] = React.useState([]);
   const [isLoaded, setIsLoaded] = React.useState(false);
   const [sort, setSort] = React.useState("cd");
-  const [limit, setLimit] = React.useState(5);
+  const [limit, setLimit] = React.useState(10);
 
   React.useEffect(() => {
     const url = "/b2find/query?field="+field+"&sort="+sort+"&limit="+limit;
@@ -109,7 +126,7 @@ function Facet(props) {
         setItems(result.items);
         setIsLoaded(true);
       });
-  }, [sort]);
+  }, [sort, limit]);
 
   if (!isLoaded) return (
     <section className="module module-narrow module-shallow">
@@ -123,11 +140,13 @@ function Facet(props) {
           <SearchBar/>
           <SelectSort
             sort={sort}
-            handleSortChange={setSort}/>
+            setSort={setSort}/>
             <Items
               items={items}
               field={field}/>
-          <Footer/>
+          <Footer
+            limit={limit}
+            setLimit={setLimit}/>
         </div>
     </section>
   );
