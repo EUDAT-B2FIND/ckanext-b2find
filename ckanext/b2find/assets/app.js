@@ -1,11 +1,18 @@
 'use strict';
 
 function Header(props) {
+  const target = "#" + props.id;
+  const title = props.title;
+
   return (
     <h2
-      className="module-heading">
+      className="module-heading"
+      data-toggle="collapse"
+      data-target={target}
+    >
       <i className="fa fa-filter"></i>
-      { props.title }
+      { title }
+      <i className="fa fa-chevron-down pull-right"></i>
     </h2>
   )
 }
@@ -42,13 +49,16 @@ function Footer(props) {
 }
 
 function Facet(props) {
+  const id = "facet_" + props.field;
+  const field = props.field;
+  const title = props.title;
   const [items, setItems] = React.useState([]);
   const [isLoaded, setIsLoaded] = React.useState(false);
   const [sort, setSort] = React.useState("cd");
   const [limit, setLimit] = React.useState(5);
 
   React.useEffect(() => {
-    const url = "/b2find/query?field="+props.field+"&sort="+sort+"&limit="+limit;
+    const url = "/b2find/query?field="+field+"&sort="+sort+"&limit="+limit;
 
     fetch(url)
       .then(result => result.json())
@@ -64,25 +74,27 @@ function Facet(props) {
   );
   return (
     <section className="module module-narrow module-shallow">
-        <Header title={props.title}/>
-        <SearchBar/>
-        <SelectSort
-          sort={sort}
-          handleSortChange={setSort}/>
-        <nav aria-label="">
-          <ul className="list-unstyled nav nav-simple nav-facet">
-            {items.map((item, index) => (
-              <li key={index} className="nav-item">
-                <a href="" title={item.val}>
-                  <span className="item-label">{item.val.substring(0,20)}</span>
-                  <span className="hidden separator"> - </span>
-                  <span className="item-count badge">{item.count}</span>
-                </a>
-              </li>
-            ))}
-          </ul>
-        </nav>
-        <Footer/>
+        <Header id={id} title={title}/>
+        <div id={id} className="collapse">
+          <SearchBar/>
+          <SelectSort
+            sort={sort}
+            handleSortChange={setSort}/>
+          <nav aria-label="">
+            <ul className="list-unstyled nav nav-simple nav-facet">
+              {items.map((item, index) => (
+                <li key={index} className="nav-item">
+                  <a href="" title={item.val}>
+                    <span className="item-label">{item.val.substring(0,20)}</span>
+                    <span className="hidden separator"> - </span>
+                    <span className="item-count badge">{item.count}</span>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </nav>
+          <Footer/>
+        </div>
     </section>
   );
 }
