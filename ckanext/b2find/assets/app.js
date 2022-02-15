@@ -47,9 +47,10 @@ function Item(props) {
   const title = props.title;
   const count = props.count;
   const label = title.substring(0,30);
-  const queryParams = new URLSearchParams(URL);
+  // const queryParams = new URLSearchParams(QueryURL);
+  const queryParams = "?" + field + "=" + title;
 
-  queryParams.append(field, title);
+  // queryParams.append(field, title);
 
   // console.log("href", URL);
 
@@ -158,11 +159,18 @@ function Facets(props) {
       <Facet field="groups" title="Communities"/>
       <Facet field="tags" title="Keywords"/>
       <Facet field="author" title="Creator"/>
+      <Facet field="extras_Instrument" title="Instrument"/>
+      <Facet field="extras_Discipline" title="Discipline"/>
+      <Facet field="extras_Language" title="Language"/>
+      <Facet field="extras_Publisher" title="Publisher"/>
+      <Facet field="extras_Contributor" title="Contributor"/>
+      <Facet field="extras_ResourceType" title="ResourceType"/>
+      <Facet field="extras_OpenAccess" title="OpenAccess"/>
     </React.Fragment>
   )
 }
 
-const URL = document.getElementById('b2find_facets').dataset.url;
+const QueryURL = document.getElementById('b2find_facets').dataset.url;
 
 ReactDOM.render(
   <Facets/>,
