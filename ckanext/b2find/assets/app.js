@@ -112,7 +112,9 @@ function Facet(props) {
   }, [sort]);
 
   if (!isLoaded) return (
-    <h1> Loading ... </h1>
+    <section className="module module-narrow module-shallow">
+      <Header id={id} title={title}/>
+    </section>
   );
   return (
     <section className="module module-narrow module-shallow">
