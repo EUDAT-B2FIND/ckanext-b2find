@@ -61,6 +61,26 @@ function Item(props) {
   )
 }
 
+function Items(props) {
+  const items = props.items;
+  const field = props.field;
+
+  return (
+    <nav aria-label="">
+      <ul className="list-unstyled nav nav-simple nav-facet">
+        {items.map((item, index) => (
+          <Item
+            key={index}
+            field={field}
+            title={item.val}
+            count={item.count}
+          />
+        ))}
+      </ul>
+    </nav>
+  )
+}
+
 function Footer(props) {
   return (
     <p className="module-footer">
@@ -102,18 +122,9 @@ function Facet(props) {
           <SelectSort
             sort={sort}
             handleSortChange={setSort}/>
-          <nav aria-label="">
-            <ul className="list-unstyled nav nav-simple nav-facet">
-              {items.map((item, index) => (
-                <Item
-                  key={index}
-                  field={field}
-                  title={item.val}
-                  count={item.count}
-                />
-              ))}
-            </ul>
-          </nav>
+            <Items
+              items={items}
+              field={field}/>
           <Footer/>
         </div>
     </section>
