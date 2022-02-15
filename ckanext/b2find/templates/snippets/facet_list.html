@@ -2,5 +2,6 @@
 
 {% block facet_list %}
   <!-- We will put our React component inside this div. -->
-  <div id="b2find_facets"></div>
+  {% set url = h.add_url_param(extras=extras, alternative_url=alternative_url) %}
+  <div id="b2find_facets" data-url={{ url }}></div>
 {% endblock %}

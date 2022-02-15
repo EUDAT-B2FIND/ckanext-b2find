@@ -39,6 +39,28 @@ function SelectSort(props) {
   )
 }
 
+function Item(props) {
+  const field = props.field;
+  const title = props.title;
+  const count = props.count;
+  const label = title.substring(0,30);
+  const queryParams = new URLSearchParams(URL);
+
+  queryParams.append(field, title);
+
+  console.log("href", URL);
+
+  return (
+    <li className="nav-item">
+      <a
+        href={queryParams}
+        title={title}>
+        {label} <span className="badge">{count}</span>
+      </a>
+    </li>
+  )
+}
+
 function Footer(props) {
   return (
     <p className="module-footer">
@@ -83,13 +105,12 @@ function Facet(props) {
           <nav aria-label="">
             <ul className="list-unstyled nav nav-simple nav-facet">
               {items.map((item, index) => (
-                <li key={index} className="nav-item">
-                  <a href="" title={item.val}>
-                    <span className="item-label">{item.val.substring(0,20)}</span>
-                    <span className="hidden separator"> - </span>
-                    <span className="item-count badge">{item.count}</span>
-                  </a>
-                </li>
+                <Item
+                  key={index}
+                  field={field}
+                  title={item.val}
+                  count={item.count}
+                />
               ))}
             </ul>
           </nav>
@@ -108,6 +129,8 @@ function Facets(props) {
     </React.Fragment>
   )
 }
+
+const URL = document.getElementById('b2find_facets').dataset.url;
 
 ReactDOM.render(
   <Facets/>,
