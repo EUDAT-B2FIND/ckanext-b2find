@@ -1,17 +1,6 @@
 {% ckan_extends %}
 
-{% set facet_id = title|lower %}
-
-{% block facet_list_heading %}
-  <h2 class="module-heading accordion-toggle" data-toggle="collapse" data-target="#facet_tags" ng-class="{ collapsed: !{{ facet_id }}.active }" title="{{ '{{ ' + facet_id + '.data.length || 0 }} matches, {{ ' + facet_id + '.limit || 0 }} shown'}}">
-    <i class="fa fa-filter" aria-hidden="true"></i>
-    {% set title = title or h.get_facet_title(name) %}
-    {{ title }}
-    <i class="fa fa-chevron-down pull-right" aria-hidden="true"></i>
-  </h2>
-{% endblock %}
-
-{% block facet_list_items %}
+{% block facet_list %}
   <!-- We will put our React component inside this div. -->
-  <div id="b2find_facet_{{facet_id}}"></div>
+  <div id="b2find_facets"></div>
 {% endblock %}

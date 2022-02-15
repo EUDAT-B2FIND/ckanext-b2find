@@ -31,6 +31,20 @@ function Footer(props) {
   )
 }
 
+function Header(props) {
+  return (
+    <h2
+      className="module-heading accordion-toggle"
+      data-toggle="collapse"
+      data-target="#facet_tags"
+      title={props.title}>
+      <i className="fa fa-filter" aria-hidden="true"></i>
+      { props.title }
+      <i className="fa fa-chevron-down pull-right" aria-hidden="true"></i>
+    </h2>
+  )
+}
+
 function Facet(props) {
   const [items, setItems] = React.useState([]);
   const [isLoaded, setIsLoaded] = React.useState(false);
@@ -38,7 +52,7 @@ function Facet(props) {
   const [limit, setLimit] = React.useState(5);
 
   React.useEffect(() => {
-    const url = "/b2find/query?field="+props.facet_id+"&sort="+sort+"&limit="+limit;
+    const url = "/b2find/query?field="+props.field+"&sort="+sort+"&limit="+limit;
 
     fetch(url)
       .then(result => result.json())
@@ -50,33 +64,42 @@ function Facet(props) {
   }, [sort]);
 
   if (!isLoaded) return (
-    <div>
-      <h1> Loading ... </h1>
-    </div>
+    <h1> Loading ... </h1>
   );
   return (
-    <div id="facet_tags" className="collapse">
-      <SearchBar/>
-      <SelectSort
-        sort={sort}
-        handleSortChange={setSort}/>
-      <nav aria-label="">
-        <ul className="list-unstyled nav nav-simple nav-facet">
-          {items.map((item, index) => (
-            <li key={index} className="nav-item">
-              <a href="" title={item.val}>
-                {item.val.substring(0,20)} <span className="badge">{item.count}</span>
-              </a>
-            </li>
-          ))}
-        </ul>
-      </nav>
-      <Footer/>
-    </div>
+    <section className="nav-facet nav-facet-tertiary">
+        <Header title={props.title}/>
+        <SearchBar/>
+        <SelectSort
+          sort={sort}
+          handleSortChange={setSort}/>
+        <nav aria-label="">
+          <ul className="list-unstyled nav nav-simple nav-facet">
+            {items.map((item, index) => (
+              <li key={index} className="nav-item">
+                <a href="" title={item.val}>
+                  {item.val.substring(0,20)} <span className="badge">{item.count}</span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+        <Footer/>
+    </section>
   );
 }
 
+function Facets(props) {
+  return (
+    <React.Fragment>
+      <Facet field="groups" title="Communities"/>
+      <Facet field="tags" title="Keywords"/>
+      <Facet field="author" title="Creator"/>
+    </React.Fragment>
+  )
+}
+
 ReactDOM.render(
-  <Facet facet_id="author" />,
-  document.getElementById('b2find_facet_creator')
+  <Facets/>,
+  document.getElementById('b2find_facets')
 );
