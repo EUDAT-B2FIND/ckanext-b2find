@@ -199,8 +199,6 @@ function Facets(props) {
   )
 }
 
-const QueryURL = document.getElementById('b2find_facets').dataset.url;
-
 ReactDOM.render(
   <Facets/>,
   document.getElementById('b2find_facets')
