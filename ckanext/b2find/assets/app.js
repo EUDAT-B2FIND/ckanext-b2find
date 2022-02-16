@@ -1,5 +1,7 @@
 'use strict';
 
+var Router = ReactRouterDOM.BrowserRouter;
+
 function Header(props) {
   const target = "#" + props.id;
   const title = props.title;
@@ -47,18 +49,29 @@ function Item(props) {
   const title = props.title;
   const count = props.count;
   const label = title.substring(0,30);
-  // const queryParams = new URLSearchParams(QueryURL);
-  const queryParams = "?" + field + "=" + title;
+  const [isActive, setActive] = React.useState(false);
+  const location = window.location;
+  const urlParams = new URLSearchParams(location.search);
 
-  // queryParams.append(field, title);
+  if (isActive) {
+    const values = urlParams.getAll(field);
+    urlParams.delete(field);
+    for (const [i, val] of values.entries()) {
+      urlParams.append(field, val);
+    }
+  } else {
+    urlParams.append(field, title);
+  }
 
-  // console.log("href", URL);
+  const href = location.pathname + "?" + urlParams.toString();
+  console.log(href);
 
   return (
     <li className="nav-item">
       <a
-        href={queryParams}
-        title={title}>
+        href={href}
+        title={title}
+        onClick={e => setActive(!isActive)}>
         {label} <span className="badge">{count}</span>
       </a>
     </li>
@@ -116,9 +129,17 @@ function Facet(props) {
   const [isLoaded, setIsLoaded] = React.useState(false);
   const [sort, setSort] = React.useState("cd");
   const [limit, setLimit] = React.useState(10);
+  const location = window.location;
+  const urlParams = new URLSearchParams(location.search);
 
   React.useEffect(() => {
-    const url = "/b2find/query?field="+field+"&sort="+sort+"&limit="+limit;
+    let url = "/b2find/query?field="+field+"&sort="+sort+"&limit="+limit;
+    if (urlParams.has("q")) {
+      url += "&q=" + urlParams.get("q");
+    }
+    if (urlParams.has("fq")) {
+      url += "&fq=" + urlParams.get("fq");
+    }
 
     fetch(url)
       .then(result => result.json())

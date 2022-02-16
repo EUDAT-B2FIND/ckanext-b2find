@@ -31,7 +31,12 @@ def query_facets():
     sort = request.params.get('sort', 'cd')
 
     json_query = {
-      "query": query,
+      "query": {
+        "lucene": {
+            "df": "text",
+            "query": query,
+        }
+      },
       "filter": filter,
       "limit": 0,
       "facet": {},
