@@ -1,6 +1,6 @@
 'use strict';
 
-var Router = ReactRouterDOM.BrowserRouter;
+// var Router = ReactRouterDOM.BrowserRouter;
 
 function Header(props) {
   const target = "#" + props.id;
