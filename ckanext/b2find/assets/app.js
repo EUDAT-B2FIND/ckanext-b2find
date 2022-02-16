@@ -49,29 +49,37 @@ function Item(props) {
   const title = props.title;
   const count = props.count;
   const label = title.substring(0,30);
-  const [isActive, setActive] = React.useState(false);
+  // const [isActive, setActive] = React.useState(false);
   const location = window.location;
   const urlParams = new URLSearchParams(location.search);
+  let isActive = false;
+  let style = "nav-item";
 
-  if (isActive) {
-    const values = urlParams.getAll(field);
+  const values = urlParams.getAll(field);
+  if (values.includes(title)) {
+    isActive = true;
     urlParams.delete(field);
     for (const [i, val] of values.entries()) {
-      urlParams.append(field, val);
+      if (val != title) {
+        urlParams.append(field, val);
+      }
     }
   } else {
     urlParams.append(field, title);
   }
 
   const href = location.pathname + "?" + urlParams.toString();
-  console.log(href);
+  // console.log(href);
+
+  if (isActive) {
+    style += " active";
+  }
 
   return (
-    <li className="nav-item">
+    <li className={style}>
       <a
         href={href}
-        title={title}
-        onClick={e => setActive(!isActive)}>
+        title={title}>
         {label} <span className="badge">{count}</span>
       </a>
     </li>
