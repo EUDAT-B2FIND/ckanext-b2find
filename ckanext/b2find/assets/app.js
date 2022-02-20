@@ -1,6 +1,4 @@
-'use strict';
-
-// var Router = ReactRouterDOM.BrowserRouter;
+"use strict";
 
 function Header(props) {
   const target = "#" + props.id;
@@ -152,10 +150,10 @@ function Facet(props) {
     fetch(url)
       .then(result => result.json())
       .then(result => {
-        console.log(url);
+        // console.log(url);
         setItems(result.items);
         setIsLoaded(true);
-      });
+    });
   }, [sort, limit]);
 
   if (!isLoaded) return (
@@ -171,9 +169,9 @@ function Facet(props) {
           <SelectSort
             sort={sort}
             setSort={setSort}/>
-            <Items
-              items={items}
-              field={field}/>
+          <Items
+            items={items}
+            field={field}/>
           <Footer
             limit={limit}
             setLimit={setLimit}/>
@@ -182,9 +180,89 @@ function Facet(props) {
   );
 }
 
+function RangeSlider(props) {
+  const items = props.items;
+  const field = props.field;
+  const values = items.map(function(item) {return item.val;});
+  const min = values[0];
+  const max = values[items.length-1];
+
+  React.useEffect(() => {
+    console.log("new slider", min, max);
+    var slider = new Slider('#pubyear_slider', {
+        min: min,
+        ticks: values,
+        ticks_labels: values,
+        //range: true,
+    });
+    slider.setValue(1956);
+    console.log("slider value", slider.getValue());
+  }, []);
+
+  return (
+    <input id="pubyear_slider" type="text"
+      data-provide="slider"
+	    //data-slider-ticks={items}
+	    //data-slider-ticks-labels='["1910"]'
+	    //data-slider-min={items[0]}
+	    //data-slider-max="3"
+	    //data-slider-step="1"
+	    //data-slider-value="3"
+	    //data-slider-tooltip="hide"
+    />
+  )
+}
+
+function RangeFacet(props) {
+  const id = "facet_" + props.field;
+  const field = props.field;
+  const title = props.title;
+  const [items, setItems] = React.useState([]);
+  const [isLoaded, setIsLoaded] = React.useState(false);
+  const sort = "ia";
+  const limit = -1;
+  const location = window.location;
+  const urlParams = new URLSearchParams(location.search);
+
+  React.useEffect(() => {
+    let url = "/b2find/query?field="+field+"&sort="+sort+"&limit="+limit;
+    if (urlParams.has("q")) {
+      url += "&q=" + urlParams.get("q");
+    }
+    if (urlParams.has("fq")) {
+      url += "&fq=" + urlParams.get("fq");
+    }
+
+    fetch(url)
+      .then(result => result.json())
+      .then(result => {
+        // console.log(url);
+        setItems(result.items);
+        setIsLoaded(true);
+    });
+  }, []);
+
+  if (!isLoaded) return (
+    <section className="module module-narrow module-shallow">
+      <Header id={id} title={title}/>
+    </section>
+  );
+  return (
+    <section className="module module-narrow module-shallow">
+        <Header id={id} title={title}/>
+        <div id={id} className="collapse">
+          <RangeSlider
+            items={items}
+            field={field}/>
+        </div>
+    </section>
+  );
+}
+
 function Facets(props) {
   return (
     <React.Fragment>
+      <RangeFacet field="extras_PublicationYear" title="Publication Year"/>
       <Facet field="groups" title="Communities"/>
       <Facet field="tags" title="Keywords"/>
       <Facet field="author" title="Creator"/>
