@@ -27,6 +27,7 @@ def query_facets():
     query = request.params.get('q', '*:*')
     filter = request.params.get('fq', '*')
     field = request.params.get('field', 'tags')
+    type = request.params.get('type', 'terms')
     limit = int(request.params.get('limit', 10))
     sort = request.params.get('sort', 'cd')
 
@@ -42,13 +43,25 @@ def query_facets():
       "facet": {},
     }
 
-    json_query["facet"][field] = {
-        "type": "terms",
-        "field": field,
-        "limit": limit,
-        "mincount": 1,
-        "sort": _translate_sort(sort),
-    }
+    if type == "range":
+        json_query["facet"][field] = {
+            "type": "range",
+            "field": field,
+            "start": "1900-01-01T00:00:00Z/YEAR",
+            "end": "NOW/YEAR",
+            "gap": "+10YEARS",
+            # "limit": limit,
+            # "mincount": 1,
+            # "sort": _translate_sort(sort),
+        }
+    else:
+        json_query["facet"][field] = {
+            "type": "terms",
+            "field": field,
+            "limit": limit,
+            "mincount": 1,
+            "sort": _translate_sort(sort),
+        }
 
     resp = requests.post(
         url=f"{solr.url}/query",

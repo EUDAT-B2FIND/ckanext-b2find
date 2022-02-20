@@ -181,6 +181,7 @@ function Facet(props) {
 }
 
 function RangeSlider(props) {
+  const id = "slider_" + props.field;
   const items = props.items;
   const field = props.field;
   const values = items.map(function(item) {return item.val;});
@@ -188,8 +189,9 @@ function RangeSlider(props) {
   const max = values[items.length-1];
 
   React.useEffect(() => {
+    console.log(items);
     console.log("new slider", min, max);
-    var slider = new Slider('#pubyear_slider', {
+    var slider = new Slider('#'+id, {
         min: min,
         ticks: values,
         ticks_labels: values,
@@ -200,17 +202,54 @@ function RangeSlider(props) {
   }, []);
 
   return (
-    <input id="pubyear_slider" type="text"
+    <input id={id} type="text"
       data-provide="slider"
-	    //data-slider-ticks={items}
-	    //data-slider-ticks-labels='["1910"]'
-	    //data-slider-min={items[0]}
-	    //data-slider-max="3"
-	    //data-slider-step="1"
-	    //data-slider-value="3"
-	    //data-slider-tooltip="hide"
     />
   )
+}
+
+function TimeRangeFacet(props) {
+  const id = "facet_" + props.field;
+  const field = props.field;
+  const title = props.title;
+  const [items, setItems] = React.useState([]);
+  const [isLoaded, setIsLoaded] = React.useState(false);
+  const location = window.location;
+  const urlParams = new URLSearchParams(location.search);
+
+  React.useEffect(() => {
+    let url = "/b2find/query?field="+field+"&type=range";
+    if (urlParams.has("q")) {
+      url += "&q=" + urlParams.get("q");
+    }
+    if (urlParams.has("fq")) {
+      url += "&fq=" + urlParams.get("fq");
+    }
+
+    fetch(url)
+      .then(result => result.json())
+      .then(result => {
+        console.log(url);
+        setItems(result.items);
+        setIsLoaded(true);
+    });
+  }, []);
+
+  if (!isLoaded) return (
+    <section className="module module-narrow module-shallow">
+      <Header id={id} title={title}/>
+    </section>
+  );
+  return (
+    <section className="module module-narrow module-shallow">
+        <Header id={id} title={title}/>
+        <div id={id} className="collapse">
+          <RangeSlider
+            items={items}
+            field={field}/>
+        </div>
+    </section>
+  );
 }
 
 function RangeFacet(props) {
@@ -262,6 +301,7 @@ function RangeFacet(props) {
 function Facets(props) {
   return (
     <React.Fragment>
+      <TimeRangeFacet field="extras_TempCoverage" title="Temporal Coverage"/>
       <RangeFacet field="extras_PublicationYear" title="Publication Year"/>
       <Facet field="groups" title="Communities"/>
       <Facet field="tags" title="Keywords"/>
