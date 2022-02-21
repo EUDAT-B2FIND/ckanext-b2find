@@ -276,6 +276,7 @@ function TimeRangeFacet(props) {
 
 function RangeSlider(props) {
   const id = "slider_" + props.field;
+  const button_id = "button_" + props.field;
   const items = props.items;
   const field = props.field;
   const values = items.map((item) => parseInt(item.val.substr(0,4)));
@@ -286,6 +287,7 @@ function RangeSlider(props) {
   React.useEffect(() => {
     console.log("new slider", start, end);
     slider();
+    button();
   }, []);
 
   function slider() {
@@ -301,8 +303,22 @@ function RangeSlider(props) {
     Bokeh.Plotting.show(slider, "#"+id);
   }
 
+  function button() {
+    const button = new Bokeh.Widgets.Button({
+      label: "Apply",
+      button_type: "success",
+      sizing_mode: "stretch_width",
+      max_width: 280,
+      disabled: true,
+    });
+    Bokeh.Plotting.show(button, "#"+button_id);
+  }
+
   return (
-    <div id={id}></div>
+    <React.Fragment>
+      <div id={id}></div>
+      <div id={button_id}></div>
+    </React.Fragment>
   )
 }
 
