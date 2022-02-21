@@ -182,12 +182,13 @@ function Facet(props) {
 
 function TimeRangeSlider(props) {
   const id = "time_slider_" + props.field;
+  const slider_id = "time_slider_range_widget_" + props.field;
   const items = props.items;
   const field = props.field;
-  const values = items.map((item) => item.val.substr(0,4));
+  const values = items.map((item) => parseInt(item.val.substr(0,4)));
   const counts = items.map((item) => item.count);
-  const min = values[0];
-  const max = values[items.length-1];
+  const start = values[0];
+  const end = values[items.length-1];
 
   function plot() {
     // create a data source to hold data
@@ -219,13 +220,30 @@ function TimeRangeSlider(props) {
     Bokeh.Plotting.show(plot, "#"+id);
   }
 
+  function slider() {
+    const slider = new Bokeh.Widgets.RangeSlider({
+      title: "Selected years",
+      value: [start, end],
+      start: start,
+      end: end,
+      step: 1,
+      max_width: 260,
+      sizing_mode: "stretch_width",
+    });
+    Bokeh.Plotting.show(slider, "#"+slider_id);
+  }
+
   React.useEffect(() => {
-    console.log("new time slider", min, max);
+    console.log("new time slider", start, end);
     plot();
+    slider();
   }, []);
 
   return (
-    <div id={id}></div>
+    <React.Fragment>
+      <div id={id}></div>
+      <div id={slider_id}></div>
+    </React.Fragment>
   )
 }
 
