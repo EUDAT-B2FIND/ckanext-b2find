@@ -274,9 +274,36 @@ function TimeRangeFacet(props) {
   );
 }
 
+function Button(props) {
+  const field = props.field;
+  const id = "button_" + field;
+
+  React.useEffect(() => {
+    button();
+  }, []);
+
+  function handleClick() {
+    console.log("button clicked");
+  }
+
+  function button() {
+    const button = new Bokeh.Widgets.Button({
+      label: "Apply",
+      button_type: "success",
+      sizing_mode: "stretch_width",
+      max_width: 280,
+      disabled: false,
+    });
+    Bokeh.Plotting.show(button, "#"+id);
+  }
+
+  return (
+    <div id={id}></div>
+  )
+}
+
 function RangeSlider(props) {
   const id = "slider_" + props.field;
-  const button_id = "button_" + props.field;
   const items = props.items;
   const field = props.field;
   const values = items.map((item) => parseInt(item.val.substr(0,4)));
@@ -289,18 +316,12 @@ function RangeSlider(props) {
   React.useEffect(() => {
     console.log("new slider", start, end);
     slider();
-    button();
   }, []);
 
   function handleChange(slider) {
-    // console.log(slider);
     console.log("slider changed:", slider.start, slider.end);
     newStart = slider.start;
     newEnd = slider.end;
-  }
-
-  function handleClick() {
-    console.log("button clicked:", newStart, newEnd);
   }
 
   function slider() {
@@ -318,23 +339,11 @@ function RangeSlider(props) {
     Bokeh.Plotting.show(slider, "#"+id);
   }
 
-  function button() {
-    const button = new Bokeh.Widgets.Button({
-      label: "Apply",
-      button_type: "success",
-      sizing_mode: "stretch_width",
-      max_width: 280,
-      disabled: false,
-    });
-    console.log(button);
-    // button.on_event("click",  () => handleClick());
-    Bokeh.Plotting.show(button, "#"+button_id);
-  }
-
   return (
     <React.Fragment>
       <div id={id}></div>
-      <div id={button_id}></div>
+      <Button
+        field={field}/>
     </React.Fragment>
   )
 }
