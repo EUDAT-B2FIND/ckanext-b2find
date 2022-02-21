@@ -180,22 +180,56 @@ function Facet(props) {
   );
 }
 
-function RangeSlider(props) {
-  const id = "slider_" + props.field;
+function TimeRangeSlider(props) {
+  const id = "time_slider_" + props.field;
   const items = props.items;
   const field = props.field;
-  const values = items.map(function(item) {return item.val;});
+  const values = items.map((item) => item.val);
   const min = values[0];
   const max = values[items.length-1];
 
+  function plot() {
+    // create a data source to hold data
+    const source = new Bokeh.ColumnDataSource({
+        data: { x: [], y: [] }
+    });
+
+    // make a plot with some tools
+    const plot = Bokeh.Plotting.figure({
+        title: 'Example of random data',
+        tools: "pan,wheel_zoom,box_zoom,reset,save",
+        height: 300,
+        width: 300
+    });
+
+    // add a line with data from the source
+    plot.line({ field: "x" }, { field: "y" }, {
+        source: source,
+        line_width: 2
+    });
+
+    // show the plot, appending it to the end of the current section
+    Bokeh.Plotting.show(plot);
+
+    function addPoint() {
+        // add data --- all fields must be the same length.
+        source.data.x.push(Math.random())
+        source.data.y.push(Math.random())
+
+        // update the data source with local changes
+        source.change.emit()
+    }
+  }
+
   React.useEffect(() => {
-    console.log("new slider", min, max);
+    console.log("new time slider", min, max);
+    plot();
   }, []);
 
+
+
   return (
-    <div id={id}>
-      <input id="slider-input" type="text"/>
-    </div>
+    <div id={id}></div>
   )
 }
 
@@ -220,44 +254,10 @@ function TimeRangeFacet(props) {
     fetch(url)
       .then(result => result.json())
       .then(result => {
-        console.log(url);
+        // console.log(url);
         setItems(result.items);
         setIsLoaded(true);
     });
-    // plot
-    // create a data source to hold data
-const source = new Bokeh.ColumnDataSource({
-    data: { x: [], y: [] }
-});
-
-// make a plot with some tools
-const plot = Bokeh.Plotting.figure({
-    title: 'Example of random data',
-    tools: "pan,wheel_zoom,box_zoom,reset,save",
-    height: 300,
-    width: 300
-});
-
-// add a line with data from the source
-plot.line({ field: "x" }, { field: "y" }, {
-    source: source,
-    line_width: 2
-});
-
-// show the plot, appending it to the end of the current section
-Bokeh.Plotting.show(plot);
-
-function addPoint() {
-    // add data --- all fields must be the same length.
-    source.data.x.push(Math.random())
-    source.data.y.push(Math.random())
-
-    // update the data source with local changes
-    source.change.emit()
-}
-
-
-    // plot end
   }, []);
 
   if (!isLoaded) return (
@@ -269,12 +269,31 @@ function addPoint() {
     <section className="module module-narrow module-shallow">
         <Header id={id} title={title}/>
         <div id={id} className="collapse">
-          <RangeSlider
+          <TimeRangeSlider
             items={items}
             field={field}/>
         </div>
     </section>
   );
+}
+
+function RangeSlider(props) {
+  const id = "slider_" + props.field;
+  const items = props.items;
+  const field = props.field;
+  const values = items.map(function(item) {return item.val;});
+  const min = values[0];
+  const max = values[items.length-1];
+
+  React.useEffect(() => {
+    console.log("new slider", min, max);
+  }, []);
+
+  return (
+    <div id={id}>
+      <input id="slider-input" type="text"/>
+    </div>
+  )
 }
 
 function RangeFacet(props) {
