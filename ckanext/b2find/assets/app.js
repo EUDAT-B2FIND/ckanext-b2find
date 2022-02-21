@@ -283,12 +283,25 @@ function RangeSlider(props) {
   const counts = items.map((item) => item.count);
   const start = values[0];
   const end = values[items.length-1];
+  var newStart = start;
+  var newEnd = end;
 
   React.useEffect(() => {
     console.log("new slider", start, end);
     slider();
     button();
   }, []);
+
+  function handleChange(slider) {
+    // console.log(slider);
+    console.log("slider changed:", slider.start, slider.end);
+    newStart = slider.start;
+    newEnd = slider.end;
+  }
+
+  function handleClick() {
+    console.log("button clicked:", newStart, newEnd);
+  }
 
   function slider() {
     const slider = new Bokeh.Widgets.RangeSlider({
@@ -300,6 +313,8 @@ function RangeSlider(props) {
       max_width: 280,
       sizing_mode: "stretch_width",
     });
+    const value = slider.properties.value;
+    slider.on_change(value,  () => handleChange(slider));
     Bokeh.Plotting.show(slider, "#"+id);
   }
 
@@ -309,8 +324,10 @@ function RangeSlider(props) {
       button_type: "success",
       sizing_mode: "stretch_width",
       max_width: 280,
-      disabled: true,
+      disabled: false,
     });
+    console.log(button);
+    // button.on_event("click",  () => handleClick());
     Bokeh.Plotting.show(button, "#"+button_id);
   }
 
