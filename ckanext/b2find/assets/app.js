@@ -276,20 +276,17 @@ function TimeRangeFacet(props) {
 
 function Button(props) {
   const field = props.field;
+  const onClick = props.onClick;
   const id = "button_" + field;
 
   React.useEffect(() => {
   }, []);
 
-  function handleClick() {
-    console.log("button clicked");
-  }
-
   return (
     <button
       class="btn btn-success btn-block"
       type="submit"
-      onClick={handleClick}>
+      onClick={onClick}>
       Apply
     </button>
   )
@@ -303,18 +300,15 @@ function RangeSlider(props) {
   const counts = items.map((item) => item.count);
   const start = values[0];
   const end = values[items.length-1];
-  var newStart = start;
-  var newEnd = end;
+  const [value, setValue] = React.useState([start, end])
 
   React.useEffect(() => {
     console.log("new slider", start, end);
     slider();
   }, []);
 
-  function handleChange(slider) {
-    console.log("slider changed:", slider.start, slider.end);
-    newStart = slider.start;
-    newEnd = slider.end;
+  function onClick() {
+    console.log("click", value);
   }
 
   function slider() {
@@ -328,7 +322,7 @@ function RangeSlider(props) {
       sizing_mode: "stretch_width",
     });
     const value = slider.properties.value;
-    slider.on_change(value,  () => handleChange(slider));
+    slider.on_change(value,  () => setValue(slider.value));
     Bokeh.Plotting.show(slider, "#"+id);
   }
 
@@ -336,7 +330,8 @@ function RangeSlider(props) {
     <React.Fragment>
       <div id={id}></div>
       <Button
-        field={field}/>
+        field={field}
+        onClick={onClick}/>
     </React.Fragment>
   )
 }
