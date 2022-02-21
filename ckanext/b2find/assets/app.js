@@ -187,17 +187,12 @@ function TimeRangeSlider(props) {
   const field = props.field;
   const values = items.map((item) => parseInt(item.val.substr(0,4)));
   const counts = items.map((item) => item.count);
-  const start = values[0];
-  const end = values[items.length-1];
 
   function plot() {
     // create a data source to hold data
     const source = new Bokeh.ColumnDataSource({
         data: { years: values, counts: counts }
     });
-
-    console.log("values", values);
-    console.log("counts", counts);
 
     // make a plot with some tools
     const plot = Bokeh.Plotting.figure({
@@ -220,29 +215,17 @@ function TimeRangeSlider(props) {
     Bokeh.Plotting.show(plot, "#"+id);
   }
 
-  function slider() {
-    const slider = new Bokeh.Widgets.RangeSlider({
-      title: "Selected years",
-      value: [start, end],
-      start: start,
-      end: end,
-      step: 1,
-      max_width: 260,
-      sizing_mode: "stretch_width",
-    });
-    Bokeh.Plotting.show(slider, "#"+slider_id);
-  }
-
   React.useEffect(() => {
-    console.log("new time slider", start, end);
     plot();
-    slider();
   }, []);
 
   return (
     <React.Fragment>
       <div id={id}></div>
-      <div id={slider_id}></div>
+      <RangeSlider
+        items={items}
+        field={field}
+        />
     </React.Fragment>
   )
 }
@@ -295,18 +278,31 @@ function RangeSlider(props) {
   const id = "slider_" + props.field;
   const items = props.items;
   const field = props.field;
-  const values = items.map(function(item) {return item.val;});
-  const min = values[0];
-  const max = values[items.length-1];
+  const values = items.map((item) => parseInt(item.val.substr(0,4)));
+  const counts = items.map((item) => item.count);
+  const start = values[0];
+  const end = values[items.length-1];
 
   React.useEffect(() => {
-    console.log("new slider", min, max);
+    console.log("new slider", start, end);
+    slider();
   }, []);
 
+  function slider() {
+    const slider = new Bokeh.Widgets.RangeSlider({
+      title: "Selected years",
+      value: [start, end],
+      start: start,
+      end: end,
+      step: 1,
+      max_width: 280,
+      sizing_mode: "stretch_width",
+    });
+    Bokeh.Plotting.show(slider, "#"+id);
+  }
+
   return (
-    <div id={id}>
-      <input id="slider-input" type="text"/>
-    </div>
+    <div id={id}></div>
   )
 }
 
