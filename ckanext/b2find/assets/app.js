@@ -184,49 +184,45 @@ function TimeRangeSlider(props) {
   const id = "time_slider_" + props.field;
   const items = props.items;
   const field = props.field;
-  const values = items.map((item) => item.val);
+  const values = items.map((item) => item.val.substr(0,4));
+  const counts = items.map((item) => item.count);
   const min = values[0];
   const max = values[items.length-1];
 
   function plot() {
     // create a data source to hold data
     const source = new Bokeh.ColumnDataSource({
-        data: { x: [], y: [] }
+        data: { years: values, counts: counts }
     });
+
+    console.log("values", values);
+    console.log("counts", counts);
 
     // make a plot with some tools
     const plot = Bokeh.Plotting.figure({
-        title: 'Example of random data',
-        tools: "pan,wheel_zoom,box_zoom,reset,save",
-        height: 300,
-        width: 300
+        title: '',
+        tools: '',
+        toolbar_location: null,
+        y_axis_type: null,
+        sizing_mode: 'stretch_width',
+        height: 280,
+        width: 280
     });
 
     // add a line with data from the source
-    plot.line({ field: "x" }, { field: "y" }, {
+    plot.line({ field: "years" }, { field: "counts" }, {
         source: source,
         line_width: 2
     });
 
-    // show the plot, appending it to the end of the current section
-    Bokeh.Plotting.show(plot);
-
-    function addPoint() {
-        // add data --- all fields must be the same length.
-        source.data.x.push(Math.random())
-        source.data.y.push(Math.random())
-
-        // update the data source with local changes
-        source.change.emit()
-    }
+    // show the plot, replacing div element with id
+    Bokeh.Plotting.show(plot, "#"+id);
   }
 
   React.useEffect(() => {
     console.log("new time slider", min, max);
     plot();
   }, []);
-
-
 
   return (
     <div id={id}></div>
