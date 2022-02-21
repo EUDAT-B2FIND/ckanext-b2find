@@ -279,26 +279,19 @@ function Button(props) {
   const id = "button_" + field;
 
   React.useEffect(() => {
-    button();
   }, []);
 
   function handleClick() {
     console.log("button clicked");
   }
 
-  function button() {
-    const button = new Bokeh.Widgets.Button({
-      label: "Apply",
-      button_type: "success",
-      sizing_mode: "stretch_width",
-      max_width: 280,
-      disabled: false,
-    });
-    Bokeh.Plotting.show(button, "#"+id);
-  }
-
   return (
-    <div id={id}></div>
+    <button
+      class="btn btn-success btn-block"
+      type="submit"
+      onClick={handleClick}>
+      Apply
+    </button>
   )
 }
 
