@@ -206,7 +206,7 @@ function TimeRangeSlider(props) {
         title: '',
         tools: '',
         toolbar_location: null,
-        y_axis_type: null,
+        //y_axis_type: null,
         sizing_mode: 'stretch_width',
         height: 280,
         width: 280
