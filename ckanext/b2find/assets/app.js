@@ -1,37 +1,27 @@
 "use strict";
 
-function SolrQuery(props) {
+async function getItems(field, sort, limit) {
   const url = "/b2find/query"
-  const [items, setItems] = React.useState([]);
-  const field = props.field;
   const type = "terms";
-  const sort = "ia";
-  const limit = -1;
   const location = window.location;
   const urlParams = new URLSearchParams(location.search);
-  const queryClient = ReactQuery.useQueryClient();
-  const { status, data, error, isFetching } = ReactQuery.useQuery('items', async () => {
-    let solrParams = new URLSearchParams()
-    solrParams.set('field', field);
-    solrParams.set('sort', sort);
-    solrParams.set('limit', limit);
-    solrParams.set('type', type);
-    if (urlParams.has("q")) {
-      solrParams.set("q", urlParams.get("q"));
-    }
-    let fq = JSON.parse($("#b2find_fq").val());
-    fq.map((value) => solrParams.append('fq', value));
 
-    let queryURL = url + "?" + solrParams.toString();
-    const { data } = await axios.get(queryURL)
-    //setItems(result.items);
-    //setIsLoaded(true);
-    console.log("data", data);
-    return data
-  })
+  let solrParams = new URLSearchParams()
+  solrParams.set('field', field);
+  solrParams.set('sort', sort);
+  solrParams.set('limit', limit);
+  solrParams.set('type', type);
+  if (urlParams.has("q")) {
+    solrParams.set("q", urlParams.get("q"));
+  }
+  let fq = JSON.parse($("#b2find_fq").val());
+  fq.map((value) => solrParams.append('fq', value));
 
-  return null;
-}
+  let queryURL = url + "?" + solrParams.toString();
+  const { data } = await axios.get(queryURL);
+  //console.log("data", data.items);
+  return data.items;
+};
 
 function Header(props) {
   const target = "#" + props.id;
@@ -162,39 +152,14 @@ function Footer(props) {
 
 function Facet(props) {
   const id = "facet_" + props.field;
-  const field = props.field;
   const title = props.title;
-  const [items, setItems] = React.useState([]);
-  const [isLoaded, setIsLoaded] = React.useState(false);
+  const field = props.field;
   const [sort, setSort] = React.useState("cd");
   const [limit, setLimit] = React.useState(10);
-  const location = window.location;
-  const urlParams = new URLSearchParams(location.search);
+  const { data, isFetching } = ReactQuery.useQuery(
+    ['items', field, sort, limit], () => getItems(field, sort, limit));
 
-  React.useEffect(() => {
-    let solrParams = new URLSearchParams()
-    solrParams.set('field', field);
-    solrParams.set('sort', sort);
-    solrParams.set('limit', limit);
-    if (urlParams.has("q")) {
-      solrParams.set("q", urlParams.get("q"));
-    }
-    let fq = JSON.parse($("#b2find_fq").val());
-    fq.map((value) => solrParams.append('fq', value));
-
-    let solrURL = "/b2find/query?" + solrParams.toString();
-    //console.log(solrURL);
-
-    fetch(solrURL)
-      .then(result => result.json())
-      .then(result => {
-        // console.log(url);
-        setItems(result.items);
-        setIsLoaded(true);
-    });
-  }, [sort, limit]);
-
-  if (!isLoaded) return (
+  if (isFetching) return (
     <section className="module module-narrow module-shallow">
       <Header id={id} title={title}/>
     </section>
@@ -208,7 +173,7 @@ function Facet(props) {
             sort={sort}
             setSort={setSort}/>
           <Items
-            items={items}
+            items={data}
             field={field}/>
           <Footer
             limit={limit}
@@ -482,8 +447,6 @@ function Facets(props) {
   return (
     <React.Fragment>
       <ReactQuery.QueryClientProvider client={queryClient}>
-        <SolrQuery/>
-      </ReactQuery.QueryClientProvider>
       <TimeRangeFacet
         field="extras_TempCoverage"
         startField="ext_tstart"
@@ -504,6 +467,7 @@ function Facets(props) {
       <Facet field="extras_Contributor" title="Contributor"/>
       <Facet field="extras_ResourceType" title="ResourceType"/>
       <Facet field="extras_OpenAccess" title="OpenAccess"/>
+      </ReactQuery.QueryClientProvider>
     </React.Fragment>
   )
 }
