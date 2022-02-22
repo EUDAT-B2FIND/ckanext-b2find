@@ -139,15 +139,20 @@ function Facet(props) {
   const urlParams = new URLSearchParams(location.search);
 
   React.useEffect(() => {
-    let url = "/b2find/query?field="+field+"&sort="+sort+"&limit="+limit;
+    let solrParams = new URLSearchParams()
+    solrParams.set('field', field);
+    solrParams.set('sort', sort);
+    solrParams.set('limit', limit);
     if (urlParams.has("q")) {
-      url += "&q=" + urlParams.get("q");
+      solrParams.set(urlParams.get("q"));
     }
-    if (urlParams.has("fq")) {
-      url += "&fq=" + urlParams.get("fq");
-    }
+    let fq = JSON.parse($("#b2find_fq").val());
+    fq.map((value) => solrParams.append('fq', value));
 
-    fetch(url)
+    let solrURL = "/b2find/query?" + solrParams.toString();
+    console.log(solrURL);
+
+    fetch(solrURL)
       .then(result => result.json())
       .then(result => {
         // console.log(url);
