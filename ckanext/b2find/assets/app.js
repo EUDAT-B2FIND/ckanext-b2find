@@ -276,8 +276,8 @@ function TimeRangeFacet(props) {
 
 function Button(props) {
   const field = props.field;
-  const onClick = props.onClick;
   const id = "button_" + field;
+  const onClick = props.onClick;
 
   React.useEffect(() => {
   }, []);
@@ -300,15 +300,21 @@ function RangeSlider(props) {
   const counts = items.map((item) => item.count);
   const start = values[0];
   const end = values[items.length-1];
-  const [value, setValue] = React.useState([start, end])
+  const [value, setValue] = React.useState([start, end]);
+  const location = window.location;
+  const searchParams = new URLSearchParams(location.search);
+  //const [searchParams, setSearchParams] = React.useState(params);
 
   React.useEffect(() => {
-    console.log("new slider", start, end);
+    // console.log("new slider", start, end);
     slider();
   }, []);
 
   function onClick() {
-    console.log("click", value);
+    // console.log("click", value);
+    searchParams.set('ext_pstart', value[0]);
+    searchParams.set('ext_pend', value[1]);
+    window.location.href = location.pathname + "?" + searchParams.toString();
   }
 
   function slider() {
