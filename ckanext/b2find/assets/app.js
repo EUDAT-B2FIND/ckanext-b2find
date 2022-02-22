@@ -150,7 +150,7 @@ function Facet(props) {
     fq.map((value) => solrParams.append('fq', value));
 
     let solrURL = "/b2find/query?" + solrParams.toString();
-    console.log(solrURL);
+    //console.log(solrURL);
 
     fetch(solrURL)
       .then(result => result.json())
@@ -261,7 +261,7 @@ function TimeRangeFacet(props) {
     fq.map((value) => solrParams.append('fq', value));
 
     let solrURL = "/b2find/query?" + solrParams.toString();
-    console.log(solrURL);
+    //console.log(solrURL);
 
     fetch(solrURL)
       .then(result => result.json())
@@ -291,9 +291,9 @@ function TimeRangeFacet(props) {
   );
 }
 
-function Button(props) {
+function ApplyButton(props) {
   const field = props.field;
-  const id = "button_" + field;
+  const id = "apply_button_" + field;
   const onClick = props.onClick;
 
   React.useEffect(() => {
@@ -305,6 +305,24 @@ function Button(props) {
       type="submit"
       onClick={onClick}>
       Apply
+    </button>
+  )
+}
+
+function ResetButton(props) {
+  const field = props.field;
+  const id = "reset_button_" + field;
+  const onClick = props.onClick;
+
+  React.useEffect(() => {
+  }, []);
+
+  return (
+    <button
+      class="btn btn-warning btn-block"
+      type="submit"
+      onClick={onClick}>
+      Reset
     </button>
   )
 }
@@ -329,10 +347,16 @@ function RangeSlider(props) {
     slider();
   }, []);
 
-  function onClick() {
+  function handleApply() {
     // console.log("click", value);
     searchParams.set(startField, value[0]);
     searchParams.set(endField, value[1]);
+    window.location.href = location.pathname + "?" + searchParams.toString();
+  }
+
+  function handleReset() {
+    searchParams.delete(startField);
+    searchParams.delete(endField);
     window.location.href = location.pathname + "?" + searchParams.toString();
   }
 
@@ -354,9 +378,12 @@ function RangeSlider(props) {
   return (
     <React.Fragment>
       <div id={id}></div>
-      <Button
+      <ApplyButton
         field={field}
-        onClick={onClick}/>
+        onClick={handleApply}/>
+      <ResetButton
+        field={field}
+        onClick={handleReset}/>
     </React.Fragment>
   )
 }
@@ -386,7 +413,7 @@ function RangeFacet(props) {
     fq.map((value) => solrParams.append('fq', value));
 
     let solrURL = "/b2find/query?" + solrParams.toString();
-    console.log(solrURL);
+    //console.log(solrURL);
 
     fetch(solrURL)
       .then(result => result.json())
