@@ -144,7 +144,7 @@ function Facet(props) {
     solrParams.set('sort', sort);
     solrParams.set('limit', limit);
     if (urlParams.has("q")) {
-      solrParams.set(urlParams.get("q"));
+      solrParams.set("q", urlParams.get("q"));
     }
     let fq = JSON.parse($("#b2find_fq").val());
     fq.map((value) => solrParams.append('fq', value));
@@ -255,7 +255,7 @@ function TimeRangeFacet(props) {
     solrParams.set('field', field);
     solrParams.set('type', 'range');
     if (urlParams.has("q")) {
-      solrParams.set(urlParams.get("q"));
+      solrParams.set("q", urlParams.get("q"));
     }
     let fq = JSON.parse($("#b2find_fq").val());
     fq.map((value) => solrParams.append('fq', value));
@@ -407,7 +407,7 @@ function RangeFacet(props) {
     solrParams.set('sort', sort);
     solrParams.set('limit', limit);
     if (urlParams.has("q")) {
-      solrParams.set(urlParams.get("q"));
+      solrParams.set("q", urlParams.get("q"));
     }
     let fq = JSON.parse($("#b2find_fq").val());
     fq.map((value) => solrParams.append('fq', value));
