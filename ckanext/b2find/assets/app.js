@@ -22,6 +22,13 @@ async function getItems(field, type, sort, limit) {
   return data.items;
 };
 
+function useSolrQuery(field, type, sort, limit) {
+  const { data, isFetching } = ReactQuery.useQuery(
+    ['items', field, sort, limit], () => getItems(field, type, sort, limit));
+
+  return [data, isFetching];
+}
+
 function Header(props) {
   const target = "#" + props.id;
   const title = props.title;
@@ -153,11 +160,9 @@ function Facet(props) {
   const id = "facet_" + props.field;
   const title = props.title;
   const field = props.field;
-  const type = "terms";
   const [sort, setSort] = React.useState("cd");
   const [limit, setLimit] = React.useState(10);
-  const { data, isFetching } = ReactQuery.useQuery(
-    ['items', field, sort, limit], () => getItems(field, type, sort, limit));
+  const [items, isFetching] = useSolrQuery(field, "terms", sort, limit);
 
   if (isFetching) return (
     <section className="module module-narrow module-shallow">
@@ -173,7 +178,7 @@ function Facet(props) {
             sort={sort}
             setSort={setSort}/>
           <Items
-            items={data}
+            items={items}
             field={field}/>
           <Footer
             limit={limit}
@@ -241,13 +246,9 @@ function TimeRangeFacet(props) {
   const id = "facet_" + props.field;
   const title = props.title;
   const field = props.field;
-  const type = "range";
-  const sort = "cd";
-  const limit = 10;
   const startField = props.startField;
   const endField = props.endField;
-  const { data, isFetching } = ReactQuery.useQuery(
-    ['items', field, sort, limit], () => getItems(field, type, sort, limit));
+  const [items, isFetching] = useSolrQuery(field, "range", "cd", 0);
 
   if (isFetching) return (
     <section className="module module-narrow module-shallow">
@@ -259,7 +260,7 @@ function TimeRangeFacet(props) {
         <Header id={id} title={title}/>
         <div id={id} className="collapse">
           <TimeRangeSlider
-            items={data}
+            items={items}
             field={field}
             startField={startField}
             endField={endField}/>
@@ -371,11 +372,7 @@ function RangeFacet(props) {
   const field = props.field;
   const startField = props.startField;
   const endField = props.endField;
-  const type = "terms";
-  const sort = "ia";
-  const limit = -1;
-  const { data, isFetching } = ReactQuery.useQuery(
-    ['items', field, sort, limit], () => getItems(field, type, sort, limit));
+  const [items, isFetching] = useSolrQuery(field, "terms", "ia", -1);
 
   if (isFetching) return (
     <section className="module module-narrow module-shallow">
@@ -387,7 +384,7 @@ function RangeFacet(props) {
         <Header id={id} title={title}/>
         <div id={id} className="collapse">
           <RangeSlider
-            items={data}
+            items={items}
             field={field}
             startField={startField}
             endField={endField}/>
