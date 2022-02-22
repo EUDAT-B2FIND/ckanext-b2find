@@ -1,5 +1,42 @@
 "use strict";
 
+function SolrQuery(props) {
+  const url = "/b2find/query"
+  const field = props.field;
+  const [items, setItems] = React.useState([]);
+  const [isLoaded, setIsLoaded] = React.useState(false);
+  const type = "terms";
+  const sort = "ia";
+  const limit = -1;
+  const location = window.location;
+  const urlParams = new URLSearchParams(location.search);
+
+  React.useEffect(() => {
+    let solrParams = new URLSearchParams()
+    solrParams.set('field', field);
+    solrParams.set('sort', sort);
+    solrParams.set('limit', limit);
+    solrParams.set('type', type);
+    if (urlParams.has("q")) {
+      solrParams.set("q", urlParams.get("q"));
+    }
+    let fq = JSON.parse($("#b2find_fq").val());
+    fq.map((value) => solrParams.append('fq', value));
+
+    let solrURL = url + "?" + solrParams.toString();
+    //console.log(solrURL);
+
+    fetch(solrURL)
+      .then(result => result.json())
+      .then(result => {
+        // console.log(url);
+        setItems(result.items);
+        setIsLoaded(true);
+    });
+  }, []);
+
+}
+
 function Header(props) {
   const target = "#" + props.id;
   const title = props.title;
