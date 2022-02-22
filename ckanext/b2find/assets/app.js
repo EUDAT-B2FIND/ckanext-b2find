@@ -2,16 +2,15 @@
 
 function SolrQuery(props) {
   const url = "/b2find/query"
-  const field = props.field;
   const [items, setItems] = React.useState([]);
-  const [isLoaded, setIsLoaded] = React.useState(false);
+  const field = props.field;
   const type = "terms";
   const sort = "ia";
   const limit = -1;
   const location = window.location;
   const urlParams = new URLSearchParams(location.search);
-
-  React.useEffect(() => {
+  const queryClient = ReactQuery.useQueryClient();
+  const { status, data, error, isFetching } = ReactQuery.useQuery('items', async () => {
     let solrParams = new URLSearchParams()
     solrParams.set('field', field);
     solrParams.set('sort', sort);
@@ -23,18 +22,15 @@ function SolrQuery(props) {
     let fq = JSON.parse($("#b2find_fq").val());
     fq.map((value) => solrParams.append('fq', value));
 
-    let solrURL = url + "?" + solrParams.toString();
-    //console.log(solrURL);
+    let queryURL = url + "?" + solrParams.toString();
+    const { data } = await axios.get(queryURL)
+    //setItems(result.items);
+    //setIsLoaded(true);
+    console.log("data", data);
+    return data
+  })
 
-    fetch(solrURL)
-      .then(result => result.json())
-      .then(result => {
-        // console.log(url);
-        setItems(result.items);
-        setIsLoaded(true);
-    });
-  }, []);
-
+  return null;
 }
 
 function Header(props) {
@@ -338,7 +334,7 @@ function ApplyButton(props) {
 
   return (
     <button
-      class="btn btn-success btn-block"
+      className="btn btn-success btn-block"
       type="submit"
       onClick={onClick}>
       Apply
@@ -356,7 +352,7 @@ function ResetButton(props) {
 
   return (
     <button
-      class="btn btn-warning btn-block"
+      className="btn btn-warning btn-block"
       type="submit"
       onClick={onClick}>
       Reset
@@ -481,8 +477,13 @@ function RangeFacet(props) {
 }
 
 function Facets(props) {
+  const queryClient = new ReactQuery.QueryClient()
+
   return (
     <React.Fragment>
+      <ReactQuery.QueryClientProvider client={queryClient}>
+        <SolrQuery/>
+      </ReactQuery.QueryClientProvider>
       <TimeRangeFacet
         field="extras_TempCoverage"
         startField="ext_tstart"
