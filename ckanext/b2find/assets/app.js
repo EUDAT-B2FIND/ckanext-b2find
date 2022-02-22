@@ -118,7 +118,7 @@ function Footer(props) {
         Less
       </button>
       <button
-        className="btn btn-default"
+        className="btn btn-default pull-right"
         type="button"
         onClick={e => setLimit(limit + 10)}>
         More
