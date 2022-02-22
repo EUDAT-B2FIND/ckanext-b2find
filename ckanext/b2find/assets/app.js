@@ -1,30 +1,35 @@
 "use strict";
 
-async function getItems(field, type, sort, limit) {
+async function getItems(q, fq, field, type, sort, limit) {
   const url = "/b2find/query"
-  const location = window.location;
-  const urlParams = new URLSearchParams(location.search);
 
   let solrParams = new URLSearchParams()
   solrParams.set('field', field);
   solrParams.set('sort', sort);
   solrParams.set('limit', limit);
   solrParams.set('type', type);
-  if (urlParams.has("q")) {
-    solrParams.set("q", urlParams.get("q"));
-  }
-  let fq = JSON.parse($("#b2find_fq").val());
+  solrParams.set("q", q);
   fq.map((value) => solrParams.append('fq', value));
 
   let queryURL = url + "?" + solrParams.toString();
   const { data } = await axios.get(queryURL);
-  //console.log("data", data.items);
   return data.items;
 };
 
+function useSolrParams() {
+  const searchParams = new URLSearchParams(window.location.search);
+  let q = "*:*";
+  if (searchParams.has("q")) {
+    q = searchParams.get("q");
+  }
+  let fq = JSON.parse($("#b2find_fq").val());
+  return [q, fq];
+}
+
 function useSolrQuery(field, type, sort, limit) {
+  const [q, fq] = useSolrParams()
   const { data, isFetching } = ReactQuery.useQuery(
-    ['items', field, sort, limit], () => getItems(field, type, sort, limit));
+    ['items', field, sort, limit], () => getItems(q, fq, field, type, sort, limit));
 
   return [data, isFetching];
 }
