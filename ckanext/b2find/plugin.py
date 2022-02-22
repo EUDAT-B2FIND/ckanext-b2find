@@ -67,8 +67,8 @@ class B2FindPlugin(plugins.SingletonPlugin):
 
     # IPackageController
     def before_search(self, search_params):
-        # publication year
         search_params = self.pubyear_before_search(search_params)
+        search_params = self.tempcov_before_search(search_params)
         return search_params
 
     def pubyear_before_search(self, search_params):
@@ -88,7 +88,31 @@ class B2FindPlugin(plugins.SingletonPlugin):
 
         # Add a date-range query with the selected start and/or end dates into the Solr facet queries.
         fq = search_params.get('fq', '')
-        fq = f"extras_PublicationYear:[{start} TO {end}]"
+        print(type(fq))
+        print(fq)
+        fq = f"{fq} extras_PublicationYear:[{start} TO {end}]"
+
+        search_params['fq'] = fq
+        return search_params
+
+    def tempcov_before_search(self, search_params):
+        # publication year
+        start = end = None
+        extras = search_params.get('extras')
+        if extras:
+            start = extras.get('ext_tstart')
+            end = extras.get('ext_tend')
+        # print(search_params)
+
+        if not start and not end:
+            # The user didn't select either a start and/or end date, so do nothing.
+            return search_params
+        start = start or '*'
+        end = end or '*'
+
+        # Add a date-range query with the selected start and/or end dates into the Solr facet queries.
+        fq = search_params.get('fq', '')
+        fq = f"{fq} extras_TempCoverage:[{start}-01-01T00:00:00Z TO {end}-12-31T23:59:59Z]"
 
         search_params['fq'] = fq
         return search_params

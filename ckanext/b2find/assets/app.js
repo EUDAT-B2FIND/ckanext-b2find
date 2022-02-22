@@ -190,6 +190,8 @@ function TimeRangeSlider(props) {
   const slider_id = "time_slider_range_widget_" + props.field;
   const items = props.items;
   const field = props.field;
+  const startField = props.startField;
+  const endField = props.endField;
   const values = items.map((item) => parseInt(item.val.substr(0,4)));
   const counts = items.map((item) => item.count);
 
@@ -230,6 +232,8 @@ function TimeRangeSlider(props) {
       <RangeSlider
         items={items}
         field={field}
+        startField={startField}
+        endField={endField}
         />
     </React.Fragment>
   )
@@ -238,6 +242,8 @@ function TimeRangeSlider(props) {
 function TimeRangeFacet(props) {
   const id = "facet_" + props.field;
   const field = props.field;
+  const startField = props.startField;
+  const endField = props.endField;
   const title = props.title;
   const [items, setItems] = React.useState([]);
   const [isLoaded, setIsLoaded] = React.useState(false);
@@ -277,7 +283,9 @@ function TimeRangeFacet(props) {
         <div id={id} className="collapse">
           <TimeRangeSlider
             items={items}
-            field={field}/>
+            field={field}
+            startField={startField}
+            endField={endField}/>
         </div>
     </section>
   );
@@ -305,6 +313,8 @@ function RangeSlider(props) {
   const id = "slider_" + props.field;
   const items = props.items;
   const field = props.field;
+  const startField = props.startField;
+  const endField = props.endField;
   const values = items.map((item) => parseInt(item.val.substr(0,4)));
   const counts = items.map((item) => item.count);
   const start = values[0];
@@ -321,8 +331,8 @@ function RangeSlider(props) {
 
   function onClick() {
     // console.log("click", value);
-    searchParams.set('ext_pstart', value[0]);
-    searchParams.set('ext_pend', value[1]);
+    searchParams.set(startField, value[0]);
+    searchParams.set(endField, value[1]);
     window.location.href = location.pathname + "?" + searchParams.toString();
   }
 
@@ -354,6 +364,8 @@ function RangeSlider(props) {
 function RangeFacet(props) {
   const id = "facet_" + props.field;
   const field = props.field;
+  const startField = props.startField;
+  const endField = props.endField;
   const title = props.title;
   const [items, setItems] = React.useState([]);
   const [isLoaded, setIsLoaded] = React.useState(false);
@@ -396,7 +408,9 @@ function RangeFacet(props) {
         <div id={id} className="collapse">
           <RangeSlider
             items={items}
-            field={field}/>
+            field={field}
+            startField={startField}
+            endField={endField}/>
         </div>
     </section>
   );
@@ -405,8 +419,16 @@ function RangeFacet(props) {
 function Facets(props) {
   return (
     <React.Fragment>
-      <TimeRangeFacet field="extras_TempCoverage" title="Temporal Coverage"/>
-      <RangeFacet field="extras_PublicationYear" title="Publication Year"/>
+      <TimeRangeFacet
+        field="extras_TempCoverage"
+        startField="ext_tstart"
+        endField="ext_tend"
+        title="Temporal Coverage"/>
+      <RangeFacet
+        field="extras_PublicationYear"
+        startField="ext_pstart"
+        endField="ext_pend"
+        title="Publication Year"/>
       <Facet field="groups" title="Communities"/>
       <Facet field="tags" title="Keywords"/>
       <Facet field="author" title="Creator"/>
