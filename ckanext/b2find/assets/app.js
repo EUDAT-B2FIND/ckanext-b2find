@@ -1,8 +1,7 @@
 "use strict";
 
-async function getItems(field, sort, limit) {
+async function getItems(field, type, sort, limit) {
   const url = "/b2find/query"
-  const type = "terms";
   const location = window.location;
   const urlParams = new URLSearchParams(location.search);
 
@@ -154,10 +153,11 @@ function Facet(props) {
   const id = "facet_" + props.field;
   const title = props.title;
   const field = props.field;
+  const type = "terms";
   const [sort, setSort] = React.useState("cd");
   const [limit, setLimit] = React.useState(10);
   const { data, isFetching } = ReactQuery.useQuery(
-    ['items', field, sort, limit], () => getItems(field, sort, limit));
+    ['items', field, sort, limit], () => getItems(field, type, sort, limit));
 
   if (isFetching) return (
     <section className="module module-narrow module-shallow">
@@ -239,38 +239,17 @@ function TimeRangeSlider(props) {
 
 function TimeRangeFacet(props) {
   const id = "facet_" + props.field;
+  const title = props.title;
   const field = props.field;
+  const type = "range";
+  const sort = "cd";
+  const limit = 10;
   const startField = props.startField;
   const endField = props.endField;
-  const title = props.title;
-  const [items, setItems] = React.useState([]);
-  const [isLoaded, setIsLoaded] = React.useState(false);
-  const location = window.location;
-  const urlParams = new URLSearchParams(location.search);
+  const { data, isFetching } = ReactQuery.useQuery(
+    ['items', field, sort, limit], () => getItems(field, type, sort, limit));
 
-  React.useEffect(() => {
-    let solrParams = new URLSearchParams()
-    solrParams.set('field', field);
-    solrParams.set('type', 'range');
-    if (urlParams.has("q")) {
-      solrParams.set("q", urlParams.get("q"));
-    }
-    let fq = JSON.parse($("#b2find_fq").val());
-    fq.map((value) => solrParams.append('fq', value));
-
-    let solrURL = "/b2find/query?" + solrParams.toString();
-    //console.log(solrURL);
-
-    fetch(solrURL)
-      .then(result => result.json())
-      .then(result => {
-        // console.log(url);
-        setItems(result.items);
-        setIsLoaded(true);
-    });
-  }, []);
-
-  if (!isLoaded) return (
+  if (isFetching) return (
     <section className="module module-narrow module-shallow">
       <Header id={id} title={title}/>
     </section>
@@ -280,7 +259,7 @@ function TimeRangeFacet(props) {
         <Header id={id} title={title}/>
         <div id={id} className="collapse">
           <TimeRangeSlider
-            items={items}
+            items={data}
             field={field}
             startField={startField}
             endField={endField}/>
@@ -388,41 +367,17 @@ function RangeSlider(props) {
 
 function RangeFacet(props) {
   const id = "facet_" + props.field;
+  const title = props.title;
   const field = props.field;
   const startField = props.startField;
   const endField = props.endField;
-  const title = props.title;
-  const [items, setItems] = React.useState([]);
-  const [isLoaded, setIsLoaded] = React.useState(false);
+  const type = "terms";
   const sort = "ia";
   const limit = -1;
-  const location = window.location;
-  const urlParams = new URLSearchParams(location.search);
+  const { data, isFetching } = ReactQuery.useQuery(
+    ['items', field, sort, limit], () => getItems(field, type, sort, limit));
 
-  React.useEffect(() => {
-    let solrParams = new URLSearchParams()
-    solrParams.set('field', field);
-    solrParams.set('sort', sort);
-    solrParams.set('limit', limit);
-    if (urlParams.has("q")) {
-      solrParams.set("q", urlParams.get("q"));
-    }
-    let fq = JSON.parse($("#b2find_fq").val());
-    fq.map((value) => solrParams.append('fq', value));
-
-    let solrURL = "/b2find/query?" + solrParams.toString();
-    //console.log(solrURL);
-
-    fetch(solrURL)
-      .then(result => result.json())
-      .then(result => {
-        // console.log(url);
-        setItems(result.items);
-        setIsLoaded(true);
-    });
-  }, []);
-
-  if (!isLoaded) return (
+  if (isFetching) return (
     <section className="module module-narrow module-shallow">
       <Header id={id} title={title}/>
     </section>
@@ -432,7 +387,7 @@ function RangeFacet(props) {
         <Header id={id} title={title}/>
         <div id={id} className="collapse">
           <RangeSlider
-            items={items}
+            items={data}
             field={field}
             startField={startField}
             endField={endField}/>
@@ -447,26 +402,26 @@ function Facets(props) {
   return (
     <React.Fragment>
       <ReactQuery.QueryClientProvider client={queryClient}>
-      <TimeRangeFacet
-        field="extras_TempCoverage"
-        startField="ext_tstart"
-        endField="ext_tend"
-        title="Temporal Coverage"/>
-      <RangeFacet
-        field="extras_PublicationYear"
-        startField="ext_pstart"
-        endField="ext_pend"
-        title="Publication Year"/>
-      <Facet field="groups" title="Communities"/>
-      <Facet field="tags" title="Keywords"/>
-      <Facet field="author" title="Creator"/>
-      <Facet field="extras_Instrument" title="Instrument"/>
-      <Facet field="extras_Discipline" title="Discipline"/>
-      <Facet field="extras_Language" title="Language"/>
-      <Facet field="extras_Publisher" title="Publisher"/>
-      <Facet field="extras_Contributor" title="Contributor"/>
-      <Facet field="extras_ResourceType" title="ResourceType"/>
-      <Facet field="extras_OpenAccess" title="OpenAccess"/>
+        <TimeRangeFacet
+          field="extras_TempCoverage"
+          startField="ext_tstart"
+          endField="ext_tend"
+          title="Temporal Coverage"/>
+        <RangeFacet
+          field="extras_PublicationYear"
+          startField="ext_pstart"
+          endField="ext_pend"
+          title="Publication Year"/>
+        <Facet field="groups" title="Communities"/>
+        <Facet field="tags" title="Keywords"/>
+        <Facet field="author" title="Creator"/>
+        <Facet field="extras_Instrument" title="Instrument"/>
+        <Facet field="extras_Discipline" title="Discipline"/>
+        <Facet field="extras_Language" title="Language"/>
+        <Facet field="extras_Publisher" title="Publisher"/>
+        <Facet field="extras_Contributor" title="Contributor"/>
+        <Facet field="extras_ResourceType" title="ResourceType"/>
+        <Facet field="extras_OpenAccess" title="OpenAccess"/>
       </ReactQuery.QueryClientProvider>
     </React.Fragment>
   )
