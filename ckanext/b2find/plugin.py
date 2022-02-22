@@ -8,6 +8,7 @@ class B2FindPlugin(plugins.SingletonPlugin):
     plugins.implements(plugins.IConfigurer)
     plugins.implements(plugins.IFacets)
     plugins.implements(plugins.ITemplateHelpers)
+    plugins.implements(plugins.IPackageController, inherit=True)
     plugins.implements(plugins.IBlueprint)
 
     # IConfigurer
@@ -60,6 +61,29 @@ class B2FindPlugin(plugins.SingletonPlugin):
         facets_dict['extras_OpenAccess'] = 'OpenAccess'
 
         return facets_dict
+
+    # IPackageController
+    def before_search(self, search_params):
+        # publication year
+        start = end = None
+        extras = search_params.get('extras')
+        if extras:
+            start = extras.get('ext_pstart')
+            end = extras.get('ext_pend')
+        # print(search_params)
+
+        if not start and not end:
+            # The user didn't select either a start and/or end date, so do nothing.
+            return search_params
+        start = start or '*'
+        end = end or '*'
+
+        # Add a date-range query with the selected start and/or end dates into the Solr facet queries.
+        fq = search_params.get('fq', '')
+        fq = f"extras_PublicationYear:[{start} TO {end}]"
+
+        search_params['fq'] = fq
+        return search_params
 
     # IBlueprint
     def get_blueprint(self):
