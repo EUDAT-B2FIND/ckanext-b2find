@@ -47,11 +47,11 @@ def query_facets():
         json_query["facet"][field] = {
             "type": "range",
             "field": field,
-            "start": "1900-01-01T00:00:00Z/YEAR",
-            "end": "NOW/YEAR",
+            "start": "-5000-01-01T00:00:00Z/YEAR",
+            "end": "2200-12-31T00:00:00Z/YEAR",
             "gap": "+10YEARS",
             # "limit": limit,
-            # "mincount": 1,
+            "mincount": 1,
             # "sort": _translate_sort(sort),
         }
     else:
