@@ -3,6 +3,17 @@
 async function getItems(query, filter, field, type, sort, limit) {
   const url = "/b2find/query"
 
+  let sortParam = {"count": "desc"};
+  if (sort == "cd") {
+    sortParam = {"count": "desc"};
+  } else if (sort == "ca") {
+    sortParam = {"count": "asc"};
+  } else if (sort == "id") {
+    sortParam = {"index": "desc"};
+  } else if (sort == "ia") {
+    sortParam = {"index": "asc"};
+  }
+
   let jsonQuery = {
     "query": {
       "lucene": {
@@ -32,14 +43,12 @@ async function getItems(query, filter, field, type, sort, limit) {
       "field": field,
       "limit": limit,
       "mincount": 1,
-      "sort": {"count": "desc"},
+      "sort": sortParam,
     };
   }
 
-  console.log(jsonQuery);
   const { data } = await axios.post(url, jsonQuery);
-  console.log(data);
-
+  
   let items = data["facets"][field]["buckets"];
   return items;
 };
