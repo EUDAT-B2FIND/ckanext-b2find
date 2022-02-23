@@ -48,20 +48,34 @@ async function getItems(query, filter, field, type, sort, limit) {
   }
 
   const { data } = await axios.post(url, jsonQuery);
-  
-  let items = data["facets"][field]["buckets"];
+
+  let items = [];
+  //console.log(field, data["facets"]);
+  if (field in data["facets"]) {
+    items = data["facets"][field]["buckets"];
+  }
   return items;
 };
 
 function useSolrParams() {
   const searchParams = new URLSearchParams(window.location.search);
-  let q = "*:*";
+  let query = "*:*";
   if (searchParams.has("q")) {
-    q = searchParams.get("q");
+    query = searchParams.get("q");
   }
-  let fq = "*";
-  //et fq = JSON.parse($("#b2find_fq").val());
-  return [q, fq];
+  let filter = "*";
+  // for (const val of searchParams.getAll("tags")) {
+  //   query += " tags:"+val;
+  // };
+  // for (const val of searchParams.getAll("author")) {
+  //   query += " author:"+val;
+  // };
+  // if (query == "") {
+  //   query = "*:*";
+  // }
+  //console.log(query);
+
+  return [query, filter];
 }
 
 function useSolrQuery(field, type, sort, limit) {
