@@ -1,19 +1,47 @@
 "use strict";
 
-async function getItems(q, fq, field, type, sort, limit) {
+async function getItems(query, filter, field, type, sort, limit) {
   const url = "/b2find/query"
 
-  let solrParams = new URLSearchParams()
-  solrParams.set('field', field);
-  solrParams.set('sort', sort);
-  solrParams.set('limit', limit);
-  solrParams.set('type', type);
-  solrParams.set("q", q);
-  fq.map((value) => solrParams.append('fq', value));
+  let jsonQuery = {
+    "query": {
+      "lucene": {
+        "df": "text",
+        "query": query,
+        }
+      },
+      "filter": filter,
+      "limit": 0,
+      "facet": {},
+  };
 
-  let queryURL = url + "?" + solrParams.toString();
-  const { data } = await axios.get(queryURL);
-  return data.items;
+  if (type == "range") {
+    jsonQuery["facet"][field] = {
+      "type": "range",
+      "field": field,
+      "start": "-5000-01-01T00:00:00Z/YEAR",
+      "end": "2200-12-31T00:00:00Z/YEAR",
+      "gap": "+10YEARS",
+      // "limit": limit,
+      "mincount": 1,
+      // "sort": _translate_sort(sort),
+    };
+  } else {
+    jsonQuery["facet"][field] = {
+      "type": "terms",
+      "field": field,
+      "limit": limit,
+      "mincount": 1,
+      "sort": {"count": "desc"},
+    };
+  }
+
+  console.log(jsonQuery);
+  const { data } = await axios.post(url, jsonQuery);
+  console.log(data);
+
+  let items = data["facets"][field]["buckets"];
+  return items;
 };
 
 function useSolrParams() {
@@ -22,14 +50,15 @@ function useSolrParams() {
   if (searchParams.has("q")) {
     q = searchParams.get("q");
   }
-  let fq = JSON.parse($("#b2find_fq").val());
+  let fq = "*";
+  //et fq = JSON.parse($("#b2find_fq").val());
   return [q, fq];
 }
 
 function useSolrQuery(field, type, sort, limit) {
-  const [q, fq] = useSolrParams()
+  const [query, filter] = useSolrParams()
   const { data, isFetching } = ReactQuery.useQuery(
-    ['items', field, sort, limit], () => getItems(q, fq, field, type, sort, limit));
+    ['items', field, sort, limit], () => getItems(query, filter, field, type, sort, limit));
 
   return [data, isFetching];
 }

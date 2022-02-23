@@ -21,56 +21,16 @@ def _translate_sort(sort=None):
 
 
 @b2find.route('/b2find/query', endpoint='query_facets',
-              methods=['GET'])
+              methods=['POST'])
 def query_facets():
+    print("query")
+    content_type = request.headers.get('Content-Type')
+    if (content_type != 'application/json'):
+        return {}
+    json_query = request.json
+
     solr = ckan.lib.search.make_connection()
-    query = request.params.get('q', '*:*')
-    filter = request.params.get('fq', '*')
-    field = request.params.get('field', 'tags')
-    type = request.params.get('type', 'terms')
-    limit = int(request.params.get('limit', 10))
-    sort = request.params.get('sort', 'cd')
-
-    json_query = {
-      "query": {
-        "lucene": {
-            "df": "text",
-            "query": query,
-        }
-      },
-      "filter": filter,
-      "limit": 0,
-      "facet": {},
-    }
-
-    if type == "range":
-        json_query["facet"][field] = {
-            "type": "range",
-            "field": field,
-            "start": "-5000-01-01T00:00:00Z/YEAR",
-            "end": "2200-12-31T00:00:00Z/YEAR",
-            "gap": "+10YEARS",
-            # "limit": limit,
-            "mincount": 1,
-            # "sort": _translate_sort(sort),
-        }
-    else:
-        json_query["facet"][field] = {
-            "type": "terms",
-            "field": field,
-            "limit": limit,
-            "mincount": 1,
-            "sort": _translate_sort(sort),
-        }
-
     resp = requests.post(
         url=f"{solr.url}/query",
         json=json_query)
-
-    # print(resp.json())
-    result = {}
-    if field in resp.json()["facets"]:
-        result["items"] = resp.json()["facets"][field]["buckets"]
-    else:
-        result["items"] = []
-    return result
+    return resp.json()
