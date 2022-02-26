@@ -50,15 +50,16 @@ class B2FindPlugin(plugins.SingletonPlugin):
             facets_dict['tags'] = 'Keywords'
 
         # New facets
-        facets_dict['extras_TempCoverage'] = 'Temporal Coverage'
-        facets_dict['extras_PublicationYear'] = 'Publication Year'
         facets_dict['author'] = 'Creator'
+        facets_dict['extras_TempCoverage'] = 'TemporalCoverage'
+        facets_dict['extras_PublicationYear'] = 'PublicationYear'
         facets_dict['extras_Instrument'] = 'Instrument'
         facets_dict['extras_Discipline'] = 'Discipline'
         facets_dict['extras_Language'] = 'Language'
         facets_dict['extras_Publisher'] = 'Publisher'
         facets_dict['extras_Contributor'] = 'Contributor'
         facets_dict['extras_ResourceType'] = 'ResourceType'
+        facets_dict['extras_FundingReference'] = 'FundingReference'
         facets_dict['extras_OpenAccess'] = 'OpenAccess'
 
         return facets_dict

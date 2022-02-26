@@ -33,9 +33,9 @@ async function getItems(query, filter, facetFilter, field, type, sort, limit) {
     jsonQuery["facet"][field] = {
       "type": "range",
       "field": field,
-      "start": "-5000-01-01T00:00:00Z/YEAR",
-      "end": "2200-12-31T00:00:00Z/YEAR",
-      "gap": "+10YEARS",
+      "start": "-1000-01-01T00:00:00Z/YEAR",
+      "end": "NOW+10YEARS/YEAR",
+      "gap": "+1YEARS",
       // "limit": limit,
       "mincount": 1,
       // "sort": _translate_sort(sort),
@@ -80,7 +80,10 @@ function useSolrParams() {
     "extras_Publisher",
     "extras_Contributor",
     "extras_ResourceType",
+    "extras_FundingReference",
     "extras_OpenAccess",
+    "extras_TempCoverage",
+    "extras_PublicationYear",
   ]
   const searchParams = new URLSearchParams(window.location.search);
   let query = "*:*";
@@ -93,7 +96,7 @@ function useSolrParams() {
       filter.push([field, ':', '\"', val, '\"'].join(''));
     };
   };
-  
+
   //console.log(filter);
   return [query, filter];
 }
@@ -277,8 +280,6 @@ function TimeRangeSlider(props) {
   const slider_id = "time_slider_range_widget_" + props.field;
   const items = props.items;
   const field = props.field;
-  const startField = props.startField;
-  const endField = props.endField;
   const values = items.map((item) => parseInt(item.val.substr(0,4)));
   const counts = items.map((item) => item.count);
 
@@ -295,7 +296,7 @@ function TimeRangeSlider(props) {
         toolbar_location: null,
         //y_axis_type: null,
         sizing_mode: 'stretch_width',
-        height: 280,
+        height: 250,
         width: 280
     });
 
@@ -319,8 +320,6 @@ function TimeRangeSlider(props) {
       <RangeSlider
         items={items}
         field={field}
-        startField={startField}
-        endField={endField}
         />
     </React.Fragment>
   )
@@ -330,8 +329,6 @@ function TimeRangeFacet(props) {
   const id = "facet_" + props.field;
   const title = props.title;
   const field = props.field;
-  const startField = props.startField;
-  const endField = props.endField;
   const [items, isFetching, isSuccess] = useSolrQuery(field, "range", null, "cd", 0);
 
   return (
@@ -342,8 +339,7 @@ function TimeRangeFacet(props) {
           <TimeRangeSlider
             items={items}
             field={field}
-            startField={startField}
-            endField={endField}/>
+            />
         </div>
       )}
     </section>
@@ -368,30 +364,11 @@ function ApplyButton(props) {
   )
 }
 
-function ResetButton(props) {
-  const field = props.field;
-  const id = "reset_button_" + field;
-  const onClick = props.onClick;
-
-  React.useEffect(() => {
-  }, []);
-
-  return (
-    <button
-      className="btn btn-warning btn-block"
-      type="submit"
-      onClick={onClick}>
-      Reset
-    </button>
-  )
-}
 
 function RangeSlider(props) {
   const id = "slider_" + props.field;
   const items = props.items;
   const field = props.field;
-  const startField = props.startField;
-  const endField = props.endField;
   const values = items.map((item) => parseInt(item.val.substr(0,4)));
   const counts = items.map((item) => item.count);
   const start = values[0];
@@ -408,14 +385,7 @@ function RangeSlider(props) {
 
   function handleApply() {
     // console.log("click", value);
-    searchParams.set(startField, value[0]);
-    searchParams.set(endField, value[1]);
-    window.location.href = location.pathname + "?" + searchParams.toString();
-  }
-
-  function handleReset() {
-    searchParams.delete(startField);
-    searchParams.delete(endField);
+    searchParams.set(field, ["[", value[0], " TO ", value[1], "]"].join(''));
     window.location.href = location.pathname + "?" + searchParams.toString();
   }
 
@@ -440,36 +410,10 @@ function RangeSlider(props) {
       <ApplyButton
         field={field}
         onClick={handleApply}/>
-      <ResetButton
-        field={field}
-        onClick={handleReset}/>
     </React.Fragment>
   )
 }
 
-function RangeFacet(props) {
-  const id = "facet_" + props.field;
-  const title = props.title;
-  const field = props.field;
-  const startField = props.startField;
-  const endField = props.endField;
-  const [items, isFetching, isSuccess] = useSolrQuery(field, "terms", null, "ia", -1);
-
-  return (
-    <section className="module module-narrow module-shallow">
-      <Header id={id} title={title}/>
-      {isSuccess && (
-        <div id={id} className="collapse">
-          <RangeSlider
-            items={items}
-            field={field}
-            startField={startField}
-            endField={endField}/>
-        </div>
-      )}
-    </section>
-  );
-}
 
 function Facets(props) {
   const queryClient = new ReactQuery.QueryClient()
@@ -479,13 +423,9 @@ function Facets(props) {
       <ReactQuery.QueryClientProvider client={queryClient}>
         <TimeRangeFacet
           field="extras_TempCoverage"
-          startField="ext_tstart"
-          endField="ext_tend"
           title="Temporal Coverage"/>
-        <RangeFacet
+        <TimeRangeFacet
           field="extras_PublicationYear"
-          startField="ext_pstart"
-          endField="ext_pend"
           title="Publication Year"/>
         <Facet field="groups" title="Communities"/>
         <Facet field="tags" title="Keywords"/>
@@ -495,8 +435,9 @@ function Facets(props) {
         <Facet field="extras_Language" title="Language"/>
         <Facet field="extras_Publisher" title="Publisher"/>
         <Facet field="extras_Contributor" title="Contributor"/>
-        <Facet field="extras_ResourceType" title="ResourceType"/>
-        <Facet field="extras_OpenAccess" title="OpenAccess"/>
+        <Facet field="extras_ResourceType" title="Resource Type"/>
+        <Facet field="extras_FundingReference" title="Funding Reference"/>
+        <Facet field="extras_OpenAccess" title="Open Access"/>
       </ReactQuery.QueryClientProvider>
     </React.Fragment>
   )

@@ -206,9 +206,7 @@ attribute with the form `ckan-X.Y` -->
     <field name="extras_ResourceType" type="semicolonDelimited" indexed="true" stored="true" />
     <field name="extras_Instrument" type="semicolonDelimited" indexed="true" stored="true" />
     <field name="extras_FundingReference" type="semicolonDelimited" indexed="true" stored="true" />
-    <field name="extras_PublicationTimestamp" type="date" indexed="true" stored="true"/>
-    <field name="extras_TempCoverageBegin" type="long" indexed="true" stored="true" />
-    <field name="extras_TempCoverageEnd" type="long" indexed="true" stored="true" />
+    <field name="extras_PublicationYear" type="dateRange" indexed="true" stored="true"/>
     <field name="extras_TempCoverage" type="dateRange" indexed="true" stored="true" />
     <dynamicField name="extras_*" type="textfacet" indexed="true" stored="true" multiValued="false"/>
     <!-- B2FIND - end -->
