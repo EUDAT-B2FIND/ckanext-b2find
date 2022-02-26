@@ -13,7 +13,7 @@ def query_facets():
     if (content_type != 'application/json'):
         return {}
     json_query = request.json
-    print(json_query)
+    # print(json_query)
 
     solr = ckan.lib.search.make_connection()
     resp = requests.post(
