@@ -1,6 +1,6 @@
 "use strict";
 
-async function getItems(query, filter, field, type, sort, limit) {
+async function getItems(query, filter, facetFilter, field, type, sort, limit) {
   const url = "/b2find/query"
 
   let sortParam = {"count": "desc"};
@@ -45,10 +45,17 @@ async function getItems(query, filter, field, type, sort, limit) {
       "type": "terms",
       "field": field,
       "limit": limit,
-      //"prefix": "Stein",
       "mincount": 1,
       "sort": sortParam,
     };
+    if (facetFilter) {
+      // domain
+      // jsonQuery["facet"][field]["domain"] = {
+      //   "filter": [field, ':', '*', facetFilter, '*'].join('')
+      // }
+      // prefix
+      jsonQuery["facet"][field]["prefix"] = facetFilter;
+    }
   }
   //console.log(jsonQuery);
 
@@ -90,12 +97,13 @@ function useSolrParams() {
   return [query, filter];
 }
 
-function useSolrQuery(field, type, sort, limit) {
+function useSolrQuery(field, type, facetFilter, sort, limit) {
   const [query, filter] = useSolrParams()
-  const { data, isFetching } = ReactQuery.useQuery(
-    ['items', field, sort, limit], () => getItems(query, filter, field, type, sort, limit));
+  const { data, isFetching, isSuccess } = ReactQuery.useQuery(
+    ['items', field, facetFilter, sort, limit], () => getItems(
+      query, filter, facetFilter, field, type, sort, limit));
 
-  return [data, isFetching];
+  return [data, isFetching, isSuccess];
 }
 
 function Header(props) {
@@ -116,10 +124,16 @@ function Header(props) {
 }
 
 function SearchBar(props) {
-  const [value, setValue] = React.useState();
+  const filter = props.filter;
+  const setFilter = props.setFilter;
 
   return (
-    <input type="text" placeholder="Filter" className="facet-filter"/>
+    <input
+      type="text"
+      placeholder="Filter"
+      className="facet-filter"
+      value={filter}
+      onChange={e => setFilter(e.target.value)}/>
   )
 }
 
@@ -229,26 +243,26 @@ function Facet(props) {
   const id = "facet_" + props.field;
   const title = props.title;
   const field = props.field;
+  const [filter, setFilter] = React.useState("");
   const [sort, setSort] = React.useState("cd");
   const [limit, setLimit] = React.useState(10);
-  const [items, isFetching] = useSolrQuery(field, "terms", sort, limit);
+  const [items, isFetching, isSuccess] = useSolrQuery(field, "terms", filter, sort, limit);
 
-  if (isFetching) return (
-    <section className="module module-narrow module-shallow">
-      <Header id={id} title={title}/>
-    </section>
-  );
   return (
     <section className="module module-narrow module-shallow">
-        <Header id={id} title={title}/>
+      <Header id={id} title={title}/>
         <div id={id} className="collapse">
-          <SearchBar/>
+          <SearchBar
+            filter={filter}
+            setFilter={setFilter}/>
           <SelectSort
             sort={sort}
             setSort={setSort}/>
+          {isSuccess && (
           <Items
             items={items}
             field={field}/>
+          )}
           <Footer
             limit={limit}
             setLimit={setLimit}/>
@@ -317,16 +331,12 @@ function TimeRangeFacet(props) {
   const field = props.field;
   const startField = props.startField;
   const endField = props.endField;
-  const [items, isFetching] = useSolrQuery(field, "range", "cd", 0);
+  const [items, isFetching, isSuccess] = useSolrQuery(field, "range", null, "cd", 0);
 
-  if (isFetching) return (
-    <section className="module module-narrow module-shallow">
-      <Header id={id} title={title}/>
-    </section>
-  );
   return (
     <section className="module module-narrow module-shallow">
-        <Header id={id} title={title}/>
+      <Header id={id} title={title}/>
+      {isSuccess && (
         <div id={id} className="collapse">
           <TimeRangeSlider
             items={items}
@@ -334,6 +344,7 @@ function TimeRangeFacet(props) {
             startField={startField}
             endField={endField}/>
         </div>
+      )}
     </section>
   );
 }
@@ -441,16 +452,12 @@ function RangeFacet(props) {
   const field = props.field;
   const startField = props.startField;
   const endField = props.endField;
-  const [items, isFetching] = useSolrQuery(field, "terms", "ia", -1);
+  const [items, isFetching, isSuccess] = useSolrQuery(field, "terms", null, "ia", -1);
 
-  if (isFetching) return (
-    <section className="module module-narrow module-shallow">
-      <Header id={id} title={title}/>
-    </section>
-  );
   return (
     <section className="module module-narrow module-shallow">
-        <Header id={id} title={title}/>
+      <Header id={id} title={title}/>
+      {isSuccess && (
         <div id={id} className="collapse">
           <RangeSlider
             items={items}
@@ -458,6 +465,7 @@ function RangeFacet(props) {
             startField={startField}
             endField={endField}/>
         </div>
+      )}
     </section>
   );
 }
