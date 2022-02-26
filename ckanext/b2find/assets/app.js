@@ -16,13 +16,16 @@ async function getItems(query, filter, field, type, sort, limit) {
 
   let jsonQuery = {
     "query": {
-      "lucene": {
-        "df": "text",
+      "edismax": {
+        //"df": "text",
+        "qf": "name^4 title^4 author^2 tags^2 groups^2 text",
         "query": query,
+        "q.alt": "*:*"
         }
       },
       "filter": filter,
       "limit": 0,
+      // "fields": [],
       "facet": {},
   };
 
@@ -46,6 +49,7 @@ async function getItems(query, filter, field, type, sort, limit) {
       "sort": sortParam,
     };
   }
+  //console.log(jsonQuery);
 
   const { data } = await axios.post(url, jsonQuery);
 
@@ -58,23 +62,30 @@ async function getItems(query, filter, field, type, sort, limit) {
 };
 
 function useSolrParams() {
+  const fields = [
+    "groups",
+    "author",
+    "tags",
+    "extras_Instrument",
+    "extras_Discipline",
+    "extras_Language",
+    "extras_Publisher",
+    "extras_Contributor",
+    "extras_ResourceType",
+    "extras_OpenAccess",
+  ]
   const searchParams = new URLSearchParams(window.location.search);
   let query = "*:*";
   if (searchParams.has("q")) {
     query = searchParams.get("q");
   }
-  let filter = "*";
-  // for (const val of searchParams.getAll("tags")) {
-  //   query += " tags:"+val;
-  // };
-  // for (const val of searchParams.getAll("author")) {
-  //   query += " author:"+val;
-  // };
-  // if (query == "") {
-  //   query = "*:*";
-  // }
-  //console.log(query);
-
+  let filter = [];
+  for (const field of fields) {
+    for (const val of searchParams.getAll(field)) {
+      filter.push([field, ':', '\"', val, '\"'].join(''));
+    };
+  };
+  //console.log(filter);
   return [query, filter];
 }
 
