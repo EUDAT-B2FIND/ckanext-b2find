@@ -93,6 +93,7 @@ function useSolrParams() {
       filter.push([field, ':', '\"', val, '\"'].join(''));
     };
   };
+  
   //console.log(filter);
   return [query, filter];
 }

@@ -2,16 +2,12 @@ import ckan.plugins as plugins
 import ckan.plugins.toolkit as toolkit
 import ckanext.b2find.blueprints as blueprints
 import ckanext.b2find.helpers as helpers
-from ckan.common import c
-
-import json
 
 
 class B2FindPlugin(plugins.SingletonPlugin):
     plugins.implements(plugins.IConfigurer)
     plugins.implements(plugins.IFacets)
     plugins.implements(plugins.ITemplateHelpers)
-    plugins.implements(plugins.IPackageController, inherit=True)
     plugins.implements(plugins.IBlueprint)
 
     # IConfigurer
@@ -54,6 +50,8 @@ class B2FindPlugin(plugins.SingletonPlugin):
             facets_dict['tags'] = 'Keywords'
 
         # New facets
+        facets_dict['extras_TempCoverage'] = 'Temporal Coverage'
+        facets_dict['extras_PublicationYear'] = 'Publication Year'
         facets_dict['author'] = 'Creator'
         facets_dict['extras_Instrument'] = 'Instrument'
         facets_dict['extras_Discipline'] = 'Discipline'
@@ -64,65 +62,6 @@ class B2FindPlugin(plugins.SingletonPlugin):
         facets_dict['extras_OpenAccess'] = 'OpenAccess'
 
         return facets_dict
-
-    # IPackageController
-    def before_search(self, search_params):
-        search_params = self.pubyear_before_search(search_params)
-        search_params = self.tempcov_before_search(search_params)
-        return search_params
-
-    def pubyear_before_search(self, search_params):
-        # publication year
-        start = end = None
-        extras = search_params.get('extras')
-        if extras:
-            start = extras.get('ext_pstart')
-            end = extras.get('ext_pend')
-        # print(search_params)
-
-        if not start and not end:
-            # The user didn't select either a start and/or end date, so do nothing.
-            return search_params
-        start = start or '*'
-        end = end or '*'
-
-        # Add a date-range query with the selected start and/or end dates into the Solr facet queries.
-        fq = search_params.get('fq', '')
-        print(type(fq))
-        print(fq)
-        fq = f"{fq} extras_PublicationYear:[{start} TO {end}]"
-
-        search_params['fq'] = fq
-        return search_params
-
-    def tempcov_before_search(self, search_params):
-        # publication year
-        start = end = None
-        extras = search_params.get('extras')
-        if extras:
-            start = extras.get('ext_tstart')
-            end = extras.get('ext_tend')
-        # print(search_params)
-
-        if not start and not end:
-            # The user didn't select either a start and/or end date, so do nothing.
-            return search_params
-        start = start or '*'
-        end = end or '*'
-
-        # Add a date-range query with the selected start and/or end dates into the Solr facet queries.
-        fq = search_params.get('fq', '')
-        fq = f"{fq} extras_TempCoverage:[{start}-01-01T00:00:00Z TO {end}-12-31T23:59:59Z]"
-
-        search_params['fq'] = fq
-        return search_params
-
-    def after_search(self, search_results, search_params):
-        # Exports Solr 'q' and 'fq' to the context so the timeline can use them
-        # c.timeline_q = search_params.get('q', '')
-        # print("after", search_params.get('fq'))
-        c.b2find_fq = json.dumps(search_params.get('fq', []))
-        return search_results
 
     # IBlueprint
     def get_blueprint(self):
