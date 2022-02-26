@@ -45,6 +45,7 @@ async function getItems(query, filter, field, type, sort, limit) {
       "type": "terms",
       "field": field,
       "limit": limit,
+      //"prefix": "Stein",
       "mincount": 1,
       "sort": sortParam,
     };
