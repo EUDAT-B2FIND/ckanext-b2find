@@ -113,17 +113,23 @@ function useSolrQuery(field, type, facetFilter, sort, limit) {
 function Header(props) {
   const target = "#" + props.id;
   const title = props.title;
+  const [open, setOpen] = React.useState(false);
+
+  let style = "fa fa-chevron-down pull-right";
+  if (open) {
+    style = "fa fa-chevron-up pull-right";
+  }
 
   return (
-    <h2
-      className="module-heading"
+    <button
+      onClick={() => setOpen(!open)}
+      className="module-heading btn btn-default btn-block"
+      type="button"
       data-toggle="collapse"
-      data-target={target}
-    >
-      <i className="fa fa-filter"></i>
-      { title }
-      <i className="fa fa-chevron-down pull-right"></i>
-    </h2>
+      data-target={target}>
+      <span className="pull-left">{ title }</span>
+      <i className={style}></i>
+    </button>
   )
 }
 
