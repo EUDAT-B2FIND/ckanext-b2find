@@ -282,17 +282,18 @@ function TimeRangeSlider(props) {
   const field = props.field;
   const values = items.map((item) => parseInt(item.val.substr(0,4)));
   const counts = items.map((item) => item.count);
+  const location = window.location;
+  const searchParams = new URLSearchParams(location.search);
 
   function plot() {
     // create a data source to hold data
-    // const source = new Bokeh.ColumnDataSource({
-    //     data: { x: values, counts: counts }
-    // });
-
+    const source = new Bokeh.ColumnDataSource({
+      data: { x: values, top: counts }
+    });
     // make a plot with some tools
     const plot = Bokeh.Plotting.figure({
         title: '',
-        tools: '',
+        tools: 'xbox_select',
         toolbar_location: null,
         //y_axis_type: null,
         sizing_mode: 'stretch_width',
@@ -300,17 +301,22 @@ function TimeRangeSlider(props) {
         width: 280
     });
 
-    // line plot
-    // plot.line({ field: "years" }, { field: "counts" }, {
-    //     source: source,
-    //     line_width: 2
-    // });
     // bar plot
     plot.vbar({
-         x: values,
-         top: counts,
+         source: source,
          width: 0.9,
          alpha: 0.5,
+    });
+
+    // const select = plot.toolbar.select_one(Bokeh.BoxSelectTool);
+    // plot.toolbar.active_multi = select;
+
+    source.selected.on_change(source.selected, () => {
+      const indices = source.selected.indices;
+      const start = values[indices[0]];
+      const end = values[indices[indices.length-1]]
+      searchParams.set(field, ["[", start, " TO ", end, "]"].join(''));
+      window.location.href = location.pathname + "?" + searchParams.toString();
     });
 
     plot.y_range.start = 0;
@@ -329,10 +335,6 @@ function TimeRangeSlider(props) {
   return (
     <React.Fragment>
       <div id={id}></div>
-      <RangeSlider
-        items={items}
-        field={field}
-        />
     </React.Fragment>
   )
 }
@@ -357,75 +359,6 @@ function TimeRangeFacet(props) {
     </section>
   );
 }
-
-function ApplyButton(props) {
-  const field = props.field;
-  const id = "apply_button_" + field;
-  const onClick = props.onClick;
-
-  React.useEffect(() => {
-  }, []);
-
-  return (
-    <button
-      className="btn btn-success btn-block"
-      type="submit"
-      onClick={onClick}>
-      Apply
-    </button>
-  )
-}
-
-
-function RangeSlider(props) {
-  const id = "slider_" + props.field;
-  const items = props.items;
-  const field = props.field;
-  const values = items.map((item) => parseInt(item.val.substr(0,4)));
-  const counts = items.map((item) => item.count);
-  const start = values[0];
-  const end = values[items.length-1];
-  const [value, setValue] = React.useState([start, end]);
-  const location = window.location;
-  const searchParams = new URLSearchParams(location.search);
-  //const [searchParams, setSearchParams] = React.useState(params);
-
-  React.useEffect(() => {
-    // console.log("new slider", start, end);
-    slider();
-  }, []);
-
-  function handleApply() {
-    // console.log("click", value);
-    searchParams.set(field, ["[", value[0], " TO ", value[1], "]"].join(''));
-    window.location.href = location.pathname + "?" + searchParams.toString();
-  }
-
-  function slider() {
-    const slider = new Bokeh.Widgets.RangeSlider({
-      title: "Selected years",
-      value: [start, end],
-      start: start,
-      end: end,
-      step: 1,
-      max_width: 280,
-      sizing_mode: "stretch_width",
-    });
-    const value = slider.properties.value;
-    slider.on_change(value,  () => setValue(slider.value));
-    Bokeh.Plotting.show(slider, "#"+id);
-  }
-
-  return (
-    <React.Fragment>
-      <div id={id}></div>
-      <ApplyButton
-        field={field}
-        onClick={handleApply}/>
-    </React.Fragment>
-  )
-}
-
 
 function Facets(props) {
   const queryClient = new ReactQuery.QueryClient()
