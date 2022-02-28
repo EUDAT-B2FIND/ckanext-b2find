@@ -285,9 +285,9 @@ function TimeRangeSlider(props) {
 
   function plot() {
     // create a data source to hold data
-    const source = new Bokeh.ColumnDataSource({
-        data: { years: values, counts: counts }
-    });
+    // const source = new Bokeh.ColumnDataSource({
+    //     data: { x: values, counts: counts }
+    // });
 
     // make a plot with some tools
     const plot = Bokeh.Plotting.figure({
@@ -296,15 +296,27 @@ function TimeRangeSlider(props) {
         toolbar_location: null,
         //y_axis_type: null,
         sizing_mode: 'stretch_width',
-        height: 250,
+        height: 220,
         width: 280
     });
 
-    // add a line with data from the source
-    plot.line({ field: "years" }, { field: "counts" }, {
-        source: source,
-        line_width: 2
+    // line plot
+    // plot.line({ field: "years" }, { field: "counts" }, {
+    //     source: source,
+    //     line_width: 2
+    // });
+    // bar plot
+    plot.vbar({
+         x: values,
+         top: counts,
+         width: 0.9,
+         alpha: 0.5,
     });
+
+    plot.y_range.start = 0;
+    plot.x_range.range_padding = 0.1;
+    plot.xaxis.major_label_orientation = 1;
+    plot.xgrid.grid_line_color = null;
 
     // show the plot, replacing div element with id
     Bokeh.Plotting.show(plot, "#"+id);
