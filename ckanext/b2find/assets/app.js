@@ -49,10 +49,6 @@ async function getItems(query, filter, facetFilter, field, type, sort, limit) {
       "sort": sortParam,
     };
     if (facetFilter) {
-      // domain
-      // jsonQuery["facet"][field]["domain"] = {
-      //   "filter": [field, ':', '*', facetFilter, '*'].join('')
-      // }
       // prefix
       jsonQuery["facet"][field]["prefix"] = facetFilter;
     }
