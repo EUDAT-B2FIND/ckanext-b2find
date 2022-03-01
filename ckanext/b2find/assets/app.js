@@ -362,12 +362,27 @@ function TimeRangeFacet(props) {
   );
 }
 
+function MapFacet(props) {
+  const id = "map_facet_" + props.field;
+  const title = props.title;
+  return (
+    <section className="module module-narrow module-shallow">
+      <Header title={title}/>
+        <div id={id} className="collapse">
+        </div>
+    </section>
+  );
+}
+
 function Facets(props) {
   const queryClient = new ReactQuery.QueryClient()
 
   return (
     <React.Fragment>
       <ReactQuery.QueryClientProvider client={queryClient}>
+        <MapFacet
+          field="extras_SpatialCoverage"
+          title="Spatial Coverage"/>
         <TimeRangeFacet
           field="extras_TempCoverage"
           title="Temporal Coverage"/>
