@@ -3,7 +3,7 @@
 {% block styles %}
   {{ super() }}
 
-  <!--link href="http://cdn.pydata.org/bokeh/release/bokeh-2.4.2.min.css" rel="stylesheet"-->
+  <link href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" rel="stylesheet"/>
 
   {% asset 'ckanext-b2find/theme' %}
 {% endblock %}
@@ -18,6 +18,9 @@
 
   <!-- Load React query. -->
   <script src="https://unpkg.com/react-query@3.34.14/dist/react-query.development.js" crossorigin></script>
+
+  <!-- Load React leaflet. -->
+  <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" crossorigin></script>
 
   <!-- Load Axios HTTP client. -->
   <script src="https://unpkg.com/axios/dist/axios.min.js" crossorigin></script>
