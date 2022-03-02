@@ -53,6 +53,8 @@ class B2FindPlugin(plugins.SingletonPlugin):
         facets_dict['author'] = 'Creator'
         facets_dict['extras_TempCoverage'] = 'TemporalCoverage'
         facets_dict['extras_PublicationYear'] = 'PublicationYear'
+        facets_dict['extras_bbox'] = 'BoundingBox'
+        facets_dict['extras_spatial'] = 'Geometry'
         facets_dict['extras_Instrument'] = 'Instrument'
         facets_dict['extras_Discipline'] = 'Discipline'
         facets_dict['extras_Language'] = 'Language'

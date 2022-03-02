@@ -3,7 +3,7 @@
 {% block styles %}
   {{ super() }}
 
-  <link href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" rel="stylesheet"/>
+  <link href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" rel="stylesheet" crossorigin=""/>
 
   {% asset 'ckanext-b2find/theme' %}
 {% endblock %}
@@ -20,7 +20,7 @@
   <script src="https://unpkg.com/react-query@3.34.14/dist/react-query.development.js" crossorigin></script>
 
   <!-- Load React leaflet. -->
-  <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" crossorigin></script>
+  <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" crossorigin=""></script>
 
   <!-- Load Axios HTTP client. -->
   <script src="https://unpkg.com/axios/dist/axios.min.js" crossorigin></script>

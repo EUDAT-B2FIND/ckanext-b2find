@@ -18,9 +18,13 @@ async function getItems(query, filter, facetFilter, field, type, sort, limit) {
     "query": {
       "edismax": {
         //"df": "text",
-        "qf": "name^4 title^4 author^2 tags^2 groups^2 text",
+        "qf": "name^4 title^4 tags^2 groups^2 text",
+        //"qf": "name^4 title^4 author^2 tags^2 groups^2 text",
+        "tie": '0.1',
+        "mm": '2<-1 5<80%',
         "query": query,
-        "q.alt": "*:*"
+        "q.alt": "*:*",
+        "q.op": "AND",
         }
       },
       "filter": filter,
@@ -39,7 +43,14 @@ async function getItems(query, filter, facetFilter, field, type, sort, limit) {
       // "limit": limit,
       "mincount": 1,
       // "sort": _translate_sort(sort),
-    };
+    }
+  } else if (type="heatmap") {
+    jsonQuery["facet"][field] = {
+      "type": "heatmap",
+      "field": field,
+      //"geom": "[\"50 20\" TO \"180 90\"]",
+      //"gridLevel": 4,
+    }
   } else {
     jsonQuery["facet"][field] = {
       "type": "terms",
@@ -80,6 +91,7 @@ function useSolrParams() {
     "extras_OpenAccess",
     "extras_TempCoverage",
     "extras_PublicationYear",
+    "ext_bbox",
   ]
   const searchParams = new URLSearchParams(window.location.search);
   let query = "*:*";
@@ -89,7 +101,8 @@ function useSolrParams() {
   let filter = [];
   for (const field of fields) {
     for (const val of searchParams.getAll(field)) {
-      filter.push([field, ':', '\"', val, '\"'].join(''));
+      //filter.push([field, ':', '\"', val, '\"'].join(''));
+      filter.push([field, ':', val].join(''));
     };
   };
 
@@ -362,7 +375,10 @@ function TimeRangeFacet(props) {
   );
 }
 
-function MyMap() {
+function MyMap(props) {
+  const field = props.field;
+  const location = window.location;
+  const searchParams = new URLSearchParams(location.search);
   // Create our map tile layer:
   const MAP_TILE = L.tileLayer(`https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png`, {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
@@ -372,7 +388,7 @@ function MyMap() {
   const mapStyles = {
     overflow: "hidden",
     width: "100%",
-    height: "25vh"
+    height: "30vh"
   };
   // Define an object literal with params that will be passed to the map:
   const mapParams = {
@@ -385,6 +401,19 @@ function MyMap() {
 
   React.useEffect(() => {
     const map = L.map("map", mapParams);
+    map.on("zoomend", function(e){
+      //console.log("zoomend", map.getBounds().getSouth());
+      // minX, maxX, maxY, minY
+      // ENVELOPE(-10, 20, 15, 10)
+      // minY, minX, maxY, maxX
+      // [10,-10 TO 15,20]
+      let minY = Math.trunc(map.getBounds().getSouth());
+      let minX = Math.trunc(map.getBounds().getWest());
+      let maxY = Math.trunc(map.getBounds().getNorth());
+      let maxX = Math.trunc(map.getBounds().getEast());
+      searchParams.set(field, ["[", minY, ",", minX, " TO ", maxY, ",", maxX, "]"].join(''));
+      window.location.href = location.pathname + "?" + searchParams.toString();
+    })
   }, [])
 
   return (
@@ -396,11 +425,14 @@ function MapFacet(props) {
   const id = "facet_" + props.field;
   const title = props.title;
   const field = props.field;
+  const [items, isFetching, isSuccess] = useSolrQuery(field, "heatmap", null, "cd", 0);
 
   return (
     <section className="module module-narrow module-shallow">
-      <Header title={title}/>
-      <MyMap />
+      <Header
+        title={title}/>
+      <MyMap
+        field="ext_bbox"/>
     </section>
   );
 }
@@ -412,7 +444,7 @@ function Facets(props) {
     <React.Fragment>
       <ReactQuery.QueryClientProvider client={queryClient}>
         <MapFacet
-          field="extras_SpatialCoverage"
+          field="extras_spatial"
           title="Spatial Coverage"/>
         <TimeRangeFacet
           field="extras_TempCoverage"

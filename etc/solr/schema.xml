@@ -100,6 +100,20 @@ attribute with the form `ckan-X.Y` -->
     <!-- A DateRange based date field for truly faster date range queries. -->
     <fieldType name="dateRange" class="solr.DateRangeField"/>
 
+    <!-- bbox field type. -->
+    <fieldType name="bbox" class="solr.BBoxField"
+               geo="true" distanceUnits="kilometers" numberType="pdouble" />
+    <!--fieldType name="pdouble" class="solr.DoublePointField" docValues="true"/-->
+
+    <!-- geometry field type for display and heatmap. -->
+    <fieldType name="geometry"   class="solr.SpatialRecursivePrefixTreeFieldType"
+               spatialContextFactory="JTS"
+               autoIndex="true"
+               validationRule="repairBuffer0"
+               distErrPct="0.025"
+               maxDistErr="0.001"
+               distanceUnits="kilometers" />
+
     <!-- semicolonDelimited - based on PatternTokenizer -->
     <fieldType name="semicolonDelimited" class="solr.TextField" positionIncrementGap="100">
         <analyzer type="index">
@@ -208,18 +222,13 @@ attribute with the form `ckan-X.Y` -->
     <field name="extras_FundingReference" type="semicolonDelimited" indexed="true" stored="true" />
     <field name="extras_PublicationYear" type="dateRange" indexed="true" stored="true"/>
     <field name="extras_TempCoverage" type="dateRange" indexed="true" stored="true" />
+    <field name="extras_bbox" type="bbox" indexed="true" stored="true" />
+    <field name="extras_spatial" type="geometry" indexed="true" stored="true" />
     <dynamicField name="extras_*" type="textfacet" indexed="true" stored="true" multiValued="false"/>
     <!-- B2FIND - end -->
     <dynamicField name="res_extras_*" type="text" indexed="true" stored="true" multiValued="true"/>
     <dynamicField name="vocab_*" type="string" indexed="true" stored="true" multiValued="true"/>
     <dynamicField name="*" type="string" indexed="true"  stored="false"/>
-
-    <!-- Additional fields for ckanext-spatial -->
-    <field name="bbox_area" type="float" indexed="true" stored="true" />
-    <field name="maxx" type="float" indexed="true" stored="true" />
-    <field name="maxy" type="float" indexed="true" stored="true" />
-    <field name="minx" type="float" indexed="true" stored="true" />
-    <field name="miny" type="float" indexed="true" stored="true" />
 </fields>
 
 <uniqueKey>index_id</uniqueKey>
@@ -246,5 +255,8 @@ attribute with the form `ckan-X.Y` -->
 <copyField source="res_description" dest="text"/>
 <copyField source="maintainer" dest="text"/>
 <copyField source="author" dest="text"/>
+<!-- B2FIND - start -->
+<copyField source="extras_bbox" dest="ext_bbox"/>
+<!-- B2FIND - end -->
 
 </schema>
