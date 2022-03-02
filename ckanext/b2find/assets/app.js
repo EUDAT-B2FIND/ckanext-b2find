@@ -372,11 +372,11 @@ function MyMap() {
   const mapStyles = {
     overflow: "hidden",
     width: "100%",
-    height: "50vh"
+    height: "25vh"
   };
   // Define an object literal with params that will be passed to the map:
   const mapParams = {
-    center: [37.0902, -95.7129],
+    center: [50.0, 10.0],
     zoom: 3,
     zoomControl: false,
     maxBounds: L.latLngBounds(L.latLng(-150, -240), L.latLng(150, 240)),
@@ -400,7 +400,7 @@ function MapFacet(props) {
   return (
     <section className="module module-narrow module-shallow">
       <Header title={title}/>
-        <MyMap />
+      <MyMap />
     </section>
   );
 }
