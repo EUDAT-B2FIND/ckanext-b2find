@@ -44,14 +44,17 @@ async function getItems(query, filter, facetFilter, field, type, sort, limit) {
       "mincount": 1,
       // "sort": _translate_sort(sort),
     }
-  } else if (type="heatmap") {
+  }
+  else if (type=="heatmap") {
     jsonQuery["facet"][field] = {
       "type": "heatmap",
       "field": field,
       //"geom": "[\"50 20\" TO \"180 90\"]",
       //"gridLevel": 4,
+      //"format": "png",
     }
-  } else {
+  }
+  else {
     jsonQuery["facet"][field] = {
       "type": "terms",
       "field": field,
@@ -425,7 +428,7 @@ function MapFacet(props) {
   const id = "facet_" + props.field;
   const title = props.title;
   const field = props.field;
-  //const [items, isFetching, isSuccess] = useSolrQuery(field, "heatmap", null, "cd", 0);
+  const [items, isFetching, isSuccess] = useSolrQuery(field, "heatmap", null, "cd", 0);
 
   return (
     <section className="module module-narrow module-shallow">
