@@ -106,7 +106,8 @@ attribute with the form `ckan-X.Y` -->
     <!--fieldType name="pdouble" class="solr.DoublePointField" docValues="true"/-->
 
     <!-- geometry field type for display and heatmap. -->
-    <fieldType name="geometry"   class="solr.SpatialRecursivePrefixTreeFieldType"
+    <fieldType name="geometry"
+               class="solr.RptWithGeometrySpatialField"
                spatialContextFactory="JTS"
                autoIndex="true"
                validationRule="repairBuffer0"
@@ -223,7 +224,7 @@ attribute with the form `ckan-X.Y` -->
     <field name="extras_PublicationYear" type="dateRange" indexed="true" stored="true"/>
     <field name="extras_TempCoverage" type="dateRange" indexed="true" stored="true" />
     <field name="extras_bbox" type="bbox" indexed="true" stored="true" />
-    <field name="extras_spatial" type="geometry" indexed="true" stored="true" />
+    <field name="extras_spatial" type="geometry" indexed="true" stored="false" />
     <dynamicField name="extras_*" type="textfacet" indexed="true" stored="true" multiValued="false"/>
     <!-- B2FIND - end -->
     <dynamicField name="res_extras_*" type="text" indexed="true" stored="true" multiValued="true"/>

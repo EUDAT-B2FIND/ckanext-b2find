@@ -20,11 +20,11 @@ async function getItems(query, filter, facetFilter, field, type, sort, limit) {
         //"df": "text",
         "qf": "name^4 title^4 tags^2 groups^2 text",
         //"qf": "name^4 title^4 author^2 tags^2 groups^2 text",
-        "tie": '0.1',
-        "mm": '2<-1 5<80%',
+        //"tie": '0.1',
+        //"mm": '2<-1 5<80%',
         "query": query,
         "q.alt": "*:*",
-        "q.op": "AND",
+        //"q.op": "AND",
         }
       },
       "filter": filter,
@@ -91,7 +91,7 @@ function useSolrParams() {
     "extras_OpenAccess",
     "extras_TempCoverage",
     "extras_PublicationYear",
-    "ext_bbox",
+    "extras_bbox",
   ]
   const searchParams = new URLSearchParams(window.location.search);
   let query = "*:*";
@@ -101,8 +101,8 @@ function useSolrParams() {
   let filter = [];
   for (const field of fields) {
     for (const val of searchParams.getAll(field)) {
-      //filter.push([field, ':', '\"', val, '\"'].join(''));
-      filter.push([field, ':', val].join(''));
+      filter.push([field, ':', '\"', val, '\"'].join(''));
+      //filter.push([field, ':', val].join(''));
     };
   };
 
@@ -425,14 +425,14 @@ function MapFacet(props) {
   const id = "facet_" + props.field;
   const title = props.title;
   const field = props.field;
-  const [items, isFetching, isSuccess] = useSolrQuery(field, "heatmap", null, "cd", 0);
+  //const [items, isFetching, isSuccess] = useSolrQuery(field, "heatmap", null, "cd", 0);
 
   return (
     <section className="module module-narrow module-shallow">
       <Header
         title={title}/>
       <MyMap
-        field="ext_bbox"/>
+        field={field}/>
     </section>
   );
 }
@@ -444,7 +444,7 @@ function Facets(props) {
     <React.Fragment>
       <ReactQuery.QueryClientProvider client={queryClient}>
         <MapFacet
-          field="extras_spatial"
+          field="extras_bbox"
           title="Spatial Coverage"/>
         <TimeRangeFacet
           field="extras_TempCoverage"
