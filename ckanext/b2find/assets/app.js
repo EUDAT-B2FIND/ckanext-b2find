@@ -415,6 +415,11 @@ function MyMap(props) {
     },
   });
 
+  // a DragBox interaction used to select features by drawing boxes
+  const dragBox = new ol.interaction.DragBox({
+    condition: ol.events.condition.platformModifierKeyOnly,
+  });
+
   React.useEffect(() => {
     const map = new ol.Map({
         target: 'map',
@@ -424,10 +429,12 @@ function MyMap(props) {
           heatmap,
         ],
         view: new ol.View({
-          center: ol.proj.fromLonLat([0.0, 0.0]),
+          center: ol.proj.fromLonLat([0.0, 20.0]),
           zoom: 1
         })
       });
+
+      map.addInteraction(dragBox);
 
     // map.on("moveend", function(e){
     //   //console.log("zoomend", map.getBounds().getSouth());
