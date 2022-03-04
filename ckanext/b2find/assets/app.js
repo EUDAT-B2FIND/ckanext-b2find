@@ -436,24 +436,25 @@ function MyMap(props) {
 
       map.addInteraction(dragBox);
 
-    // map.on("moveend", function(e){
-    //   //console.log("zoomend", map.getBounds().getSouth());
-    //   // minX, maxX, maxY, minY
-    //   // ENVELOPE(-10, 20, 15, 10)
-    //   // minY, minX, maxY, maxX
-    //   // [10,-10 TO 15,20]
-    //   let minY = Math.round(map.getBounds().getSouth() * 100) / 100;
-    //   let minX = Math.round(map.getBounds().getWest() * 100) / 100;
-    //   let maxY = Math.round(map.getBounds().getNorth() * 100) / 100;
-    //   let maxX = Math.round(map.getBounds().getEast() * 100) / 100;
-    //   searchParams.set(field, ["[", minY, ",", minX, " TO ", maxY, ",", maxX, "]"].join(''));
-    //   // zoom
-    //   searchParams.set('ext_zoom', map.getZoom());
-    //   // center
-    //   searchParams.set('ext_lat', map.getCenter().lat);
-    //   searchParams.set('ext_lon', map.getCenter().lng);
-    //   window.location.href = location.pathname + "?" + searchParams.toString();
-    // })
+      dragBox.on('boxend', function () {
+        const extent = dragBox.getGeometry().getExtent();
+        console.log("boxend", extent);
+        // minX, maxX, maxY, minY
+        // ENVELOPE(-10, 20, 15, 10)
+        // minY, minX, maxY, maxX
+        // [10,-10 TO 15,20]
+        // let minY = Math.round(map.getBounds().getSouth() * 100) / 100;
+        // let minX = Math.round(map.getBounds().getWest() * 100) / 100;
+        // let maxY = Math.round(map.getBounds().getNorth() * 100) / 100;
+        // let maxX = Math.round(map.getBounds().getEast() * 100) / 100;
+        // searchParams.set(field, ["[", minY, ",", minX, " TO ", maxY, ",", maxX, "]"].join(''));
+        // zoom
+        //searchParams.set('ext_zoom', map.getZoom());
+        // center
+        //searchParams.set('ext_lat', map.getCenter().lat);
+        //searchParams.set('ext_lon', map.getCenter().lng);
+        //window.location.href = location.pathname + "?" + searchParams.toString();
+      })
   }, [])
 
   return (
