@@ -386,17 +386,25 @@ function MyMap(props) {
   const lat = parseInt(searchParams.get('ext_lat'), 10) || 50;
   const lon = parseInt(searchParams.get('ext_lon'), 10) || 10;
 
+  const stamen = new ol.layer.Tile({
+    source: new ol.source.Stamen({
+      layer: 'toner',
+    }),
+  });
+
+  const osm = new ol.layer.Tile({
+    source: new ol.source.OSM()
+  })
+
   React.useEffect(() => {
     const map = new ol.Map({
         target: 'map',
         layers: [
-          new ol.layer.Tile({
-            source: new ol.source.OSM()
-          })
+          osm,
         ],
         view: new ol.View({
-          center: ol.proj.fromLonLat([37.41, 8.82]),
-          zoom: 4
+          center: ol.proj.fromLonLat([0.0, 0.0]),
+          zoom: 1
         })
       });
 
