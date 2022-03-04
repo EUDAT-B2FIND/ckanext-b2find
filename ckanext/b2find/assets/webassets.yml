@@ -9,3 +9,9 @@ app:
     - app.js
   filters: rjsmin
   output: ckanext-b2find/%(version)s_app.js
+
+leaflet-heat:
+  contents:
+    - leaflet-heat.js
+  filters: rjsmin
+  output: ckanext-b2find/%(version)s_leaflet-heat.js
