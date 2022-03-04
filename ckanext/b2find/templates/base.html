@@ -3,7 +3,13 @@
 {% block styles %}
   {{ super() }}
 
-  <link href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" rel="stylesheet" crossorigin=""/>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.13.0/css/ol.css" type="text/css">
+  <style>
+      .map {
+        height: 200px;
+        width: 100%;
+      }
+  </style>
 
   {% asset 'ckanext-b2find/theme' %}
 {% endblock %}
@@ -19,11 +25,8 @@
   <!-- Load React query. -->
   <script src="https://unpkg.com/react-query@3.34.14/dist/react-query.development.js" crossorigin></script>
 
-  <!-- Load React leaflet. -->
-  <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" crossorigin=""></script>
-  <!--script src="https://unpkg.com/leaflet-heatmap@1.0.0/leaflet-heatmap.js" crossorigin=""></script-->
-  <!--script src="https://unpkg.com/leaflet-webgl-heatmap@0.2.7/dist/leaflet-webgl-heatmap.min.js" crossorigin=""></script-->
-  {% asset 'ckanext-b2find/leaflet-heat' %}
+  <!-- Load OpenLayers. -->
+  <script src="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.13.0/build/ol.js" crossorigin></script>
 
   <!-- Load Axios HTTP client. -->
   <script src="https://unpkg.com/axios/dist/axios.min.js" crossorigin></script>

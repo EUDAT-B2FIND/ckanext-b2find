@@ -385,56 +385,43 @@ function MyMap(props) {
   const zoom = parseInt(searchParams.get('ext_zoom'), 10) || 2;
   const lat = parseInt(searchParams.get('ext_lat'), 10) || 50;
   const lon = parseInt(searchParams.get('ext_lon'), 10) || 10;
-  // Create our map tile layer:
-  const MAP_TILE = L.tileLayer(`https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png`, {
-    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-  });
-
-  // const heat = L.heatLayer([
-	// [50.5, 30.5, 0.2], // lat, lng, intensity
-	// [50.6, 30.4, 0.5],
-  // ], {radius: 25});
-
-  // Define the styles that are to be passed to the map instance:
-  const mapStyles = {
-    overflow: "hidden",
-    width: "100%",
-    height: "30vh"
-  };
-  // Define an object literal with params that will be passed to the map:
-  const mapParams = {
-    center: [lat, lon],
-    zoom: zoom,
-    zoomControl: true,
-    boxZoom: true,
-    //maxBounds: L.latLngBounds(L.latLng(-90, -180), L.latLng(90, 180)),
-    layers: [MAP_TILE]
-  };
 
   React.useEffect(() => {
-    const map = L.map("map", mapParams);
-    map.on("moveend", function(e){
-      //console.log("zoomend", map.getBounds().getSouth());
-      // minX, maxX, maxY, minY
-      // ENVELOPE(-10, 20, 15, 10)
-      // minY, minX, maxY, maxX
-      // [10,-10 TO 15,20]
-      let minY = Math.round(map.getBounds().getSouth() * 100) / 100;
-      let minX = Math.round(map.getBounds().getWest() * 100) / 100;
-      let maxY = Math.round(map.getBounds().getNorth() * 100) / 100;
-      let maxX = Math.round(map.getBounds().getEast() * 100) / 100;
-      searchParams.set(field, ["[", minY, ",", minX, " TO ", maxY, ",", maxX, "]"].join(''));
-      // zoom
-      searchParams.set('ext_zoom', map.getZoom());
-      // center
-      searchParams.set('ext_lat', map.getCenter().lat);
-      searchParams.set('ext_lon', map.getCenter().lng);
-      window.location.href = location.pathname + "?" + searchParams.toString();
-    })
+    const map = new ol.Map({
+        target: 'map',
+        layers: [
+          new ol.layer.Tile({
+            source: new ol.source.OSM()
+          })
+        ],
+        view: new ol.View({
+          center: ol.proj.fromLonLat([37.41, 8.82]),
+          zoom: 4
+        })
+      });
+
+    // map.on("moveend", function(e){
+    //   //console.log("zoomend", map.getBounds().getSouth());
+    //   // minX, maxX, maxY, minY
+    //   // ENVELOPE(-10, 20, 15, 10)
+    //   // minY, minX, maxY, maxX
+    //   // [10,-10 TO 15,20]
+    //   let minY = Math.round(map.getBounds().getSouth() * 100) / 100;
+    //   let minX = Math.round(map.getBounds().getWest() * 100) / 100;
+    //   let maxY = Math.round(map.getBounds().getNorth() * 100) / 100;
+    //   let maxX = Math.round(map.getBounds().getEast() * 100) / 100;
+    //   searchParams.set(field, ["[", minY, ",", minX, " TO ", maxY, ",", maxX, "]"].join(''));
+    //   // zoom
+    //   searchParams.set('ext_zoom', map.getZoom());
+    //   // center
+    //   searchParams.set('ext_lat', map.getCenter().lat);
+    //   searchParams.set('ext_lon', map.getCenter().lng);
+    //   window.location.href = location.pathname + "?" + searchParams.toString();
+    // })
   }, [])
 
   return (
-      <div id="map" style={mapStyles}></div>
+      <div id="map" class="map"></div>
   )
 }
 
