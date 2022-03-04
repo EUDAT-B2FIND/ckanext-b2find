@@ -394,13 +394,34 @@ function MyMap(props) {
 
   const osm = new ol.layer.Tile({
     source: new ol.source.OSM()
-  })
+  });
+
+  const heatmap = new ol.layer.Heatmap({
+    source: new ol.source.Vector({
+      url: 'https://openlayers.org/en/latest/examples/data/kml/2012_Earthquakes_Mag5.kml',
+      format: new ol.format.KML({
+        extractStyles: false,
+      }),
+    }),
+    //blur: parseInt(blur.value, 10),
+    //radius: parseInt(radius.value, 10),
+    weight: function (feature) {
+      // 2012_Earthquakes_Mag5.kml stores the magnitude of each earthquake in a
+      // standards-violating <magnitude> tag in each Placemark.  We extract it from
+      // the Placemark's name instead.
+      const name = feature.get('name');
+      const magnitude = parseFloat(name.substr(2));
+      return magnitude - 5;
+    },
+  });
 
   React.useEffect(() => {
     const map = new ol.Map({
         target: 'map',
         layers: [
-          osm,
+          //osm,
+          stamen,
+          heatmap,
         ],
         view: new ol.View({
           center: ol.proj.fromLonLat([0.0, 0.0]),
@@ -429,7 +450,7 @@ function MyMap(props) {
   }, [])
 
   return (
-      <div id="map" class="map"></div>
+      <div id="map" className="map"></div>
   )
 }
 
