@@ -68,7 +68,7 @@ function toGeoJSON(props) {
   return geojson;
 }
 
-async function getItems(query, filter, facetFilter, field, type, sort, limit) {
+async function getItems(query, filter, facetFilter, field, type, sort, limit, bbox) {
   const url = "/b2find/query"
 
   let sortParam = {"count": "desc"};
@@ -117,7 +117,7 @@ async function getItems(query, filter, facetFilter, field, type, sort, limit) {
     jsonQuery["facet"][field] = {
       "type": "heatmap",
       "field": field,
-      //"geom": "[\"50 20\" TO \"180 90\"]",
+      "geom": bbox,
       //"gridLevel": 4,
       //"format": "png",
     }
@@ -141,12 +141,14 @@ async function getItems(query, filter, facetFilter, field, type, sort, limit) {
 
   let items = [];
   //console.log(field, data["facets"]);
-  if (field in data["facets"]) {
-    if (type == "heatmap") {
-      items = toGeoJSON(data["facets"][field]);
-      //console.log("heatmap items", items);
-    } else {
-      items = data["facets"][field]["buckets"];
+  if ("facets" in data) {
+    if (field in data["facets"]) {
+      if (type == "heatmap") {
+        items = toGeoJSON(data["facets"][field]);
+        //console.log("heatmap items", items);
+      } else {
+        items = data["facets"][field]["buckets"];
+      }
     }
   }
   return items;
@@ -186,11 +188,11 @@ function useSolrParams() {
   return [query, filter];
 }
 
-function useSolrQuery(field, type, facetFilter, sort, limit) {
+function useSolrQuery(field, type, facetFilter, sort, limit, bbox) {
   const [query, filter] = useSolrParams()
   const { data, isFetching, isSuccess } = ReactQuery.useQuery(
-    ['items', field, facetFilter, sort, limit], () => getItems(
-      query, filter, facetFilter, field, type, sort, limit));
+    ['items', field, facetFilter, sort, limit, bbox], () => getItems(
+      query, filter, facetFilter, field, type, sort, limit, bbox));
 
   return [data, isFetching, isSuccess];
 }
@@ -341,7 +343,7 @@ function Facet(props) {
   const [filter, setFilter] = React.useState("");
   const [sort, setSort] = React.useState("cd");
   const [limit, setLimit] = React.useState(10);
-  const [items, isFetching, isSuccess] = useSolrQuery(field, "terms", filter, sort, limit);
+  const [items, isFetching, isSuccess] = useSolrQuery(field, "terms", filter, sort, limit, null);
 
   return (
     <section className="module module-narrow module-shallow">
@@ -434,7 +436,7 @@ function TimeRangeFacet(props) {
   const id = "facet_" + props.field;
   const title = props.title;
   const field = props.field;
-  const [items, isFetching, isSuccess] = useSolrQuery(field, "range", null, "cd", 0);
+  const [items, isFetching, isSuccess] = useSolrQuery(field, "range", null, "cd", 0, null);
 
   return (
     <section className="module module-narrow module-shallow">
@@ -481,8 +483,8 @@ function MyMap(props) {
         dataProjection: 'EPSG:4326',
         featureProjection: 'EPSG:3857'}).readFeatures(items),
     }),
-    //blur: parseInt(blur.value, 10),
-    //radius: parseInt(radius.value, 10),
+    blur: 15,
+    radius: 8,
     weight: function (feature) {
       const count = parseInt(feature.get('count'), 10);
       //console.log("count", count);
@@ -545,8 +547,9 @@ function MapFacet(props) {
   const id = "facet_" + props.field;
   const title = props.title;
   const field = props.field;
-  const bbox = props.bbox;
-  const [items, isFetching, isSuccess] = useSolrQuery(field, "heatmap", null, "cd", 0);
+  const bboxField = props.bbox;
+  const [bbox, setBBox] = React.useState("[-180 -90 TO 180 90]");
+  const [items, isFetching, isSuccess] = useSolrQuery(field, "heatmap", null, "cd", 0, bbox);
 
   return (
     <section className="module module-narrow module-shallow">
@@ -557,7 +560,7 @@ function MapFacet(props) {
         <MyMap
           items={items}
           field={field}
-          bbox={bbox}/>
+          bbox={bboxField}/>
       </div>
       )}
     </section>
