@@ -1,5 +1,66 @@
 "use strict";
 
+function toGeoJSON(props) {
+  const columns = props.columns;
+  const rows = props.rows;
+  const minX = props.minX;
+  const maxX = props.maxX;
+  const minY = props.minY;
+  const maxY = props.maxY;
+  const counts = props.counts_ints2D;
+  const geojson = {
+    type: 'FeatureCollection',
+    features: []
+  };
+
+  // If our min longitude is greater than max longitude, we're crossing
+  // the 180th meridian (date line).
+  crosses_meridian = minX > maxX;
+
+  // Bucket width needs to be calculated differently when crossing the
+  // meridian since it wraps.
+  if (crosses_meridian) {
+    bucket_width = (360 - abs(maxX - minX)) / columns;
+  } else {
+    bucket_width = (maxX - minX) / columns;
+  }
+
+  bucket_height = (maxY - minY) / rows;
+
+  counts.forEach((row, rowIndex) => {
+    if (!row) return;
+
+    row.forEach((column, columnIndex) => {
+      if (!column) return;
+
+      // Put the count in the middle of the bucket (adding a half height and width).
+      let lat = maxY - ((rowIndex + 1) * bucket_height) + (bucket_height / 2);
+      let lon = minX + (columnIndex * bucket_width) + (bucket_width / 2);
+
+      // We crossed the meridian, so wrap back around to negative.
+      if (lon > 180) {
+          lon = -1 * (180 - (lon % 180));
+      }
+
+      const point = {
+        type: 'Feature',
+        geometry: {
+          type: 'Point',
+          coordinates: [lat, lon]
+        },
+        properties: {
+          name: "point",
+          count: column,
+        }
+      };
+
+      geojson.features.push(point);
+    })
+  })
+
+  return geojson;
+}
+
 async function getItems(query, filter, facetFilter, field, type, sort, limit) {
   const url = "/b2find/query"
 
@@ -74,7 +135,11 @@ async function getItems(query, filter, facetFilter, field, type, sort, limit) {
   let items = [];
   //console.log(field, data["facets"]);
   if (field in data["facets"]) {
-    items = data["facets"][field]["buckets"];
+    if (type == "heatmap") {
+      items = toGeoJSON(data["facets"][field]);
+    } else {
+      items = data["facets"][field]["buckets"];
+    }
   }
   return items;
 };
@@ -382,10 +447,7 @@ function MyMap(props) {
   const field = props.field;
   const location = window.location;
   const searchParams = new URLSearchParams(location.search);
-  const zoom = parseInt(searchParams.get('ext_zoom'), 10) || 2;
-  const lat = parseInt(searchParams.get('ext_lat'), 10) || 50;
-  const lon = parseInt(searchParams.get('ext_lon'), 10) || 10;
-
+  const [items, isFetching, isSuccess] = useSolrQuery(field, "heatmap", null, "cd", 0);
 
   // Define the styles that are to be passed to the map instance:
   const mapStyles = {
@@ -406,20 +468,14 @@ function MyMap(props) {
 
   const heatmap = new ol.layer.Heatmap({
     source: new ol.source.Vector({
-      url: 'https://openlayers.org/en/latest/examples/data/kml/2012_Earthquakes_Mag5.kml',
-      format: new ol.format.KML({
-        extractStyles: false,
-      }),
+      features: items,
+      format: new ol.format.GeoJSON(),
     }),
     //blur: parseInt(blur.value, 10),
     //radius: parseInt(radius.value, 10),
     weight: function (feature) {
-      // 2012_Earthquakes_Mag5.kml stores the magnitude of each earthquake in a
-      // standards-violating <magnitude> tag in each Placemark.  We extract it from
-      // the Placemark's name instead.
-      const name = feature.get('name');
-      const magnitude = parseFloat(name.substr(2));
-      return magnitude - 5;
+      const count = parseInt(feature.get('count'), 10);
+      return count;
     },
   });
 
@@ -456,11 +512,6 @@ function MyMap(props) {
         let maxY = Math.round(lonLatExtent[3] * 100) / 100;
         let maxX = Math.round(lonLatExtent[2] * 100) / 100;
         searchParams.set(field, ["[", minY, ",", minX, " TO ", maxY, ",", maxX, "]"].join(''));
-        // zoom
-        //searchParams.set('ext_zoom', map.getZoom());
-        // center
-        //searchParams.set('ext_lat', map.getCenter().lat);
-        //searchParams.set('ext_lon', map.getCenter().lng);
         window.location.href = location.pathname + "?" + searchParams.toString();
       })
   }, [])
