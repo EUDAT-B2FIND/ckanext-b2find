@@ -10,22 +10,29 @@ function toGeoJSON(props) {
   const counts = props.counts_ints2D;
   const geojson = {
     type: 'FeatureCollection',
+    crs: {
+      type: 'name',
+      properties: {
+        name: 'EPSG:4326',
+      },
+    },
     features: []
   };
 
   // If our min longitude is greater than max longitude, we're crossing
   // the 180th meridian (date line).
-  crosses_meridian = minX > maxX;
+  const crosses_meridian = minX > maxX;
 
   // Bucket width needs to be calculated differently when crossing the
   // meridian since it wraps.
+  let bucket_width = null;
   if (crosses_meridian) {
     bucket_width = (360 - abs(maxX - minX)) / columns;
   } else {
     bucket_width = (maxX - minX) / columns;
   }
 
-  bucket_height = (maxY - minY) / rows;
+  const bucket_height = (maxY - minY) / rows;
 
   counts.forEach((row, rowIndex) => {
     if (!row) return;
@@ -44,12 +51,12 @@ function toGeoJSON(props) {
 
       const point = {
         type: 'Feature',
-        geometry: {
+         geometry: {
           type: 'Point',
-          coordinates: [lat, lon]
+          coordinates: [lon, lat],
         },
         properties: {
-          name: "point",
+          //name: "point",
           count: column,
         }
       };
@@ -137,6 +144,7 @@ async function getItems(query, filter, facetFilter, field, type, sort, limit) {
   if (field in data["facets"]) {
     if (type == "heatmap") {
       items = toGeoJSON(data["facets"][field]);
+      //console.log("heatmap items", items);
     } else {
       items = data["facets"][field]["buckets"];
     }
@@ -445,15 +453,16 @@ function TimeRangeFacet(props) {
 
 function MyMap(props) {
   const field = props.field;
+  const bbox = props.bbox;
+  const items = props.items;
   const location = window.location;
   const searchParams = new URLSearchParams(location.search);
-  const [items, isFetching, isSuccess] = useSolrQuery(field, "heatmap", null, "cd", 0);
 
   // Define the styles that are to be passed to the map instance:
   const mapStyles = {
     // overflow: "hidden",
     width: "100%",
-    height: "30vh"
+    height: "250px"
   };
 
   const stamen = new ol.layer.Tile({
@@ -468,16 +477,26 @@ function MyMap(props) {
 
   const heatmap = new ol.layer.Heatmap({
     source: new ol.source.Vector({
-      features: items,
-      format: new ol.format.GeoJSON(),
+      features: new ol.format.GeoJSON({
+        dataProjection: 'EPSG:4326',
+        featureProjection: 'EPSG:3857'}).readFeatures(items),
     }),
     //blur: parseInt(blur.value, 10),
     //radius: parseInt(radius.value, 10),
     weight: function (feature) {
       const count = parseInt(feature.get('count'), 10);
+      //console.log("count", count);
       return count;
     },
   });
+
+  // const vector = new ol.layer.Vector({
+  //   source: new ol.source.Vector({
+  //     features: new ol.format.GeoJSON({
+  //       dataProjection: 'EPSG:4326',
+  //       featureProjection: 'EPSG:3857'}).readFeatures(items),
+  //   }),
+  // });
 
   // a DragBox interaction used to select features by drawing boxes
   const dragBox = new ol.interaction.DragBox({
@@ -491,6 +510,7 @@ function MyMap(props) {
           //osm,
           stamen,
           heatmap,
+          //vector,
         ],
         view: new ol.View({
           center: ol.proj.fromLonLat([0.0, 20.0]),
@@ -511,7 +531,7 @@ function MyMap(props) {
         let minX = Math.round(lonLatExtent[0] * 100) / 100;
         let maxY = Math.round(lonLatExtent[3] * 100) / 100;
         let maxX = Math.round(lonLatExtent[2] * 100) / 100;
-        searchParams.set(field, ["[", minY, ",", minX, " TO ", maxY, ",", maxX, "]"].join(''));
+        searchParams.set(bbox, ["[", minY, ",", minX, " TO ", maxY, ",", maxX, "]"].join(''));
         window.location.href = location.pathname + "?" + searchParams.toString();
       })
   }, [])
@@ -525,14 +545,21 @@ function MapFacet(props) {
   const id = "facet_" + props.field;
   const title = props.title;
   const field = props.field;
+  const bbox = props.bbox;
   const [items, isFetching, isSuccess] = useSolrQuery(field, "heatmap", null, "cd", 0);
 
   return (
     <section className="module module-narrow module-shallow">
       <Header
         title={title}/>
-      <MyMap
-        field={field}/>
+      {isSuccess && (
+      <div id={id} className="collapse.in">
+        <MyMap
+          items={items}
+          field={field}
+          bbox={bbox}/>
+      </div>
+      )}
     </section>
   );
 }
@@ -544,7 +571,8 @@ function Facets(props) {
     <React.Fragment>
       <ReactQuery.QueryClientProvider client={queryClient}>
         <MapFacet
-          field="extras_bbox"
+          field="extras_spatial"
+          bbox="extras_bbox"
           title="Spatial Coverage"/>
         <TimeRangeFacet
           field="extras_TempCoverage"
