@@ -386,6 +386,14 @@ function MyMap(props) {
   const lat = parseInt(searchParams.get('ext_lat'), 10) || 50;
   const lon = parseInt(searchParams.get('ext_lon'), 10) || 10;
 
+
+  // Define the styles that are to be passed to the map instance:
+  const mapStyles = {
+    // overflow: "hidden",
+    width: "100%",
+    height: "30vh"
+  };
+
   const stamen = new ol.layer.Tile({
     source: new ol.source.Stamen({
       layer: 'toner',
@@ -437,28 +445,28 @@ function MyMap(props) {
       map.addInteraction(dragBox);
 
       dragBox.on('boxend', function () {
-        const extent = dragBox.getGeometry().getExtent();
-        console.log("boxend", extent);
-        // minX, maxX, maxY, minY
-        // ENVELOPE(-10, 20, 15, 10)
+        let extent = dragBox.getGeometry().getExtent();
+        // [minx, miny, maxx, maxy].
+        let lonLatExtent = ol.proj.transformExtent(extent, 'EPSG:3857','EPSG:4326');
+        //console.log("boxend", lonLatExtent);
         // minY, minX, maxY, maxX
         // [10,-10 TO 15,20]
-        // let minY = Math.round(map.getBounds().getSouth() * 100) / 100;
-        // let minX = Math.round(map.getBounds().getWest() * 100) / 100;
-        // let maxY = Math.round(map.getBounds().getNorth() * 100) / 100;
-        // let maxX = Math.round(map.getBounds().getEast() * 100) / 100;
-        // searchParams.set(field, ["[", minY, ",", minX, " TO ", maxY, ",", maxX, "]"].join(''));
+        let minY = Math.round(lonLatExtent[1] * 100) / 100;
+        let minX = Math.round(lonLatExtent[0] * 100) / 100;
+        let maxY = Math.round(lonLatExtent[3] * 100) / 100;
+        let maxX = Math.round(lonLatExtent[2] * 100) / 100;
+        searchParams.set(field, ["[", minY, ",", minX, " TO ", maxY, ",", maxX, "]"].join(''));
         // zoom
         //searchParams.set('ext_zoom', map.getZoom());
         // center
         //searchParams.set('ext_lat', map.getCenter().lat);
         //searchParams.set('ext_lon', map.getCenter().lng);
-        //window.location.href = location.pathname + "?" + searchParams.toString();
+        window.location.href = location.pathname + "?" + searchParams.toString();
       })
   }, [])
 
   return (
-      <div id="map" className="map"></div>
+      <div id="map" style={mapStyles}></div>
   )
 }
 
