@@ -171,20 +171,23 @@ function useSolrParams() {
     "extras_OpenAccess",
     "extras_TempCoverage",
     "extras_PublicationYear",
-    "extras_bbox",
+    //"extras_bbox",
   ]
   const searchParams = new URLSearchParams(window.location.search);
   let query = "*:*";
   if (searchParams.has("q")) {
     query = searchParams.get("q");
   }
-  let filter = [];
+  const filter = [];
   for (const field of fields) {
     for (const val of searchParams.getAll(field)) {
       filter.push([field, ':', '\"', val, '\"'].join(''));
       //filter.push([field, ':', val].join(''));
     };
   };
+  if (searchParams.has("extras_bbox")) {
+    filter.push(['extras_bbox:', searchParams.get("extras_bbox")].join(''));
+  }
 
   //console.log(filter);
   return [query, filter];
@@ -506,10 +509,10 @@ function MyMap(props) {
     //console.log("boxend", lonLatExtent);
     // minY, minX, maxY, maxX
     // [10,-10 TO 15,20]
-    const minY = Math.round(lonLatExtent[1] * 100) / 100;
-    const minX = Math.round(lonLatExtent[0] * 100) / 100;
-    const maxY = Math.round(lonLatExtent[3] * 100) / 100;
-    const maxX = Math.round(lonLatExtent[2] * 100) / 100;
+    const minY = Math.round(lonLatExtent[1] * 10000) / 10000;
+    const minX = Math.round(lonLatExtent[0] * 10000) / 10000;
+    const maxY = Math.round(lonLatExtent[3] * 10000) / 10000;
+    const maxX = Math.round(lonLatExtent[2] * 10000) / 10000;
     searchParams.set(bbox, ["[", minY, ",", minX, " TO ", maxY, ",", maxX, "]"].join(''));
     window.location.href = location.pathname + "?" + searchParams.toString();
   };
