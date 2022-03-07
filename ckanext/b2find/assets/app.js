@@ -464,7 +464,7 @@ function MyMap(props) {
   const mapStyles = {
     // overflow: "hidden",
     width: "100%",
-    height: "250px"
+    height: "280px"
   };
 
   const stamen = new ol.layer.Tile({
@@ -483,6 +483,7 @@ function MyMap(props) {
         dataProjection: 'EPSG:4326',
         featureProjection: 'EPSG:3857'}).readFeatures(items),
     }),
+    opacity: 0.6,
     blur: 15,
     radius: 8,
     weight: function (feature) {
@@ -515,8 +516,8 @@ function MyMap(props) {
           //vector,
         ],
         view: new ol.View({
-          center: ol.proj.fromLonLat([0.0, 20.0]),
-          zoom: 1
+          center: ol.proj.fromLonLat([0.0, 0.0]),
+          zoom: 0
         })
       });
 
@@ -592,6 +593,8 @@ function Facets(props) {
         <Facet field="extras_Publisher" title="Publisher"/>
         <Facet field="extras_Contributor" title="Contributor"/>
         <Facet field="extras_ResourceType" title="Resource Type"/>
+        <Facet field="extras_Format" title="Format"/>
+        <Facet field="extras_Size" title="Size"/>
         <Facet field="extras_FundingReference" title="Funding Reference"/>
         <Facet field="extras_OpenAccess" title="Open Access"/>
       </ReactQuery.QueryClientProvider>
