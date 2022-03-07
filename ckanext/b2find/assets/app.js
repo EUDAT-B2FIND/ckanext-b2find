@@ -196,6 +196,7 @@ function useSolrQuery(field, type, facetFilter, sort, limit, extent) {
     ['items', field, facetFilter, sort, limit, extent], () => getItems(
       query, filter, facetFilter, field, type, sort, limit, extent));
 
+  //console.log("solr query", isSuccess, extent);
   return [data, isFetching, isSuccess];
 }
 
@@ -458,9 +459,19 @@ function TimeRangeFacet(props) {
 function MyMap(props) {
   const field = props.field;
   const bbox = props.bbox;
-  const items = props.items;
+  const [map, setMap] = React.useState();
+  const [heatmapLayer, setHeatmapLayer] = React.useState();
+  const [extent, setExtent] = React.useState("[-180 -90 TO 180 90]");
+  const [items, isFetching, isSuccess] = useSolrQuery(field, "heatmap", null, "cd", 0, extent);
+  const [zoom, setZoom] = React.useState(0);
+  const [center, setCenter] = React.useState([0.0, 0.0]);
   const location = window.location;
   const searchParams = new URLSearchParams(location.search);
+
+  // create state ref that can be accessed in OpenLayers onclick callback function
+  //  https://stackoverflow.com/a/60643670
+  const mapRef = React.useRef();
+  mapRef.current = map;
 
   // Define the styles that are to be passed to the map instance:
   const mapStyles = {
@@ -479,70 +490,104 @@ function MyMap(props) {
     source: new ol.source.OSM()
   });
 
-  const heatmap = new ol.layer.Heatmap({
-    source: new ol.source.Vector({
-      features: new ol.format.GeoJSON({
-        dataProjection: 'EPSG:4326',
-        featureProjection: 'EPSG:3857'}).readFeatures(items),
-    }),
-    opacity: 0.6,
-    blur: 15,
-    radius: 8,
-    weight: function (feature) {
-      const count = parseInt(feature.get('count'), 10);
-      //console.log("count", count);
-      return count;
-    },
+  const initialHeatmap = new ol.layer.Heatmap({
+    source: new ol.source.Vector(),
   });
-
-  // const vector = new ol.layer.Vector({
-  //   source: new ol.source.Vector({
-  //     features: new ol.format.GeoJSON({
-  //       dataProjection: 'EPSG:4326',
-  //       featureProjection: 'EPSG:3857'}).readFeatures(items),
-  //   }),
-  // });
 
   // a DragBox interaction used to select features by drawing boxes
   const dragBox = new ol.interaction.DragBox({
     condition: ol.events.condition.platformModifierKeyOnly,
   });
 
+  function onBoxEnd(evt) {
+    const extent = dragBox.getGeometry().getExtent();
+    // [minx, miny, maxx, maxy].
+    const lonLatExtent = ol.proj.transformExtent(extent, 'EPSG:3857','EPSG:4326');
+    //console.log("boxend", lonLatExtent);
+    // minY, minX, maxY, maxX
+    // [10,-10 TO 15,20]
+    const minY = Math.round(lonLatExtent[1] * 100) / 100;
+    const minX = Math.round(lonLatExtent[0] * 100) / 100;
+    const maxY = Math.round(lonLatExtent[3] * 100) / 100;
+    const maxX = Math.round(lonLatExtent[2] * 100) / 100;
+    searchParams.set(bbox, ["[", minY, ",", minX, " TO ", maxY, ",", maxX, "]"].join(''));
+    window.location.href = location.pathname + "?" + searchParams.toString();
+  };
+
+  function wrapLon(value) {
+    const worlds = Math.floor((value + 180) / 360);
+    return value - worlds * 360;
+  };
+
+  function onMoveEnd(evt) {
+    const map = evt.map;
+    const mapExtent = map.getView().calculateExtent(map.getSize());
+    const bottomLeft = ol.proj.toLonLat(ol.extent.getBottomLeft(mapExtent));
+    const topRight = ol.proj.toLonLat(ol.extent.getTopRight(mapExtent));
+    //const minX = wrapLon(bottomLeft[0]);
+    const minX = bottomLeft[0];
+    const minY = bottomLeft[1];
+    //const maxX = wrapLon(topRight[0]);
+    const maxX = topRight[0];
+    const maxY = topRight[1];
+    //console.log(minX, minY, maxX, maxY);
+    // [-180 -90 TO 180 90]
+    const extent = ["[", minX, " ", minY, " TO ", maxX, " ", maxY, "]"].join('');
+    //console.log(extent);
+    setExtent(extent);
+  };
+
   React.useEffect(() => {
-    const map = new ol.Map({
-        target: 'map',
+    //console.log("Initialised for the first time");
+    const myMap = new ol.Map({
+        target: mapRef.current,
         layers: [
-          //osm,
           stamen,
-          heatmap,
-          //vector,
+          initialHeatmap,
         ],
         view: new ol.View({
-          center: ol.proj.fromLonLat([0.0, 0.0]),
-          zoom: 0
+          center: ol.proj.fromLonLat(center),
+          zoom: zoom,
         })
       });
 
-      map.addInteraction(dragBox);
-
-      dragBox.on('boxend', function () {
-        let extent = dragBox.getGeometry().getExtent();
-        // [minx, miny, maxx, maxy].
-        let lonLatExtent = ol.proj.transformExtent(extent, 'EPSG:3857','EPSG:4326');
-        //console.log("boxend", lonLatExtent);
-        // minY, minX, maxY, maxX
-        // [10,-10 TO 15,20]
-        let minY = Math.round(lonLatExtent[1] * 100) / 100;
-        let minX = Math.round(lonLatExtent[0] * 100) / 100;
-        let maxY = Math.round(lonLatExtent[3] * 100) / 100;
-        let maxX = Math.round(lonLatExtent[2] * 100) / 100;
-        searchParams.set(bbox, ["[", minY, ",", minX, " TO ", maxY, ",", maxX, "]"].join(''));
-        window.location.href = location.pathname + "?" + searchParams.toString();
-      })
+    myMap.addInteraction(dragBox);
+    dragBox.on('boxend', onBoxEnd);
+    myMap.on('moveend', onMoveEnd);
+    setMap(myMap);
+    setHeatmapLayer(initialHeatmap);
   }, [])
 
+  React.useEffect(() => {
+    console.log("Detected change");
+    console.log("items", isSuccess, items);
+    if (map != null && isSuccess) {
+      const features = new ol.format.GeoJSON({
+        dataProjection: 'EPSG:4326',
+        featureProjection: 'EPSG:3857'}).readFeatures(items);
+      console.log("features", features);
+      const source = new ol.source.Vector({
+        features: features
+      })
+      const heatmap = new ol.layer.Heatmap({
+        source: source,
+        opacity: 0.6,
+        //blur: 15,
+        //radius: 8,
+        weight: function (feature) {
+          const count = parseInt(feature.get('count'), 10);
+          return count;
+        },
+      });
+      map.removeLayer(heatmapLayer);
+      map.addLayer(heatmap);
+      setHeatmapLayer(heatmap);
+      //console.log(map.getLayers())
+    }
+  }, [isSuccess])
+
   return (
-      <div id="map" style={mapStyles}></div>
+      <div ref={mapRef} style={mapStyles}></div>
   )
 }
 
@@ -551,21 +596,16 @@ function MapFacet(props) {
   const title = props.title;
   const field = props.field;
   const bboxField = props.bbox;
-  const [extent, setExtent] = React.useState("[-180 -90 TO 180 90]");
-  const [items, isFetching, isSuccess] = useSolrQuery(field, "heatmap", null, "cd", 0, extent);
 
   return (
     <section className="module module-narrow module-shallow">
       <Header
         title={title}/>
-      {isSuccess && (
       <div id={id} className="collapse.in">
         <MyMap
-          items={items}
           field={field}
           bbox={bboxField}/>
       </div>
-      )}
     </section>
   );
 }
