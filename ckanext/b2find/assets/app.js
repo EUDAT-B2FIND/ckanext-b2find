@@ -68,7 +68,7 @@ function toGeoJSON(props) {
   return geojson;
 }
 
-async function getItems(query, filter, facetFilter, field, type, sort, limit, bbox) {
+async function getItems(query, filter, facetFilter, field, type, sort, limit, extent) {
   const url = "/b2find/query"
 
   let sortParam = {"count": "desc"};
@@ -117,7 +117,7 @@ async function getItems(query, filter, facetFilter, field, type, sort, limit, bb
     jsonQuery["facet"][field] = {
       "type": "heatmap",
       "field": field,
-      "geom": bbox,
+      "geom": extent,
       //"gridLevel": 4,
       //"format": "png",
     }
@@ -165,6 +165,8 @@ function useSolrParams() {
     "extras_Publisher",
     "extras_Contributor",
     "extras_ResourceType",
+    "extras_Format",
+    "extras_Size",
     "extras_FundingReference",
     "extras_OpenAccess",
     "extras_TempCoverage",
@@ -188,11 +190,11 @@ function useSolrParams() {
   return [query, filter];
 }
 
-function useSolrQuery(field, type, facetFilter, sort, limit, bbox) {
+function useSolrQuery(field, type, facetFilter, sort, limit, extent) {
   const [query, filter] = useSolrParams()
   const { data, isFetching, isSuccess } = ReactQuery.useQuery(
-    ['items', field, facetFilter, sort, limit, bbox], () => getItems(
-      query, filter, facetFilter, field, type, sort, limit, bbox));
+    ['items', field, facetFilter, sort, limit, extent], () => getItems(
+      query, filter, facetFilter, field, type, sort, limit, extent));
 
   return [data, isFetching, isSuccess];
 }
@@ -549,8 +551,8 @@ function MapFacet(props) {
   const title = props.title;
   const field = props.field;
   const bboxField = props.bbox;
-  const [bbox, setBBox] = React.useState("[-180 -90 TO 180 90]");
-  const [items, isFetching, isSuccess] = useSolrQuery(field, "heatmap", null, "cd", 0, bbox);
+  const [extent, setExtent] = React.useState("[-180 -90 TO 180 90]");
+  const [items, isFetching, isSuccess] = useSolrQuery(field, "heatmap", null, "cd", 0, extent);
 
   return (
     <section className="module module-narrow module-shallow">
