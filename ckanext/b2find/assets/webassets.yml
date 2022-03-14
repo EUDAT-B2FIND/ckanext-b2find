@@ -4,8 +4,8 @@ theme:
   filters: cssrewrite
   output: ckanext-b2find/%(version)s_theme.css
 
-app:
+facets:
   contents:
-    - app.js
+    - facets.js
   filters: rjsmin
-  output: ckanext-b2find/%(version)s_app.js
+  output: ckanext-b2find/%(version)s_facets.js
