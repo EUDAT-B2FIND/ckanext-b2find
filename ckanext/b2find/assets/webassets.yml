@@ -9,3 +9,9 @@ facets:
     - facets.js
   filters: rjsmin
   output: ckanext-b2find/%(version)s_facets.js
+
+dataset:
+  contents:
+    - dataset.js
+  filters: rjsmin
+  output: ckanext-b2find/%(version)s_dataset.js
