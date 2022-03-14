@@ -27,12 +27,57 @@ function DatasetMap() {
     source: new ol.source.OSM()
   });
 
+  const image = new ol.style.Circle({
+    radius: 5,
+    fill: null,
+    stroke: new ol.style.Stroke({color: 'red', width: 1}),
+  });
+
+  const styles = {
+    'Point': new ol.style.Style({
+      image: image,
+    }),
+  };
+
+  const styleFunction = function (feature) {
+    return styles[feature.getGeometry().getType()];
+  };
+
+  const geojsonObject = {
+    'type': 'FeatureCollection',
+    'crs': {
+      'type': 'name',
+      'properties': {
+        'name': 'EPSG:3857',
+      },
+    },
+    'features': [
+      {
+        'type': 'Feature',
+        'geometry': {
+          'type': 'Point',
+          'coordinates': [0, 0],
+        },
+      },
+    ],
+  };
+
+  const vectorSource = new ol.source.Vector({
+    features: new ol.format.GeoJSON().readFeatures(geojsonObject),
+  });
+
+  const vectorLayer = new ol.layer.Vector({
+    source: vectorSource,
+    style: styleFunction,
+  });
+
   React.useEffect(() => {
     //console.log("Initialised for the first time");
     const myMap = new ol.Map({
         target: mapRef.current,
         layers: [
           stamen,
+          vectorLayer,
         ],
         view: new ol.View({
           center: ol.proj.fromLonLat(center),
