@@ -6,10 +6,8 @@
 {% endblock %}
 
 {% block package_info %}
-  {# ckanext-spatial: dataset extent #}
-  {% set dataset_extent = h.get_pkg_dict_extra(pkg, 'spatial', '') %}
-  {% if dataset_extent %}
-  {% endif %}
+  <!-- We will put our React component inside this div. -->
+  <div id="b2find_map"></div>
 {% endblock %}
 
 {% block package_organization %}
