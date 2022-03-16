@@ -26,7 +26,7 @@ function DatasetMap() {
   const [map, setMap] = React.useState();
   const [zoom, setZoom] = React.useState(0);
   const [center, setCenter] = React.useState([0.0, 0.0]);
-  //const [vectorLayer, setVectorLayer] = React.useState();
+  const [vectorLayer, setVectorLayer] = React.useState();
   //const [items, isFetching, isSuccess] = useSolrQuery("929fb749-e3ee-59d3-82f5-d674d6fedac5");
 
   // create state ref that can be accessed in OpenLayers onclick callback function
@@ -63,7 +63,7 @@ function DatasetMap() {
     featureProjection: 'EPSG:3857',
   });
 
-  const vector = new ol.layer.Vector({
+  const initialVectorLayer = new ol.layer.Vector({
     source: new ol.source.Vector({
       features: [feature],
     }),
@@ -75,7 +75,7 @@ function DatasetMap() {
         target: mapRef.current,
         layers: [
           stamen,
-          vector,
+          initialVectorLayer,
         ],
         view: new ol.View({
           center: ol.proj.fromLonLat(center),
@@ -84,7 +84,7 @@ function DatasetMap() {
       });
 
     setMap(myMap);
-    //setVectorLayer(initialVectorLayer);
+    setVectorLayer(initialVectorLayer);
   }, [])
 
   return (
