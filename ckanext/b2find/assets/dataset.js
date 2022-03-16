@@ -27,48 +27,22 @@ function DatasetMap() {
     source: new ol.source.OSM()
   });
 
-  const image = new ol.style.Circle({
-    radius: 5,
-    fill: null,
-    stroke: new ol.style.Stroke({color: 'red', width: 1}),
+  const wkt =
+    'POLYGON((10.689 -25.092, 34.595 ' +
+    '-20.170, 38.814 -35.639, 13.502 ' +
+    '-39.155, 10.689 -25.092))';
+
+  const format = new ol.format.WKT();
+
+  const feature = format.readFeature(wkt, {
+    dataProjection: 'EPSG:4326',
+    featureProjection: 'EPSG:3857',
   });
 
-  const styles = {
-    'Point': new ol.style.Style({
-      image: image,
+  const vector = new ol.layer.Vector({
+    source: new ol.source.Vector({
+      features: [feature],
     }),
-  };
-
-  const styleFunction = function (feature) {
-    return styles[feature.getGeometry().getType()];
-  };
-
-  const geojsonObject = {
-    'type': 'FeatureCollection',
-    'crs': {
-      'type': 'name',
-      'properties': {
-        'name': 'EPSG:3857',
-      },
-    },
-    'features': [
-      {
-        'type': 'Feature',
-        'geometry': {
-          'type': 'Point',
-          'coordinates': [0, 0],
-        },
-      },
-    ],
-  };
-
-  const vectorSource = new ol.source.Vector({
-    features: new ol.format.GeoJSON().readFeatures(geojsonObject),
-  });
-
-  const vectorLayer = new ol.layer.Vector({
-    source: vectorSource,
-    style: styleFunction,
   });
 
   React.useEffect(() => {
@@ -77,7 +51,7 @@ function DatasetMap() {
         target: mapRef.current,
         layers: [
           stamen,
-          vectorLayer,
+          vector,
         ],
         view: new ol.View({
           center: ol.proj.fromLonLat(center),
