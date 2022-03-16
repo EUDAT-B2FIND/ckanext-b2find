@@ -1,33 +1,33 @@
 "use strict";
 
-// async function getItems2(name) {
-//   const url = "/b2find/query"
-//
-//   const jsonQuery = {
-//     "query": "*:*",
-//     "filter": "name:"+name,
-//     "limit": 1,
-//     "fields": ["extras_spatial"],
-//   };
-//   const { data } = await axios.post(url, jsonQuery);
-//   console.log(data["docs"]);
-//   return data["docs"];
-// };
-//
-// function useSolrQuery2(name) {
-//   const { data, isFetching, isSuccess } = ReactQuery.useQuery(
-//     [name], () => getItems2(name));
-//
-//   //console.log("solr query", isSuccess, extent);
-//   return [data, isFetching, isSuccess];
-// }
+async function getDataset(name) {
+  const url = "/b2find/query"
+
+  const jsonQuery = {
+    "query": "*:*",
+    "filter": "name:"+name,
+    "limit": 1,
+    "fields": ["extras_spatial"],
+  };
+  const { data } = await axios.post(url, jsonQuery);
+  console.log(data["response"]["docs"]);
+  return data["response"]["docs"];
+};
+
+function useDataset(name) {
+  const { data, isFetching, isSuccess } = ReactQuery.useQuery(
+    "dataset", getDataset(name));
+
+  console.log("use dataset", isSuccess);
+  return [data, isFetching, isSuccess];
+}
 
 function DatasetMap() {
   const [map, setMap] = React.useState();
   const [zoom, setZoom] = React.useState(0);
   const [center, setCenter] = React.useState([0.0, 0.0]);
   const [vectorLayer, setVectorLayer] = React.useState();
-  //const [items, isFetching, isSuccess] = useSolrQuery("929fb749-e3ee-59d3-82f5-d674d6fedac5");
+  const [dataset, isFetching, isSuccess] = useDataset("929fb749-e3ee-59d3-82f5-d674d6fedac5");
 
   // create state ref that can be accessed in OpenLayers onclick callback function
   //  https://stackoverflow.com/a/60643670
@@ -88,11 +88,15 @@ function DatasetMap() {
   }, [])
 
   return (
-      <div ref={mapRef} style={mapStyles}></div>
+    <div ref={mapRef} style={mapStyles}></div>
   )
 }
 
+const queryClient = new ReactQuery.QueryClient();
+
 ReactDOM.render(
-  <DatasetMap/>,
+  <ReactQuery.QueryClientProvider client={queryClient}>
+    <DatasetMap/>
+  </ReactQuery.QueryClientProvider>,
   document.getElementById('b2find_map')
 );
