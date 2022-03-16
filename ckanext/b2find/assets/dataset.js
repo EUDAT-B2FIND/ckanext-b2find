@@ -1,9 +1,33 @@
 "use strict";
 
+async function getItems(name) {
+  const url = "/b2find/query"
+
+  const jsonQuery = {
+    "query": "*:*",
+    "filter": "name:"+name,
+    "limit": 1,
+    "fields": ["extras_spatial"],
+  };
+  const { data } = await axios.post(url, jsonQuery);
+  console.log(data["docs"]);
+  return data["docs"];
+};
+
+function useSolrQuery(name) {
+  const { data, isFetching, isSuccess } = ReactQuery.useQuery(
+    [name], () => getItems(name));
+
+  //console.log("solr query", isSuccess, extent);
+  return [data, isFetching, isSuccess];
+}
+
 function DatasetMap() {
   const [map, setMap] = React.useState();
   const [zoom, setZoom] = React.useState(0);
   const [center, setCenter] = React.useState([0.0, 0.0]);
+  const [vectorLayer, setVectorLayer] = React.useState();
+  //const [items, isFetching, isSuccess] = useSolrQuery("929fb749-e3ee-59d3-82f5-d674d6fedac5");
 
   // create state ref that can be accessed in OpenLayers onclick callback function
   //  https://stackoverflow.com/a/60643670
@@ -39,10 +63,8 @@ function DatasetMap() {
     featureProjection: 'EPSG:3857',
   });
 
-  const vector = new ol.layer.Vector({
-    source: new ol.source.Vector({
-      features: [feature],
-    }),
+  const initialVectorLayer = new ol.layer.Vector({
+    source: new ol.source.Vector(),
   });
 
   React.useEffect(() => {
@@ -51,7 +73,7 @@ function DatasetMap() {
         target: mapRef.current,
         layers: [
           stamen,
-          vector,
+          initialVectorLayer,
         ],
         view: new ol.View({
           center: ol.proj.fromLonLat(center),
@@ -60,6 +82,7 @@ function DatasetMap() {
       });
 
     setMap(myMap);
+    setVectorLayer(initialVectorLayer);
   }, [])
 
   return (
