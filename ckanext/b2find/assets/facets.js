@@ -92,7 +92,7 @@ async function getItems(query, filter, facetFilter, field, type, sort, limit, ex
         //"mm": '2<-1 5<80%',
         "query": query,
         "q.alt": "*:*",
-        "q.op": "AND",
+        //"q.op": "AND",
         }
       },
       "filter": filter,
