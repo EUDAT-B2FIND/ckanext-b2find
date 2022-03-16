@@ -7,11 +7,12 @@ async function getDataset(name) {
     "query": "*:*",
     "filter": "name:"+name,
     "limit": 1,
-    "fields": ["extras_spatial"],
+    "fields": ["extras_spatial"]
   };
   const { data } = await axios.post(url, jsonQuery);
-  console.log(data["response"]["docs"]);
-  return data["response"]["docs"];
+  const wkt = data["response"]["docs"][0]["extras_spatial"][0]
+  //console.log(wkt);
+  return wkt;
 };
 
 function useDataset(name) {
@@ -51,22 +52,8 @@ function DatasetMap() {
     source: new ol.source.OSM()
   });
 
-  const wkt =
-    'POLYGON((10.689 -25.092, 34.595 ' +
-    '-20.170, 38.814 -35.639, 13.502 ' +
-    '-39.155, 10.689 -25.092))';
-
-  const format = new ol.format.WKT();
-
-  const feature = format.readFeature(wkt, {
-    dataProjection: 'EPSG:4326',
-    featureProjection: 'EPSG:3857',
-  });
-
   const initialVectorLayer = new ol.layer.Vector({
-    source: new ol.source.Vector({
-      features: [feature],
-    }),
+    source: new ol.source.Vector(),
   });
 
   React.useEffect(() => {
@@ -86,6 +73,26 @@ function DatasetMap() {
     setMap(myMap);
     setVectorLayer(initialVectorLayer);
   }, [])
+
+  React.useEffect(() => {
+    console.log("dataset", isSuccess, dataset);
+    if (map != null && isSuccess) {
+      const features = new ol.format.WKT({
+        dataProjection: 'EPSG:4326',
+        featureProjection: 'EPSG:3857'}).readFeature(dataset);
+      console.log("features", features);
+      const source = new ol.source.Vector({
+        features: features
+      })
+      const vector = new ol.layer.Vector({
+        source: source,
+      });
+      map.removeLayer(vectorLayer);
+      map.addLayer(vector);
+      setVectorLayer(vector);
+      //console.log(map.getLayers())
+    }
+  }, [isSuccess])
 
   return (
     <div ref={mapRef} style={mapStyles}></div>
