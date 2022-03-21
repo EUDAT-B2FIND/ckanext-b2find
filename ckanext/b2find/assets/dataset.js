@@ -15,11 +15,19 @@ async function getDataset(name) {
   return wkt;
 };
 
-function useDataset(name) {
-  const { data, isFetching, isSuccess } = ReactQuery.useQuery(
-    "dataset", getDataset(name));
+function useDatasetName() {
+  const pathname = window.location.pathname;
+  const items = pathname.split("/");
+  const name = items[items.length - 1];
+  return name;
+}
 
-  console.log("use dataset", isSuccess);
+function useDataset() {
+  const name = useDatasetName();
+  const { data, isFetching, isSuccess } = ReactQuery.useQuery(
+    ["dataset", name], () => getDataset(name));
+
+  console.log("use dataset", name, data, isSuccess);
   return [data, isFetching, isSuccess];
 }
 
@@ -28,7 +36,7 @@ function DatasetMap() {
   const [zoom, setZoom] = React.useState(0);
   const [center, setCenter] = React.useState([0.0, 0.0]);
   const [vectorLayer, setVectorLayer] = React.useState();
-  const [dataset, isFetching, isSuccess] = useDataset("929fb749-e3ee-59d3-82f5-d674d6fedac5");
+  const [dataset, isFetching, isSuccess] = useDataset();
 
   // create state ref that can be accessed in OpenLayers onclick callback function
   //  https://stackoverflow.com/a/60643670
@@ -75,14 +83,16 @@ function DatasetMap() {
   }, [])
 
   React.useEffect(() => {
-    console.log("dataset", isSuccess, dataset);
+    //console.log("dataset", isSuccess, dataset);
     if (map != null && isSuccess) {
-      const features = new ol.format.WKT({
+      const format = new ol.format.WKT();
+      const feature = format.readFeature(dataset, {
         dataProjection: 'EPSG:4326',
-        featureProjection: 'EPSG:3857'}).readFeature(dataset);
-      console.log("features", features);
+        featureProjection: 'EPSG:3857',
+      });
+      console.log("feature", feature);
       const source = new ol.source.Vector({
-        features: features
+        features: [feature],
       })
       const vector = new ol.layer.Vector({
         source: source,
