@@ -100,6 +100,7 @@ function DatasetMap() {
       map.removeLayer(vectorLayer);
       map.addLayer(vector);
       setVectorLayer(vector);
+      //map.zoomToExtent(vector.getExtent());
       //console.log(map.getLayers())
     }
   }, [isSuccess])
