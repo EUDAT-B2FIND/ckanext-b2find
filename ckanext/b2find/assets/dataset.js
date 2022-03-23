@@ -64,6 +64,18 @@ function DatasetMap() {
     source: new ol.source.Vector(),
   });
 
+  const stroke = new ol.style.Stroke({color: 'black', width: 2});
+  const fill = new ol.style.Fill({color: 'red'});
+  const square = new ol.style.Style({
+    image: new ol.style.RegularShape({
+      fill: fill,
+      stroke: stroke,
+      points: 4,
+      radius: 10,
+      angle: Math.PI / 4,
+    }),
+  });
+
   React.useEffect(() => {
     //console.log("Initialised for the first time");
     const myMap = new ol.Map({
@@ -91,6 +103,9 @@ function DatasetMap() {
         featureProjection: 'EPSG:3857',
       });
       console.log("feature", feature);
+      if (feature.getGeometry().getType() == "Point") {
+        feature.setStyle(square);
+      }
       const source = new ol.source.Vector({
         features: [feature],
       })
