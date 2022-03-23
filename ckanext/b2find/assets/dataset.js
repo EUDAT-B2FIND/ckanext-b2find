@@ -101,7 +101,11 @@ function DatasetMap() {
       map.addLayer(vector);
       setVectorLayer(vector);
       //map.zoomToExtent(vector.getExtent());
-      //console.log(map.getLayers())
+      //console.log("vector extent", source.getExtent());
+      var zoomToExtentControl = new ol.control.ZoomToExtent({
+        extent: source.getExtent(),
+      });
+      map.addControl(zoomToExtentControl);
     }
   }, [isSuccess])
 
