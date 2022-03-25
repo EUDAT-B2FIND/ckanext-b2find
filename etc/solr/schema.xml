@@ -158,6 +158,7 @@ attribute with the form `ckan-X.Y` -->
     <field name="download_url" type="string" indexed="true" stored="true" omitNorms="true" />
     <field name="notes" type="text" indexed="true" stored="true"/>
     <!-- B2FIND - start -->
+    <!-- field name="author" type="text_general" indexed="true" stored="true" /-->
     <field name="author" type="semicolonDelimited" indexed="true" stored="true" />
     <!-- B2FIND - end -->
     <field name="author_email" type="text_general" indexed="true" stored="true" />
