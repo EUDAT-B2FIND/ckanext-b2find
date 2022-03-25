@@ -39,17 +39,17 @@ class B2FindPlugin(plugins.SingletonPlugin):
     def _facets(self, facets_dict):
         # Deleted facets
         # facets_dict.pop('organization', None)
-        facets_dict.pop('license_id', None)
-        facets_dict.pop('res_format', None)
+        # facets_dict.pop('license_id', None)
+        # facets_dict.pop('res_format', None)
 
         # Renamed facets
         # if 'groups' in facets_dict:
         #     facets_dict['groups'] = 'Communities'
         if 'tags' in facets_dict:
             facets_dict['tags'] = 'Keywords'
+        facets_dict['author'] = 'Creator'
 
         # New facets
-        facets_dict['author'] = 'Creator'
         facets_dict['extras_TempCoverage'] = 'TemporalCoverage'
         facets_dict['extras_PublicationYear'] = 'PublicationYear'
         facets_dict['extras_bbox'] = 'BoundingBox'
