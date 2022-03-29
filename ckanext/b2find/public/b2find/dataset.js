@@ -10,7 +10,7 @@ async function getDataset(name) {
     "fields": ["extras_spatial"]
   };
   const { data } = await axios.post(url, jsonQuery);
-  const wkt = data["response"]["docs"][0]["extras_spatial"][0]
+  const wkt = data["response"]["docs"][0]["extras_spatial"]
   //console.log(wkt);
   return wkt;
 };
@@ -27,7 +27,7 @@ function useDataset() {
   const { data, isFetching, isSuccess } = ReactQuery.useQuery(
     ["dataset", name], () => getDataset(name));
 
-  console.log("use dataset", name, data, isSuccess);
+  //console.log("use dataset", name, data, isSuccess);
   return [data, isFetching, isSuccess];
 }
 
