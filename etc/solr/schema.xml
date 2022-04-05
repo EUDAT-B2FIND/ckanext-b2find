@@ -52,7 +52,10 @@ attribute with the form `ckan-X.Y` -->
     <fieldType name="text" class="solr.TextField" positionIncrementGap="100">
         <analyzer type="index">
             <tokenizer class="solr.WhitespaceTokenizerFactory"/>
-            <filter class="solr.WordDelimiterGraphFilterFactory" generateWordParts="1" generateNumberParts="1" catenateWords="1" catenateNumbers="1" catenateAll="0" splitOnCaseChange="1"/>
+            <!-- B2FIND - start -->
+            <!--filter class="solr.WordDelimiterGraphFilterFactory" generateWordParts="1" generateNumberParts="1" catenateWords="1" catenateNumbers="1" catenateAll="0" splitOnCaseChange="1"/-->
+            <filter class="solr.WordDelimiterGraphFilterFactory" splitOnNumerics="0" generateWordParts="1" generateNumberParts="1" catenateWords="1" catenateNumbers="1" catenateAll="0" splitOnCaseChange="1"/>
+            <!-- B2FIND - end -->
             <filter class="solr.FlattenGraphFilterFactory"/> <!-- required on index analyzers after graph filters -->
             <filter class="solr.LowerCaseFilterFactory"/>
             <filter class="solr.SnowballPorterFilterFactory" language="English" protected="protwords.txt"/>
@@ -61,7 +64,10 @@ attribute with the form `ckan-X.Y` -->
         <analyzer type="query">
             <tokenizer class="solr.WhitespaceTokenizerFactory"/>
             <filter class="solr.SynonymGraphFilterFactory" synonyms="synonyms.txt" ignoreCase="true" expand="true"/>
-            <filter class="solr.WordDelimiterGraphFilterFactory" generateWordParts="1" generateNumberParts="1" catenateWords="0" catenateNumbers="0" catenateAll="0" splitOnCaseChange="1"/>
+            <!-- B2FIND - start -->
+            <!-- filter class="solr.WordDelimiterGraphFilterFactory" generateWordParts="1" generateNumberParts="1" catenateWords="0" catenateNumbers="0" catenateAll="0" splitOnCaseChange="1"/ -->
+            <filter class="solr.WordDelimiterGraphFilterFactory" splitOnNumerics="0" generateWordParts="1" generateNumberParts="1" catenateWords="0" catenateNumbers="0" catenateAll="0" splitOnCaseChange="1"/>
+            <!-- B2FIND - end -->
             <filter class="solr.LowerCaseFilterFactory"/>
             <filter class="solr.SnowballPorterFilterFactory" language="English" protected="protwords.txt"/>
             <filter class="solr.ASCIIFoldingFilterFactory"/>
@@ -214,19 +220,20 @@ attribute with the form `ckan-X.Y` -->
     <dynamicField name="*_date" type="date" indexed="true" stored="true" multiValued="false"/>
 
     <!-- B2FIND - start -->
-    <field name="extras_Discipline" type="semicolonDelimited" indexed="true" stored="true" />
+    <!--field name="extras_Discipline" type="semicolonDelimited" indexed="true" stored="true" />
     <field name="extras_Publisher" type="semicolonDelimited" indexed="true" stored="true" />
     <field name="extras_Language" type="semicolonDelimited" indexed="true" stored="true" />
     <field name="extras_Contributor" type="semicolonDelimited" indexed="true" stored="true" />
     <field name="extras_ResourceType" type="semicolonDelimited" indexed="true" stored="true" />
     <field name="extras_Instrument" type="semicolonDelimited" indexed="true" stored="true" />
-    <field name="extras_FundingReference" type="semicolonDelimited" indexed="true" stored="true" />
-    <field name="extras_PublicationYear" type="dateRange" indexed="true" stored="true"/>
-    <field name="extras_TempCoverage" type="dateRange" indexed="true" stored="true" />
-    <field name="extras_bbox" type="bbox" indexed="true" stored="true" />
+    <field name="extras_FundingReference" type="semicolonDelimited" indexed="true" stored="true" /-->
+    <field name="extras_PublicationYear" type="dateRange" indexed="true" stored="true" multiValued="false"/>
+    <field name="extras_TempCoverage" type="dateRange" indexed="true" stored="true" multiValued="false" />
+    <field name="extras_bbox" type="bbox" indexed="true" stored="true" multiValued="false" />
     <field name="extras_spatial" type="geom" stored="true" indexed="true" multiValued="false" />
     <field name="extras_geom" type="geom" stored="true" indexed="true" multiValued="false" />
-    <dynamicField name="extras_*" type="textfacet" indexed="true" stored="true" multiValued="false" />
+    <field name="extras_fulltext" type="text" indexed="true" stored="true" multiValued="false" />
+    <dynamicField name="extras_*" type="semicolonDelimited" indexed="true" stored="true" multiValued="false" />
     <!-- B2FIND - end -->
     <dynamicField name="res_extras_*" type="text" indexed="true" stored="true" multiValued="true"/>
     <dynamicField name="vocab_*" type="string" indexed="true" stored="true" multiValued="true"/>
