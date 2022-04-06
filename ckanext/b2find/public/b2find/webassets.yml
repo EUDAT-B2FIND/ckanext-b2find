@@ -7,11 +7,14 @@ theme:
 facets:
   contents:
     - facets.js
-  filters: rjsmin
+  filters: babel
   output: ckanext-b2find/%(version)s_facets.js
 
 dataset:
   contents:
     - dataset.js
-  filters: rjsmin
+  filters: babel
+  config:
+    BABEL_EXTRA_ARGS: "--no-babelrc"
+    BABEL_RUN_IN_DEBUG: True
   output: ckanext-b2find/%(version)s_dataset.js
