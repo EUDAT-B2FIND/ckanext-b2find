@@ -1,0 +1,17 @@
+theme:
+  contents:
+    - theme.css
+  filters: cssrewrite
+  output: ckanext-b2find/%(version)s_theme.css
+
+facets:
+  contents:
+    - facets.js
+  filters: rjsmin
+  output: ckanext-b2find/%(version)s_facets.js
+
+dataset:
+  contents:
+    - dataset.js
+  filters: rjsmin
+  output: ckanext-b2find/%(version)s_dataset.js

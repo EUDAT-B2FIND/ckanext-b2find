@@ -2,18 +2,18 @@
 
 {% block content_primary_nav %}
   {{ h.build_nav_icon(dataset_type ~ '.read', _('Dataset'), id=pkg.id if is_activity_archive else pkg.name, icon='sitemap') }}
-  {{ h.build_nav_icon(dataset_type ~ '.groups', _('Communities'), id=pkg.id if is_activity_archive else pkg.name, icon='users') }}
 {% endblock %}
 
 {% block package_info %}
-  {# ckanext-spatial: dataset extent #}
-  {% set dataset_extent = h.get_pkg_dict_extra(pkg, 'spatial', '') %}
-  {% if dataset_extent %}
-    {% snippet "spatial/snippets/dataset_map_sidebar.html", extent=dataset_extent %}
-  {% endif %}
+  <!-- We will put our React component inside this div. -->
+  <div id="b2find_map"></div>
 {% endblock %}
 
 {% block package_organization %}
+  {% if pkg.organization %}
+    {% set org = h.get_organization(pkg.organization.id) %}
+    {% snippet "snippets/organization.html", organization=org, has_context_title=true %}
+  {% endif %}
 {% endblock %}
 
 {% block package_license %}

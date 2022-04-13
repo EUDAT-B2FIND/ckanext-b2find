@@ -1,9 +1,13 @@
 def extras_to_exclude():
     exclude_list = [
-        'B2SHARE-Domain', 'checksum', 'fulltext', 'identifiers',
-        'ManagerVersion', 'MapperVersion',
-        'maxx', 'maxy', 'minx', 'miny',
-        'oai_set', 'oai_identifier',
+        # 'B2SHARE-Domain',
+        # 'checksum',
+        'fulltext',
+        # 'identifiers',
+        # 'ManagerVersion',
+        # 'MapperVersion',
+        # 'maxx', 'maxy', 'minx', 'miny',
+        # 'oai_set', 'oai_identifier',
         'PublicationTimestamp',
         'spatial',
         'TempCoverage',
