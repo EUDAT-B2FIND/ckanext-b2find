@@ -141,6 +141,13 @@ attribute with the form `ckan-X.Y` -->
             <filter class="solr.LowerCaseFilterFactory"/>
         </analyzer>
     </fieldType>
+
+    <fieldType name="textSuggest" class="solr.TextField" positionIncrementGap="100">
+      <analyzer>
+        <tokenizer class="solr.StandardTokenizerFactory"/>
+        <filter class="solr.LowerCaseFilterFactory"/>
+      </analyzer>
+    </fieldType>
     <!-- B2FIND - end -->
 
 </types>
@@ -189,6 +196,7 @@ attribute with the form `ckan-X.Y` -->
          via copyField further on in this schema  -->
     <field name="text" type="text" indexed="true" stored="false" multiValued="true"/>
     <field name="urls" type="text" indexed="true" stored="false" multiValued="true"/>
+    <!--field name="suggest" type="textSuggest" indexed="true" stored="true" multiValued="true"/-->
 
     <field name="depends_on" type="text" indexed="true" stored="false" multiValued="true"/>
     <field name="dependency_of" type="text" indexed="true" stored="false" multiValued="true"/>
@@ -263,6 +271,6 @@ attribute with the form `ckan-X.Y` -->
 <copyField source="res_name" dest="text"/>
 <copyField source="res_description" dest="text"/>
 <copyField source="maintainer" dest="text"/>
-<copyField source="author" dest="text"/>
+<!--copyField source="title" dest="suggest"/-->
 
 </schema>

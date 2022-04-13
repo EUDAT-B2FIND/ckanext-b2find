@@ -368,11 +368,11 @@
   <query>
 
     <!-- Maximum number of clauses allowed when parsing a boolean query string.
-         
+
          This limit only impacts boolean queries specified by a user as part of a query string,
          and provides per-collection controls on how complex user specified boolean queries can
          be.  Query strings that specify more clauses then this will result in an error.
-         
+
          If this per-collection limit is greater then the global `maxBooleanClauses` limit
          specified in `solr.xml`, it will have no effect, as that setting also limits the size
          of user specified boolean queries.
@@ -382,7 +382,7 @@
     <!-- Solr Internal Query Caches
 
          There are four implementations of cache available for Solr:
-         LRUCache, based on a synchronized LinkedHashMap, 
+         LRUCache, based on a synchronized LinkedHashMap,
          LFUCache and FastLRUCache, based on a ConcurrentHashMap, and CaffeineCache -
          a modern and robust cache implementation. Note that in Solr 9.0
          only CaffeineCache will be available, other implementations are now
@@ -772,10 +772,10 @@
       <str name="echoParams">explicit</str>
       <int name="rows">10</int>
       <!-- Default search field
-         <str name="df">text</str> 
+         <str name="df">text</str>
         -->
       <!-- Change from JSON to XML format (the default prior to Solr 7.0)
-         <str name="wt">xml</str> 
+         <str name="wt">xml</str>
         -->
     </lst>
     <!-- In addition to defaults, "appends" params can be specified
@@ -940,6 +940,22 @@
       <int name="maxChanges">10</int>
     </lst>
     -->
+  </searchComponent>
+
+  <!-- suggest component
+    https://solr.apache.org/guide/8_11/suggester.html#adding-the-suggest-search-component
+  -->
+  <searchComponent name="suggest" class="solr.SuggestComponent">
+    <lst name="suggester">
+      <str name="name">mySuggester</str>
+      <str name="lookupImpl">FuzzyLookupFactory</str>
+      <str name="dictionaryImpl">DocumentDictionaryFactory</str>
+      <str name="field">suggest</str>
+      <!--str name="weightField">price</str-->
+      <!--str name="suggestAnalyzerFieldType">string</str-->
+      <str name="suggestAnalyzerFieldType">text</str>
+      <str name="buildOnStartup">false</str>
+    </lst>
   </searchComponent>
 
   <!-- A request handler for demonstrating the spellcheck component.
