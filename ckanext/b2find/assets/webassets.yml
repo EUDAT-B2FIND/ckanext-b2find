@@ -1,5 +1,0 @@
-b2find-css:
-  contents:
-    - b2find_theme.css
-  filters: cssrewrite
-  output: ckanext-b2find/%(version)s_b2find_theme.css

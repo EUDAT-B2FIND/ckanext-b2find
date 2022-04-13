@@ -1,9 +1,0 @@
-{% ckan_extends %}
-
-{% block package_search_results_api %}{% endblock %}
-
-{% block secondary_content %}
-  {% snippet "spatial/snippets/spatial_query.html" %}
-
-  {{ super() }}
-{% endblock %}
