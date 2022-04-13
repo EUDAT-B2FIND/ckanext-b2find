@@ -7,7 +7,7 @@ nav:
     - Communities: communities.md
     - For Providers: forproviders.md
     - For Users: forusers.md
-    - About: about
+    - About: about.md
 
 markdown_extensions:
     - toc:
