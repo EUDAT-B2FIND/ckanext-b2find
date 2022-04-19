@@ -8,6 +8,11 @@ facets:
   contents:
     - facets.js
   filters: babel
+  config:
+    BABEL_BIN: babel
+    BABEL_PRESETS: react
+    BABEL_EXTRA_ARGS: --no-babelrc
+    # BABEL_RUN_IN_DEBUG: True
   output: ckanext-b2find/%(version)s_facets.js
 
 dataset:
@@ -15,6 +20,8 @@ dataset:
     - dataset.js
   filters: babel
   config:
-    BABEL_EXTRA_ARGS: "--no-babelrc"
-    BABEL_RUN_IN_DEBUG: True
+    # BABEL_BIN: babel
+    BABEL_PRESETS: react
+    BABEL_EXTRA_ARGS: --no-babelrc
+    # BABEL_RUN_IN_DEBUG: True
   output: ckanext-b2find/%(version)s_dataset.js
