@@ -3,9 +3,10 @@
   "version": "0.1.0",
   "description": "b2find reactjs app",
   "scripts": {
-    "build": "babel js -d lib",
+    "build": "babel js -d lib --minified",
+    "build-dev": "babel js -d lib",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "watch": "babel js -d lib --watch"
+    "watch": "babel js -d lib --minified --watch"
   },
   "devDependencies": {
     "@babel/cli": "^7.17.6",

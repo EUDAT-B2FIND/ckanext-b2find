@@ -7,11 +7,11 @@ theme:
 facets:
   contents:
     - lib/facets.js
-  filters: rjsmin
+  # filters: rjsmin
   output: ckanext-b2find/%(version)s_facets.js
 
 dataset:
   contents:
     - lib/dataset.js
-  filters: rjsmin
+  # filters: rjsmin
   output: ckanext-b2find/%(version)s_dataset.js
