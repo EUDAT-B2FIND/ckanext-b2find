@@ -47,3 +47,8 @@ npm install
 ```
 npm run build
 ```
+
+Complile always when source has changed:
+```
+npm run watch
+```
