@@ -1,36 +1,17 @@
 theme:
   contents:
-    - theme.css
+    - css/theme.css
   filters: cssrewrite
   output: ckanext-b2find/%(version)s_theme.css
 
 facets:
   contents:
-    - facets.js
-  filters: babel
-  # filters: rjsmin
-  config:
-    # BABEL_BIN: babel
-    # BABEL_PRESETS: "@babel/preset-react"
-    BABEL_EXTRA_ARGS:
-      - "--no-babelrc"
-      - "--minified"
-      - "--presets"
-      - "@babel/preset-react"
-    # BABEL_RUN_IN_DEBUG: True
+    - lib/facets.js
+  filters: rjsmin
   output: ckanext-b2find/%(version)s_facets.js
 
 dataset:
   contents:
-    - dataset.js
-  filters: babel
-  # filters: rjsmin
-  config:
-    # BABEL_BIN: babel
-    # BABEL_PRESETS: "@babel/preset-react"
-    BABEL_EXTRA_ARGS:
-      - "--no-babelrc"
-      - "--minified"
-      - "--presets"
-      - "@babel/preset-react"
+    - lib/dataset.js
+  filters: rjsmin
   output: ckanext-b2find/%(version)s_dataset.js
