@@ -2,10 +2,49 @@
 
 {% block styles %}
   {{ super() }}
-  {% resource 'ckanext-b2find/b2find_theme.css' %}
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.13.0/css/ol.css" type="text/css">
+
+  {% asset 'ckanext-b2find/theme' %}
 {% endblock %}
 
-{% block bodytag %}
+{% block scripts %}
   {{ super() }}
-  ng-app="b2findApp"
+
+  <!-- Load React. -->
+  <!-- Note: when deploying, replace "development.js" with "production.min.js". -->
+  <script src="https://unpkg.com/react@17/umd/react.development.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js" crossorigin></script>
+
+  <!-- Load React query. -->
+  <script src="https://unpkg.com/react-query@3.34.14/dist/react-query.development.js" crossorigin></script>
+
+  <!-- Load OpenLayers. -->
+  <script src="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.13.0/build/ol.js" crossorigin></script>
+
+  <!-- Load Axios HTTP client. -->
+  <script src="https://unpkg.com/axios/dist/axios.min.js" crossorigin></script>
+
+  <!-- Load React Router and React Router DOM -->
+  <!--script src="https://unpkg.com/react-router@6/umd/react-router.development.js" crossorigin></script-->
+  <!--script src="https://unpkg.com/react-router-dom@6/umd/react-router-dom.development.js" crossorigin></script-->
+
+  <!-- Load Bokeh. -->
+  <script type="text/javascript" src="https://cdn.bokeh.org/bokeh/release/bokeh-2.4.2.min.js"></script>
+  <!--script type="text/javascript" src="https://cdn.bokeh.org/bokeh/release/bokeh-gl-2.4.2.min.js"></script-->
+  <script type="text/javascript" src="https://cdn.bokeh.org/bokeh/release/bokeh-widgets-2.4.2.min.js"></script>
+  <!--script type="text/javascript" src="https://cdn.bokeh.org/bokeh/release/bokeh-tables-2.4.2.min.js"></script-->
+  <!--script type="text/javascript" src="https://cdn.bokeh.org/bokeh/release/bokeh-mathjax-2.4.2.min.js"></script-->
+  <script type="text/javascript" src="https://cdn.bokeh.org/bokeh/release/bokeh-api-2.4.2.min.js"></script>
+
+  <!-- Babel in browser: Don't use this in production: -->
+  <!-- script src="https://unpkg.com/@babel/standalone/babel.min.js" crossorigin></script -->
+
+  <!-- Load our React component. -->
+  <!--script src="/b2find/facets.js" type="text/babel"></script-->
+  <!--script src="/b2find/dataset.js" type="text/babel"></script-->
+
+  {% asset 'ckanext-b2find/facets' %}
+  {% asset 'ckanext-b2find/dataset' %}
+
 {% endblock %}

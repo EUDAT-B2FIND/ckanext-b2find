@@ -1,0 +1,17 @@
+# conda env create -f environment.yml
+name: ckan
+channels:
+  - conda-forge
+dependencies:
+  - pip
+  - python=3.6
+  - shapely
+  - pandas
+  - geopandas
+  - spatialpandas
+  - bokeh
+  - matplotlib
+  - datashader
+  - holoviews
+  - geoviews
+  - mkdocs

@@ -1,0 +1,313 @@
+/* =========================================================================
+   Basics - modifications for b2find version 2
+   ========================================================================= */
+
+body {
+    background:       #FAFAFA url("/images/bg_page.png") no-repeat center;
+    position:         relative;
+    font:             300 15px/1.55 "Open Sans", sans-serif;
+}
+
+a {
+    color:            #264899;
+    text-decoration:  none;
+}
+
+a:hover {
+    color:            #F45D00;
+    text-decoration:  none;
+}
+
+[role=main] {
+    min-height:       75vh;
+}
+
+[role=main], .main {
+    background:       transparent;
+}
+
+.homepage [role=main] {
+    min-height:       75vh;
+}
+
+/* =========================================================================
+   The "account masthead" bar across the top of the site
+   ========================================================================= */
+
+.account-masthead {
+    background-color: rgb(40, 40, 40);
+}
+/*
+.account-masthead .account .notifications a span {
+    background-color: black;
+}
+*/
+
+.account-masthead .account ul li a {
+    color:            white;
+}
+
+.account-masthead .account ul li a:hover {
+    color:            #F45D00;
+    background:       black;
+}
+
+.account.avatar.authed {
+    height: 31px;
+}
+
+/* =========================================================================
+   The main masthead bar that contains the site logo, nav links, and search
+   ========================================================================= */
+
+.masthead {
+    background-color: #FFFFFF;
+}
+
+.masthead .navigation .nav-pills li a:hover {
+    background-color: rgb(19, 43, 95);
+    color:            white;
+}
+
+.masthead .navigation .nav-pills li.active a {
+    background-color: rgb(37, 85, 187);
+}
+
+/* =========================================================================
+   Front page content - modifications for b2find version 2
+   ========================================================================= */
+
+.homepage .module-search .module-content {
+    color:            #000000;
+    background-color: #FFFFFF;
+}
+
+.homepage .module-search .tags {
+    color:            #000000;
+    background-color: #FFFFFF;
+}
+
+/* =========================================================================
+   Front page content - new elements for b2find version 2
+   ========================================================================= */
+
+.b2f_tag {
+    display:          inline-block;
+    margin-bottom:    4px;
+    color:            #000000;
+    background-color: #ffffff;
+    padding:          1px 10px;
+    border:           1px solid #dddddd;
+    -webkit-box-shadow: inset 0 1px 0 #ffffff;
+    -moz-box-shadow:  inset 0 1px 0 #ffffff;
+    box-shadow:       inset 0 1px 0 #ffffff;
+}
+
+a.b2f_tag:hover {
+    text-decoration:  none;
+    color:            #ffffff;
+    background-color: #1f3a93;
+    border:           1px solid #ffffff;
+    -webkit-box-shadow: inset 0 1px 0 #3d97b3;
+    -moz-box-shadow:  inset 0 1px 0 #3d97b3;
+    box-shadow:       inset 0 1px 0 #3d97b3;
+}
+
+/* =========================================================================
+   Header & footer - new elements for b2find version 2
+   ========================================================================= */
+
+#header-top {
+    background:       #264899;
+    padding:          1px 50px;
+}
+
+.eudat-link {
+    border-left:      1px solid #577CD5;
+    border-right:     1px solid #577CD5;
+    padding:          5px 10px 5px 10px;
+    display:          inline-block;
+    font-size:        14px;
+    font-weight:      bold;
+}
+.eudat-link a {
+    color:            #FFFFFF;
+    text-decoration:  none;
+}
+.eudat-link a:hover {
+    color:            #F6D27C !important;
+}
+
+#header-main {
+    background:       #FFFFFF url("/images/pattern.svg") no-repeat top right;
+    padding:          0px 50px 0px 50px;
+    box-shadow:       -7px 4px 18px -2px rgba(0,0,0,0.1);
+}
+
+.header_logo {
+    padding:          10px 0px;
+    width:            150px;
+}
+
+.home_logo {
+    display:          block;
+    margin-left:      auto;
+    margin-right:     auto;
+    width:            200px;
+}
+
+.footer-main {
+    background:       #2C2C2C;
+    color:            white;
+    padding:          20px 0;
+    font-size:        12px;
+    width:            100%;
+}
+.footer-main a {
+    color:            white;
+    text-decoration:  none;
+}
+.footer-main a:hover {
+    color:            #F45D00;
+}
+
+.footer-logo {
+    margin:           0 25px;
+}
+
+.footer-line {
+    border-top:       1px solid #888;
+    border-bottom:    0;
+    margin:           10px 0;
+}
+
+.footer-powered {
+    padding-right:    25px;
+    text-align:       right;
+}
+
+.dropdown-menu > li > a:hover {
+    background-color: #264899;
+    background-image: none;
+}
+
+.navbar-default {
+    background-color: transparent !important;
+    border:           0;
+    margin-top:       30px;
+}
+.navbar-default .navbar-nav > li > a {
+    color:            #555;
+    font-weight:      700;
+}
+.navbar-default .navbar-nav > li > a:hover {
+    color:            #F45D00;
+    font-weight:      700;
+}
+
+.navbar-footer {
+    background-color: transparent;
+    border:           0;
+}
+.navbar-footer .navbar-nav > li > a:link {
+    color:            white;
+    text-shadow:      none;
+    padding:          0px 15px 10px;
+}
+.navbar-footer .navbar-nav > li > a:visited {
+    color:            white;
+}
+.navbar-footer .navbar-nav > li > a:hover, a:visited:hover {
+    color:            #F45D00;
+}
+
+.voffset125 {
+    padding-top:      6vh;
+}
+
+.voffset50 {
+    padding-top:      3vh;
+}
+
+/* =========================================================================
+   Miscellaneous changes / additions
+   ========================================================================= */
+
+tr.info_header {
+    color:            #ffffff;
+    background-color: #1f3a93;
+}
+
+.infoblock {
+    padding-top:      1.5em;
+}
+
+/* The arrows for facet's accordion header. */
+.fa-chevron-down:before {
+    content:          "\f077";
+}
+
+.collapsed .fa-chevron-down:before {
+    content:          "\f078";
+}
+
+pre.code {
+    background-color: #e6e6e6;
+}
+
+.nav-item {
+    position: relative;
+}
+
+input.facet-filter, select.facet-filter {
+    margin: 5px;
+    width: auto;
+}
+
+input.facet-filter {
+    max-width: 60%;
+    margin-right: 0;
+}
+
+.package-label-doi {
+    background-color: #fcb426;
+    color:            black;
+    margin-bottom:    20px;
+}
+
+.package-label-pid {
+    margin-bottom:    20px;
+}
+
+.dataset-details > a {
+    text-decoration:  none;
+    color:            #264899;
+}
+
+.dataset-details > a:hover {
+    text-decoration:  none;
+    color:            #F45D00;
+}
+
+.dataset-heading > a {
+    text-decoration:  none;
+    color:            black;
+}
+
+.dataset-heading > a:hover {
+    text-decoration:  none;
+    color:            #F45D00;
+}
+
+.pagination > ul > li > a {
+    color:            #264899;
+}
+
+.pagination > ul > li > a:hover {
+    color:            #F45D00;
+}
+
+/* Correct position of search icon on search_form input field */
+/* .search-form .search-input button {
+    top: 30%;
+} */

@@ -1,0 +1,17 @@
+{
+  "name": "b2find",
+  "version": "0.1.0",
+  "description": "b2find reactjs app",
+  "scripts": {
+    "build": "babel js -d lib --minified",
+    "build-dev": "babel js -d lib",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "watch": "babel js -d lib --watch"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.17.6",
+    "@babel/core": "^7.17.9",
+    "@babel/preset-env": "^7.16.11",
+    "@babel/preset-react": "^7.16.7"
+  }
+}

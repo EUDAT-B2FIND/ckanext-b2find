@@ -1,21 +1,11 @@
 {% extends "package/read_base.html" %}
 
-{% set pkg = c.pkg_dict %}
-
-{# determine if user is logged in #}
-{% if c.userobj %}
-  {% set logged_in = 1 %}
-{% endif %}
-
 {% block primary_content_inner %}
   {{ super() }}
   {% block package_description %}
-    {% if pkg.private %}
-      <span class="dataset-private label label-inverse pull-right">
-        <i class="fa fa-lock"></i>
-        {{ _('Private') }}
-      </span>
-    {% endif %}
+  
+    {% block package_archive_notice %}
+    {% endblock %}
     <h2>
       {% block page_heading %}
         {{ h.dataset_display_name(pkg) }}
@@ -25,11 +15,10 @@
         {% if pkg.state == 'deleted' %}
           [{{ _('Deleted') }}]
         {% endif %}
-
       {% endblock %}
     </h2>
 
-    {% block package_labels %}
+     {% block package_labels %}
       {% set extras_dict = dict(h.sorted_extras(pkg.extras,excluded_extras)) %}
       {% snippet "package/snippets/labels.html", pkg_dict=pkg_dict, extras_dict=extras_dict, logged_in=logged_in %}
     {% endblock %}
@@ -45,14 +34,15 @@
     <span class="insert-comment-thread"></span>
   {% endblock %}
 
-  {% block package_resources %}{% endblock %}
+  {% block package_resources %}
+  {% endblock %}
 
   {% block package_tags %}
     {% snippet "package/snippets/tags.html", tags=pkg.tags %}
   {% endblock %}
 
   {% block package_additional_info %}
-    {% snippet "package/snippets/additional_info.html", pkg_dict=pkg, logged_in=logged_in %}
+    {% snippet "package/snippets/additional_info.html", pkg_dict=pkg %}
   {% endblock %}
 
 {% endblock %}
