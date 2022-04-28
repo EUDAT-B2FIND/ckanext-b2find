@@ -3,9 +3,9 @@
 {% block styles %}
   {{ super() }}
 
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.13.0/css/ol.css" type="text/css">
-
   {% asset 'ckanext-b2find/theme' %}
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.14.1/css/ol.css" type="text/css">
 {% endblock %}
 
 {% block scripts %}
@@ -13,14 +13,14 @@
 
   <!-- Load React. -->
   <!-- Note: when deploying, replace "development.js" with "production.min.js". -->
-  <script src="https://unpkg.com/react@17/umd/react.development.js" crossorigin></script>
-  <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js" crossorigin></script>
+  <script src="https://unpkg.com/react@17/umd/react.production.min.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js" crossorigin></script>
 
   <!-- Load React query. -->
-  <script src="https://unpkg.com/react-query@3.34.14/dist/react-query.development.js" crossorigin></script>
+  <script src="https://unpkg.com/react-query@3.34.14/dist/react-query.production.min.js" crossorigin></script>
 
   <!-- Load OpenLayers. -->
-  <script src="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.13.0/build/ol.js" crossorigin></script>
+  <script src="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.14.1/build/ol.js" crossorigin></script>
 
   <!-- Load Axios HTTP client. -->
   <script src="https://unpkg.com/axios/dist/axios.min.js" crossorigin></script>
