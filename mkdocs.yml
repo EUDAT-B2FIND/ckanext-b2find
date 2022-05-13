@@ -3,8 +3,6 @@ site_url: http://b2find.eudat.eu/
 site_dir: site
 nav:
     - Home: index.md 
-    - Data Catalogue: datacatalogue.md
-    - Communities: communities.md
     - For Providers: forproviders.md
     - For Users: forusers.md
     - About: about.md
