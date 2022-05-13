@@ -301,13 +301,19 @@ function Item(props) {
 
 function getLabel(field, value) {
   const lookup = {
+    'organization':{
+      'bluecloud':'Blue-Cloud',
+      'nordicar':'Nordic Archaeology',
+      'dara':'da|ra',
+    },
     'groups':{
       'rki':'Robert Koch Institut', 
       'slks':'SLKS', 
       'askeladden':'Askeladden', 
       'gesis':'GESIS'
-    }
+    },
   };
+
   let label = value;
   if (field in lookup){
     if (value in lookup[field]){
