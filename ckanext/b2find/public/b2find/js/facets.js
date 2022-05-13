@@ -299,6 +299,30 @@ function Item(props) {
   )
 }
 
+function getLabel(field, value) {
+  const lookup = {
+    'organization':{
+      'bluecloud':'Blue-Cloud',
+      'nordicar':'Nordic Archaeology',
+      'dara':'da|ra',
+    },
+    'groups':{
+      'rki':'Robert Koch Institut', 
+      'slks':'SLKS', 
+      'askeladden':'Askeladden', 
+      'gesis':'GESIS'
+    },
+  };
+
+  let label = value;
+  if (field in lookup){
+    if (value in lookup[field]){
+      label = lookup[field][value];
+    }
+  }
+  return label;
+}
+
 function Items(props) {
   const items = props.items;
   const field = props.field;
@@ -310,7 +334,7 @@ function Items(props) {
           <Item
             key={index}
             field={field}
-            title={item.val}
+            title={getLabel(field, item.val)}
             count={item.count}
           />
         ))}
