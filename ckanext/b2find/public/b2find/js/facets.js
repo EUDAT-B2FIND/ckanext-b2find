@@ -85,14 +85,14 @@ async function getItems(query, filter, facetFilter, field, type, sort, limit, ex
   let jsonQuery = {
     "query": {
       "edismax": {
-        //"df": "text",
+        "df": "text",
         "qf": "name^4 title^4 tags^2 groups^2 text",
         //"qf": "name^4 title^4 author^2 tags^2 groups^2 text",
-        //"tie": '0.1',
-        //"mm": '2<-1 5<80%',
+        "tie": "0.1",
+        "mm": "2<-1 5<80%",
         "query": query,
         "q.alt": "*:*",
-        //"q.op": "AND",
+        "q.op": "AND",
         }
       },
       "filter": filter,
