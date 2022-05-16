@@ -378,26 +378,12 @@ function Item(props) {
   }, count)));
 }
 
-function getLabel(field, value) {
-  var lookup = {
-    'organization': {
-      'pangaea': 'PANGAEA',
-      'bluecloud': 'Blue-Cloud',
-      'nordicar': 'Nordic Archaeology',
-      'dara': 'da|ra'
-    },
-    'groups': {
-      'rki': 'Robert Koch Institut',
-      'slks': 'SLKS',
-      'askeladden': 'Askeladden',
-      'gesis': 'GESIS'
-    }
-  };
+function getLabel(field, value, labels) {
   var label = value;
 
-  if (field in lookup) {
-    if (value in lookup[field]) {
-      label = lookup[field][value];
+  if (field in labels) {
+    if (value in labels[field]) {
+      label = labels[field][value];
     }
   }
 
@@ -407,6 +393,18 @@ function getLabel(field, value) {
 function Items(props) {
   var items = props.items;
   var field = props.field;
+  var url = '/b2find/facet_labels';
+
+  var _React$useState3 = React.useState({}),
+      _React$useState4 = _slicedToArray(_React$useState3, 2),
+      labels = _React$useState4[0],
+      setLabels = _React$useState4[1];
+
+  React.useEffect(function () {
+    axios.get(url).then(function (res) {
+      setLabels(res.data);
+    });
+  }, []);
   return /*#__PURE__*/React.createElement("nav", {
     "aria-label": ""
   }, /*#__PURE__*/React.createElement("ul", {
@@ -416,7 +414,7 @@ function Items(props) {
       key: index,
       field: field,
       value: item.val,
-      title: getLabel(field, item.val),
+      title: getLabel(field, item.val, labels),
       count: item.count
     });
   })));
@@ -449,20 +447,20 @@ function Facet(props) {
   var title = props.title;
   var field = props.field;
 
-  var _React$useState3 = React.useState(""),
-      _React$useState4 = _slicedToArray(_React$useState3, 2),
-      filter = _React$useState4[0],
-      setFilter = _React$useState4[1];
-
-  var _React$useState5 = React.useState("cd"),
+  var _React$useState5 = React.useState(""),
       _React$useState6 = _slicedToArray(_React$useState5, 2),
-      sort = _React$useState6[0],
-      setSort = _React$useState6[1];
+      filter = _React$useState6[0],
+      setFilter = _React$useState6[1];
 
-  var _React$useState7 = React.useState(10),
+  var _React$useState7 = React.useState("cd"),
       _React$useState8 = _slicedToArray(_React$useState7, 2),
-      limit = _React$useState8[0],
-      setLimit = _React$useState8[1];
+      sort = _React$useState8[0],
+      setSort = _React$useState8[1];
+
+  var _React$useState9 = React.useState(10),
+      _React$useState10 = _slicedToArray(_React$useState9, 2),
+      limit = _React$useState10[0],
+      setLimit = _React$useState10[1];
 
   var _useSolrQuery = useSolrQuery(field, "terms", filter, sort, limit, null),
       _useSolrQuery2 = _slicedToArray(_useSolrQuery, 3),
@@ -585,20 +583,20 @@ function MyMap(props) {
   var field = props.field;
   var bbox = props.bbox;
 
-  var _React$useState9 = React.useState(),
-      _React$useState10 = _slicedToArray(_React$useState9, 2),
-      map = _React$useState10[0],
-      setMap = _React$useState10[1];
-
   var _React$useState11 = React.useState(),
       _React$useState12 = _slicedToArray(_React$useState11, 2),
-      heatmapLayer = _React$useState12[0],
-      setHeatmapLayer = _React$useState12[1];
+      map = _React$useState12[0],
+      setMap = _React$useState12[1];
 
-  var _React$useState13 = React.useState("[-180 -90 TO 180 90]"),
+  var _React$useState13 = React.useState(),
       _React$useState14 = _slicedToArray(_React$useState13, 2),
-      extent = _React$useState14[0],
-      setExtent = _React$useState14[1];
+      heatmapLayer = _React$useState14[0],
+      setHeatmapLayer = _React$useState14[1];
+
+  var _React$useState15 = React.useState("[-180 -90 TO 180 90]"),
+      _React$useState16 = _slicedToArray(_React$useState15, 2),
+      extent = _React$useState16[0],
+      setExtent = _React$useState16[1];
 
   var _useSolrQuery5 = useSolrQuery(field, "heatmap", null, "cd", 0, extent),
       _useSolrQuery6 = _slicedToArray(_useSolrQuery5, 3),
@@ -606,15 +604,15 @@ function MyMap(props) {
       isFetching = _useSolrQuery6[1],
       isSuccess = _useSolrQuery6[2];
 
-  var _React$useState15 = React.useState(0),
-      _React$useState16 = _slicedToArray(_React$useState15, 2),
-      zoom = _React$useState16[0],
-      setZoom = _React$useState16[1];
-
-  var _React$useState17 = React.useState([0.0, 0.0]),
+  var _React$useState17 = React.useState(0),
       _React$useState18 = _slicedToArray(_React$useState17, 2),
-      center = _React$useState18[0],
-      setCenter = _React$useState18[1];
+      zoom = _React$useState18[0],
+      setZoom = _React$useState18[1];
+
+  var _React$useState19 = React.useState([0.0, 0.0]),
+      _React$useState20 = _slicedToArray(_React$useState19, 2),
+      center = _React$useState20[0],
+      setCenter = _React$useState20[1];
 
   var location = window.location;
   var searchParams = new URLSearchParams(location.search); // create state ref that can be accessed in OpenLayers onclick callback function

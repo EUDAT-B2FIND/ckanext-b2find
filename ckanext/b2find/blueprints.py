@@ -20,3 +20,23 @@ def query_facets():
         url=f"{solr.url}/query",
         json=json_query)
     return resp.json()
+
+
+@b2find.route('/b2find/facet_labels', endpoint='get_facet_labels',
+              methods=['GET'])
+def get_facet_labels():
+    labels = {
+        'organization':{
+            'pangaea':'PANGAEA',
+            'bluecloud':'Blue-Cloud',
+            'nordicar':'Nordic Archaeology',
+            'dara':'da|ra',
+        },
+        'groups':{
+            'rki':'Robert Koch Institut', 
+            'slks':'SLKS', 
+            'askeladden':'Askeladden', 
+            'gesis':'GESIS'
+        },
+    }
+    return labels

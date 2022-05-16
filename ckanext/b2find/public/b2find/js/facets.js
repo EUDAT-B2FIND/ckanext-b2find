@@ -300,26 +300,11 @@ function Item(props) {
   )
 }
 
-function getLabel(field, value) {
-  const lookup = {
-    'organization':{
-      'pangaea':'PANGAEA',
-      'bluecloud':'Blue-Cloud',
-      'nordicar':'Nordic Archaeology',
-      'dara':'da|ra',
-    },
-    'groups':{
-      'rki':'Robert Koch Institut', 
-      'slks':'SLKS', 
-      'askeladden':'Askeladden', 
-      'gesis':'GESIS'
-    },
-  };
-
+function getLabel(field, value, labels) {
   let label = value;
-  if (field in lookup){
-    if (value in lookup[field]){
-      label = lookup[field][value];
+  if (field in labels){
+    if (value in labels[field]){
+      label = labels[field][value];
     }
   }
   return label;
@@ -328,6 +313,15 @@ function getLabel(field, value) {
 function Items(props) {
   const items = props.items;
   const field = props.field;
+  const url = '/b2find/facet_labels';
+  const [labels, setLabels] = React.useState({});
+
+  React.useEffect(() => {
+    axios.get(url)
+    .then(res => {
+      setLabels(res.data);
+    })
+  }, []);
 
   return (
     <nav aria-label="">
@@ -337,7 +331,7 @@ function Items(props) {
             key={index}
             field={field}
             value={item.val}
-            title={getLabel(field, item.val)}
+            title={getLabel(field, item.val, labels)}
             count={item.count}
           />
         ))}
