@@ -259,6 +259,7 @@ function SelectSort(props) {
 
 function Item(props) {
   const field = props.field;
+  const value = props.value;
   const title = props.title;
   const count = props.count;
   const label = title.substring(0,30);
@@ -269,16 +270,16 @@ function Item(props) {
   let style = "nav-item";
 
   const values = urlParams.getAll(field);
-  if (values.includes(title)) {
+  if (values.includes(value)) {
     isActive = true;
     urlParams.delete(field);
     for (const [i, val] of values.entries()) {
-      if (val != title) {
+      if (val != value) {
         urlParams.append(field, val);
       }
     }
   } else {
-    urlParams.append(field, title);
+    urlParams.append(field, value);
   }
 
   const href = location.pathname + "?" + urlParams.toString();
@@ -292,7 +293,7 @@ function Item(props) {
     <li className={style}>
       <a
         href={href}
-        title={title}>
+        title={value}>
         {label} <span className="badge">{count}</span>
       </a>
     </li>
@@ -302,6 +303,7 @@ function Item(props) {
 function getLabel(field, value) {
   const lookup = {
     'organization':{
+      'pangaea':'PANGAEA',
       'bluecloud':'Blue-Cloud',
       'nordicar':'Nordic Archaeology',
       'dara':'da|ra',
@@ -334,6 +336,7 @@ function Items(props) {
           <Item
             key={index}
             field={field}
+            value={item.val}
             title={getLabel(field, item.val)}
             count={item.count}
           />
