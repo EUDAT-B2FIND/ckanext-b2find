@@ -208,6 +208,10 @@ function useSolrParams() {
 
   if (searchParams.has("q")) {
     query = searchParams.get("q");
+
+    if (query.length > 3) {
+      query += "~";
+    }
   }
 
   var filter = [];

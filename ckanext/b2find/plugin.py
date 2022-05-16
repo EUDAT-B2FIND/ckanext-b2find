@@ -8,6 +8,7 @@ class B2FindPlugin(plugins.SingletonPlugin):
     plugins.implements(plugins.IConfigurer)
     plugins.implements(plugins.IFacets)
     plugins.implements(plugins.ITemplateHelpers)
+    plugins.implements(plugins.IPackageController, inherit=True)
     plugins.implements(plugins.IBlueprint)
 
     # IConfigurer
@@ -65,6 +66,16 @@ class B2FindPlugin(plugins.SingletonPlugin):
 
         return facets_dict
 
+    def before_search(self, search_params):
+        if 'q' in search_params:
+            search_params['defType'] = 'edismax'
+            q = search_params['q']
+            if len(q) > 3:
+                q += "~"
+                search_params['q'] = q 
+            print(search_params)   
+        return search_params
+    
     # IBlueprint
     def get_blueprint(self):
         return [blueprints.b2find]

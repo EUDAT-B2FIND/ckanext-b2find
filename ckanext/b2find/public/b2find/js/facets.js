@@ -177,6 +177,9 @@ function useSolrParams() {
   let query = "*:*";
   if (searchParams.has("q")) {
     query = searchParams.get("q");
+    if (query.length > 3) {
+      query += "~";
+    }
   }
   const filter = [];
   for (const field of fields) {
