@@ -73,7 +73,7 @@ class B2FindPlugin(plugins.SingletonPlugin):
             if len(q) > 3:
                 q += "~"
                 search_params['q'] = q 
-            print(search_params)   
+            # print(search_params)   
         return search_params
     
     # IBlueprint
