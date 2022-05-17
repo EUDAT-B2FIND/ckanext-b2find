@@ -155,6 +155,8 @@ async function getItems(query, filter, facetFilter, field, type, sort, limit, ex
 };
 
 function useSolrParams() {
+  const urlSearch = window.location.search;
+  const urlPathname = window.location.pathname;
   const fields = [
     "organization",
     "groups",
@@ -174,7 +176,7 @@ function useSolrParams() {
     "extras_PublicationYear",
     //"extras_bbox",
   ]
-  const searchParams = new URLSearchParams(window.location.search);
+  const searchParams = new URLSearchParams(urlSearch);
   let query = "*:*";
   if (searchParams.has("q")) {
     query = searchParams.get("q");
@@ -191,6 +193,14 @@ function useSolrParams() {
   };
   if (searchParams.has("extras_bbox")) {
     filter.push(['extras_bbox:', searchParams.get("extras_bbox")].join(''));
+  }
+  if (urlPathname.includes('/organization/')) {
+    let val = urlPathname.split("/").slice(-1);
+    filter.push(['organization', ':', '\"', val, '\"'].join(''));
+  }
+  if (urlPathname.includes('/group/')) {
+    let val = urlPathname.split("/").slice(-1);
+    filter.push(['groups', ':', '\"', val, '\"'].join(''));
   }
 
   //console.log(filter);

@@ -201,9 +201,11 @@ function _getItems() {
 ;
 
 function useSolrParams() {
+  var urlSearch = window.location.search;
+  var urlPathname = window.location.pathname;
   var fields = ["organization", "groups", "author", "tags", "extras_Instrument", "extras_Discipline", "extras_Language", "extras_Publisher", "extras_Contributor", "extras_ResourceType", "extras_Format", "extras_Size", "extras_FundingReference", "extras_OpenAccess", "extras_TempCoverage", "extras_PublicationYear" //"extras_bbox",
   ];
-  var searchParams = new URLSearchParams(window.location.search);
+  var searchParams = new URLSearchParams(urlSearch);
   var query = "*:*";
 
   if (searchParams.has("q")) {
@@ -240,6 +242,18 @@ function useSolrParams() {
 
   if (searchParams.has("extras_bbox")) {
     filter.push(['extras_bbox:', searchParams.get("extras_bbox")].join(''));
+  }
+
+  if (urlPathname.includes('/organization/')) {
+    var _val = urlPathname.split("/").slice(-1);
+
+    filter.push(['organization', ':', '\"', _val, '\"'].join(''));
+  }
+
+  if (urlPathname.includes('/group/')) {
+    var _val2 = urlPathname.split("/").slice(-1);
+
+    filter.push(['groups', ':', '\"', _val2, '\"'].join(''));
   } //console.log(filter);
 
 
