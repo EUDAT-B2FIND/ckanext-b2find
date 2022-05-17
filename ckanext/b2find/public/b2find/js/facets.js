@@ -85,14 +85,14 @@ async function getItems(query, filter, facetFilter, field, type, sort, limit, ex
   let jsonQuery = {
     "query": {
       "edismax": {
-        //"df": "text",
+        "df": "text",
         "qf": "name^4 title^4 tags^2 groups^2 text",
         //"qf": "name^4 title^4 author^2 tags^2 groups^2 text",
-        //"tie": '0.1',
-        //"mm": '2<-1 5<80%',
+        "tie": "0.1",
+        "mm": "2<-1 5<80%",
         "query": query,
         "q.alt": "*:*",
-        //"q.op": "AND",
+        "q.op": "AND",
         }
       },
       "filter": filter,
@@ -177,6 +177,9 @@ function useSolrParams() {
   let query = "*:*";
   if (searchParams.has("q")) {
     query = searchParams.get("q");
+    if (query.length > 3) {
+      query += "~";
+    }
   }
   const filter = [];
   for (const field of fields) {
@@ -259,6 +262,7 @@ function SelectSort(props) {
 
 function Item(props) {
   const field = props.field;
+  const value = props.value;
   const title = props.title;
   const count = props.count;
   const label = title.substring(0,30);
@@ -269,16 +273,16 @@ function Item(props) {
   let style = "nav-item";
 
   const values = urlParams.getAll(field);
-  if (values.includes(title)) {
+  if (values.includes(value)) {
     isActive = true;
     urlParams.delete(field);
     for (const [i, val] of values.entries()) {
-      if (val != title) {
+      if (val != value) {
         urlParams.append(field, val);
       }
     }
   } else {
-    urlParams.append(field, title);
+    urlParams.append(field, value);
   }
 
   const href = location.pathname + "?" + urlParams.toString();
@@ -292,32 +296,18 @@ function Item(props) {
     <li className={style}>
       <a
         href={href}
-        title={title}>
+        title={value}>
         {label} <span className="badge">{count}</span>
       </a>
     </li>
   )
 }
 
-function getLabel(field, value) {
-  const lookup = {
-    'organization':{
-      'bluecloud':'Blue-Cloud',
-      'nordicar':'Nordic Archaeology',
-      'dara':'da|ra',
-    },
-    'groups':{
-      'rki':'Robert Koch Institut', 
-      'slks':'SLKS', 
-      'askeladden':'Askeladden', 
-      'gesis':'GESIS'
-    },
-  };
-
+function getLabel(field, value, labels) {
   let label = value;
-  if (field in lookup){
-    if (value in lookup[field]){
-      label = lookup[field][value];
+  if (field in labels){
+    if (value in labels[field]){
+      label = labels[field][value];
     }
   }
   return label;
@@ -326,6 +316,15 @@ function getLabel(field, value) {
 function Items(props) {
   const items = props.items;
   const field = props.field;
+  const url = '/b2find/facet_labels';
+  const [labels, setLabels] = React.useState({});
+
+  React.useEffect(() => {
+    axios.get(url)
+    .then(res => {
+      setLabels(res.data);
+    })
+  }, []);
 
   return (
     <nav aria-label="">
@@ -334,7 +333,8 @@ function Items(props) {
           <Item
             key={index}
             field={field}
-            title={getLabel(field, item.val)}
+            value={item.val}
+            title={getLabel(field, item.val, labels)}
             count={item.count}
           />
         ))}
