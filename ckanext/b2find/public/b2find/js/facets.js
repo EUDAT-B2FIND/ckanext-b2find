@@ -156,6 +156,7 @@ async function getItems(query, filter, facetFilter, field, type, sort, limit, ex
 
 function useSolrParams() {
   const fields = [
+    "organization",
     "groups",
     "author",
     "tags",

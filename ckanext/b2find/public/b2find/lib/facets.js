@@ -201,7 +201,7 @@ function _getItems() {
 ;
 
 function useSolrParams() {
-  var fields = ["groups", "author", "tags", "extras_Instrument", "extras_Discipline", "extras_Language", "extras_Publisher", "extras_Contributor", "extras_ResourceType", "extras_Format", "extras_Size", "extras_FundingReference", "extras_OpenAccess", "extras_TempCoverage", "extras_PublicationYear" //"extras_bbox",
+  var fields = ["organization", "groups", "author", "tags", "extras_Instrument", "extras_Discipline", "extras_Language", "extras_Publisher", "extras_Contributor", "extras_ResourceType", "extras_Format", "extras_Size", "extras_FundingReference", "extras_OpenAccess", "extras_TempCoverage", "extras_PublicationYear" //"extras_bbox",
   ];
   var searchParams = new URLSearchParams(window.location.search);
   var query = "*:*";
