@@ -518,12 +518,6 @@ function MyMap(props) {
     height: "280px"
   };
 
-  // const stamen = new ol.layer.Tile({
-  //   source: new ol.source.Stamen({
-  //     layer: 'toner',
-  //   }),
-  // });
-
   const osm = new ol.layer.Tile({
     source: new ol.source.OSM()
   });
@@ -534,7 +528,22 @@ function MyMap(props) {
 
   // a DragBox interaction used to select features by drawing boxes
   const dragBox = new ol.interaction.DragBox({
-    condition: ol.events.condition.platformModifierKeyOnly,
+    //condition: ol.events.condition.platformModifierKeyOnly,
+    //condition: ol.events.condition.never,
+  });
+  dragBox.setActive(false);
+
+  function drawBox(props) {
+    //console.log("draw box");
+    dragBox.setActive(true);
+    mapRef.current.getTargetElement().style.cursor = 'zoom-in';
+  }
+  
+  const selectBox = new ol.control.Rotate({
+    'autoHide': false,
+    'label': '⛏',
+    'tipLabel': 'select with bbox',
+    'resetNorth': drawBox,
   });
 
   function onBoxEnd(evt) {
@@ -580,7 +589,6 @@ function MyMap(props) {
     const myMap = new ol.Map({
         target: mapRef.current,
         layers: [
-          // stamen,
           osm,
           initialHeatmap,
         ],
@@ -592,6 +600,7 @@ function MyMap(props) {
 
     myMap.addInteraction(dragBox);
     dragBox.on('boxend', onBoxEnd);
+    myMap.controls.push(selectBox);
     myMap.on('moveend', onMoveEnd);
     setMap(myMap);
     setHeatmapLayer(initialHeatmap);
