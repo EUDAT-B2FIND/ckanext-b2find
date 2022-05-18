@@ -518,11 +518,11 @@ function MyMap(props) {
     height: "280px"
   };
 
-  const stamen = new ol.layer.Tile({
-    source: new ol.source.Stamen({
-      layer: 'toner',
-    }),
-  });
+  // const stamen = new ol.layer.Tile({
+  //   source: new ol.source.Stamen({
+  //     layer: 'toner',
+  //   }),
+  // });
 
   const osm = new ol.layer.Tile({
     source: new ol.source.OSM()
@@ -580,7 +580,8 @@ function MyMap(props) {
     const myMap = new ol.Map({
         target: mapRef.current,
         layers: [
-          stamen,
+          // stamen,
+          osm,
           initialHeatmap,
         ],
         view: new ol.View({
