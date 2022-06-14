@@ -38,8 +38,8 @@ Six metadata elements are mandatory:
 2. the <Title> of the data set, i.e. a unique and unambiguous name or heading by which the referred resource is known (avoid referencing two different data collections by same title).
 3. at least one <Identifier>, which has two roles: to identify the described resource, and to facilitate a persistent link to the research data set itself, which should be available on the web. If the identifier is not persistent (actionable/resolvable), an HTTP URI of the described resource must be provided as well. The URI should be as persistent as reasonably achievable.
 4. the research <Discipline(s)> the metadata adhere to (chosen from b2find_disciplines.yml). This list is under constant revision, so missing disciplines can be added.
-5. <Publisher> and 
-6. <PublicationYear>
+5. a <Publisher> and 
+6. a <PublicationYear>
 
 
 ## Training
