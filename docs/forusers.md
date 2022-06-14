@@ -6,5 +6,5 @@ there are several methods to search in B2FIND, most common is to use the web use
 - how to search on web GUI
 - how to search via API
 
-## Training
+## Training Materials
 links training materials if they exist
