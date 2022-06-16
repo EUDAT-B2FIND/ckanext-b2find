@@ -16,7 +16,7 @@ We address these principles to the extent that they affect metadata in the follo
 
 writing them new... and link to the readthedocs thing
 
-## Metadata Schema
+## EUDATcore Metadata Schema
 explaining what we have, where it is
 - crosswalks
 - mapping concordance

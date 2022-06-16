@@ -12,11 +12,15 @@ markdown_extensions:
         permalink: True
 
 theme:
-    name: windmill
+    name: readthedocs
+    # name: windmill
     highlightjs: true
     hljs_languages:
         - yaml
         - rust
         - xml
         - python
+    features:
+        - toc.integrate
+        - toc.follow
 
