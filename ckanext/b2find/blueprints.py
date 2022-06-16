@@ -26,8 +26,8 @@ def query_facets():
               methods=['GET'])
 def get_facet_labels():
     # Get a list of the members of the 'curators' group.
-    groups = toolkit.get_action('group_list')(data_dict={'all_fields': True})
-    organizations = toolkit.get_action('organization_list')(data_dict={'all_fields': True})
+    groups = toolkit.get_action('group_list')(data_dict={'all_fields': True, 'limit': 1000})
+    organizations = toolkit.get_action('organization_list')(data_dict={'all_fields': True, 'limit': 1000})
 
     labels = {
         'organization':{},
