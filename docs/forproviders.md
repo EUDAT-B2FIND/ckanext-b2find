@@ -20,20 +20,27 @@ The Metadata provided should be stable and 'good enough'. Some of the central is
 
 ### Harvesting Channels
 Harvesting is the process of automatically fetching remote metadata. While OAI-PMH still is the de facto standard for metadata harvesting, other channels become more important. B2FIND supports several methods, as described below. Once one of these transfer methods have been successfully implemented, B2FIND first takes up a few test samples to analyse their content. As soon as the harvesting and mapping has been consolidated and the data provider gives their consent, the metadata are published on the B2FIND discovery portal, and an operational and stable ingestion process is established. 
+
 #### OAI-PMH
 OAI-PMH [Open Archive Initiative - Protocol for Metadata Harvesting](https://www.openarchives.org/pmh/) is B2FIND’s preferred metadata harvesting protocol. It can be used to fetch metadata directly from the data providers within research communities. The simplicity of the protocol allows a controlled and easy-to-manage transfer of metadata and it also allows to fetch update information from a defined periode. Very little information must be provided to enable B2FIND to perform the harvesting process using this protocol:
+
 * OAI endpoint: This is the URL of the OAI provider server on data provider site, which must be open for OAI-PMH read requests
 * OAI mdprefix: This is the OAI acronym for the metadata schema in which the provided XML records are coded in (default is DublinCore, Datacite is supported)
 * OAI sets (optional): It is recommended to group your records in subsets, because this simplifies the controlled harvesting
+
 #### JSON-API
 Some data providers offer their metadata encoded as JSON records, which can be retrieved, queried and browsed via a REST API. The API is generally RESTful and returns results in JSON, as the API follows the JSONAPI specification.
+
 #### CSW
 Catalog Service for the Web (CSW) is a standard for exposing a catalogue of geospatial records in XML on the Internet (over HTTP). The catalogue is made up of records that describe geospatial data and services. B2FIND uses a CSW implementation to harvest XML records from so-called GeoNetwork portals. 
+
 #### REST API
 Communities or data provider that do not expose their metadata via the channels mentioned above may be integrated in B2FIND as long as they offer any REST API. However, developing a new harvesting method requires resources and effort, thus the integration process will take time. 
 
+
 ### Supported Metadata Standards for Mapping
 B2FIND supports several generic as well as thematic metadata standards, such as:
+
 * Datacite
 * DublinCore
 * OpenAire
@@ -56,6 +63,7 @@ As B2FIND follows a low-barrier approach, only six metadata elements are mandato
 The EUDAT Core Metadata Schema defines and describes metadata for research output in order to transfer metadata information through different EUDAT CDI services. It originated from the need to define a common schema that allows to harmonise metadata elements used for storage, publication and discovery of digital research objects across EUDAT partners and beyond. You can access the EUDAT Core Metadata Schema XSD file [here](https://gitlab.eudat.eu/eudat-metadata/eudat-core-schema/-/blob/master/eudat-core.xsd) on GitLab.
 
 B2FIND uses the EUDAT Core Metadata Schema for its ingestion process. This generic metadata schema is based on Datacite with some additional elements:
+
 * `Temporal Coverage` which relates to the temporal coverage of the data
 * `Discipline` which adheres to the scientific discipline(s) the data can be categorized in
 * `Instrument` which allows to describe instruments that are used for producing the data
@@ -70,6 +78,7 @@ Please note that the EUDAT Core Metadata Schema is maintained by the EUDAT Metad
 
 ## How to be integrated?
 All (meta)data provider must agree with the licensing principles described above. Apart from that we need
+
 * a harvesting endpoint (where and how do you expose your metadata? Using a standardised protocol like OAI-PMH or CSW? Or via RestAPI? If RestAPI, please specify the metadata retrieval commands)
 * a metadata schema (a generic standard like DublinCore, Datacite or OpenAire? Or thematic like ISO19115/19139 or DDI? Or your own? If so, please specify where we can retrieve the `Identifier`)
 * Ideally you use our [template](https://b2drop.eudat.eu/s/KZJXroDeB24HEgi/download) for metadata integration in B2FIND. 
