@@ -408,10 +408,38 @@ function getLabel(field, value, labels) {
   return label;
 }
 
+function getFacetLabels() {
+  return _getFacetLabels.apply(this, arguments);
+}
+
+function _getFacetLabels() {
+  _getFacetLabels = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
+    var url, res;
+    return regeneratorRuntime.wrap(function _callee2$(_context2) {
+      while (1) {
+        switch (_context2.prev = _context2.next) {
+          case 0:
+            url = '/b2find/facet_labels';
+            _context2.next = 3;
+            return axios.get(url);
+
+          case 3:
+            res = _context2.sent;
+            return _context2.abrupt("return", res.data);
+
+          case 5:
+          case "end":
+            return _context2.stop();
+        }
+      }
+    }, _callee2);
+  }));
+  return _getFacetLabels.apply(this, arguments);
+}
+
 function Items(props) {
   var items = props.items;
   var field = props.field;
-  var url = '/b2find/facet_labels';
 
   var _React$useState3 = React.useState({}),
       _React$useState4 = _slicedToArray(_React$useState3, 2),
@@ -419,8 +447,8 @@ function Items(props) {
       setLabels = _React$useState4[1];
 
   React.useEffect(function () {
-    axios.get(url).then(function (res) {
-      setLabels(res.data);
+    getFacetLabels().then(function (data) {
+      return setLabels(data);
     });
   }, []);
   return /*#__PURE__*/React.createElement("nav", {

@@ -324,17 +324,20 @@ function getLabel(field, value, labels) {
   return label;
 }
 
+async function getFacetLabels() {
+  const url = '/b2find/facet_labels';
+
+  let res = await axios.get(url);
+  return res.data;
+}
+
 function Items(props) {
   const items = props.items;
   const field = props.field;
-  const url = '/b2find/facet_labels';
   const [labels, setLabels] = React.useState({});
 
   React.useEffect(() => {
-    axios.get(url)
-    .then(res => {
-      setLabels(res.data);
-    })
+    getFacetLabels().then((data) => setLabels(data));
   }, []);
 
   return (
