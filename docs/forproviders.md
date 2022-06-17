@@ -5,6 +5,7 @@ Welcome to the guidelines of EUDAT’s metadata service B2FIND for data provider
 
 ### Providing Metadata
 In order to join B2FIND, the data provider must meet a few requirements:
+
 * The data provider must agree with the licensing principles of B2FIND, see the [Terms of Use](https://www.eudat.eu/eudat-cdi-aup) of EUDAT Services and the [Legal Notice](https://www.dkrz.de/en/about-en/contact/impressum?set_language=en) of DKRZ.
 * In particular, the provider must consent to the provided metadata being made publicly available and openly accessible under CC-BY International v.4.0 or subsequent without any restrictions on reuse in original and derivative forms. 
    ***Note: This open access licence only applies to the metadata records published and visible in the B2FIND portal, not to the underlying data collections referred to and described by the B2FIND datasets.*** 
