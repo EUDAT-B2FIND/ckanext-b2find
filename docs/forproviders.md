@@ -5,23 +5,23 @@ Welcome to the guidelines of EUDAT’s metadata service B2FIND for data provider
 
 ### Providing Metadata
 In order to join B2FIND, the data provider must meet a few requirements:
-> - The data provider must agree with the licensing principles of B2FIND, see the [Terms of Use](https://www.eudat.eu/eudat-cdi-aup) of EUDAT Services and the [Legal Notice](https://www.dkrz.de/en/about-en/contact/impressum?set_language=en) of DKRZ.
-> - In particular, the provider must consent to the provided metadata being made publicly available and openly accessible under CC-BY International v.4.0 or subsequent without any restrictions on reuse in original and derivative forms. 
-    ***Note: This open access licence only applies to the metadata records published and visible in the B2FIND portal, not to the underlying data collections referred to and described by the B2FIND datasets.***
-> - The data provider agrees to the metadata being made available for free in B2FIND and also for it to be harvested by and re-distributed to other metadata aggregators. No confidential metadata should be provided (although the described research data sets themselves may have access limitations). 
-> - Copyright-protected metadata can only be published if there is a licence agreement between the data provider and EUDAT that meets the B2FIND requirements.
-> - An interface to retrieve metadata must be available, accessible and usable. 
+- The data provider must agree with the licensing principles of B2FIND, see the [Terms of Use](https://www.eudat.eu/eudat-cdi-aup) of EUDAT Services and the [Legal Notice](https://www.dkrz.de/en/about-en/contact/impressum?set_language=en) of DKRZ.
+- In particular, the provider must consent to the provided metadata being made publicly available and openly accessible under CC-BY International v.4.0 or subsequent without any restrictions on reuse in original and derivative forms. 
+   ***Note: This open access licence only applies to the metadata records published and visible in the B2FIND portal, not to the underlying data collections referred to and described by the B2FIND datasets.*** 
+- The data provider agrees to the metadata being made available for free in B2FIND and also for it to be harvested by and re-distributed to other metadata aggregators. No confidential metadata should be provided (although the described research data sets themselves may have access limitations). 
+- Copyright-protected metadata can only be published if there is a licence agreement between the data provider and EUDAT that meets the B2FIND requirements.
+- An interface to retrieve metadata must be available, accessible and usable. 
 
 The Metadata provided should be stable and 'good enough'. Some of the central issues include:
-> Metadata records should be as complete as possible.
-> Metadata shall not be encrypted or obfuscated.
-> Metadata must use Unicode with UTF-8 encoding. If the metadata is in a non-Latin script such as Chinese, a version transliterated or transcribed to Latin characters should be provided as well.
-> In addition to the metadata, the data provider must provide documentation needed for successful loading of the records, such as descriptions of the structure, syntax and semantics of the metadata records.
+> - Metadata records should be as complete as possible.
+> - Metadata shall not be encrypted or obfuscated.
+> - Metadata must use Unicode with UTF-8 encoding. If the metadata is in a non-Latin script such as Chinese, a version transliterated or transcribed to Latin characters should be provided as well.
+> - In addition to the metadata, the data provider must provide documentation needed for successful loading of the records, such as descriptions of the structure, syntax and semantics of the metadata records.
 
 ### Harvesting Channels
 Harvesting is the process of automatically fetching remote metadata. While OAI-PMH still is the de facto standard for metadata harvesting, other channels become more important. B2FIND supports several methods, as described below. Once one of these transfer methods have been successfully implemented, B2FIND first takes up a few test samples to analyse their content. As soon as the harvesting and mapping has been consolidated and the data provider gives their consent, the metadata are published on the B2FIND discovery portal, and an operational and stable ingestion process is established. 
 #### OAI-PMH
-OAI-PMH [Open Archive Initiative - Protocol for Metadata Harvesting](https://www.openarchives.org/pmh/)is B2FIND’s preferred metadata harvesting protocol. It can be used to fetch metadata directly from the data providers within research communities. The simplicity of the protocol allows a controlled and easy-to-manage transfer of metadata and it also allows to fetch update information from a defined periode. Very little information must be provided to enable B2FIND to perform the harvesting process using this protocol:
+OAI-PMH [Open Archive Initiative - Protocol for Metadata Harvesting](https://www.openarchives.org/pmh/) is B2FIND’s preferred metadata harvesting protocol. It can be used to fetch metadata directly from the data providers within research communities. The simplicity of the protocol allows a controlled and easy-to-manage transfer of metadata and it also allows to fetch update information from a defined periode. Very little information must be provided to enable B2FIND to perform the harvesting process using this protocol:
 - OAI endpoint: This is the URL of the OAI provider server on data provider site, which must be open for OAI-PMH read requests
 - OAI mdprefix: This is the OAI acronym for the metadata schema in which the provided XML records are coded in (default is DublinCore, Datacite is supported)
 - OAI sets (optional): It is recommended to group your records in subsets, because this simplifies the controlled harvesting
