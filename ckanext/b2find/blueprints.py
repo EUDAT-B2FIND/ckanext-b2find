@@ -26,6 +26,12 @@ def query_facets():
               methods=['GET'])
 def get_facet_labels():
     # Get a list of the members of the 'curators' group.
+    # https://docs.ckan.org/en/2.9/api/index.html#api-reference
+    # 
+    # edit ckan.ini to set limits:
+    # ckan.group_and_organization_list_max = 1000
+    # ckan.group_and_organization_list_all_fields_max = 100 
+    #
     groups = toolkit.get_action('group_list')(data_dict={'all_fields': True, 'limit': 1000})
     organizations = toolkit.get_action('organization_list')(data_dict={'all_fields': True, 'limit': 1000})
 
