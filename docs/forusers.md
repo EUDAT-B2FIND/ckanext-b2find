@@ -39,7 +39,7 @@ B2FIND provides the opportunity to filter out datasets that have a given extent 
 * 'Filter by time' searches for all datasets which cover a chosen time period.
 * 'Publication Year' searches for all datasets which have been published (or will be made publicly available) within a given period of years.
 
-Furthermore, you can filter by all facets provided by the [EUDAT Core metadata schema]('https://eudat-b2find.github.io/schema-doc/introduction.html') which B2FIND uses.
+Furthermore, you can filter by all facets provided by the [EUDAT Core metadata schema](https://eudat-b2find.github.io/schema-doc/introduction.html) which B2FIND uses.
 
 #### Filter by location
 
