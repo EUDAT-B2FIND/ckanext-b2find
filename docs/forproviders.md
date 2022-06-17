@@ -50,14 +50,12 @@ B2FIND supports several generic as well as thematic metadata standards, such as:
 
 Community specific metadata schemas are supported as well, while the concrete mapping is done in close cooperation with the communities and/or data provider. B2FIND continously develops new 'reader' for the ingestion of records with other metadata schemas or standards, such as DCAT or CERIF. However, this requires resources and effort and will take time. 
 
-As B2FIND follows a low-barrier approach, only six metadata elements are mandatory:
+As B2FIND follows a low-barrier approach, only four metadata elements are mandatory:
 
-1. the name of the research `Community` or data provider B2FIND harvests from. This ensures the visibility of the data providers and research infrastructures. 
-2. the `Title` of the data set, i.e. a unique and unambiguous name or heading by which the referred resource is known 
-3. at least one `Identifier`, which has two roles: to identify the described resource, and to facilitate a persistent link to the research data set itself, which should be available on the web. If the identifier is not persistent (actionable/resolvable), an HTTP URI of the described resource must be provided as well. The URI should be as persistent as reasonably achievable.
-4. the research `Discipline(s)` the metadata adhere to, chosen from B2FIND internal [vocabulary](https://github.com/EUDAT-B2FIND/md-ingestion/blob/master/etc/b2find_disciplines.yaml). This list is under constant revision, so missing disciplines can be added.
-5. a `Publisher` and 
-6. a `PublicationYear`
+1. the `Title` of the data set, i.e. a unique and unambiguous name or heading by which the referred resource is known 
+2. at least one `Identifier`, which has two roles: to identify the described resource, and to facilitate a persistent link to the research data set itself, which should be available on the web. If the identifier is not persistent (actionable/resolvable), an HTTP URI of the described resource must be provided as well. The URI should be as persistent as reasonably achievable.
+3. a `Publisher` and 
+4. a `PublicationYear`
 
 
 ## EUDAT Core Metadata Schema
