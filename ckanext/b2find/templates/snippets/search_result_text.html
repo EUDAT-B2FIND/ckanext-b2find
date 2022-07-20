@@ -18,16 +18,16 @@ Example:
   {% set text_no_query_none = _('No datasets found') %}
 
 {% elif type == 'group' %}
-  {% set text_query = ungettext('{number} repository found for "{query}"', '{number} repositories found for "{query}"', count) %}
-  {% set text_query_none = _('No repositories found for "{query}"') %}
-  {% set text_no_query = ungettext('{number} repository found', '{number} repositories found', count) %}
-  {% set text_no_query_none = _('No repositories found') %}
+  {% set text_query = ungettext('{number} repository found for "{query}"', '{number} communities found for "{query}"', count) %}
+  {% set text_query_none = _('No communities found for "{query}"') %}
+  {% set text_no_query = ungettext('{number} community found', '{number} Communities found', count) %}
+  {% set text_no_query_none = _('No communities found') %}
 
 {% elif type == 'organization' %}
-  {% set text_query = ungettext('{number} community found for "{query}"', '{number} communities found for "{query}"', count) %}
-  {% set text_query_none = _('No communities found for "{query}"') %}
-  {% set text_no_query = ungettext('{number} community found', '{number} communities found', count) %}
-  {% set text_no_query_none = _('No communities found') %}
+  {% set text_query = ungettext('{number} repository found for "{query}"', '{number} repositories found for "{query}"', count) %}
+  {% set text_query_none = _('No repositories found for "{query}"') %}
+  {% set text_no_query = ungettext('{number} repository found', '{number} communities found', count) %}
+  {% set text_no_query_none = _('No repositories found') %}
 
 {% else %}
   {% set text_query_singular = '{number} ' + type + ' found for "{query}"' %}
