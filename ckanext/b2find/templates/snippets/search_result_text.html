@@ -26,7 +26,7 @@ Example:
 {% elif type == 'organization' %}
   {% set text_query = ungettext('{number} repository found for "{query}"', '{number} repositories found for "{query}"', count) %}
   {% set text_query_none = _('No repositories found for "{query}"') %}
-  {% set text_no_query = ungettext('{number} repository found', '{number} communities found', count) %}
+  {% set text_no_query = ungettext('{number} repository found', '{number} repositories found', count) %}
   {% set text_no_query_none = _('No repositories found') %}
 
 {% else %}
