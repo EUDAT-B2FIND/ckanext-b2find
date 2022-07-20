@@ -1,9 +1,9 @@
 {% extends "page.html" %}
 
-{% block subtitle %}{{ _('Communities') }}{% endblock %}
+{% block subtitle %}{{ _('Repository') }}{% endblock %}
 
 {% block breadcrumb_content %}
-  <li class="active">{% link_for _('Communities'), named_route=group_type+'.index' %}</li>
+  <li class="active">{% link_for _('Repositories'), named_route=group_type+'.index' %}</li>
 {% endblock %}
 
 {% block page_header %}{% endblock %}
@@ -15,9 +15,9 @@
 {% endblock %}
 
 {% block primary_content_inner %}
-  <h1 class="hide-heading">{% block page_heading %}{{ _('Communities') }}{% endblock %}</h1>
+  <h1 class="hide-heading">{% block page_heading %}{{ _('Repositories') }}{% endblock %}</h1>
   {% block organizations_search_form %}
-    {% snippet 'snippets/search_form.html', form_id='organization-search-form', type='organization', query=q, sorting_selected=sort_by_selected, count=page.item_count, placeholder=_('Search communities...'), show_empty=request.params, no_bottom_border=true if page.items, sorting = [(_('Name Ascending'), 'title asc'), (_('Name Descending'), 'title desc')] %}
+    {% snippet 'snippets/search_form.html', form_id='organization-search-form', type='organization', query=q, sorting_selected=sort_by_selected, count=page.item_count, placeholder=_('Search Repositories...'), show_empty=request.params, no_bottom_border=true if page.items, sorting = [(_('Name Ascending'), 'title asc'), (_('Name Descending'), 'title desc')] %}
   {% endblock %}
   {% block organizations_list %}
     {% if page.items or request.params %}
