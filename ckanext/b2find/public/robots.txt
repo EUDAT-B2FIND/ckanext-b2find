@@ -1,13 +1,9 @@
 User-agent: *
-{% block all_user_agents -%}
 Disallow: /dataset/rate/
 Disallow: /revision/
 Disallow: /dataset/*/history
 Disallow: /api/
 Crawl-Delay: 10
-{%- endblock %}
-
-{% block additional_user_agents -%}
 User-agent: adscanner
 Disallow: /
 User-agent: AhrefsBot
@@ -20,4 +16,3 @@ User-agent: SemrushBot
 Disallow: /
 User-agent: BLEXBot
 Disallow: /
-{%- endblock %}
