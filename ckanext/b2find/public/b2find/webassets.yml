@@ -15,3 +15,9 @@ dataset:
     - lib/dataset.js
   # filters: rjsmin
   output: ckanext-b2find/%(version)s_dataset.js
+
+ol.js:
+  contents:
+    - lib/ol/v6.15.1/ol.js
+  # filters: rjsmin
+  output: ckanext-b2find/v6.15.1_ol.js
