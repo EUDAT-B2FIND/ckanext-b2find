@@ -18,6 +18,6 @@ dataset:
 
 ol.js:
   contents:
-    - lib/v6.15.1/ol.js
+    - lib/ol/v6.15.1/ol.js
   # filters: rjsmin
   output: ckanext-b2find/v6.15.1_ol.js
