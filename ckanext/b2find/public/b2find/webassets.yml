@@ -21,3 +21,9 @@ ol.js:
     - lib/ol/v6.15.1/ol.js
   # filters: rjsmin
   output: ckanext-b2find/v6.15.1_ol.js
+
+ol.css:
+  contents:
+    - lib/ol/v6.15.1/ol.css
+  #filters: cssrewrite
+  output: ckanext-b2find/%(version)s_ol.css
