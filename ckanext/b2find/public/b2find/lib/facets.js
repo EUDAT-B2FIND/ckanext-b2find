@@ -36,7 +36,7 @@ width:"100%",height:"280px"};var osm=new ol.layer.Tile({source:new ol.source.OSM
 var dragBox=new ol.interaction.DragBox({//condition: ol.events.condition.platformModifierKeyOnly,
 //condition: ol.events.condition.never,
 });dragBox.setActive(false);function drawBox(props){//console.log("draw box");
-dragBox.setActive(true);mapRef.current.getTargetElement().style.cursor="zoom-in"}var selectBox=new ol.control.Rotate({"autoHide":false,"label":"\u26CF","tipLabel":"Select with bbox: Press mouse button and drag mouse.","resetNorth":drawBox});function onBoxEnd(evt){var extent=dragBox.getGeometry().getExtent();// [minx, miny, maxx, maxy].
+dragBox.setActive(true);mapRef.current.getTargetElement().style.cursor="zoom-in"}var selectBox=new ol.control.Rotate({"autoHide":false,"label":"\u26CF","tipLabel":"Select with bbox. Press mouse button and drag mouse.","resetNorth":drawBox});function onBoxEnd(evt){var extent=dragBox.getGeometry().getExtent();// [minx, miny, maxx, maxy].
 var lonLatExtent=ol.proj.transformExtent(extent,"EPSG:3857","EPSG:4326");//console.log("boxend", lonLatExtent);
 // minY, minX, maxY, maxX
 // [10,-10 TO 15,20]
