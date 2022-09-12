@@ -542,7 +542,7 @@ function MyMap(props) {
   const selectBox = new ol.control.Rotate({
     'autoHide': false,
     'label': '⛏',
-    'tipLabel': 'select with bbox',
+    'tipLabel': 'Select with bbox: Press mouse button and drag mouse.',
     'resetNorth': drawBox,
   });
 
