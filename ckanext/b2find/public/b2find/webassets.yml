@@ -26,4 +26,22 @@ ol.css:
   contents:
     - lib/ol/v6.15.1/ol.css
   #filters: cssrewrite
-  output: ckanext-b2find/%(version)s_ol.css
+  output: ckanext-b2find/v6.15.1_ol.css
+
+bokeh.js:
+  contents:
+    - lib/bokeh/v2.4.2/bokeh-2.4.2.min.js
+  # filters: rjsmin
+  output: ckanext-b2find/v2.4.2_bokeh.js
+
+bokeh_widgets.js:
+  contents:
+    - lib/bokeh/v2.4.2/bokeh-widgets-2.4.2.min.js
+  # filters: rjsmin
+  output: ckanext-b2find/v2.4.2_bokeh-widgets.js
+
+bokeh_api.js:
+  contents:
+    - lib/bokeh/v2.4.2/bokeh-api-2.4.2.min.js
+  # filters: rjsmin
+  output: ckanext-b2find/v2.4.2_bokeh-api.js
