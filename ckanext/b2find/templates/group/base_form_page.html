@@ -1,7 +1,7 @@
 {% extends "group/edit_base.html" %}
 
 {% block breadcrumb_content %}
-  <li>{{ h.nav_link(_('Communities'), named_route=group_type+'.index') }}</li>
+  <li>{{ h.nav_link(_('Projects'), named_route=group_type+'.index') }}</li>
   <li class="active">{% block breadcrumb_link %}{{ h.nav_link(_('Add a group'), named_route=group_type+'.new') }}{% endblock %}</li>
 {% endblock %}
 
