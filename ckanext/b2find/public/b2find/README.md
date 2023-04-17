@@ -4,7 +4,7 @@ This is an initial version of the B2Find ReactJs App.
 
 The App sources are in the `js/` folder.
 You need to *compile* the source with [babel](https://babeljs.io/) to make them readable by your browser.
-The *complied* files are in the `lib/` folder.
+The *compiled* files are in the `lib/` folder.
 
 ## Install npm
 
