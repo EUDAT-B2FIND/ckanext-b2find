@@ -675,7 +675,7 @@ function Facets(props) {
           field="extras_PublicationYear"
           title="Publication Year"/>
         <Facet field="organization" title="Repositories"/>
-        <Facet field="groups" title="Communities"/>
+        <Facet field="groups" title="Projects"/>
         <Facet field="tags" title="Keywords"/>
         <Facet field="author" title="Creator"/>
         <Facet field="extras_Instrument" title="Instrument"/>
