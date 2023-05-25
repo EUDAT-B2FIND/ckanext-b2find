@@ -67,7 +67,7 @@ def make_clickable(*args, **kw):
             url = urlparse(part)
             if url.scheme in ["http", "https"]:
                 href = url.geturl()
-                new_text = text.replace(href, f'<a href="{href}" target="_blank">{href}</a>')
+                new_text = new_text.replace(href, f'<a href="{href}" target="_blank">{href}</a>')
         except ValueError:
             pass 
     return literal(new_text)
@@ -82,8 +82,19 @@ def make_orcid(*args, **kw):
     text = args[0]
     new_text = text
 
+    # match "(ORCID: 0000-0002-6802-8179)""
     orcids = re.findall(r"\(ORCID: ([\d-]+)\)", text)
     for orcid in orcids:
         href = f"https://orcid.org/{orcid}"
-        new_text = text.replace(f"(ORCID: {orcid})", f'<a href="{href}">ORCID</a>')
+        new_text = new_text.replace(f"(ORCID: {orcid})", f'<a href="{href}">ORCID</a>')
+    # match "ORCID: https://orcid.org/0000-0002-6802-8179"
+    orcids = re.findall(r"ORCID: https://orcid.org/([\d-]+)", text)
+    for orcid in orcids:
+        href = f"https://orcid.org/{orcid}"
+        new_text = new_text.replace(f"ORCID: https://orcid.org/{orcid}", f'<a href="{href}">ORCID</a>')
+    # match "https://orcid.org/0000-0002-6802-8179"
+    orcids = re.findall(r"https://orcid.org/([\d-]+)", text)
+    for orcid in orcids:
+        href = f"https://orcid.org/{orcid}"
+        new_text = new_text.replace(f"https://orcid.org/{orcid}", f'<a href="{href}">ORCID</a>')
     return literal(new_text)
