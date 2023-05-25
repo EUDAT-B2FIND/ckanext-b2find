@@ -87,13 +87,14 @@ def make_orcid(*args, **kw):
     for orcid in orcids:
         href = f"https://orcid.org/{orcid}"
         old = f"(ORCID: {orcid})"
-        new = f'<a href="{href}" target="_blank"><i class="fa-brands fa-orcid"></a>'
+        new = f'<a href="{href}" target="_blank"><i class="fa fa-id-badge"></a>'
         new_text = new_text.replace(old, new)
     # match "https://orcid.org/0000-0002-6802-8179"
-    orcids = re.findall(r"https://orcid.org/([\d-]+)", text)
-    for orcid in orcids:
-        href = f"https://orcid.org/{orcid}"
-        old = f"https://orcid.org/{orcid}"
-        new = f'<a href="{href}" target="_blank"><i class="fa-brands fa-orcid"></a>'
-        new_text = new_text.replace(old, new)
+    if not orcids:
+        orcids = re.findall(r"https://orcid.org/([\d-]+)", text)
+        for orcid in orcids:
+            href = f"https://orcid.org/{orcid}"
+            old = f"https://orcid.org/{orcid}"
+            new = f'<a href="{href}" target="_blank"><i class="fa fa-id-badge"></a>'
+            new_text = new_text.replace(old, new)
     return literal(new_text)
