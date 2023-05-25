@@ -1,6 +1,8 @@
 import re
 from urllib.parse import urlparse
 
+from ckan.lib.helpers import literal
+
 
 def extras_to_exclude():
     exclude_list = [
@@ -68,4 +70,4 @@ def make_clickable(*args, **kw):
                 new_text = text.replace(href, f'<a href="{href}">{href}</a>')
         except ValueError:
             pass 
-    return new_text
+    return literal(new_text)
