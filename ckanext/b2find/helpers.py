@@ -62,13 +62,17 @@ def make_clickable(*args, **kw):
 
     parts = [p.strip() for p in re.split("[,;]", text)]
 
+    done = []
     for part in parts:
         try:
             url = urlparse(part)
             if url.scheme in ["http", "https"]:
                 href = url.geturl()
-                new = f'<a href="{href}" target="_blank"><i class="fa fa-link"></a>'
-                new_text = text.replace(href, new)
+                if href in done:
+                    continue
+                new = f'<a href="{href}" target="_blank"><i class="fa fa-link"></i></a>'
+                new_text = new_text.replace(href, new)
+                done.append(href)
         except ValueError:
             pass 
     return literal(new_text)
@@ -88,7 +92,7 @@ def make_orcid(*args, **kw):
     for orcid in orcids:
         href = f"https://orcid.org/{orcid}"
         old = f"(ORCID: {orcid})"
-        new = f'<a href="{href}" target="_blank"><i class="fa fa-id-badge"></a>'
+        new = f'<a href="{href}" target="_blank"><i class="fa fa-id-badge"></i></a>'
         new_text = new_text.replace(old, new)
     # match "https://orcid.org/0000-0002-6802-8179"
     if not orcids:
@@ -96,6 +100,6 @@ def make_orcid(*args, **kw):
         for orcid in orcids:
             href = f"https://orcid.org/{orcid}"
             old = f"https://orcid.org/{orcid}"
-            new = f'<a href="{href}" target="_blank"><i class="fa fa-id-badge"></a>'
+            new = f'<a href="{href}" target="_blank"><i class="fa fa-id-badge"></i></a>'
             new_text = new_text.replace(old, new)
     return literal(new_text)
