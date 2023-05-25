@@ -11,7 +11,7 @@
   {% elif pkg_dict.author %}
     <tr>
       <th scope="row" class="dataset-label">{{ _("Creator") }}</th>
-      <td class="dataset-details" property="dc:creator">{{ pkg_dict.author }}</td>
+      <td class="dataset-details" property="dc:creator">{{ h.make_orcid(pkg_dict.author) }}</td>
     </tr>
   {% endif %}
 

@@ -71,3 +71,19 @@ def make_clickable(*args, **kw):
         except ValueError:
             pass 
     return literal(new_text)
+
+
+def make_orcid(*args, **kw):
+    '''
+    Returns text with clickable ORCID
+    '''
+    if not args:
+        return False
+    text = args[0]
+    new_text = text
+
+    orcids = re.findall(r"\(ORCID: ([\d-]+)\)", text)
+    for orcid in orcids:
+        href = f"https://orcid.org/{orcid}"
+        new_text = text.replace(f"(ORCID: {orcid})", f'<a href="{href}">ORCID</a>')
+    return literal(new_text)
