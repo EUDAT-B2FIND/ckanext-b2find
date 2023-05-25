@@ -1,3 +1,7 @@
+import re
+from urllib.parse import urlparse
+
+
 def extras_to_exclude():
     exclude_list = [
         # 'B2SHARE-Domain',
@@ -43,3 +47,25 @@ def split_extra(*args, **kw):
         return False
 
     return args[0].split(';')
+
+
+def make_clickable(*args, **kw):
+    '''
+    Returns text with clickable (HTML links) http and https URLs in text
+    '''
+    if not args:
+        return False
+    text = args[0]
+    new_text = text
+
+    parts = [p.strip() for p in re.split("[,;]", text)]
+
+    for part in parts:
+        try:
+            url = urlparse(part)
+            if url.scheme in ["http", "https"]:
+                href = url.geturl()
+                new_text = text.replace(href, f'<a href="{href}">{href}</a>')
+        except ValueError:
+            pass 
+    return new_text
