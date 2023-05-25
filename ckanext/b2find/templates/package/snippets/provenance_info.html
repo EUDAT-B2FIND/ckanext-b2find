@@ -32,7 +32,7 @@
   {% if extras_dict.Contributor %}
     <tr>
       <th scope="row" class="dataset-label" property="rdfs:label">{{ _("Contributor") }}</th>
-      <td class="dataset-details" property="rdf:value">{{ extras_dict.Contributor }}</td>
+      <td class="dataset-details" property="rdf:value">{{ h.make_orcid(extras_dict.Contributor) }}</td>
       </tr>
   {% endif %}
 
