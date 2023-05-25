@@ -68,7 +68,7 @@ def make_clickable(*args, **kw):
             if url.scheme in ["http", "https"]:
                 href = url.geturl()
                 new = f'<a href="{href}" target="_blank"><i class="fa fa-link"></a>'
-                new_text = new_text.replace(href, new)
+                new_text = text.replace(href, new)
         except ValueError:
             pass 
     return literal(new_text)
