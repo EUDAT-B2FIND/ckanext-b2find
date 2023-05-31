@@ -1,3 +1,9 @@
+import re
+from urllib.parse import urlparse
+
+from ckan.lib.helpers import literal
+
+
 def extras_to_exclude():
     exclude_list = [
         # 'B2SHARE-Domain',
@@ -43,3 +49,57 @@ def split_extra(*args, **kw):
         return False
 
     return args[0].split(';')
+
+
+def make_clickable(*args, **kw):
+    '''
+    Returns text with clickable (HTML links) http and https URLs in text
+    '''
+    if not args:
+        return False
+    text = args[0]
+    new_text = text
+
+    parts = [p.strip() for p in re.split("[,;]", text)]
+
+    done = []
+    for part in parts:
+        try:
+            url = urlparse(part)
+            if url.scheme in ["http", "https"]:
+                href = url.geturl()
+                if href in done:
+                    continue
+                new = f'<a href="{href}" target="_blank"><i class="fa fa-link"></i></a>'
+                new_text = new_text.replace(href, new)
+                done.append(href)
+        except ValueError:
+            pass 
+    return literal(new_text)
+
+
+def make_orcid(*args, **kw):
+    '''
+    Returns text with clickable ORCID
+    '''
+    if not args:
+        return False
+    text = args[0]
+    new_text = text
+
+    # match "(ORCID: 0000-0002-6802-8179)""
+    orcids = re.findall(r"\(ORCID: ([\d-]+)\)", text)
+    for orcid in orcids:
+        href = f"https://orcid.org/{orcid}"
+        old = f"(ORCID: {orcid})"
+        new = f'<a href="{href}" target="_blank"><i class="fa fa-id-badge"></i></a>'
+        new_text = new_text.replace(old, new)
+    # match "https://orcid.org/0000-0002-6802-8179"
+    if not orcids:
+        orcids = re.findall(r"https://orcid.org/([\d-]+)", text)
+        for orcid in orcids:
+            href = f"https://orcid.org/{orcid}"
+            old = f"https://orcid.org/{orcid}"
+            new = f'<a href="{href}" target="_blank"><i class="fa fa-id-badge"></i></a>'
+            new_text = new_text.replace(old, new)
+    return literal(new_text)
