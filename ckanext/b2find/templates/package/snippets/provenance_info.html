@@ -46,7 +46,7 @@
   {% if extras_dict.FundingReference %}
     <tr>
       <th scope="row" class="dataset-label" property="rdfs:label">{{ _("Funding Reference") }}</th>
-      <td class="dataset-details" property="rdf:value">{{ extras_dict.FundingReference }}</td>
+      <td class="dataset-details" property="rdf:value">{{ h.clean_pipes(extras_dict.FundingReference) }}</td>
       </tr>
   {% endif %}
 

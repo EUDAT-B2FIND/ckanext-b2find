@@ -105,4 +105,11 @@ def make_orcid(*args, **kw):
     return literal(new_text)
 
 def clean_pipes(*args, **kw):
-    pass
+    '''
+    Returns funding information string without pipes
+    '''
+    if not args:
+        return False
+    text = args[0]
+    new_text = re.sub(r'\|+', ' ', text)
+    return literal(new_text)
