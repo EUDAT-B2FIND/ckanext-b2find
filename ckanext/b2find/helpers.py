@@ -103,3 +103,6 @@ def make_orcid(*args, **kw):
             new = f'<a href="{href}" target="_blank"><i class="fa fa-id-badge"></i></a>'
             new_text = new_text.replace(old, new)
     return literal(new_text)
+
+def clean_pipes(*args, **kw):
+    pass
