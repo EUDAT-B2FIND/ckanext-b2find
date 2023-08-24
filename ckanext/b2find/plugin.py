@@ -26,7 +26,8 @@ class B2FindPlugin(plugins.SingletonPlugin):
             'equals_ignore_case': helpers.equals_ignore_case,
             'split_extra': helpers.split_extra,
             'make_clickable': helpers.make_clickable,
-            'make_orcid': helpers.make_orcid
+            'make_orcid': helpers.make_orcid,
+            'clean_pipes': helpers.clean_pipes
         }
 
     # IFacets
