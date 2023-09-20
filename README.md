@@ -14,6 +14,11 @@ GNU Affero General Public License version 3 (AGPLv3)
 - Search guide
 - Legal pages
 
+## Installation hints
+- https://docs.ckan.org/en/2.9/api/index.html?#ckan.logic.action.get.organization_list
+- "limit (int) – the maximum number of organizations returned (optional) Default: 1000 when all_fields=false unless set in site’s configuration ckan.group_and_organization_list_max Default: 25 when all_fields=true unless set in site’s configuration ckan.group_and_organization_list_all_fields_max"
+- This is the case for B2FIND, please adapt ckan.ini
+
 Acknowledgement
 ---------------
 
