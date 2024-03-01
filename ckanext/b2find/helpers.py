@@ -114,10 +114,11 @@ def display_relidtype(*args, **kw):
         return False
     text = args[0]
     parts = text.split("|")
+    link = f'<a href="{parts[0]}" target="_blank">{parts[0]}</a>'
     if len(parts) == 3:
-        new_text = f"{parts[2]}: {parts[0]}"
+        new_text = f"{parts[2]}: {link}"
     else:
-        new_text = parts[0]
+        new_text = link
     return literal(new_text)
 
 def clean_pipes(*args, **kw):
