@@ -27,6 +27,7 @@ class B2FindPlugin(plugins.SingletonPlugin):
             'split_extra': helpers.split_extra,
             'make_clickable': helpers.make_clickable,
             'make_orcid': helpers.make_orcid,
+            'display_relidtype': helpers.display_relidtype,
             'clean_pipes': helpers.clean_pipes
         }
 

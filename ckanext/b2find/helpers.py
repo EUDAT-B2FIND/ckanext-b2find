@@ -106,6 +106,16 @@ def make_orcid(*args, **kw):
             new_text = new_text.replace(old, new)
     return literal(new_text)
 
+def display_relidtype(*args, **kw):
+    '''
+    Displays e.g. isCitedBy before related Identifier
+    '''
+    if not args:
+        return False
+    text = args[0]
+    new_text = text
+    return literal(new_text)
+
 def clean_pipes(*args, **kw):
     '''
     Returns funding information string without pipes
