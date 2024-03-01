@@ -113,7 +113,11 @@ def display_relidtype(*args, **kw):
     if not args:
         return False
     text = args[0]
-    new_text = text
+    parts = text.split("|")
+    if len(parts) == 3:
+        new_text = f"{parts[2]}: {parts[0]}"
+    else:
+        new_text = parts[0]
     return literal(new_text)
 
 def clean_pipes(*args, **kw):
