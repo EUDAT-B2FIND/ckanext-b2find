@@ -1,21 +1,16 @@
 {% extends "page.html" %}
 
-{% block subtitle %}{{ _('About') }}{% endblock %}
+{% block subtitle %}{{ _('Imprint') }}{% endblock %}
 
 {% block breadcrumb_content %}
-  <li class="active">{% link_for _('About'), named_route='home.about' %}</li>
+  <li class="active">{% link_for _('Imprint'), named_route='info.imprint' %}</li>
 {% endblock %}
 
 {% block primary %}
   <article class="module" role="main">
     <div class="module-content">
       {% block about %}
-        {% if g.site_about %}
-          {{ h.render_markdown(g.site_about) }}
-        {% else %}
-          <h1 class="page-heading">{{ _('About') }}</h1>
-          {% snippet 'home/snippets/about_text.html' %}
-        {% endif %}
+          <h1 class="page-heading">{{ _('Imprint') }}</h1>
       {% endblock %}
     </div>
   </article>
