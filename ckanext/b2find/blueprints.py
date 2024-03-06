@@ -47,3 +47,8 @@ def get_facet_labels():
         labels['organization'][org['name']] = org['title']
 
     return labels
+
+@b2find.route('/info/imprint.html', endpoint='info_imprint',
+            methods=['GET'])
+def info_imprint():
+    return toolkit.render('ckanext/info/imprint.html')
