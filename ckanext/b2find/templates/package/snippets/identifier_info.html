@@ -41,7 +41,7 @@
     {% for relId in relIds %}
       <tr>
         <th scope="row" class="dataset-label" property="rdfs:label">{{ _("Related Identifier") }}</th>
-          <td class="dataset-details" property="rdf:value">{{ h.link_to(relId, relId, target='_blank') }}</td>
+          <td class="dataset-details" property="rdf:value">{{ h.display_relidtype(relId) }}</td>
       </tr>
     {% endfor %}
   {% endif %}
