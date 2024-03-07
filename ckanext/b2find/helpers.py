@@ -116,7 +116,7 @@ def display_relidtype(*args, **kw):
     parts = text.split("|")
     link = f'<a href="{parts[0]}" target="_blank">{parts[0]}</a>'
     if len(parts) == 3:
-        new_text = f"{parts[2]}: {link}"
+        new_text = f'<span class="label label-info">{parts[2]}</span> {link}'
     else:
         new_text = link
     return literal(new_text)
