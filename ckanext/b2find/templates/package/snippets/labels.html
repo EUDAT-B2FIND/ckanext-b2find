@@ -20,5 +20,9 @@
     <span class="label package-label-pid">PID</span>
   {% endif %}
 {% endif %}
+
+{% if extras_dict.Citations %}
+    <img alt="Citations:" src="https://img.shields.io/badge/citations-{{ extras_dict.Citations }}-orange"></img>
+{% endif %}
 </div>
 
