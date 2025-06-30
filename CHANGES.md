@@ -1,5 +1,11 @@
 # Changes
 
+## 3.1.0 (2025-06-30)
+
+* changed imprint and legal information to EUDAT
+* added citation information badge to single record pages
+* added relationType badge for relatedIdentifiers 
+
 ## 3.0.0 (2024-03-06)
 
 * first release with CKAN 2.9
