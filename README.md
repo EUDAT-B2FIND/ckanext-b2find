@@ -1,3 +1,8 @@
+# 🚨 Repository Moved
+
+> ⚠️ **Important:** This repository moved to EUDAT GitLab.  
+> 👉 New location: https://gitlab.eudat.eu/b2find/ckanext-b2find.git
+
 # B2FIND extension for CKAN
 
 ## License
